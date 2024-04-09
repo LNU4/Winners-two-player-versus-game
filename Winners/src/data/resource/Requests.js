@@ -43,5 +43,6 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
  */
 Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
-    
+    this.add("winner-mainchar", "./../asset/png/winner-mainchar.png");
+	this.add("winners-bg", "./../asset/png/winners-bg.png");
 };

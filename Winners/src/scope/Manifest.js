@@ -35,6 +35,15 @@ var Winners = function() {
      * @since 1.0
      */
     m_this.data = {};
+
+     /**
+     * ...
+     *
+     * @namespace entity
+     * @memberof Winners
+     * @since 1.0
+     */
+     m_this.entity = {};
     
     /**
      * This package includes the scenes that make up the application. Scenes 

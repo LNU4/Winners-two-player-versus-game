@@ -13,22 +13,9 @@
  * 
  * Game scene.
  */
-Winners.scene.Game = function() {
-    
-    //--------------------------------------------------------------------------
-    // Public properties
-    //--------------------------------------------------------------------------
-    
-    /**
-     * ...
-     *
-     * @type {Winners.scene.Player}
-     * @type {Winners.scene.Player2}
-     */
-    this.player = null;
-    this.player2 = null;
+Winners.scene.Menu = function() {
 
-    //--------------------------------------------------------------------------    
+    //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
     
@@ -42,8 +29,8 @@ Winners.scene.Game = function() {
 // Inheritance
 //------------------------------------------------------------------------------
 
-Winners.scene.Game.prototype = Object.create(rune.scene.Scene.prototype);
-Winners.scene.Game.prototype.constructor = Winners.scene.Game;
+Winners.scene.Menu.prototype = Object.create(rune.scene.Scene.prototype);
+Winners.scene.Menu.prototype.constructor = Winners.scene.Menu;
 
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
@@ -55,14 +42,13 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
  *
  * @returns {undefined}
  */
-Winners.scene.Game.prototype.init = function() {
+Winners.scene.Menu.prototype.init = function() {
     rune.scene.Scene.prototype.init.call(this);
-    this.bg = new rune.display.Graphic(0,0,400,300,"winner-mainchar");
-    this.player = new Winners.entity.Player(25, 25);
-    this.player2 = new Winners.entity.Player2(120, 25);
-    this.stage.addChild(this.bg);
-    this.stage.addChild(this.player);
-    this.stage.addChild(this.player2);
+    var text = new rune.text.BitmapField("Hello Menu!");
+    //text.debug = true;
+    text.autoSize = true;
+    text.center = this.cameras.getCameraAt(0).viewport.center;
+    this.stage.addChild(text);
 };
 
 /**
@@ -73,11 +59,11 @@ Winners.scene.Game.prototype.init = function() {
  *
  * @returns {undefined}
  */
-Winners.scene.Game.prototype.update = function(step) {
+Winners.scene.Menu.prototype.update = function(step) {
     rune.scene.Scene.prototype.update.call(this, step);
-    this.m_updateInput(step);
-
-    
+    if (this.keyboard.justPressed("SPACE")) {
+        this.application.scenes.load([new Winners.scene.Game()]);
+    }
 };
 
 /**
@@ -88,23 +74,6 @@ Winners.scene.Game.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.scene.Game.prototype.dispose = function() {
+Winners.scene.Menu.prototype.dispose = function() {
     rune.scene.Scene.prototype.dispose.call(this);
 };
-
-//------------------------------------------------------------------------------
-// Private prototype methods
-//------------------------------------------------------------------------------
-
-/**
- * ...
- *
- * @param {number} step Fixed time step.
- *
- * @returns {undefined}
- */
-Winners.scene.Game.prototype.m_updateInput = function(step) {
-    if (this.keyboard.justPressed("SPACE")) {
-        this.application.scenes.load([new Winners.scene.Menu()]);
-    }
-}; 

@@ -11,5 +11,7 @@ npx google-closure-compiler \
 --js "./../../src/data/resource/Requests.js" \
 --js "./../../src/scene/game/Game.js" \
 --js "./../../src/system/Main.js" \
+--js "./../../src/entity/Player.js" \
+--js "./../../src/entity/Player2.js" \
 --js "./../../src/scope/Alias.js" \
 --js_output_file "./../../dist/Winners.js";
