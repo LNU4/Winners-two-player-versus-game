@@ -80,6 +80,7 @@ Winners.entity.Player2.prototype.dispose = function() {
  * @private
  */
 Winners.entity.Player2.prototype.m_initPhysics = function() {
+    this.flippedX = true;
     this.velocity.drag.x = 0.05;
     this.velocity.drag.y = 0.05;
     this.velocity.max.x = 1.8;
@@ -104,28 +105,28 @@ Winners.entity.Player2.prototype.m_initAnimation = function() {
  * @private
  */
 Winners.entity.Player2.prototype.m_updateInput = function() {
-    if (this.keyboard.pressed("D")) {
+    if (this.keyboard.pressed("RIGHT")) {
         this.velocity.x += 0.15;
         this.flippedX = false;
         this.rotation = 0;
         this.animation.gotoAndPlay("walk");
     }
     
-    if (this.keyboard.pressed("A")) {
+    if (this.keyboard.pressed("LEFT")) {
         this.velocity.x -= 0.15;
         this.flippedX = true;
         this.rotation = 0;
         this.animation.gotoAndPlay("walk");
     }
     
-    if (this.keyboard.pressed("S")) {
+    if (this.keyboard.pressed("DOWN")) {
         this.velocity.y += 0.15;
         //this.rotation = 90;
-        this.flippedY = true;
+        //this.flippedY = true;
         this.animation.gotoAndPlay("walk");
     }
     
-    if (this.keyboard.pressed("W")) {
+    if (this.keyboard.pressed("UP")) {
         this.velocity.y -= 0.15;
         this.flippedY = true;
         //this.rotation = (-90);
