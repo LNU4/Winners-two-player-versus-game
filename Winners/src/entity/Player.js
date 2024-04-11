@@ -135,4 +135,13 @@ Winners.entity.Player.prototype.m_updateInput = function() {
     if (rune.util.Math.abs(this.velocity.x) <= 0 && rune.util.Math.abs(this.velocity.y) <= 0) {
         this.animation.gotoAndPlay("idle");
     }
+    this.debug = true;
+    var minX = 0;
+    var minY = 0;
+    var maxX = 1280 - this.width;  
+    var maxY = 720 - this.height;   
+    
+    this.x = Math.min(Math.max(this.x, minX), maxX);
+    this.y = Math.min(Math.max(this.y, minY), maxY);
+   
 };
