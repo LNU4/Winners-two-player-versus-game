@@ -120,15 +120,15 @@ Winners.entity.Player.prototype.m_updateInput = function() {
     
     if (this.keyboard.pressed("S")) {
         this.velocity.y += 0.15;
-        //this.rotation = 90;
-        this.flippedY = true;
+        this.rotation = 90;
+        //this.flippedY = false;
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("W")) {
         this.velocity.y -= 0.15;
-        this.flippedY = true;
-        //this.rotation = (-90);
+        //this.flippedY = true;
+        this.rotation = (-90);
         this.animation.gotoAndPlay("walk");
     }
     
