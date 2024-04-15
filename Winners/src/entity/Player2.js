@@ -13,11 +13,12 @@
  * 
  * Game scene.
  */
-Winners.entity.Player2 = function(x, y) {
+Winners.entity.Player2 = function(x, y, stage) {
 
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
+    this.stage = stage;
     
     /**
      * Calls the constructor method of the super class.
@@ -25,7 +26,22 @@ Winners.entity.Player2 = function(x, y) {
     rune.display.Sprite.call(this, x, y, 32, 32, "winner-mainchar");
    
 };
-
+/**
+ * @member {Winners.entity.Bullets} bullets
+ * @memberof Winners.entity.Player2
+ * @instance
+ * @readonly
+ */
+Object.defineProperty(Winners.entity.Player2.prototype, 
+    "bullets", {
+        /**
+         * @this Winners.entity.Player2
+         * @ignore
+         */
+        get : function() {
+            return this.m_bullets;
+        }
+    })
 //------------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
@@ -98,6 +114,18 @@ Winners.entity.Player2.prototype.m_initAnimation = function() {
     this.animation.create("walk", [0,2], 2, true);
 };
 
+Winners.entity.Player2.prototype.shoot = function (){
+    var bullets = new Winners.entity.Bullets(this.stage);
+    this.application.scenes.selected.groups.add(bullets);
+    var bullet = bullets.create(this.centerX, this.centerY);
+   bullet.velocity.x = this.velocity.x;
+   bullet.velocity.y = 5;
+   bullet.rotation = 5;
+   //   bullet.x = 0 -( bullet.width >> 1);
+   //   bullet.y = 0 -( bullet.height >> 1);
+   //   this.addChild(bullet);
+   }
+
 /**
  * ...
  *
@@ -132,7 +160,9 @@ Winners.entity.Player2.prototype.m_updateInput = function() {
         //this.rotation = (-90);
         this.animation.gotoAndPlay("walk");
     }
-    
+    if (this.keyboard.pressed("Q")) {
+        this.shoot()
+     }
     if (rune.util.Math.abs(this.velocity.x) <= 0 && rune.util.Math.abs(this.velocity.y) <= 0) {
         this.animation.gotoAndPlay("idle");
     }
