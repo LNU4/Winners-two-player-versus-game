@@ -102,7 +102,16 @@ Winners.entity.Player.prototype.m_initAnimation = function() {
     this.animation.create("idle", [0], 1, true);
     this.animation.create("walk", [0,1], 1, true);
 };
-
+Winners.entity.Player.prototype.shoot = function (){
+    var bullets = new Winners.entity.Bullets(this.stage);
+    this.application.scenes.selected.groups.add(bullets);
+    var bullet = bullets.create(this.centerX, this.centerY);
+   bullet.velocity.x = this.velocity.x;
+   bullet.velocity.y = this.velocity.y;
+bullet.globalX = this.velocity.x;
+bullet.globalX = this.velocity.x;
+   bullet.rotation = this.rotation;
+}
 /**
  * ...
  *
@@ -142,6 +151,10 @@ Winners.entity.Player.prototype.m_updateInput = function() {
         console.log(this.hitbox);
         this.animation.gotoAndPlay("walk");
     }
+
+    if (this.keyboard.pressed("P")) {
+        this.shoot()
+     }
     
     if (rune.util.Math.abs(this.velocity.x) <= 0 && rune.util.Math.abs(this.velocity.y) <= 0) {
         this.animation.gotoAndPlay("idle");

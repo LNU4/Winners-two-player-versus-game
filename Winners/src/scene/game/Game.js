@@ -62,6 +62,10 @@ Winners.scene.Game.prototype.init = function() {
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.stage);
     this.base = new Winners.entity.Base(10, 359.5);
     this.base2 = new Winners.entity.Base2(1220, 359.5);
+    this.hp2 = new Winners.entity.Hps(300, 300);
+    this.player2.hp = this.hp2;
+    console.log(this.hp2)
+    this.stage.addChild(this.hp2);
     this.stage.addChild(this.bg);
     this.stage.addChild(this.player);
     this.stage.addChild(this.player2);
@@ -111,4 +115,12 @@ Winners.scene.Game.prototype.m_updateInput = function(step) {
     if (this.keyboard.justPressed("SPACE")) {
         this.application.scenes.load([new Winners.scene.Menu()]);
     }
+
+    if (this.player2.hitTest(this.player) && this.player.hitTest(this.player2)){
+        var effect = new Winners.entity.Effect(this.player.globalX, this.player.globalY);
+        this.stage.addChild(effect);
+        //this.player2.elasticity = 0,25;
+        // console.log('hit');
+        //this.player.debug();
+       }
 }; 

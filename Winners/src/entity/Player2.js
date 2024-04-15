@@ -19,6 +19,7 @@ Winners.entity.Player2 = function(x, y, stage) {
     // Super call
     //--------------------------------------------------------------------------
     this.stage = stage;
+    this.hp = null;
     
     /**
      * Calls the constructor method of the super class.
@@ -121,10 +122,13 @@ Winners.entity.Player2.prototype.shoot = function (){
     this.application.scenes.selected.groups.add(bullets);
     var bullet = bullets.create(this.centerX, this.centerY);
    bullet.velocity.x = this.velocity.x;
-   bullet.velocity.y = 5;
-   bullet.rotation = 5;
-   //   bullet.x = 0 -( bullet.width >> 1);
-   //   bullet.y = 0 -( bullet.height >> 1);
+   bullet.velocity.y = this.velocity.y;
+bullet.globalX = this.velocity.x;
+bullet.globalX = this.velocity.x;
+   bullet.rotation = this.rotation;
+   
+    //  bullet.x = 0 -( bullet.width >> 1);
+    //  bullet.y = 0 -( bullet.height >> 1); 
    //   this.addChild(bullet);
    }
 
