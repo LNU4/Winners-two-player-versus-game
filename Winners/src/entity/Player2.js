@@ -24,7 +24,7 @@ Winners.entity.Player2 = function(x, y, stage) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 32, 32, "winner-mainchar");
+    rune.display.Sprite.call(this, x, y, 48, 64, "tank-frames-raw");
    
 };
 /**
@@ -97,11 +97,13 @@ Winners.entity.Player2.prototype.dispose = function() {
  * @private
  */
 Winners.entity.Player2.prototype.m_initPhysics = function() {
-    this.flippedX = true;
     this.velocity.drag.x = 0.05;
     this.velocity.drag.y = 0.05;
     this.velocity.max.x = 1.8;
     this.velocity.max.y = 1.8;
+
+    this.rotation = (-90);
+    
 };
 
 /**
@@ -111,8 +113,8 @@ Winners.entity.Player2.prototype.m_initPhysics = function() {
  * @private
  */
 Winners.entity.Player2.prototype.m_initAnimation = function() {
-    this.animation.create("idle", [0,1,2], 1, true);
-    this.animation.create("walk", [0,2], 2, true);
+    this.animation.create("idle", [0], 1, true);
+    this.animation.create("walk", [0,1], 1, true);
 };
 
 Winners.entity.Player2.prototype.shoot = function (){
@@ -139,34 +141,34 @@ bullet.globalX = this.velocity.x;
 Winners.entity.Player2.prototype.m_updateInput = function() {
     if (this.keyboard.pressed("RIGHT")) {
         this.velocity.x += 0.15;
-        this.flippedX = false;
-        this.rotation = 0;
+        //this.flippedX = false;
+       
+        this.rotation = 90;
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("LEFT")) {
         this.velocity.x -= 0.15;
-        this.flippedX = true;
-        this.rotation = 0;
+        //this.flippedX = true;
+        this.rotation = (-90);
+    
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("DOWN")) {
         this.velocity.y += 0.15;
-        //this.rotation = 90;
-        //this.flippedY = true;
+        this.rotation = 180;
+        //this.flippedY = false;
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("UP")) {
         this.velocity.y -= 0.15;
-        this.flippedY = true;
-        //this.rotation = (-90);
+        //this.flippedY = true;
+        this.rotation = 0;
         this.animation.gotoAndPlay("walk");
     }
-    if (this.keyboard.pressed("Q")) {
-        this.shoot()
-     }
+    
     if (rune.util.Math.abs(this.velocity.x) <= 0 && rune.util.Math.abs(this.velocity.y) <= 0) {
         this.animation.gotoAndPlay("idle");
     }

@@ -22,8 +22,11 @@ Winners.entity.Player = function(x, y) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 32, 32, "winner-mainchar");
+    rune.display.Sprite.call(this, x, y, 48, 64, "tank-frames-raw");
    
+    console.log(this.hitbox);
+    
+    
 };
 
 //------------------------------------------------------------------------------
@@ -84,6 +87,9 @@ Winners.entity.Player.prototype.m_initPhysics = function() {
     this.velocity.drag.y = 0.05;
     this.velocity.max.x = 1.8;
     this.velocity.max.y = 1.8;
+    
+    this.rotation = 90;
+  
 };
 
 /**
@@ -93,8 +99,8 @@ Winners.entity.Player.prototype.m_initPhysics = function() {
  * @private
  */
 Winners.entity.Player.prototype.m_initAnimation = function() {
-    this.animation.create("idle", [0,1,2], 1, true);
-    this.animation.create("walk", [0,2], 2, true);
+    this.animation.create("idle", [0], 1, true);
+    this.animation.create("walk", [0,1], 1, true);
 };
 Winners.entity.Player.prototype.shoot = function (){
     var bullets = new Winners.entity.Bullets(this.stage);
@@ -115,29 +121,34 @@ bullet.globalX = this.velocity.x;
 Winners.entity.Player.prototype.m_updateInput = function() {
     if (this.keyboard.pressed("D")) {
         this.velocity.x += 0.15;
-        this.flippedX = false;
-        this.rotation = 0;
+        //this.flippedX = false;
+     
+        console.log(this.hitbox);
+        this.rotation = 90;
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("A")) {
         this.velocity.x -= 0.15;
-        this.flippedX = true;
-        this.rotation = 0;
+        //this.flippedX = true;
+        this.rotation = (-90);
+        console.log(this.hitbox);
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("S")) {
         this.velocity.y += 0.15;
-        this.rotation = 90;
+        this.rotation = 180;
         //this.flippedY = false;
+        console.log(this.hitbox);
         this.animation.gotoAndPlay("walk");
     }
     
     if (this.keyboard.pressed("W")) {
         this.velocity.y -= 0.15;
         //this.flippedY = true;
-        this.rotation = (-90);
+        this.rotation = 0;
+        console.log(this.hitbox);
         this.animation.gotoAndPlay("walk");
     }
 
