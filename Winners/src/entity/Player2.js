@@ -24,7 +24,7 @@ Winners.entity.Player2 = function(x, y, stage) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 48, 64, "tank-frames-raw");
+    rune.display.Sprite.call(this, x, y, 32, 32, "tank-reworked");
    
 };
 /**

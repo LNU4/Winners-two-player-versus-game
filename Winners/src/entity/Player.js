@@ -10,23 +10,20 @@
  *
  * @class
  * @classdesc
- * 
+ *
  * Game scene.
  */
-Winners.entity.Player = function(x, y) {
+Winners.entity.Player = function (x, y) {
+  //--------------------------------------------------------------------------
+  // Super call
+  //--------------------------------------------------------------------------
 
-    //--------------------------------------------------------------------------
-    // Super call
-    //--------------------------------------------------------------------------
-    
-    /**
-     * Calls the constructor method of the super class.
-     */
-    rune.display.Sprite.call(this, x, y, 48, 64, "tank-frames-raw");
-   
-    console.log(this.hitbox);
-    
-    
+  /**
+   * Calls the constructor method of the super class.
+   */
+  rune.display.Sprite.call(this, x, y, 32, 32, "tank-reworked");
+
+  console.log(this.hitbox);
 };
 
 //------------------------------------------------------------------------------
@@ -45,10 +42,18 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
  *
  * @returns {undefined}
  */
-Winners.entity.Player.prototype.init = function() {
-    rune.display.Sprite.prototype.init.call(this);
-    this.m_initPhysics();
-    this.m_initAnimation();
+Winners.entity.Player.prototype.init = function () {
+  rune.display.Sprite.prototype.init.call(this);
+
+  
+  this.turret = new rune.display.Sprite(3, 0, 32, 32, "torret"); 
+  this.addChild(this.turret);
+  
+
+  
+  this.m_initPhysics();
+  this.m_initAnimation();
+  
 };
 
 /**
@@ -58,9 +63,10 @@ Winners.entity.Player.prototype.init = function() {
  *
  * @returns {undefined}
  */
-Winners.entity.Player.prototype.update = function(step) {
-    rune.display.Sprite.prototype.update.call(this, step);
-    this.m_updateInput();
+Winners.entity.Player.prototype.update = function (step) {
+  rune.display.Sprite.prototype.update.call(this, step);
+  this.m_updateInput();
+  this.m_torretRotation();
 };
 
 /**
@@ -68,8 +74,8 @@ Winners.entity.Player.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Player.prototype.dispose = function() {
-    rune.display.Sprite.prototype.dispose.call(this);
+Winners.entity.Player.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };
 
 //------------------------------------------------------------------------------
@@ -82,90 +88,104 @@ Winners.entity.Player.prototype.dispose = function() {
  * @returns {undefined}
  * @private
  */
-Winners.entity.Player.prototype.m_initPhysics = function() {
-    this.velocity.drag.x = 0.05;
-    this.velocity.drag.y = 0.05;
-    this.velocity.max.x = 1.8;
-    this.velocity.max.y = 1.8;
-    
+Winners.entity.Player.prototype.m_initPhysics = function () {
+  this.velocity.drag.x = 0.05;
+  this.velocity.drag.y = 0.05;
+  this.velocity.max.x = 1.8;
+  this.velocity.max.y = 1.8;
+
+  this.rotation = 90;
+};
+
+/**
+ * ...
+ *
+ * @returns {undefined}
+ * @private
+ */
+Winners.entity.Player.prototype.m_initAnimation = function () {
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 1, true);
+};
+Winners.entity.Player.prototype.shoot = function () {
+  var bullets = new Winners.entity.Bullets(this.stage);
+  this.application.scenes.selected.groups.add(bullets);
+  var bullet = bullets.create(this.centerX, this.centerY);
+  bullet.velocity.x = this.velocity.x;
+  bullet.velocity.y = this.velocity.y;
+  bullet.globalX = this.velocity.x;
+  bullet.globalX = this.velocity.x;
+  bullet.rotation = this.rotation;
+};
+/**
+ * ...
+ *
+ * @returns {undefined}
+ * @private
+ */
+Winners.entity.Player.prototype.m_updateInput = function () {
+  if (this.keyboard.pressed("D")) {
+    this.velocity.x += 0.15;
+    //this.flippedX = false;
+
+    console.log(this.hitbox);
     this.rotation = 90;
-  
+    this.animation.gotoAndPlay("walk");
+  }
+
+  if (this.keyboard.pressed("A")) {
+    this.velocity.x -= 0.15;
+    //this.flippedX = true;
+    this.rotation = -90;
+    console.log(this.hitbox);
+    this.animation.gotoAndPlay("walk");
+  }
+
+  if (this.keyboard.pressed("S")) {
+    this.velocity.y += 0.15;
+    this.rotation = 180;
+    //this.flippedY = false;
+    console.log(this.hitbox);
+    this.animation.gotoAndPlay("walk");
+  }
+
+  if (this.keyboard.pressed("W")) {
+    this.velocity.y -= 0.15;
+    //this.flippedY = true;
+    this.rotation = 0;
+    console.log(this.hitbox);
+    this.animation.gotoAndPlay("walk");
+  }
+
+  if (this.keyboard.pressed("P")) {
+    this.shoot();
+  }
+
+  if (
+    rune.util.Math.abs(this.velocity.x) <= 0 &&
+    rune.util.Math.abs(this.velocity.y) <= 0
+  ) {
+    this.animation.gotoAndPlay("idle");
+  }
+  this.debug = true;
+  var minX = 0;
+  var minY = 0;
+  var maxX = 1280 - this.width;
+  var maxY = 720 - this.height;
+
+  this.x = Math.min(Math.max(this.x, minX), maxX);
+  this.y = Math.min(Math.max(this.y, minY), maxY);
 };
 
-/**
- * ...
- *
- * @returns {undefined}
- * @private
- */
-Winners.entity.Player.prototype.m_initAnimation = function() {
-    this.animation.create("idle", [0], 1, true);
-    this.animation.create("walk", [0,1], 1, true);
-};
-Winners.entity.Player.prototype.shoot = function (){
-    var bullets = new Winners.entity.Bullets(this.stage);
-    this.application.scenes.selected.groups.add(bullets);
-    var bullet = bullets.create(this.centerX, this.centerY);
-   bullet.velocity.x = this.velocity.x;
-   bullet.velocity.y = this.velocity.y;
-bullet.globalX = this.velocity.x;
-bullet.globalX = this.velocity.x;
-   bullet.rotation = this.rotation;
-}
-/**
- * ...
- *
- * @returns {undefined}
- * @private
- */
-Winners.entity.Player.prototype.m_updateInput = function() {
-    if (this.keyboard.pressed("D")) {
-        this.velocity.x += 0.15;
-        //this.flippedX = false;
+Winners.entity.Player.prototype.m_torretRotation = function () {
+
+    if (this.keyboard.pressed("M")) {
+      
      
-        console.log(this.hitbox);
-        this.rotation = 90;
-        this.animation.gotoAndPlay("walk");
-    }
-    
-    if (this.keyboard.pressed("A")) {
-        this.velocity.x -= 0.15;
-        //this.flippedX = true;
-        this.rotation = (-90);
-        console.log(this.hitbox);
-        this.animation.gotoAndPlay("walk");
-    }
-    
-    if (this.keyboard.pressed("S")) {
-        this.velocity.y += 0.15;
-        this.rotation = 180;
-        //this.flippedY = false;
-        console.log(this.hitbox);
-        this.animation.gotoAndPlay("walk");
-    }
-    
-    if (this.keyboard.pressed("W")) {
-        this.velocity.y -= 0.15;
-        //this.flippedY = true;
-        this.rotation = 0;
-        console.log(this.hitbox);
-        this.animation.gotoAndPlay("walk");
-    }
+        this.turret.rotation = -40;
+        
+       
+      }
 
-    if (this.keyboard.pressed("P")) {
-        this.shoot()
-     }
-    
-    if (rune.util.Math.abs(this.velocity.x) <= 0 && rune.util.Math.abs(this.velocity.y) <= 0) {
-        this.animation.gotoAndPlay("idle");
-    }
-    this.debug = true;
-    var minX = 0;
-    var minY = 0;
-    var maxX = 1280 - this.width;  
-    var maxY = 720 - this.height;   
-    
-    this.x = Math.min(Math.max(this.x, minX), maxX);
-    this.y = Math.min(Math.max(this.y, minY), maxY);
-   
-};
+
+}
