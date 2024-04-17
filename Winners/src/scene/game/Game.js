@@ -116,11 +116,13 @@ Winners.scene.Game.prototype.m_updateInput = function(step) {
         this.application.scenes.load([new Winners.scene.Menu()]);
     }
 
-    if (this.player2.hitTest(this.player) && this.player.hitTest(this.player2)){
-        var effect = new Winners.entity.Effect(this.player.globalX, this.player.globalY);
-        this.stage.addChild(effect);
+    if (this.player2.hitTestAndSeparate(this.player) && this.player.hitTestAndSeparate(this.player2)){
+       // var effect = new Winners.entity.Effect(this.player.globalX, this.player.globalY);
+        //this.stage.addChild(effect);
         //this.player2.elasticity = 0,25;
         // console.log('hit');
         //this.player.debug();
        }
+
+    
 }; 

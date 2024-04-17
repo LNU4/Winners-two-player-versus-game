@@ -88,4 +88,6 @@ Winners.entity.Bullet.prototype.update = function(step) {
  Winners.entity.Bullet.prototype.m_updateMotion = function(step) {
     this.velocity.x += Math.cos(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
     this.velocity.y += Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
+
+
 };
