@@ -23,7 +23,7 @@ Winners.entity.Player = function (x, y) {
    */
   rune.display.Sprite.call(this, x, y, 32, 32, "tank-reworked");
 
-  console.log(this.hitbox);
+ 
 };
 
 //------------------------------------------------------------------------------
@@ -45,15 +45,14 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
 Winners.entity.Player.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  
-  this.turret = new rune.display.Sprite(3, 0, 32, 32, "torret"); 
-  this.addChild(this.turret);
-  
+  this.turret = new rune.display.Sprite(0, 0, 32, 32, "torret");
 
-  
+
+
+  this.addChild(this.turret);
+
   this.m_initPhysics();
   this.m_initAnimation();
-  
 };
 
 /**
@@ -111,11 +110,14 @@ Winners.entity.Player.prototype.shoot = function () {
   var bullets = new Winners.entity.Bullets(this.stage);
   this.application.scenes.selected.groups.add(bullets);
   var bullet = bullets.create(this.centerX, this.centerY);
+  
   bullet.velocity.x = this.velocity.x;
   bullet.velocity.y = this.velocity.y;
   bullet.globalX = this.velocity.x;
   bullet.globalX = this.velocity.x;
-  bullet.rotation = this.rotation;
+  bullet.rotation = this.turret.rotation;
+  
+ 
 };
 /**
  * ...
@@ -124,40 +126,42 @@ Winners.entity.Player.prototype.shoot = function () {
  * @private
  */
 Winners.entity.Player.prototype.m_updateInput = function () {
-  if (this.keyboard.pressed("D")) {
+  var gamepad = this.gamepads.get(0);
+
+  if (this.keyboard.pressed("D") || gamepad.stickLeftRight) {
     this.velocity.x += 0.15;
     //this.flippedX = false;
 
-    console.log(this.hitbox);
+   
     this.rotation = 90;
     this.animation.gotoAndPlay("walk");
   }
 
-  if (this.keyboard.pressed("A")) {
+  if (this.keyboard.pressed("A") || gamepad.stickLeftLeft) {
     this.velocity.x -= 0.15;
     //this.flippedX = true;
     this.rotation = -90;
-    console.log(this.hitbox);
+   
     this.animation.gotoAndPlay("walk");
   }
 
-  if (this.keyboard.pressed("S")) {
+  if (this.keyboard.pressed("S") || gamepad.stickLeftDown) {
     this.velocity.y += 0.15;
     this.rotation = 180;
     //this.flippedY = false;
-    console.log(this.hitbox);
+   
     this.animation.gotoAndPlay("walk");
   }
 
-  if (this.keyboard.pressed("W")) {
+  if (this.keyboard.pressed("W") || gamepad.stickLeftUp) {
     this.velocity.y -= 0.15;
     //this.flippedY = true;
     this.rotation = 0;
-    console.log(this.hitbox);
+   
     this.animation.gotoAndPlay("walk");
   }
 
-  if (this.keyboard.pressed("P")) {
+  if ( gamepad.pressed(7)) {
     this.shoot();
   }
 
@@ -178,14 +182,12 @@ Winners.entity.Player.prototype.m_updateInput = function () {
 };
 
 Winners.entity.Player.prototype.m_torretRotation = function () {
+  var gamepad = this.gamepads.get(0);
 
-    if (this.keyboard.pressed("M")) {
-      
-     
-        this.turret.rotation = -40;
-        
-       
-      }
-
-
-}
+  if (gamepad.stickRightLeft) {
+    this.turret.rotation -= 5;
+  }
+  else if (gamepad.stickRightRight) {
+    this.turret.rotation += 5;
+  }
+};
