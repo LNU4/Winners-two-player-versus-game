@@ -121,7 +121,7 @@ Winners.entity.Player.prototype.shoot = function () {
   bullet.globalX = this.velocity.x;
   bullet.rotation = this.turret.rotation;
   
- 
+ console.log("test")
 };
 /**
  * ...
