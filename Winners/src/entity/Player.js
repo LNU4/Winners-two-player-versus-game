@@ -14,10 +14,14 @@
  * Game scene.
  */
 Winners.entity.Player = function (x, y) {
+/**
+ * placeholder to refer to the second player
+ */
+    this.player2 = null;
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
-
+   
   /**
    * Calls the constructor method of the super class.
    */
@@ -107,7 +111,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
   this.animation.create("walk", [0, 1], 1, true);
 };
 Winners.entity.Player.prototype.shoot = function () {
-  var bullets = new Winners.entity.Bullets(this.stage);
+  var bullets = new Winners.entity.Bullets(this.stage, this, this.player2);
   this.application.scenes.selected.groups.add(bullets);
   var bullet = bullets.create(this.centerX, this.centerY);
   
@@ -164,7 +168,9 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   if ( gamepad.pressed(7)) {
     this.shoot();
   }
-
+  if (this.keyboard.pressed("Q")) {
+    this.shoot()
+ }
   if (
     rune.util.Math.abs(this.velocity.x) <= 0 &&
     rune.util.Math.abs(this.velocity.y) <= 0
