@@ -15,7 +15,7 @@
  * 
  * Represents a handler for bullets.
  */
-Winners.entity.Bullets = function(stage) {
+Winners.entity.Bullets = function(stage, owner, enemy) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -28,6 +28,11 @@ Winners.entity.Bullets = function(stage) {
      * @default 4
      */
     this.maxNumBullets = 4;
+    this.stage= stage;
+    this.owner = owner;
+    this.enemy = enemy;
+    console.log(this.owner)
+    console.log(this.enemy)
     
     //--------------------------------------------------------------------------
     // Private properties
@@ -75,7 +80,7 @@ Winners.entity.Bullets.prototype.create = function(x, y) {
         this.removeChild(this.getChildAt(0));
     }
 
-    var bullet = new Winners.entity.Bullet();
+    var bullet = new Winners.entity.Bullet(this.stage, this.owner, this.enemy);
         bullet.x = (x || 0) - (bullet.width  >> 1);
         bullet.y = (y || 0) - (bullet.height >> 1);
 

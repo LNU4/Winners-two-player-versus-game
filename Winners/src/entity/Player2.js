@@ -13,12 +13,13 @@
  *
  * Game scene.
  */
-Winners.entity.Player2 = function (x, y, stage) {
+Winners.entity.Player2 = function (x, y, stage, player) {
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
   this.stage = stage;
   this.hp = null;
+  this.player = player; 
 
   /**
    * Calls the constructor method of the super class.
@@ -118,7 +119,7 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
 };
 
 Winners.entity.Player2.prototype.shoot = function () {
-  var bullets = new Winners.entity.Bullets(this.stage);
+  var bullets = new Winners.entity.Bullets(this.stage, this, this.player);
   this.application.scenes.selected.groups.add(bullets);
   var bullet = bullets.create(this.centerX, this.centerY);
   bullet.velocity.x = this.velocity.x;
