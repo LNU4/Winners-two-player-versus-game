@@ -44,10 +44,12 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
 Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
     this.add("100hp", "./../asset/png/100hp.png");
+	this.add("resizedtank", "./../asset/png/resizedtank.png");
 	this.add("star", "./../asset/png/star.png");
 	this.add("tank-frames-raw", "./../asset/png/tank-frames-raw.png");
 	this.add("tank-reworked", "./../asset/png/tank-reworked.png");
 	this.add("torret", "./../asset/png/torret.png");
+	this.add("turret-remake", "./../asset/png/turret-remake.png");
 	this.add("winner-mainchar", "./../asset/png/winner-mainchar.png");
 	this.add("winners-bg", "./../asset/png/winners-bg.png");
 };
