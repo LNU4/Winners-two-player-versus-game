@@ -25,12 +25,12 @@ Winners.entity.Player = function (x, y) {
   /**
    * Calls the constructor method of the super class.
    */
-  rune.display.Sprite.call(this, x, y, 32, 32, "tank-reworked");
+  rune.display.Sprite.call(this, x, y, 64, 64, "resizedtank");
 
  
 };
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
 
@@ -49,7 +49,7 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
 Winners.entity.Player.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  this.turret = new rune.display.Sprite(0, 0, 32, 32, "torret");
+  this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
 
 
 
@@ -115,8 +115,10 @@ Winners.entity.Player.prototype.shoot = function () {
   this.application.scenes.selected.groups.add(bullets);
   var bullet = bullets.create(this.centerX, this.centerY);
   
-  bullet.velocity.x = this.velocity.x;
-  bullet.velocity.y = this.velocity.y;
+  
+
+  bullet.velocity.x = this.turret.velocity.x;
+  bullet.velocity.y = this.turret.velocity.y;
   bullet.globalX = this.velocity.x;
   bullet.globalX = this.velocity.x;
   bullet.rotation = this.turret.rotation;
@@ -131,7 +133,7 @@ Winners.entity.Player.prototype.shoot = function () {
  */
 Winners.entity.Player.prototype.m_updateInput = function () {
   var gamepad = this.gamepads.get(0);
-
+  
   if (this.keyboard.pressed("D") || gamepad.stickLeftRight) {
     this.velocity.x += 0.15;
     //this.flippedX = false;
