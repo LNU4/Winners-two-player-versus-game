@@ -140,7 +140,7 @@ Winners.entity.Player2.prototype.shoot = function () {
  * @private
  */
 Winners.entity.Player2.prototype.m_updateInput = function () {
-  var gamepad = this.gamepads.get(2);
+  var gamepad = this.gamepads.get(1);
   if (this.keyboard.pressed("RIGHT") || gamepad.stickLeftRight) {
     this.velocity.x += 0.15;
     //this.flippedX = false;

@@ -107,17 +107,17 @@ Winners.entity.Turret1 = function (x, y) {
       this.animation.create("walk", [0, 1], 1, true);
     };
     Winners.entity.Turret1.prototype.shoot = function () {
-      var bullets = new Winners.entity.Bullets(this.stage, this, this.turret1);
-      this.application.scenes.selected.groups.add(bullets);
-      var bullet = bullets.create(this.centerX, this.centerY);
+      this.bullets = new Winners.entity.Bullets(this.stage, this, this.turret1);
+      this.application.scenes.selected.groups.add(this.bullets);
+      this.bullet = this.bullets.create(this.x, this.y);
       
       
     
-      bullet.velocity.x = this.velocity.x;
-      bullet.velocity.y = this.velocity.y;
-      bullet.globalX = this.velocity.x;
-      bullet.globalX = this.velocity.x;
-      bullet.rotation = this.rotation - 90;
+      this.bullet.velocity.x = this.velocity.x;
+      this.bullet.velocity.y = this.velocity.y;
+      this.bullet.globalX = this.velocity.x;
+      this.bullet.globalX = this.velocity.x;
+      this.bullet.rotation = this.rotation - 90;
       
      console.log("test")
     };
