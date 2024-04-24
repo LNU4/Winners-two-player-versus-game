@@ -45,7 +45,7 @@ Winners.entity.Bullet = function(stage, bulletOwner, bulletTarget, x, y) {
      * @type {number}
      * @protected
      */
-    this.m_speed = 0.08;
+    this.m_speed = 0.18;
 
     //--------------------------------------------------------------------------
     // Super call

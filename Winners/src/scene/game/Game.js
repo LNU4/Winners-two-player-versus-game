@@ -57,7 +57,7 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
  */
 Winners.scene.Game.prototype.init = function() {
     rune.scene.Scene.prototype.init.call(this);
-    this.bg = new rune.display.Graphic(0,0,1280,720,"winners-bg");
+    this.bg = new rune.display.Graphic(0,0,1280,720,"background");
 
     this.player = new Winners.entity.Player(70, 359.5);
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.stage, this.player);
