@@ -55,7 +55,7 @@ Winners.entity.Bullet = function(stage, bulletOwner, bulletTarget, x, y) {
      * ...
      */
     rune.display.DisplayObject.call(this, x, y, 3, 3);
-    this.backgroundColor = "#FF00FF";
+    this.backgroundColor = "#FFFF00";
     this.movable = true;
 };
 
