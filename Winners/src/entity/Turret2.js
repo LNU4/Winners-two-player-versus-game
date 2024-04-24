@@ -13,7 +13,7 @@
  *
  * Game scene.
  */
-Winners.entity.Turret1 = function (x, y) {
+Winners.entity.Turret2 = function (x, y) {
     /**
      * placeholder to refer to the second player
      */
@@ -34,8 +34,8 @@ Winners.entity.Turret1 = function (x, y) {
     // Inheritance
     //------------------------------------------------------------------------------
     
-    Winners.entity.Turret1.prototype = Object.create(rune.display.Sprite.prototype);
-    Winners.entity.Turret1.prototype.constructor = Winners.entity.Turret1;
+    Winners.entity.Turret2.prototype = Object.create(rune.display.Sprite.prototype);
+    Winners.entity.Turret2.prototype.constructor = Winners.entity.Turret2;
     
     //------------------------------------------------------------------------------
     // Override public prototype methods (ENGINE)
@@ -46,7 +46,7 @@ Winners.entity.Turret1 = function (x, y) {
      *
      * @returns {undefined}
      */
-    Winners.entity.Turret1.prototype.init = function () {
+    Winners.entity.Turret2.prototype.init = function () {
       rune.display.Sprite.prototype.init.call(this);
     
      // this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
@@ -66,7 +66,7 @@ Winners.entity.Turret1 = function (x, y) {
      *
      * @returns {undefined}
      */
-    Winners.entity.Turret1.prototype.update = function (step) {
+    Winners.entity.Turret2.prototype.update = function (step) {
       rune.display.Sprite.prototype.update.call(this, step);
       //this.m_updateInput();
       this.m_torretRotation();
@@ -77,7 +77,7 @@ Winners.entity.Turret1 = function (x, y) {
      *
      * @returns {undefined}
      */
-    Winners.entity.Turret1.prototype.dispose = function () {
+    Winners.entity.Turret2.prototype.dispose = function () {
       rune.display.Sprite.prototype.dispose.call(this);
     };
     
@@ -91,9 +91,9 @@ Winners.entity.Turret1 = function (x, y) {
      * @returns {undefined}
      * @private
      */
-    Winners.entity.Turret1.prototype.m_initPhysics = function () {
+    Winners.entity.Turret2.prototype.m_initPhysics = function () {
 
-      this.rotation = 90;
+      this.rotation = -90;
     };
     
     /**
@@ -102,11 +102,11 @@ Winners.entity.Turret1 = function (x, y) {
      * @returns {undefined}
      * @private
      */
-    Winners.entity.Turret1.prototype.m_initAnimation = function () {
+    Winners.entity.Turret2.prototype.m_initAnimation = function () {
       this.animation.create("idle", [0], 1, true);
       this.animation.create("walk", [0, 1], 1, true);
     };
-    Winners.entity.Turret1.prototype.shoot = function () {
+    Winners.entity.Turret2.prototype.shoot = function () {
       var bullets = new Winners.entity.Bullets(this.stage, this, this.turret1);
       this.application.scenes.selected.groups.add(bullets);
       var bullet = bullets.create(this.centerX, this.centerY);
@@ -117,7 +117,7 @@ Winners.entity.Turret1 = function (x, y) {
       bullet.velocity.y = this.velocity.y;
       bullet.globalX = this.velocity.x;
       bullet.globalX = this.velocity.x;
-      bullet.rotation = this.rotation - 90;
+      bullet.rotation = this.rotation + 90;
       
      console.log("test")
     };
@@ -128,8 +128,8 @@ Winners.entity.Turret1 = function (x, y) {
      * @private
      */
 
-    Winners.entity.Turret1.prototype.m_torretRotation = function () {
-      var gamepad = this.gamepads.get(0);
+    Winners.entity.Turret2.prototype.m_torretRotation = function () {
+      var gamepad = this.gamepads.get(1);
     
       if (gamepad.stickRightLeft) {
         this.rotation -= 5;

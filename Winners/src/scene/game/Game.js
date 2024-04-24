@@ -62,14 +62,20 @@ Winners.scene.Game.prototype.init = function() {
     this.player = new Winners.entity.Player(70, 359.5);
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.stage, this.player);
 
-    this.player.player2 = this.player2;
+    //this.player.player2 = this.player2;
 
     this.turret1 = new Winners.entity.Turret1(70, 359.5);
+    this.turret2 = new Winners.entity.Turret2(1150, 359.5, this.stage, this.player); 
 
     this.base = new Winners.entity.Base(10, 359.5);
     this.base2 = new Winners.entity.Base2(1220, 359.5);
+
+    this.Base1shield = new Winners.entity.Base1shield(15, 380); 
+    this.Base2shield = new Winners.entity.Base2shield(1150, 380);
+
     this.hp2 = new Winners.entity.Hps(300, 300);
     this.player2.hp = this.hp2;
+
     console.log(this.hp2)
     this.stage.addChild(this.hp2);
     this.stage.addChild(this.bg);
@@ -77,7 +83,10 @@ Winners.scene.Game.prototype.init = function() {
     this.stage.addChild(this.player2);
     this.stage.addChild(this.base);
     this.stage.addChild(this.base2);
-    this.stage.addChild(this.turret1)
+    this.stage.addChild(this.turret1);
+    this.stage.addChild(this.turret2);
+    this.stage.addChild(this.Base1shield);
+    this.stage.addChild(this.Base2shield);
 };
 
 /**
@@ -92,6 +101,11 @@ Winners.scene.Game.prototype.update = function(step) {
     rune.scene.Scene.prototype.update.call(this, step);
     this.m_updateInput(step);
 
+    this.turret1.x = this.player.x; 
+    this.turret1.y = this.player.y;
+
+    this.turret2.x = this.player2.x; 
+    this.turret2.y = this.player2.y;
     
 };
 

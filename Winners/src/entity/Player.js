@@ -17,7 +17,7 @@ Winners.entity.Player = function (x, y) {
 /**
  * placeholder to refer to the second player
  */
-    this.player2 = null;
+    //this.player2 = null;
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -49,11 +49,11 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
 Winners.entity.Player.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
+ // this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
 
 
 
-  this.addChild(this.turret);
+ // this.addChild(this.turret);
 
   this.m_initPhysics();
   this.m_initAnimation();
@@ -69,7 +69,7 @@ Winners.entity.Player.prototype.init = function () {
 Winners.entity.Player.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   this.m_updateInput();
-  this.m_torretRotation();
+ // this.m_torretRotation();
 };
 
 /**
@@ -110,21 +110,26 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
+
+/*
 Winners.entity.Player.prototype.shoot = function () {
-  var bullets = new Winners.entity.Bullets(this.stage, this, this.player2);
-  this.application.scenes.selected.groups.add(bullets);
-  var bullet = bullets.create(this.centerX, this.centerY);
+  this.bullets = new Winners.entity.Bullets(this.stage, this, this.player2);
+  this.application.scenes.selected.groups.add(this.bullets);
+  this.bullet = this.bullets.create(this.centerX, this.centerY);
   
   
 
-  bullet.velocity.x = this.turret.velocity.x;
-  bullet.velocity.y = this.turret.velocity.y;
-  bullet.globalX = this.velocity.x;
-  bullet.globalX = this.velocity.x;
-  bullet.rotation = this.turret.rotation;
+  this.bullet.velocity.x = this.turret.velocity.x;
+  this.bullet.velocity.y = this.turret.velocity.y;
+  this.bullet.globalX = this.velocity.x;
+  //bullet.globalX = this.velocity.x;
+  this.bullet.rotation = this.turret.rotation;
+  console.log(this.bullet.rotation, this.turret.rotation);
   
  console.log("test")
 };
+
+*/
 /**
  * ...
  *
@@ -167,12 +172,7 @@ Winners.entity.Player.prototype.m_updateInput = function () {
     this.animation.gotoAndPlay("walk");
   }
 
-  if ( gamepad.pressed(7)) {
-    this.shoot();
-  }
-  if (this.keyboard.pressed("Q")) {
-    this.shoot()
- }
+
   if (
     rune.util.Math.abs(this.velocity.x) <= 0 &&
     rune.util.Math.abs(this.velocity.y) <= 0
@@ -188,14 +188,17 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   this.x = Math.min(Math.max(this.x, minX), maxX);
   this.y = Math.min(Math.max(this.y, minY), maxY);
 };
-
+/*
 Winners.entity.Player.prototype.m_torretRotation = function () {
   var gamepad = this.gamepads.get(0);
+  this.turret.rotation = 0; 
 
   if (gamepad.stickRightLeft) {
     this.turret.rotation -= 5;
   }
   else if (gamepad.stickRightRight) {
-    this.turret.rotation += 5;
+    this.turret.rotation += 5; 
   }
+  
 };
+*/
