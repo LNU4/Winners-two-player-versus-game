@@ -59,6 +59,10 @@ Winners.scene.Game.prototype.init = function() {
     rune.scene.Scene.prototype.init.call(this);
     this.bg = new rune.display.Graphic(0,0,1280,720,"background");
 
+    this.layer0 = new rune.display.DisplayObjectContainer(0,0, 1280, 720);
+    console.log(this.layer0.numChildren);
+    this.stage.addChild(this.layer0); 
+    
     this.player = new Winners.entity.Player(70, 359.5);
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.stage, this.player);
 
@@ -75,11 +79,11 @@ Winners.scene.Game.prototype.init = function() {
 
     this.hp2 = new Winners.entity.Hps(300, 300);
     this.player2.hp = this.hp2;
-
+    
     console.log(this.hp2)
-    this.stage.addChild(this.hp2);
-    this.stage.addChild(this.bg);
-    this.stage.addChild(this.player);
+    this.layer0.addChild(this.hp2);
+    this.layer0.addChild(this.bg);
+    this.layer0.addChild(this.player);
     this.stage.addChild(this.player2);
     this.stage.addChild(this.base);
     this.stage.addChild(this.base2);
@@ -87,6 +91,7 @@ Winners.scene.Game.prototype.init = function() {
     this.stage.addChild(this.turret2);
     this.stage.addChild(this.Base1shield);
     this.stage.addChild(this.Base2shield);
+    console.log(this.stage.numChildren)
 };
 
 /**
