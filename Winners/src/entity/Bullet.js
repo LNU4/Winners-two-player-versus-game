@@ -16,7 +16,7 @@
  * 
  * Represents a bullet.
  */
-Winners.entity.Bullet = function(stage, bulletOwner, bulletTarget, x, y) {
+Winners.entity.Bullet = function(layer1, bulletOwner, bulletTarget, x, y) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -29,7 +29,7 @@ Winners.entity.Bullet = function(stage, bulletOwner, bulletTarget, x, y) {
      * @default 20
      */
     this.damage = 20.0;
-    this.stage = stage;
+    this.layer1 = layer1;
     this.bulletOwner = bulletOwner;
     this.bulletTarget = bulletTarget;
     console.log(this.bulletOwner);
@@ -79,8 +79,8 @@ Winners.entity.Bullet.prototype.update = function(step) {
     if(this.hitTest(this.bulletTarget)){
        // console.log(this.bulletOwner)
        console.log('...')
-        var effect = new Winners.entity.Effect(this.bulletTarget.globalX, this.bulletTarget.globalY);
-        this.stage.addChild(effect);
+        //var effect = new Winners.entity.Effect(this.bulletTarget.globalX, this.bulletTarget.globalY);
+        //this.stage.addChild(effect);
         // this.hitTestAndSeparate(this.bulletTarget)
         console.log(this.stage.numChildren)
         

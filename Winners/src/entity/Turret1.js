@@ -106,10 +106,11 @@ Winners.entity.Turret1 = function (x, y) {
       this.animation.create("idle", [0], 1, true);
       this.animation.create("walk", [0, 1], 1, true);
     };
+    /*
     Winners.entity.Turret1.prototype.shoot = function () {
       this.bullets = new Winners.entity.Bullets(this.stage, this, this.turret1);
       this.application.scenes.selected.groups.add(this.bullets);
-      this.bullet = this.bullets.create(this.x, this.y);
+      this.bullet = this.bullets.create(this.centerX, this.centerY);
       
       
     
@@ -121,6 +122,7 @@ Winners.entity.Turret1 = function (x, y) {
       
      console.log("test")
     };
+    */
     /**
      * ...
      *
@@ -131,10 +133,10 @@ Winners.entity.Turret1 = function (x, y) {
     Winners.entity.Turret1.prototype.m_torretRotation = function () {
       var gamepad = this.gamepads.get(0);
     
-      if (gamepad.stickRightLeft) {
+      if (gamepad.stickRightLeft || this.keyboard.pressed("J")) {
         this.rotation -= 5;
       }
-      else if (gamepad.stickRightRight) {
+      else if (gamepad.stickRightRight || this.keyboard.pressed("L")) {
         this.rotation += 5;
       }
       else if (gamepad.stickRightUp) {
@@ -144,11 +146,11 @@ Winners.entity.Turret1 = function (x, y) {
         this.rotation += 5;
       }
 
-
+      /*
       if ( gamepad.pressed(7)) {
         this.shoot();
       }
-     
+     */
     };
     
     
