@@ -27,7 +27,7 @@ Winners.scene.Game = function() {
      */
     this.player = null;
     this.player2 = null;
-
+  
     //--------------------------------------------------------------------------    
     // Super call
     //--------------------------------------------------------------------------
@@ -36,6 +36,7 @@ Winners.scene.Game = function() {
      * Calls the constructor method of the super class.
      */
     rune.scene.Scene.call(this);
+    console.log(this.application);
 };
 
 //------------------------------------------------------------------------------
@@ -63,15 +64,35 @@ Winners.scene.Game.prototype.init = function() {
     this.player.player2 = this.player2;
     this.base = new Winners.entity.Base(10, 359.5);
     this.base2 = new Winners.entity.Base2(1220, 359.5);
-    this.hp2 = new Winners.entity.Hps(300, 300);
-    this.player2.hp = this.hp2;
-    console.log(this.hp2)
-    this.stage.addChild(this.hp2);
+    //this.hp2 = new Winners.entity.Hps(300, 300);
+   // this.player2.hp = this.hp2;
+    //console.log(this.hp2)
+    
     this.stage.addChild(this.bg);
     this.stage.addChild(this.player);
     this.stage.addChild(this.player2);
     this.stage.addChild(this.base);
     this.stage.addChild(this.base2);
+    //this.stage.addChild(this.hp2);
+
+    var camera = this.cameras.getCameraAt(0);
+    //camera.addChild(smth);
+
+    this.timers.create({
+        duration: 3000,
+        onComplete: function(){
+            console.log('.-.-.')
+        }
+    });
+
+    // var timeInMs = 2000;
+   
+    // var timer = new rune.timer.TimerOptions({duration: timeInMs});
+    
+
+    // timer.onComplete = function (){
+    //     console.log('.-.-.')
+    // }
 };
 
 /**

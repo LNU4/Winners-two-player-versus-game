@@ -18,7 +18,8 @@ Winners.entity.Player2 = function (x, y, stage, player) {
   // Super call
   //--------------------------------------------------------------------------
   this.stage = stage;
-  this.hp = null;
+ // this.hp = 200;
+  
   this.player = player; 
 
   /**
@@ -75,6 +76,7 @@ Winners.entity.Player2.prototype.init = function () {
  * @returns {undefined}
  */
 Winners.entity.Player2.prototype.update = function (step) {
+    
   rune.display.Sprite.prototype.update.call(this, step);
   this.m_updateInput();
 };
@@ -119,6 +121,7 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
 };
 
 Winners.entity.Player2.prototype.shoot = function () {
+    // move to game: game creates bullets & player should have referens for 
   var bullets = new Winners.entity.Bullets(this.stage, this, this.player);
   this.application.scenes.selected.groups.add(bullets);
   var bullet = bullets.create(this.centerX, this.centerY);
@@ -127,6 +130,7 @@ Winners.entity.Player2.prototype.shoot = function () {
   bullet.globalX = this.velocity.x;
   bullet.globalX = this.velocity.x;
   bullet.rotation = this.rotation;
+  
 
   //  bullet.x = 0 -( bullet.width >> 1);
   //  bullet.y = 0 -( bullet.height >> 1);
@@ -139,8 +143,10 @@ Winners.entity.Player2.prototype.shoot = function () {
  * @returns {undefined}
  * @private
  */
+
 Winners.entity.Player2.prototype.m_updateInput = function () {
   var gamepad = this.gamepads.get(1);
+ 
   if (this.keyboard.pressed("RIGHT") || gamepad.stickLeftRight) {
     this.velocity.x += 0.15;
     //this.flippedX = false;
@@ -177,6 +183,9 @@ Winners.entity.Player2.prototype.m_updateInput = function () {
   ) {
     this.animation.gotoAndPlay("idle");
   }
+  if (this.keyboard.pressed("p")) {
+    this.shoot()
+ }
 
   this.debug = true;
   var minX = 0;

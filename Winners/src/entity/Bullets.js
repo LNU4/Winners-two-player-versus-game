@@ -31,8 +31,8 @@ Winners.entity.Bullets = function(stage, owner, enemy) {
     this.stage= stage;
     this.owner = owner;
     this.enemy = enemy;
-    console.log(this.owner)
-    console.log(this.enemy)
+    // console.log(this.owner)
+    // console.log(this.enemy)
     
     //--------------------------------------------------------------------------
     // Private properties

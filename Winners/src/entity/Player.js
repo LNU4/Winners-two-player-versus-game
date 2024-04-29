@@ -18,6 +18,10 @@ Winners.entity.Player = function (x, y) {
  * placeholder to refer to the second player
  */
     this.player2 = null;
+    this.lifeIx = 0;
+    this.lives = 3;
+    this.livesArr = [];
+    
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -47,6 +51,7 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
  * @returns {undefined}
  */
 Winners.entity.Player.prototype.init = function () {
+   console.log(this.parent)
   rune.display.Sprite.prototype.init.call(this);
 
   this.turret = new rune.display.Sprite(0, 0, 32, 32, "torret");
@@ -54,6 +59,13 @@ Winners.entity.Player.prototype.init = function () {
 
 
   this.addChild(this.turret);
+
+  for (var i = 0; i<this.lives; i++){
+   var lifeIx = i;
+    this.life = new Winners.entity.Life(this, lifeIx );
+   // this.life.hp = new Winners.entity.Hps(this.life, this.parent, this)
+    this.livesArr.push(this.life);
+  }
 
   this.m_initPhysics();
   this.m_initAnimation();
@@ -68,6 +80,8 @@ Winners.entity.Player.prototype.init = function () {
  */
 Winners.entity.Player.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
+  this.life.globalX = this.globalX;
+  this.life.globalY = this.globalY;
   this.m_updateInput();
   this.m_torretRotation();
 };
@@ -107,6 +121,8 @@ Winners.entity.Player.prototype.m_initPhysics = function () {
  * @private
  */
 Winners.entity.Player.prototype.m_initAnimation = function () {
+    this.life.globalX = this.globalX;
+  this.life.globalY = this.globalY;
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
@@ -120,8 +136,9 @@ Winners.entity.Player.prototype.shoot = function () {
   bullet.globalX = this.velocity.x;
   bullet.globalX = this.velocity.x;
   bullet.rotation = this.turret.rotation;
+  console.log(this.x)
   
- console.log("test")
+
 };
 /**
  * ...
