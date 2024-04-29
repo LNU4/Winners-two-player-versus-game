@@ -8,14 +8,14 @@
  * @constructor
  * @extends rune.scene.Scene
  *
- * @param {rune.display.Stage} stage ...
+ * @param {rune.display.layer1} layer1 ...
  *
  * @class
  * @classdesc
  * 
  * Represents a handler for bullets.
  */
-Winners.entity.Bullets = function(stage, owner, enemy) {
+Winners.entity.Bullets = function(container, owner, enemy) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -28,7 +28,8 @@ Winners.entity.Bullets = function(stage, owner, enemy) {
      * @default 4
      */
     this.maxNumBullets = 4;
-    this.stage= stage;
+    this.container = container;
+    console.log(container);
     this.owner = owner;
     this.enemy = enemy;
     // console.log(this.owner)
@@ -53,7 +54,7 @@ Winners.entity.Bullets = function(stage, owner, enemy) {
     /**
      *  ...
      */
-    rune.display.DisplayGroup.call(this, stage);
+    rune.display.DisplayGroup.call(this, container);
 };
 
 //------------------------------------------------------------------------------
@@ -79,8 +80,8 @@ Winners.entity.Bullets.prototype.create = function(x, y) {
     if (this.numChildren == this.maxNumBullets) {
         this.removeChild(this.getChildAt(0));
     }
-
-    var bullet = new Winners.entity.Bullet(this.stage, this.owner, this.enemy);
+    
+    var bullet = new Winners.entity.Bullet(this.container, this.owner, this.enemy);
         bullet.x = (x || 0) - (bullet.width  >> 1);
         bullet.y = (y || 0) - (bullet.height >> 1);
 

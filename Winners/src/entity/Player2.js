@@ -25,7 +25,7 @@ Winners.entity.Player2 = function (x, y, stage, player) {
   /**
    * Calls the constructor method of the super class.
    */
-  rune.display.Sprite.call(this, x, y, 32, 32, "tank-reworked");
+  rune.display.Sprite.call(this, x, y, 64, 64, "tank-reworked");
 };
 /**
  * @member {Winners.entity.Bullets} bullets
@@ -61,7 +61,7 @@ Winners.entity.Player2.prototype.constructor = Winners.entity.Player2;
 Winners.entity.Player2.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  this.turret = new rune.display.Sprite(3, 0, 32, 32, "torret");
+  this.turret = new rune.display.Sprite(0, 0, 64, 64, "resizedtank");
   this.addChild(this.turret);
 
   this.m_initPhysics();

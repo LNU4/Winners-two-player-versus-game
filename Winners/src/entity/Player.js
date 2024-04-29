@@ -13,15 +13,17 @@
  *
  * Game scene.
  */
-Winners.entity.Player = function (x, y) {
+Winners.entity.Player = function (x, y, turret1, container) {
 /**
  * placeholder to refer to the second player
  */
+
     this.player2 = null;
     this.lifeIx = 0;
     this.lives = 3;
     this.livesArr = [];
     
+
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -29,12 +31,13 @@ Winners.entity.Player = function (x, y) {
   /**
    * Calls the constructor method of the super class.
    */
-  rune.display.Sprite.call(this, x, y, 32, 32, "tank-reworked");
-
+  rune.display.Sprite.call(this, x, y, 64, 64, "resizedtank");
+  this.turret1 = turret1;
+  this.layer1 = container;
  
 };
 
-//------------------------------------------------------------------------------
+//----------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
 
@@ -54,11 +57,11 @@ Winners.entity.Player.prototype.init = function () {
    console.log(this.parent)
   rune.display.Sprite.prototype.init.call(this);
 
-  this.turret = new rune.display.Sprite(0, 0, 32, 32, "torret");
+ // this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
+ 
+ console.log(this.turret1); 
 
-
-
-  this.addChild(this.turret);
+ // this.addChild(this.turret);
 
   for (var i = 0; i<this.lives; i++){
    var lifeIx = i;
@@ -83,7 +86,7 @@ Winners.entity.Player.prototype.update = function (step) {
   this.life.globalX = this.globalX;
   this.life.globalY = this.globalY;
   this.m_updateInput();
-  this.m_torretRotation();
+ // this.m_torretRotation();
 };
 
 /**
@@ -126,20 +129,27 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
+
+
 Winners.entity.Player.prototype.shoot = function () {
-  var bullets = new Winners.entity.Bullets(this.stage, this, this.player2);
-  this.application.scenes.selected.groups.add(bullets);
-  var bullet = bullets.create(this.centerX, this.centerY);
+  this.bullets = new Winners.entity.Bullets(this.layer1, this, this.turret1);
+  this.application.scenes.selected.groups.add(this.bullets);
+  this.bullet = this.bullets.create(this.centerX, this.centerY);
   
-  bullet.velocity.x = this.velocity.x;
-  bullet.velocity.y = this.velocity.y;
-  bullet.globalX = this.velocity.x;
-  bullet.globalX = this.velocity.x;
-  bullet.rotation = this.turret.rotation;
-  console.log(this.x)
+  
+
+  console.log(this.turret1);
+  this.bullet.velocity.x = this.velocity.x;
+  this.bullet.velocity.y = this.velocity.y;
+  this.bullet.globalX = this.velocity.x;
+  this.bullet.globalX = this.velocity.x;
+  this.bullet.rotation = this.turret1.rotation - 90;
+
   
 
 };
+
+
 /**
  * ...
  *
@@ -148,7 +158,7 @@ Winners.entity.Player.prototype.shoot = function () {
  */
 Winners.entity.Player.prototype.m_updateInput = function () {
   var gamepad = this.gamepads.get(0);
-
+  
   if (this.keyboard.pressed("D") || gamepad.stickLeftRight) {
     this.velocity.x += 0.15;
     //this.flippedX = false;
@@ -182,12 +192,10 @@ Winners.entity.Player.prototype.m_updateInput = function () {
     this.animation.gotoAndPlay("walk");
   }
 
-  if ( gamepad.pressed(7)) {
+  if ( gamepad.pressed(7) || this.keyboard.pressed("P")) {
     this.shoot();
   }
-  if (this.keyboard.pressed("Q")) {
-    this.shoot()
- }
+
   if (
     rune.util.Math.abs(this.velocity.x) <= 0 &&
     rune.util.Math.abs(this.velocity.y) <= 0
@@ -199,18 +207,21 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   var minY = 0;
   var maxX = 1280 - this.width;
   var maxY = 720 - this.height;
-
+  console.log("test")
   this.x = Math.min(Math.max(this.x, minX), maxX);
   this.y = Math.min(Math.max(this.y, minY), maxY);
 };
-
+/*
 Winners.entity.Player.prototype.m_torretRotation = function () {
   var gamepad = this.gamepads.get(0);
+  this.turret.rotation = 0; 
 
-  if (gamepad.stickRightLeft) {
+  if (gamepad.stickRightLeft ) {
     this.turret.rotation -= 5;
   }
   else if (gamepad.stickRightRight) {
-    this.turret.rotation += 5;
+    this.turret.rotation += 5; 
   }
+  
 };
+*/
