@@ -92,14 +92,17 @@ Winners.scene.Game.prototype.init = function() {
     this.stage.addChild(this.player2);
     this.stage.addChild(this.base);
     this.stage.addChild(this.base2);
-    //this.stage.addChild(this.hp2);
+    //this.stage.addChild(this.hp2);*/
 
     var camera = this.cameras.getCameraAt(0);
     //camera.addChild(smth);
-
+   console.log(this.stage.numChildren);
     this.timers.create({
         duration: 3000,
         onComplete: function(){
+            this.truck = new Winners.entity.Truck(200, 500)
+            this.stage.addChild(this.truck)
+            console.log(this.stage.numChildren);
             console.log('.-.-.')
         }
     });
@@ -112,16 +115,16 @@ Winners.scene.Game.prototype.init = function() {
     // timer.onComplete = function (){
     //     console.log('.-.-.')
     // }
-*/
+
 
     this.Base1shield = new Winners.entity.Base1shield(15, 380); 
     this.Base2shield = new Winners.entity.Base2shield(1150, 380);
 
-    this.hp2 = new Winners.entity.Hps(300, 300);
-    this.player2.hp = this.hp2;
+    // this.hp2 = new Winners.entity.Hps(300, 300);
+    // this.player2.hp = this.hp2;
     
-    console.log(this.hp2)
-    this.layer0.addChild(this.hp2);
+    // console.log(this.hp2)
+    // this.layer0.addChild(this.hp2);
     this.layer0.addChild(this.bg);
     this.layer0.addChild(this.player);
     this.layer0.addChild(this.player2);

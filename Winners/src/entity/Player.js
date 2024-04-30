@@ -124,8 +124,8 @@ Winners.entity.Player.prototype.m_initPhysics = function () {
  * @private
  */
 Winners.entity.Player.prototype.m_initAnimation = function () {
-    this.life.globalX = this.globalX;
-  this.life.globalY = this.globalY;
+  //   this.life.globalX = this.globalX;
+  // this.life.globalY = this.globalY;
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
@@ -207,7 +207,7 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   var minY = 0;
   var maxX = 1280 - this.width;
   var maxY = 720 - this.height;
-  console.log("test")
+  //console.log("test")
   this.x = Math.min(Math.max(this.x, minX), maxX);
   this.y = Math.min(Math.max(this.y, minY), maxY);
 };
