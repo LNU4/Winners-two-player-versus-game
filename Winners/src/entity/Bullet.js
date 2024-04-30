@@ -16,7 +16,7 @@
  * 
  * Represents a bullet.
  */
-Winners.entity.Bullet = function(layer1, bulletOwner, bulletTarget, x, y) {
+Winners.entity.Bullet = function(layer0, bulletOwner, bulletTarget, x, y) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -29,8 +29,8 @@ Winners.entity.Bullet = function(layer1, bulletOwner, bulletTarget, x, y) {
      * @default 20
      */
 
-    this.damage = 20.0;
-    this.layer1 = layer1;
+    this.damage = 20;
+    this.layer0 = layer0;
 
     this.bulletOwner = bulletOwner;
     this.bulletTarget = bulletTarget;
@@ -84,49 +84,39 @@ Winners.entity.Bullet.prototype.update = function(step) {
     rune.display.DisplayObject.prototype.update.call(this, step);
     
     if(this.hitTest(this.bulletTarget)){
-       // console.log(this.bulletOwner)
+        
+        this.layer0.removeChild(this);
 
-        //var effect = new Winners.entity.Effect(this.bulletTarget.globalX, this.bulletTarget.globalY);
 
-        //this.stage.addChild(effect);
-        // this.hitTestAndSeparate(this.bulletTarget)
-        // console.log(this.stage.numChildren);
-        // console.log(this.bulletTarget.lifeIx)
+        console.log(this.bulletTarget.parent)
         var actualLife = this.bulletTarget.livesArr[this.bulletTarget.lifeIx];
+       // console.log(this.bulletTarget.lifeIx)
         var actualLifeHpOb = actualLife.hp;
         console.log(actualLifeHpOb);
-// console.log(actualLife.value)
-        actualLife.value -= this.damage;
-        // console.log( 'current hp value', actualLife.value)
-        // console.log(actualLife.hp)
-        if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
-            // console.log(this.bulletTarget.lifeArr[this.bulletTarget.lifeIx].hp)
-            this.stage.removeChild(this.bulletTarget.livesArr[2])
-            // console.log(this.bulletTarget.livesArr[2])
-            this.stage.removeChild(actualLifeHpOb)
-             console.log('GAME OVER')
-            // console.log( 'current life',this.bulletTarget.lifeIx)
-            // this.stage.removeChild(this.bulletTarget.livesArr[2])
-           
-           
-            // console.log(this.bulletTarget.lifeIx)
-        } else if (actualLife.value <= 0){
-            // this.stage.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
-            // console.log(actualLifeHpOb)
-            // console.log(this.bulletTarget.lifeIx)
-            // console.log(this.stage.numChildren)
-            
-           this.bulletTarget.flicker.start(); 
-            
-           // console.log(this.bulletTarget.lifeArr[this.bulletTarget.lifeIx].hp)
-           this.stage.removeChild(actualLifeHpOb)
-           //console.log(this.stage.numChildren)
-            this.stage.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
-            this.bulletTarget.lifeIx ++
 
+        actualLife.value -= this.damage;
+        console.log(actualLife.value)
+        if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
+           
+         this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2])
+            
+            this.bulletTarget.parent.removeChild(actualLifeHpOb)
+             console.log('GAME OVER')
+            
+        } else if (actualLife.value <= 0){
+            
+            //console.log(this.bulletTarget.parent.removeChild(actualLifeHpOb))
+           this.bulletTarget.flicker.start(); 
+          
+           this.bulletTarget.parent.removeChild(actualLifeHpOb)
+          
+            this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
+            console.log(this.bulletTarget.lifeIx)
+            console.log(this.bulletTarget.livesArr)
+            this.bulletTarget.lifeIx ++
+            console.log(this.bulletTarget.lifeIx)
             this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp = new Winners.entity.Hps(this.bulletTarget.livesArr[this.bulletTarget.lifeIx], this.stage, this.bulletTarget);
-            this.stage.addChildAt( this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp, 2)
-          // actualLifeHpOb.flicker.start();
+            this.bulletTarget.parent.addChildAt( this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp, 2)
            
         }
         //console.log(this.bulletTarget.lifeArr[this.bulletTarget.lifeIx])
@@ -164,9 +154,9 @@ Winners.entity.Bullet.prototype.update = function(step) {
         //     this.bulletTarget.lifeIx ++
            
         // }
-        console.log(this.stage.numChildren)
+        //console.log(this.stage.numChildren)
 
-        this.stage.removeChild(this);
+       
         //this.dispose();
         
         // console.log(this.stage.numChildren);
