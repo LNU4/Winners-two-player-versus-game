@@ -76,7 +76,7 @@ Winners.scene.Game.prototype.init = function() {
 
     this.turret2 = new Winners.entity.Turret2(1150, 359.5, this.layer0, this.player);
 
-    this.player = new Winners.entity.Player(70, 359.5, this.turret1, this.layer1); 
+    this.player = new Winners.entity.Player(70, 359.5, this.turret1, this.layer0); 
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.player);
 
 

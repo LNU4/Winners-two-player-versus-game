@@ -177,6 +177,10 @@ Winners.entity.Player2.prototype.m_updateInput = function () {
     this.animation.gotoAndPlay("walk");
   }
 
+  if ( gamepad.pressed(7) || this.keyboard.pressed("O")) {
+    this.shoot();
+  }
+
   if (
     rune.util.Math.abs(this.velocity.x) <= 0 &&
     rune.util.Math.abs(this.velocity.y) <= 0

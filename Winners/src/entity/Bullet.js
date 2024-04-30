@@ -94,6 +94,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
         // console.log(this.bulletTarget.lifeIx)
         var actualLife = this.bulletTarget.livesArr[this.bulletTarget.lifeIx];
         var actualLifeHpOb = actualLife.hp;
+        console.log(actualLifeHpOb);
 // console.log(actualLife.value)
         actualLife.value -= this.damage;
         // console.log( 'current hp value', actualLife.value)
