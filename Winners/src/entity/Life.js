@@ -18,8 +18,9 @@ Winners.entity.Life = function (player, ix) {
         this.ix = ix;
         // console.log(this.ix)
         // this.value = 100
-        this.x = null;
-        this.y = null;
+        this.x = 0;
+        this.y = 0;
+        this.value = 0;
         //this.hp = null; 
     //*** */
         //  this.hp = new Winners.entity.Hps(this, this.player.parent, this.player)
@@ -48,7 +49,7 @@ Winners.entity.Life = function (player, ix) {
      /**
       * ****** THESE LINES SJOULD BE MOVED INTO init() ******
       */
-  
+
     // console.log(this.player.parent)
          if (this.ix === 0){
             this.value = 100
