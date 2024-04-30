@@ -48,7 +48,7 @@ Winners.entity.Life = function (player, ix) {
      /**
       * ****** THESE LINES SJOULD BE MOVED INTO init() ******
       */
-
+  
     // console.log(this.player.parent)
          if (this.ix === 0){
             this.value = 100

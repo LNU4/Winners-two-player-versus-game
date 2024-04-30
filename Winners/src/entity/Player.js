@@ -33,7 +33,7 @@ Winners.entity.Player = function (x, y, turret1, container) {
    */
   rune.display.Sprite.call(this, x, y, 64, 64, "resizedtank");
   this.turret1 = turret1;
-  this.layer1 = container;
+  this.layer0 = container;
  
 };
 
@@ -132,7 +132,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
 
 
 Winners.entity.Player.prototype.shoot = function () {
-  this.bullets = new Winners.entity.Bullets(this.layer1, this, this.turret1);
+  this.bullets = new Winners.entity.Bullets(this.layer0, this, this.turret1);
   this.application.scenes.selected.groups.add(this.bullets);
   this.bullet = this.bullets.create(this.centerX, this.centerY);
   
@@ -207,7 +207,7 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   var minY = 0;
   var maxX = 1280 - this.width;
   var maxY = 720 - this.height;
-  //console.log("test")
+
   this.x = Math.min(Math.max(this.x, minX), maxX);
   this.y = Math.min(Math.max(this.y, minY), maxY);
 };
