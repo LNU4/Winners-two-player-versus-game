@@ -79,20 +79,11 @@ Winners.scene.Game.prototype.init = function() {
     this.player = new Winners.entity.Player(70, 359.5, this.turret1, this.layer0); 
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.player);
 
+    this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0);
 
     this.base = new Winners.entity.Base(10, 359.5);
     this.base2 = new Winners.entity.Base2(1220, 359.5);
-/*
-    //this.hp2 = new Winners.entity.Hps(300, 300);
-   // this.player2.hp = this.hp2;
-    //console.log(this.hp2)
-    
-    this.stage.addChild(this.bg);
-    this.stage.addChild(this.player);
-    this.stage.addChild(this.player2);
-    this.stage.addChild(this.base);
-    this.stage.addChild(this.base2);
-    //this.stage.addChild(this.hp2);*/
+
 
     var camera = this.cameras.getCameraAt(0);
     //camera.addChild(smth);
@@ -132,7 +123,7 @@ Winners.scene.Game.prototype.init = function() {
     this.layer0.addChild(this.player2);
     this.layer0.addChild(this.base);
     this.layer0.addChild(this.base2);
-    
+    this.layer0.addChild(this.Soldiers);
     this.layer2.addChild(this.turret2);
     this.layer0.addChild(this.Base1shield);
     this.layer0.addChild(this.Base2shield);
