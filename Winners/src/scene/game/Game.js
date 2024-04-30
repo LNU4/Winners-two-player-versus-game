@@ -89,13 +89,13 @@ Winners.scene.Game.prototype.init = function() {
     //camera.addChild(smth);
    console.log(this.stage.numChildren);
     this.timers.create({
-        duration: 3000,
-        onComplete: function(){
-            this.truck = new Winners.entity.Truck(200, 500)
-            this.stage.addChild(this.truck)
-            console.log(this.stage.numChildren);
-            console.log('.-.-.')
-        }
+        // duration: 3000,
+        // onComplete: function(){
+        //     this.truck = new Winners.entity.Truck(200, 500)
+        //     this.stage.addChild(this.truck)
+        //     console.log(this.stage.numChildren);
+        //     console.log('.-.-.')
+       // }
     });
 
     // var timeInMs = 2000;

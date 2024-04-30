@@ -17,9 +17,13 @@ Winners.entity.Life = function (player, ix) {
 
         this.ix = ix;
 
-        this.x = null;
-        this.y = null;
- 
+        // console.log(this.ix)
+        // this.value = 100
+        this.x = 0;
+        this.y = 0;
+        this.value = 0;
+        //this.hp = null; 
+
     //*** */
 
          
@@ -38,7 +42,7 @@ Winners.entity.Life = function (player, ix) {
      /**
       * ****** THESE LINES SJOULD BE MOVED INTO init() ******
       */
-  
+
     // console.log(this.player.parent)
          if (this.ix === 0){
             this.value = 100
