@@ -132,9 +132,6 @@ Winners.entity.Player2.prototype.shoot = function () {
   bullet.rotation = this.rotation;
   
 
-  //  bullet.x = 0 -( bullet.width >> 1);
-  //  bullet.y = 0 -( bullet.height >> 1);
-  //   this.addChild(bullet);
 };
 
 /**
@@ -166,13 +163,13 @@ Winners.entity.Player2.prototype.m_updateInput = function () {
   if (this.keyboard.pressed("DOWN")) {
     this.velocity.y += 0.15;
     this.rotation = 180;
-    //this.flippedY = false;
+   
     this.animation.gotoAndPlay("walk");
   }
 
   if (this.keyboard.pressed("UP")) {
     this.velocity.y -= 0.15;
-    //this.flippedY = true;
+
     this.rotation = 0;
     this.animation.gotoAndPlay("walk");
   }

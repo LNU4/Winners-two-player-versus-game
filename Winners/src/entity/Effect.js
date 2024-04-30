@@ -23,9 +23,8 @@ Winners.entity.Effect = function(x, y) {
      * Calls the constructor method of the super class.
      */
 
-    //console.log('hit');
     rune.display.Sprite.call(this, x, y, 17, 17, "star");
-    //Winners.scene.Game.stage.addChild()
+    
 };
 
 //------------------------------------------------------------------------------
@@ -99,8 +98,5 @@ Winners.entity.Effect.prototype.m_initAnimation = function() {
  * @private
  */
 Winners.entity.Effect.prototype.m_updateInput = function() {
-    // if (Winners.entity.Player.x == Winners.entity.PlayerTwo.x && Winners.entity.Player.y== Winners.entity.PlayerTwo.y) {
-    //     console.log('HIT');
-       
-    // }
+
 };

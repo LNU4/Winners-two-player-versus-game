@@ -45,7 +45,6 @@ Winners.entity.Bullets = function(container, owner, enemy) {
      * @type {rune.media.Sound}
      * @private
      */ 
-    // this.m_soundFire = this.application.sounds.sound.get("Winners_sound_bullet_fire");
 
     //--------------------------------------------------------------------------
     //  Constructor call
