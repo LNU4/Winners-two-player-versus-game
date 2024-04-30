@@ -7,7 +7,7 @@
  * @class
  * @classdesc
  *
- * Game scene.
+ *
  */
 Winners.entity.Life = function (player, ix) {
     /**
@@ -94,3 +94,7 @@ Winners.entity.Life.prototype.init = function () {
     //     console.log('...')
     // }
 }
+
+Winners.entity.Life.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
+};

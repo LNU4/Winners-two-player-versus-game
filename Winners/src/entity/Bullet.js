@@ -167,7 +167,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
         console.log(this.stage.numChildren)
 
         this.stage.removeChild(this);
-        this.dispose();
+        //this.dispose();
         
         // console.log(this.stage.numChildren);
        
@@ -197,3 +197,4 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
 
 };
+

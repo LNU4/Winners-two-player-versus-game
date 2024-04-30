@@ -124,8 +124,8 @@ Winners.entity.Player.prototype.m_initPhysics = function () {
  * @private
  */
 Winners.entity.Player.prototype.m_initAnimation = function () {
-    this.life.globalX = this.globalX;
-  this.life.globalY = this.globalY;
+  //   this.life.globalX = this.globalX;
+  // this.life.globalY = this.globalY;
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };

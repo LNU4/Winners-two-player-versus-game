@@ -63,3 +63,8 @@ Winners.entity.Hps.prototype.update = function (step) {
     this.y = this.player.y -20 ;
    // this.m_updateInput();
   };
+
+  Winners.entity.Hps.prototype.dispose = function () {
+    rune.display.Sprite.prototype.dispose.call(this);
+  };
+  
