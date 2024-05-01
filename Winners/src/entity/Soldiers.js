@@ -85,8 +85,8 @@ Winners.entity.Soldiers.prototype.shoot = function() {
     this.bullet.velocity.y = this.velocity.y;
     this.bullet.globalX = this.velocity.x;
     this.bullet.globalX = this.velocity.x;
-    this.bullet.rotation = this.rotation;
-  
+    this.bullet.rotation = this.targetPlayer.x - this.targetPlayer.y;
+    
     
 };
 

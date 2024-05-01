@@ -90,7 +90,7 @@ Winners.scene.Game.prototype.init = function() {
     //camera.addChild(smth);
    console.log(this.stage.numChildren);
     this.timers.create({
-        duration: 1000000,
+        duration: 4000,
         onComplete: function(){
             var randomY = Math.random() * 720; 
             this.truck = new Winners.entity.Truck(-100, randomY, this.player2, this.layer0)
@@ -178,7 +178,7 @@ Winners.scene.Game.prototype.dispose = function() {
  */
 Winners.scene.Game.prototype.m_updateInput = function(step) {
     if (this.keyboard.justPressed("SPACE")) {
-        
+
         this.application.scenes.load([new Winners.scene.Menu()]);
     }
 

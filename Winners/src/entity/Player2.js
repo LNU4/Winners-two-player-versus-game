@@ -66,7 +66,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player) {
    
    console.log(this.turret1); 
    
-  var lifeX = 1245; 
+  var lifeX = 1230; 
   var lifeY = 25; 
   
     for (var i = 0; i<this.lives; i++){
