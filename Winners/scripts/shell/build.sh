@@ -18,6 +18,7 @@ npx google-closure-compiler \
 --js "./../../src/entity/Base2.js" \
 --js "./../../src/entity/Base1shield.js" \
 --js "./../../src/entity/Base2shield.js" \
+--js "./../../src/entity/Truck.js" \
 --js "./../../src/entity/soldier.js" \
 --js "./../../src/entity/Hps.js" \
 --js "./../../src/entity/Bullet.js" \

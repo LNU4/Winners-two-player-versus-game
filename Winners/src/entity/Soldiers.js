@@ -1,16 +1,16 @@
-Winners.entity.Soldiers = function(x, y, targetPlayer, container) {
+Winners.entity.Soldiers = function(x, y, targetPlayer, layer) {
     this.targetPlayer = targetPlayer;
     this.shootDistance = 200; 
     this.moveSpeed = 1.0; 
     this.shootCooldown = 1000; 
     this.lastShootTime = 0;
 
-   
+    this.layer = layer;
+
     rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
-
-    container.addChild(this);
+    this.layer.addChild(this);
+    
 };
-
 
 Winners.entity.Soldiers.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Soldiers.prototype.constructor = Winners.entity.Soldiers;
@@ -40,10 +40,19 @@ Winners.entity.Soldiers.prototype.update = function(step) {
             this.lastShootTime = currentTime; 
         }
     }
+    this.debug = true;
+    var minX = 0;
+    var minY = 0;
+    var maxX = 1280 - this.width;
+    var maxY = 720 - this.height;
+  
+    this.x = Math.min(Math.max(this.x, minX), maxX);
+    this.y = Math.min(Math.max(this.y, minY), maxY);
 };
 
 
 Winners.entity.Soldiers.prototype.shoot = function() {
+    /*
     // Calculate start position and velocity
     var startX = this.x;
     var startY = this.y;
@@ -65,7 +74,20 @@ Winners.entity.Soldiers.prototype.shoot = function() {
         
        
         this.parent.addChild(bullet);
-    }
+    } 
+    */ 
+    this.bullets = new Winners.entity.Bullets(this.layer, this, this.turret1, this.targetPlayer);
+    this.application.scenes.selected.groups.add(this.bullets);
+    this.bullet = this.bullets.create(this.centerX, this.centerY);
+    
+    
+    this.bullet.velocity.x = this.velocity.x;
+    this.bullet.velocity.y = this.velocity.y;
+    this.bullet.globalX = this.velocity.x;
+    this.bullet.globalX = this.velocity.x;
+    this.bullet.rotation = this.rotation;
+  
+    
 };
 
 
