@@ -67,8 +67,18 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
  */
 Winners.entity.Truck.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    this.velocity.y -= 0.15;
+    //this.flippedX = true;
+    this.velocity.x += 0.15;
     this.animation.gotoAndPlay("walk");
+    console.log(this.globalX)
+    if (this.globalX >= 907.5){
+        console.log(this.globalX)
+        this.velocity.x = 0;
+        this.animation.gotoAndPlay("idle");
+
+   
+    }
+
 
     
 };
