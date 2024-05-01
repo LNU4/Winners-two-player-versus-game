@@ -97,11 +97,13 @@ Winners.entity.Bullet.prototype.update = function(step) {
         console.log(actualLife.value)
         if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
            
-         this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2])
+         this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
+         this.bulletTarget.parent.removeChild(actualLifeHpOb);
+        //this.bulletOwner.parent.removeChild(this.bulletTarget);
             
-            this.bulletTarget.parent.removeChild(actualLifeHpOb)
+           
              console.log('GAME OVER')
-            
+             this.application.scenes.load([new Winners.scene.Menu()]);
         } else if (actualLife.value <= 0){
 
             

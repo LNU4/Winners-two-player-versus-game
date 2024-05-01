@@ -25,8 +25,8 @@ Winners.scene.Game = function() {
      * @type {Winners.scene.Player}
      * @type {Winners.scene.Player2}
      */
-    this.player = null;
-    this.player2 = null;
+    //this.player = null;
+   // this.player2 = null;
   
     //--------------------------------------------------------------------------    
     // Super call
@@ -79,7 +79,7 @@ Winners.scene.Game.prototype.init = function() {
     this.player = new Winners.entity.Player(70, 359.5, this.turret1, this.layer0); 
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.turret2, this.player);
     this.player.player2 = this.player2;
-
+    console.log(this.layer0);
     this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0);
 
     this.base = new Winners.entity.Base(10, 359.5);
@@ -90,9 +90,10 @@ Winners.scene.Game.prototype.init = function() {
     //camera.addChild(smth);
    console.log(this.stage.numChildren);
     this.timers.create({
-        duration: 3000,
+        duration: 4000,
         onComplete: function(){
-            this.truck = new Winners.entity.Truck(-100, 500)
+            var randomY = Math.random() * 720; 
+            this.truck = new Winners.entity.Truck(-100, randomY, this.player2, this.layer0)
             this.stage.addChild(this.truck)
        //     console.log(this.stage.numChildren);
          //   console.log('.-.-.')
@@ -177,6 +178,7 @@ Winners.scene.Game.prototype.dispose = function() {
  */
 Winners.scene.Game.prototype.m_updateInput = function(step) {
     if (this.keyboard.justPressed("SPACE")) {
+
         this.application.scenes.load([new Winners.scene.Menu()]);
     }
 
@@ -187,6 +189,9 @@ Winners.scene.Game.prototype.m_updateInput = function(step) {
         // console.log('hit');
         //this.player.debug();
        }
-
+    
+       else if (this.Soldiers.hitTestAndSeparate(this.player2)) {
+        console.log("no please")
+       }
     
 }; 

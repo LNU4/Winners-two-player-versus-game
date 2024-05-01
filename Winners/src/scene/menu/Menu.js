@@ -44,7 +44,7 @@ Winners.scene.Menu.prototype.constructor = Winners.scene.Menu;
  */
 Winners.scene.Menu.prototype.init = function() {
     rune.scene.Scene.prototype.init.call(this);
-    var text = new rune.text.BitmapField("Hello Menu!");
+    var text = new rune.text.BitmapField("Game over");
     //text.debug = true;
     text.autoSize = true;
     text.center = this.cameras.getCameraAt(0).viewport.center;
