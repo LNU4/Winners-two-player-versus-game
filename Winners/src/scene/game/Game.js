@@ -77,7 +77,8 @@ Winners.scene.Game.prototype.init = function() {
     this.turret2 = new Winners.entity.Turret2(1150, 359.5, this.layer0, this.player);
 
     this.player = new Winners.entity.Player(70, 359.5, this.turret1, this.layer0); 
-    this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.player);
+    this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.turret2, this.player);
+    this.player.player2 = this.player2;
 
     this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0);
 
@@ -93,8 +94,8 @@ Winners.scene.Game.prototype.init = function() {
         onComplete: function(){
             this.truck = new Winners.entity.Truck(-100, 500)
             this.stage.addChild(this.truck)
-            console.log(this.stage.numChildren);
-            console.log('.-.-.')
+       //     console.log(this.stage.numChildren);
+         //   console.log('.-.-.')
        }
     });
 

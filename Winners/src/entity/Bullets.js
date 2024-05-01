@@ -15,7 +15,7 @@
  * 
  * Represents a handler for bullets.
  */
-Winners.entity.Bullets = function(container, owner, enemy) {
+Winners.entity.Bullets = function(container, owner, turret,enemy) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -32,6 +32,7 @@ Winners.entity.Bullets = function(container, owner, enemy) {
     console.log(container);
     this.owner = owner;
     this.enemy = enemy;
+    this.turret = turret;
     // console.log(this.owner)
     // console.log(this.enemy)
     
