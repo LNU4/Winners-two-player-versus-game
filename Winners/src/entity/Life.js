@@ -9,14 +9,14 @@
  *
  *
  */
-Winners.entity.Life = function (player, ix) {
+Winners.entity.Life = function (player, ix, cordOb) {
     /**
      *
      */
         this.player = player;
 
         this.ix = ix;
-
+        this.cordOb = cordOb;
         // console.log(this.ix)
         // this.value = 100
         this.x = 0;
@@ -51,21 +51,23 @@ Winners.entity.Life = function (player, ix) {
          this.player.parent.addChildAt(this.hp, 2);
        /*** */
    
-            this.x = 5;
-            this.y = 25;
+            this.x = cordOb.lifeX;
+            this.y = cordOb.lifeY;
             
          }
          else if (this.ix === 1){
             this.value = 100
-    
-            this.x = 20;
-            this.y = 25;
+            this.x = cordOb.lifeX + 15;
+            this.y = cordOb.lifeY;
+            // this.x = 20;
+            // this.y = 25;
          }
          else if (this.ix === 2){
             this.value = 100
-            
-            this.x = 35;
-            this.y = 25;
+            this.x = cordOb.lifeX + 30;
+            this.y = cordOb.lifeY;
+            // this.x = 35;
+            // this.y = 25;
             
          }
        

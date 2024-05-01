@@ -60,12 +60,14 @@ Winners.entity.Player.prototype.init = function () {
 
  
  console.log(this.turret1); 
-
-
+ 
+ var lifeX = 5; 
+ var lifeY = 25; 
 
   for (var i = 0; i<this.lives; i++){
    var lifeIx = i;
-    this.life = new Winners.entity.Life(this, lifeIx );
+
+    this.life = new Winners.entity.Life(this, lifeIx, {lifeX,lifeY} );
 
     this.livesArr.push(this.life);
   }
@@ -131,7 +133,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
 
 
 Winners.entity.Player.prototype.shoot = function () {
-  this.bullets = new Winners.entity.Bullets(this.layer0, this, this.turret1);
+  this.bullets = new Winners.entity.Bullets(this.layer0, this, this.turret1, this.player2);
   this.application.scenes.selected.groups.add(this.bullets);
   this.bullet = this.bullets.create(this.centerX, this.centerY);
   

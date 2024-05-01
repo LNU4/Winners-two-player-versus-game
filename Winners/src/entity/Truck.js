@@ -70,9 +70,9 @@ Winners.entity.Truck.prototype.update = function(step) {
     //this.flippedX = true;
     this.velocity.x += 0.15;
     this.animation.gotoAndPlay("walk");
-    console.log(this.globalX)
+    //console.log(this.globalX)
     if (this.globalX >= 907.5){
-        console.log(this.globalX)
+       // console.log(this.globalX)
         this.velocity.x = 0;
         this.animation.gotoAndPlay("idle");
 
