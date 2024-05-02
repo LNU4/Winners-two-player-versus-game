@@ -191,7 +191,7 @@ Winners.entity.Player.prototype.m_updateInput = function () {
     this.animation.gotoAndPlay("walk");
   }
 
-  if ( gamepad.pressed(7) || this.keyboard.pressed("P")) {
+  if ( gamepad.justPressed(7) || this.keyboard.justPressed("P")) {
     this.shoot();
   }
 
