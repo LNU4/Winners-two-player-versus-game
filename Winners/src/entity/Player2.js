@@ -204,7 +204,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player) {
       this.animation.gotoAndPlay("walk");
     }
   
-    if ( gamepad.pressed(7) || this.keyboard.pressed("M")) {
+    if ( gamepad.justPressed(7) || this.keyboard.justPressed("M")) {
       this.shoot();
       console.log("shot")
     }

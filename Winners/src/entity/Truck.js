@@ -72,54 +72,41 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
  */
 Winners.entity.Truck.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    //this.flippedX = true;
-   /* this.velocity.x += 0.15;
-    this.animation.gotoAndPlay("walk");
-    //console.log(this.globalX)
-    if (this.globalX >= 907.5){
-       // console.log(this.globalX)
-        this.velocity.x = 0;
-        this.animation.gotoAndPlay("idle");
 
-   
-    }
-
-    */ 
-   
     if (!this.reachedPlayer) {
-        
         var dx = this.player.x - this.x;
         var dy = this.player.y - this.y;
         var distance = Math.sqrt(dx * dx + dy * dy);
 
-        dx /= distance;
-        dy /= distance;
-
-        this.x += dx * this.movementspeed;
-        this.y += dy * this.movementspeed;
-
-        var radius = 20;
-        if (
-            Math.abs(this.x - this.player.x) <= radius &&
-            Math.abs(this.y - this.player.y) <= radius
-        ) {
+        
+        if (distance <= 120) {
             this.reachedPlayer = true;
             this.stopAndSpawnSoldiers();
+        } else {
+            
+            dx /= distance;
+            dy /= distance;
+            this.x += dx * this.movementspeed;
+            this.y += dy * this.movementspeed;
         }
-    } 
+    }
     
 };
 Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function() {
     
     this.velocity.x = 0;
-
+    var truckX = this.x; 
+    var truckY = this.y;
  
     for (var i = 0; i < 3; i++) {
+        
         var angle = Math.random() * Math.PI * 2;
-        var distance = 20;
-        var soldierX = this.player.x + Math.cos(angle) * distance;
-        var soldierY = this.player.y + Math.sin(angle) * distance;
-        var soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player, this.layer0);
+        var distance = 30;
+        var soldierX = truckX + Math.cos(angle) * distance;
+        var soldierY = truckY + Math.sin(angle) * distance;
+        
+        this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player, this.layer0);
+        
     }
 };
 /**
