@@ -80,7 +80,7 @@ Winners.scene.Game.prototype.init = function() {
     this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.turret2, this.player);
     this.player.player2 = this.player2;
     console.log(this.layer0);
-    this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0);
+    this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
 
     this.base = new Winners.entity.Base(10, 359.5);
     this.base2 = new Winners.entity.Base2(1220, 359.5);
@@ -93,7 +93,7 @@ Winners.scene.Game.prototype.init = function() {
         duration: 4000,
         onComplete: function(){
             var randomY = Math.random() * 720; 
-            this.truck = new Winners.entity.Truck(-100, randomY, this.player2, this.layer0)
+            this.truck = new Winners.entity.Truck(-100, randomY, this.player2, this.layer0, this)
             this.stage.addChild(this.truck)
        //     console.log(this.stage.numChildren);
          //   console.log('.-.-.')
@@ -191,6 +191,7 @@ Winners.scene.Game.prototype.m_updateInput = function(step) {
        }
     
        else if (this.Soldiers.hitTestAndSeparate(this.player2)) {
+        this.layer0.removeChild(this.Soldiers)
         console.log("no please")
        }
     
