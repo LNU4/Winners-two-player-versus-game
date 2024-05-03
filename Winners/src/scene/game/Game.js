@@ -115,8 +115,8 @@ Winners.scene.Game.prototype.init = function() {
     // }
 
 
-    this.Base1shield = new Winners.entity.Base1shield(15, 380); 
-    this.Base2shield = new Winners.entity.Base2shield(1150, 380);
+    this.Base1shield = new Winners.entity.Base1shield(5, 344); 
+    this.Base2shield = new Winners.entity.Base2shield(1150, 340);
 
 
   //  this.hp2 = new Winners.entity.Hps(300, 300);

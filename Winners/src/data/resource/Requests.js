@@ -45,6 +45,8 @@ Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
     this.add("100hp", "./../asset/png/100hp.png");
 	this.add("background", "./../asset/png/background.png");
+	this.add("base", "./../asset/png/base.png");
+	this.add("Baseprotection", "./../asset/png/Baseprotection.png");
 	this.add("heart", "./../asset/png/heart.png");
 	this.add("resizedtank", "./../asset/png/resizedtank.png");
 	this.add("soldiers", "./../asset/png/soldiers.png");
