@@ -23,6 +23,8 @@ Winners.entity.Player2 = function (x, y, container, turret1, player) {
       this.lifeIx = 0;
       this.lives = 3;
       this.livesArr = [];
+      this.initX = x;
+      this.initY = y;
       
   
     //--------------------------------------------------------------------------

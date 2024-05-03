@@ -92,6 +92,11 @@ Winners.scene.Game.prototype.init = function() {
     this.timers.create({
         duration: 4000,
         onComplete: function(){
+            this.pb = new rune.ui.Progressbar (100, 25, "#ffff00", "#ff00ff");
+            this.layer0.addChild(this.pb);
+            this.pb.m_x = 1100;
+            this.pb.m_y = 600;
+            console.log(this.pb);
             var randomY = Math.random() * 720; 
             this.truck = new Winners.entity.Truck(-100, randomY, this.player2, this.layer0)
             this.stage.addChild(this.truck)
