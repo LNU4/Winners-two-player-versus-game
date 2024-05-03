@@ -13,7 +13,7 @@
  *
  * Game scene.
  */
-Winners.entity.Player = function (x, y, turret1, container) {
+Winners.entity.Player = function (x, y, turret1, container, playerBase, enemyBase) {
 /**
  * placeholder to refer to the second player
  */
@@ -24,6 +24,8 @@ Winners.entity.Player = function (x, y, turret1, container) {
     this.initX = x;
     this.initY = y;
     this.livesArr = [];
+    this.playerBase = playerBase;
+    this.enemyBase = enemyBase;
     
     
 
@@ -62,7 +64,7 @@ Winners.entity.Player.prototype.init = function () {
 
 
  
- console.log(this.turret1); 
+ 
  
  var lifeX = 5; 
  var lifeY = 25; 
@@ -136,7 +138,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
 
 
 Winners.entity.Player.prototype.shoot = function () {
-  this.bullets = new Winners.entity.Bullets(this.layer0, this, this.turret1, this.player2);
+  this.bullets = new Winners.entity.Bullets(this.layer0, this, this.turret1, this.player2, this.playerBase,  this.enemyBase);
   this.application.scenes.selected.groups.add(this.bullets);
   this.bullet = this.bullets.create(this.centerX, this.centerY);
   

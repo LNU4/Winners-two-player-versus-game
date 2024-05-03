@@ -52,10 +52,10 @@ Winners.entity.Life = function (player, ix, cordOb) {
          // this.hp = new Winners.entity.Hps(this, this.player.parent, this.player)
         this.hp = new  Winners.entity.Hps(this, this.player.parent, this.player);
         // console.log(this.player.parent.numChildren)
-        console.log(this.player.parent.numChildren)
+     
       //   this.hp.m_x = this.player.x;
       //   this.hp.m_y = this.player.y;
-      console.log(this.hp)
+      
        this.player.parent.addChild(this.hp);
       //console.log(this.player.parent.numChildren)
        //  this.player.parent.addChildAt(this.hp, 2);
@@ -77,7 +77,7 @@ Winners.entity.Life = function (player, ix, cordOb) {
             this.y = cordOb.lifeY;
            
          }
-         console.log(this.hp);
+         
        
          
      

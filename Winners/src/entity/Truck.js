@@ -13,7 +13,7 @@
  * 
  * Game scene.
  */
-Winners.entity.Truck = function(x, y, player2, layer0, game) {
+Winners.entity.Truck = function(x, y, player, player2, layer0, game) {
 
     //--------------------------------------------------------------------------
     // Super call
