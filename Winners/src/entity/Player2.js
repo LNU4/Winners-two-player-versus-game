@@ -14,7 +14,8 @@
  * Game scene.
  */
 
-Winners.entity.Player2 = function (x, y, container, turret1, player) {
+Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base, enemy1Base
+  ) {
   /**
    * placeholder to refer to the second player
    */
@@ -25,6 +26,8 @@ Winners.entity.Player2 = function (x, y, container, turret1, player) {
       this.livesArr = [];
       this.initX = x;
       this.initY = y;
+      this.player2Base = player2Base;  
+      this.enemy1Base = enemy1Base
       
   
     //--------------------------------------------------------------------------
@@ -147,7 +150,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player) {
   
   Winners.entity.Player2.prototype.shoot = function () {
     this.bullets = new 
-    Winners.entity.Bullets(this.layer0, this, this.turret1, this.player);
+    Winners.entity.Bullets(this.layer0, this, this.turret1, this.player, this.player2Base, this.enemy1Base);
     this.application.scenes.selected.groups.add(this.bullets);
     this.bullet = this.bullets.create(this.centerX, this.centerY);
     
@@ -208,7 +211,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player) {
   
     if ( gamepad.justPressed(7) || this.keyboard.justPressed("M")) {
       this.shoot();
-      console.log("shot")
+      //console.log("shot")
     }
   
     if (

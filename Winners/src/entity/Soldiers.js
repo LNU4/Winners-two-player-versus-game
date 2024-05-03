@@ -5,9 +5,11 @@ Winners.entity.Soldiers = function (x, y, targetPlayer, layer, play){
     this.shootCooldown = 900;
     this.lastShootTime = 0;
     this.play = play;
-    console.log(play);
-    console.log(this.player2);
+    
     this.layer = layer;
+    this.baseOwner = this.targetPlayer.player2Base;
+    this.baseTarget = this.targetPlayer.enemy1Base ;
+    console.log(this.baseOwner)
 
     rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
     this.layer.addChild(this);
@@ -24,7 +26,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     var dx = this.targetPlayer.x - this.x;
     var dy = this.targetPlayer.y - this.y;
     var distance = Math.sqrt(dx * dx + dy * dy);
- console.log(this.play)
+ //console.log(this.play)
     if (this.play.player2.hitTest(this))   {
         console.log('HIT')
         this.play.layer0.removeChild(this);
@@ -77,7 +79,7 @@ Winners.entity.Soldiers.prototype.shoot = function () {
 
 
             if (!this.bullets) {
-                this.bullets = new Winners.entity.Bullets(this.layer, this, this.turret1, this.targetPlayer);
+                this.bullets = new Winners.entity.Bullets(this.layer, this, this.turret1, this.targetPlayer, this.baseOwner, this.baseTarget);
                 this.application.scenes.selected.groups.add(this.bullets);
             }
 
