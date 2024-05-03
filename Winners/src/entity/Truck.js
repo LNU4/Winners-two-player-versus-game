@@ -13,7 +13,7 @@
  * 
  * Game scene.
  */
-Winners.entity.Truck = function(x, y, player2, layer0) {
+Winners.entity.Truck = function(x, y, player2, layer0, game) {
 
     //--------------------------------------------------------------------------
     // Super call
@@ -25,7 +25,9 @@ Winners.entity.Truck = function(x, y, player2, layer0) {
     rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
     this.player = player2;
     this.layer0 = layer0;
-    
+
+    this.game = game;
+
     this.movementspeed = 5; 
     this.reachedPlayer = false;
     
@@ -65,6 +67,27 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
     this.animation.create("walk", [0, 1], 1, true);
 };
 
+Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function() {
+    
+    this.velocity.x = 0;
+    var truckX = this.x; 
+    var truckY = this.y;
+ 
+    for (var i = 0; i < 3; i++) {
+        
+        var angle = Math.random() * Math.PI * 2;
+        var distance = 30;
+        var soldierX = truckX + Math.cos(angle) * distance;
+        var soldierY = truckY + Math.sin(angle) * distance;
+        console.log(this.game)
+        
+        this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player, this.layer0, this.game);
+        
+    }
+};
+
+
+
 /**
  * ...
  *
@@ -74,7 +97,10 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
  */
 Winners.entity.Truck.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-
+   /* if (this.game.player2.hitTest(this.soldier))   {
+        console.log('HIT')
+        this.layer0.removeChild(this.soldier);
+    }*/
     if (!this.reachedPlayer) {
         var dx = this.player.x - this.x;
         var dy = this.player.y - this.y;
@@ -91,26 +117,11 @@ Winners.entity.Truck.prototype.update = function(step) {
             this.x += dx * this.movementspeed;
             this.y += dy * this.movementspeed;
         }
-    }
+
+ }
     
 };
-Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function() {
-    
-    this.velocity.x = 0;
-    var truckX = this.x; 
-    var truckY = this.y;
- 
-    for (var i = 0; i < 3; i++) {
-        
-        var angle = Math.random() * Math.PI * 2;
-        var distance = 30;
-        var soldierX = truckX + Math.cos(angle) * distance;
-        var soldierY = truckY + Math.sin(angle) * distance;
-        
-        this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player, this.layer0);
-        
-    }
-};
+
 /**
  * ...
  *

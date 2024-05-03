@@ -1,10 +1,12 @@
-Winners.entity.Soldiers = function (x, y, targetPlayer, layer) {
+Winners.entity.Soldiers = function (x, y, targetPlayer, layer, play){
     this.targetPlayer = targetPlayer;
     this.shootDistance = 200;
     this.moveSpeed = 2;
     this.shootCooldown = 900;
     this.lastShootTime = 0;
-
+    this.play = play;
+    console.log(play);
+    console.log(this.player2);
     this.layer = layer;
 
     rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
@@ -22,8 +24,11 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     var dx = this.targetPlayer.x - this.x;
     var dy = this.targetPlayer.y - this.y;
     var distance = Math.sqrt(dx * dx + dy * dy);
-
-    
+ console.log(this.play)
+    if (this.play.player2.hitTest(this))   {
+        console.log('HIT')
+        this.play.layer0.removeChild(this);
+    } 
     if (distance <= this.shootDistance && distance > 90) {
         
         this.x = this.x;
@@ -60,8 +65,8 @@ Winners.entity.Soldiers.prototype.shoot = function () {
         var startX = this.centerX;
         var startY = this.centerY;
 
-        var dx = this.targetPlayer.x - startX;
-        var dy = this.targetPlayer.y - startY;
+        var dx = this.targetPlayer.centerX - startX;
+        var dy = this.targetPlayer.centerY - startY;
         var distance = Math.sqrt(dx * dx + dy * dy);
 
 
