@@ -22,7 +22,7 @@ Winners.entity.Base = function(x, y) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 32, 32, "winner-mainchar");
+    rune.display.Sprite.call(this, x, y, 32, 32, "Base");
    
 };
 

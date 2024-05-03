@@ -22,7 +22,7 @@ Winners.entity.Base2shield = function(x, y) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 32, 32, "winner-mainchar");
+    rune.display.Sprite.call(this, x, y, 64, 64, "Baseprotection");
    
 };
 
@@ -44,7 +44,7 @@ Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
  */
 Winners.entity.Base2shield.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
-    
+    this.rotation = (0); 
    
 };
 
