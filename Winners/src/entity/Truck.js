@@ -25,9 +25,12 @@ Winners.entity.Truck = function(x, y, player2, layer0, game) {
     rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
     this.player = player2;
     this.layer0 = layer0;
+
     this.game = game;
+
     this.movementspeed = 5; 
     this.reachedPlayer = false;
+    
    
 };
 

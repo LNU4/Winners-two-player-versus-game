@@ -22,7 +22,8 @@ Winners.entity.Life = function (player, ix, cordOb) {
         this.x = 0;
         this.y = 0;
         this.value = 0;
-        //this.hp = null; 
+        //this.hp = null;
+        
 
     //*** */
 
@@ -46,9 +47,18 @@ Winners.entity.Life = function (player, ix, cordOb) {
     // console.log(this.player.parent)
          if (this.ix === 0){
             this.value = 100
-             this.hp = new Winners.entity.Hps(this, this.player.parent, this.player)
+           
+          // this.hp = new rune.ui.Progressbar(16, 16, "#ffff00", "#ff00ff"); 
+         // this.hp = new Winners.entity.Hps(this, this.player.parent, this.player)
+        this.hp = new  Winners.entity.Hps(this, this.player.parent, this.player);
         // console.log(this.player.parent.numChildren)
-         this.player.parent.addChildAt(this.hp, 2);
+        console.log(this.player.parent.numChildren)
+      //   this.hp.m_x = this.player.x;
+      //   this.hp.m_y = this.player.y;
+      console.log(this.hp)
+       this.player.parent.addChild(this.hp);
+      //console.log(this.player.parent.numChildren)
+       //  this.player.parent.addChildAt(this.hp, 2);
        /*** */
    
             this.x = cordOb.lifeX;
@@ -59,17 +69,15 @@ Winners.entity.Life = function (player, ix, cordOb) {
             this.value = 100
             this.x = cordOb.lifeX + 15;
             this.y = cordOb.lifeY;
-            // this.x = 20;
-            // this.y = 25;
+           
          }
          else if (this.ix === 2){
             this.value = 100
             this.x = cordOb.lifeX + 30;
             this.y = cordOb.lifeY;
-            // this.x = 35;
-            // this.y = 25;
-            
+           
          }
+         console.log(this.hp);
        
          
      
@@ -81,7 +89,12 @@ Winners.entity.Life.prototype.constructor = Winners.entity.Life;
 Winners.entity.Life.prototype.init = function () {
 
 }
-
+Winners.entity.Life.prototype.update = function (step) {
+   rune.display.Sprite.prototype.update.call(this, step);
+   //this.hp.m_x = this.player.x;
+   // this.hp.m_y = this.player.y;
+ 
+ };
 Winners.entity.Life.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
 };
