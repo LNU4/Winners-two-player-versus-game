@@ -101,7 +101,7 @@ Winners.scene.Game.prototype.init = function() {
             this.pb.m_y = 600;
            
             var randomY = Math.random() * 720; 
-            this.truck = new Winners.entity.Truck(-100, randomY, this.player2, this.layer0, this)
+            this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
             this.stage.addChild(this.truck)
        //     console.log(this.stage.numChildren);
          //   console.log('.-.-.')
