@@ -23,15 +23,15 @@ Winners.entity.Truck = function(x, y, player, player2, layer0, game) {
      * Calls the constructor method of the super class.
      */
     rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
-    this.player = player2;
+    this.player2 = player2;
     this.layer0 = layer0;
-
+    this.player = player;
     this.game = game;
 
     this.movementspeed = 5; 
     this.reachedPlayer = false;
     
-   
+    
 };
 
 //------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Winners.entity.Truck.prototype.init = function() {
     this.m_initAnimation();
     this.m_initPhysics();
     
-   
+    console.log(this.game)
 };
 
 
@@ -79,9 +79,9 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function() {
         var distance = 30;
         var soldierX = truckX + Math.cos(angle) * distance;
         var soldierY = truckY + Math.sin(angle) * distance;
-        console.log(this.game)
         
-        this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player, this.layer0, this.game);
+        
+        this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player2, this.layer0, this.game);
         
     }
 };
@@ -102,8 +102,8 @@ Winners.entity.Truck.prototype.update = function(step) {
         this.layer0.removeChild(this.soldier);
     }*/
     if (!this.reachedPlayer) {
-        var dx = this.player.x - this.x;
-        var dy = this.player.y - this.y;
+        var dx = this.player2.x - this.x;
+        var dy = this.player2.y - this.y;
         var distance = Math.sqrt(dx * dx + dy * dy);
 
         
