@@ -29,7 +29,6 @@ Winners.entity.Bullets = function(container, owner, turret,enemy, ownerBase, ene
      */
     this.maxNumBullets = 4;
     this.container = container;
-   // console.log(container);
     this.owner = owner;
     this.enemy = enemy;
     this.turret = turret;

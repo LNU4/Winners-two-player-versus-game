@@ -46,7 +46,6 @@ Winners.entity.Base2.prototype.constructor = Winners.entity.Base2;
 Winners.entity.Base2.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
     this.m_placement();
-    
 };
 
 /**
