@@ -105,7 +105,7 @@ Winners.entity.Soldiers.prototype.update = function(step) {
     var maxY = 720 - this.height;
     this.x = Math.min(Math.max(this.x, minX), maxX);
     this.y = Math.min(Math.max(this.y, minY), maxY);
-};
+
 
 
    
@@ -149,9 +149,8 @@ Winners.entity.Soldiers.prototype.update = function(step) {
         console.log('HIT');
         this.play.layer0.removeChild(this);
     }
+
 };
-
-
 
 Winners.entity.Soldiers.prototype.shoot = function() {
     var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
