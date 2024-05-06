@@ -51,7 +51,7 @@ Winners.entity.Soldiers.prototype.update = function(step) {
     var targetPosition = new rune.geom.Point(this.targetPlayer.center.x, this.targetPlayer.center.y);
     var distanceX = targetPosition.x - currentPosition.x;
     var distanceY = targetPosition.y - currentPosition.y;
-    var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    var distance = currentPosition.distance(targetPosition);
 
 
      // in order to achieve what we want, we need to rotate the bullet, we need to know the angle between the bullet/player and the target
@@ -65,7 +65,7 @@ Winners.entity.Soldiers.prototype.update = function(step) {
     var directionX = distanceX / distance;
     var directionY = distanceY / distance;
 
-   if (this.shootDistance <= distance ) {
+   if (this.shootDistance < distance ) {
     currentPosition.x += directionX * this.moveSpeed;
     currentPosition.y += directionY * this.moveSpeed;
    }
