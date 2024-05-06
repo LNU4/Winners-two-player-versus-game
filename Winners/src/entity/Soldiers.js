@@ -46,6 +46,7 @@ Winners.entity.Soldiers.prototype.constructor = Winners.entity.Soldiers;
 Winners.entity.Soldiers.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
 
+
    
     var currentPosition = new rune.geom.Point(this.x, this.y);
     var targetPosition = new rune.geom.Point(this.targetPlayer.center.x, this.targetPlayer.center.y);

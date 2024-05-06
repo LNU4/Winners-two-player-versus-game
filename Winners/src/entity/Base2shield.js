@@ -43,9 +43,10 @@ Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
  * @returns {undefined}
  */
 Winners.entity.Base2shield.prototype.init = function() {
-    rune.display.Sprite.prototype.init.call(this);
-    this.rotation = (0); 
-   
+    rune.display.Sprite.p
+    console.log("Initialized"); 
+    console.log(this.rotation);
+    this.rotation = 90;
 };
 
 /**

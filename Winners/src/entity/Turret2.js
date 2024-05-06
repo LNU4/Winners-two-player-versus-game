@@ -84,7 +84,10 @@ Winners.entity.Turret2 = function (x, y) {
   //------------------------------------------------------------------------------
   // Private prototype methods
   //------------------------------------------------------------------------------
-  
+  Winners.entity.Turret2.prototype.shotAnimation = function () {
+    this.animation.gotoAndPlay("shot");
+    
+  };
   /**
    * ...
    *
@@ -93,7 +96,7 @@ Winners.entity.Turret2 = function (x, y) {
    */
   Winners.entity.Turret2.prototype.m_initPhysics = function () {
 
-    this.rotation = 90;
+    this.rotation = (-90);
   };
   
   /**
@@ -103,8 +106,8 @@ Winners.entity.Turret2 = function (x, y) {
    * @private
    */
   Winners.entity.Turret2.prototype.m_initAnimation = function () {
-    this.animation.create("idle", [0], 1, true);
-    this.animation.create("walk", [0, 1], 1, true);
+    this.animation.create("shot", [0], 2,2,2, true);
+    
   };
 
   /**

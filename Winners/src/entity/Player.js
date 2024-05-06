@@ -134,6 +134,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
 
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
+  
 };
 
 
@@ -148,7 +149,8 @@ Winners.entity.Player.prototype.shoot = function () {
   this.bullet.globalX = this.velocity.x;
   this.bullet.globalX = this.velocity.x;
   this.bullet.rotation = this.turret1.rotation - 90;
-
+  this.turret1.shotAnimation();
+  //console.log(this.turret1.shotAnimation());
   
 
 };

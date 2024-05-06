@@ -55,7 +55,7 @@ Winners.entity.Truck.prototype.init = function() {
 
     this.m_initAnimation();
     this.m_initPhysics();
-    
+    this.rotation = 90; 
     console.log(this.game)
 };
 
