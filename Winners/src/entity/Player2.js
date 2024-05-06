@@ -19,7 +19,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
   /**
    * placeholder to refer to the second player
    */
-
+     // this.soldierHit = 0; 
       this.player = player;    
       this.lifeIx = 0;
       this.lives = 3;
@@ -27,7 +27,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
       this.initX = x;
       this.initY = y;
       this.player2Base = player2Base;  
-      this.enemy1Base = enemy1Base
+      this.enemy1Base = enemy1Base;
       
   
     //--------------------------------------------------------------------------
@@ -99,6 +99,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
     rune.display.Sprite.prototype.update.call(this, step);
     this.life.globalX = this.globalX;
     this.life.globalY = this.globalY;
+    //console.log(this.soldierHit)
     this.m_updateInput();
     
   };
