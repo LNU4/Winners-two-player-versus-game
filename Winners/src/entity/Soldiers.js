@@ -23,6 +23,10 @@ Winners.entity.Soldiers = function(x, y, targetPlayer, layer, play) {
     this.shootCooldown = 900;
     this.lastShootTime = 0;
     this.play = play;
+
+    this.isDead= false; 
+    this.powerUpProb = 0; 
+
     this.layer = layer;
     this.baseOwner = this.targetPlayer.player2Base;
     this.baseTarget = this.targetPlayer.enemy1Base;
@@ -45,6 +49,63 @@ Winners.entity.Soldiers.prototype.constructor = Winners.entity.Soldiers;
 
 Winners.entity.Soldiers.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
+
+    var m_this = this; 
+    var dx = this.targetPlayer.x - this.x;
+    var dy = this.targetPlayer.y - this.y;
+    var distance = Math.sqrt(dx * dx + dy * dy);
+ //console.log(this.play)
+    if (this.play.player2.hitTest(this))   {
+     
+        this.isDead = true;
+        console.log(this.isDead)
+        this.powerUpProb = Math.random() * 5;
+        console.log(Math.round(this.powerUpProb))
+        this.play.layer0.removeChild(this);
+        this.dispose()
+    } 
+     if (Math.round(this.powerUpProb) == 2) {
+                    console.log('UUU')
+                    var ranX = Math.random() * 1280; 
+                    var ranY = Math.random() * 720; 
+                    this.play.timers.create({
+                             duration: 5000,
+                            onComplete: function(){
+                                console.log(this)
+                                console.log(m_this)
+                    this.powerUp =  new Winners.entity.Powerup (ranX, ranY);
+                    this.layer0.addChild(this.powerUp);
+                } 
+            } 
+                  );
+    } 
+
+    if (distance <= this.shootDistance && distance > 90) {
+        
+        this.x = this.x;
+        this.y = this.y;
+
+        var currentTime = Date.now();
+        if (currentTime - this.lastShootTime >= this.shootCooldown) {
+            this.shoot();
+            this.lastShootTime = currentTime;
+        }
+    } else {
+        
+        dx /= distance;
+        dy /= distance;
+        this.x += dx * this.moveSpeed;
+        this.y += dy * this.moveSpeed;
+    }
+
+    
+    var minX = 0;
+    var minY = 0;
+    var maxX = 1280 - this.width;
+    var maxY = 720 - this.height;
+    this.x = Math.min(Math.max(this.x, minX), maxX);
+    this.y = Math.min(Math.max(this.y, minY), maxY);
+};
 
 
    

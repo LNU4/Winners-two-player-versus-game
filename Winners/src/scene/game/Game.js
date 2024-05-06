@@ -93,13 +93,24 @@ Winners.scene.Game.prototype.init = function() {
 
     var camera = this.cameras.getCameraAt(0);
     //camera.addChild(smth);
-   
+
+   //this.truck = null;
     this.timers.create({
         duration: 4000,
         onComplete: function(){
-            var randomY = Math.random() * 720; 
-            this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
-            this.stage.addChild(this.truck)
+
+            this.createTruck();
+            // this.pb = new rune.ui.Progressbar (100, 25, "#ffff00", "#ff00ff");
+            // this.layer0.addChild(this.pb);
+            // this.pb.m_x = 1100;
+            // this.pb.m_y = 600;
+           
+            // var randomY = Math.random() * 720; 
+            //  this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
+            // this.stage.addChild(this.truck)
+            
+
+
        //     console.log(this.stage.numChildren);
          //   console.log('.-.-.')
        }
@@ -137,7 +148,17 @@ Winners.scene.Game.prototype.init = function() {
 
 
 };
+Winners.scene.Game.prototype.createTruck = function (){
 
+    var randomY = Math.random() * 720; 
+    this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
+   this.stage.addChild(this.truck)
+   if (this.player2.hitTest(this.truck.soldier)){
+    console.log(this.player2.soldierHit)
+    this.player2.soldierHit ++
+    console.log(this.player2.soldierHit)
+}
+}
 /**
  * This method is automatically executed once per "tick". The method is used for 
  * calculations such as application logic.
@@ -147,6 +168,7 @@ Winners.scene.Game.prototype.init = function() {
  * @returns {undefined}
  */
 Winners.scene.Game.prototype.update = function(step) {
+    var self = this;
     rune.scene.Scene.prototype.update.call(this, step);
     this.m_updateInput(step);
 
@@ -155,6 +177,52 @@ Winners.scene.Game.prototype.update = function(step) {
 
     this.turret2.x = this.player2.x; 
     this.turret2.y = this.player2.y;
+    this.timers.create({
+            duration: 4000,
+            onComplete: function(){
+    // if (this.truck.soldier.isDead){
+    //    // this.truck.deadSoldiers; 
+    //    // console.log(this)
+    // }
+}});
+
+    // this.timers.create({
+    //     duration: 15000,
+    //     onComplete: function(){
+
+    //     //this.soldierHit();
+    //     this.truck.soldierArr.forEach(function (soldierElem){
+
+    //         if (self.player2.hitTest(self.truck.soldier)){
+    //             console.log(self.player2.soldierHit)
+               
+    //          ++self.player2.soldierHit 
+
+    //           console.log(self.player2.soldierHit)
+
+    //           return self.player2.soldierHit
+             
+    //         }
+    //     } 
+            
+    //     );
+            // if (this.player2.hitTest(this.truck.soldier)){
+            //     console.log(this.player2.soldierHit)
+               
+            //  ++this.player2.soldierHit 
+
+            //   console.log(this.player2.soldierHit)
+
+            //   return this.player2.soldierHit
+             
+            // }
+           
+    //    }
+    // });
+   //console.log(this.player2.soldierHit)
+ 
+
+   
     
 };
 
