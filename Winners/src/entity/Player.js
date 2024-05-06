@@ -209,6 +209,8 @@ Winners.entity.Player.prototype.m_updateInput = function () {
     this.animation.gotoAndPlay("idle");
   }
   this.debug = true;
+  /*
+
   var minX = 0;
   var minY = 0;
   var maxX = 1280 - this.width;
@@ -216,4 +218,8 @@ Winners.entity.Player.prototype.m_updateInput = function () {
 
   this.x = Math.min(Math.max(this.x, minX), maxX);
   this.y = Math.min(Math.max(this.y, minY), maxY);
+  */
+  //way easier alternative
+  this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
+  this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
 };
