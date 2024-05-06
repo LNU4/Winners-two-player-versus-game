@@ -89,16 +89,17 @@ Winners.entity.Bullet.prototype.update = function(step) {
         this.layer0.removeChild(this);
 
 
-       // console.log(this.bulletTarget.parent)
+
 
         var actualLife = this.bulletTarget.livesArr[this.bulletTarget.lifeIx];
-       // console.log(this.bulletTarget.lifeIx)
+       
         var actualLifeHpOb = actualLife.hp;
-        //console.log(actualLifeHpOb);
+
+        
 
         actualLife.value -= this.damage;
 
-        //console.log(actualLife.value)
+        
         if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
            
          this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
@@ -120,17 +121,17 @@ Winners.entity.Bullet.prototype.update = function(step) {
            this.bulletTarget.parent.removeChild(actualLifeHpOb)
           
             this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
-           // console.log(this.bulletTarget.lifeIx)
-            //console.log(this.bulletTarget.livesArr)
+
+           
 
             this.bulletTarget.lifeIx ++
-            //console.log(this.bulletTarget.lifeIx)
+          
+
             this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp = new Winners.entity.Hps(this.bulletTarget.livesArr[this.bulletTarget.lifeIx], this.stage, this.bulletTarget);
 
             this.bulletTarget.parent.addChildAt( this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp, 2)
            
         } else if (actualLife.value == 80){
-           
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 20, 10);
             actualLifeHpOb.backgroundColor = "#0000FF"
         }
@@ -140,12 +141,11 @@ Winners.entity.Bullet.prototype.update = function(step) {
             actualLifeHpOb.backgroundColor = "#800080"
         }
         else if (actualLife.value == 40){
-           
+
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 10, 10);
             actualLifeHpOb.backgroundColor = "#FFA500"
         }
         else if (actualLife.value == 20){
-          
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 5, 10);
             actualLifeHpOb.backgroundColor = "#FF0000"
         }

@@ -52,7 +52,7 @@ Winners.entity.Turret1 = function (x, y) {
      // this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
     
     
-    
+     
       //this.addChild(this.turret);
     
       this.m_initPhysics();
@@ -70,6 +70,7 @@ Winners.entity.Turret1 = function (x, y) {
       rune.display.Sprite.prototype.update.call(this, step);
       //this.m_updateInput();
       this.m_torretRotation();
+      
     };
     
     /**
@@ -79,6 +80,11 @@ Winners.entity.Turret1 = function (x, y) {
      */
     Winners.entity.Turret1.prototype.dispose = function () {
       rune.display.Sprite.prototype.dispose.call(this);
+    };
+
+    Winners.entity.Turret1.prototype.shotAnimation = function () {
+      this.animation.gotoAndPlay("shot");
+      
     };
     
     //------------------------------------------------------------------------------
@@ -102,10 +108,14 @@ Winners.entity.Turret1 = function (x, y) {
      * @returns {undefined}
      * @private
      */
+    
     Winners.entity.Turret1.prototype.m_initAnimation = function () {
-      this.animation.create("idle", [0], 1, true);
-      this.animation.create("walk", [0, 1], 1, true);
-    };
+      this.animation = new rune.animation.Animation();
+      this.animation.create("shot", [0, 2], 2, true);
+      
+  };
+  
+  
 
     /**
      * ...
@@ -137,4 +147,4 @@ Winners.entity.Turret1 = function (x, y) {
      */
     };
     
-    
+   

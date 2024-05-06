@@ -40,7 +40,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
     rune.display.Sprite.call(this, x, y, 64, 64, "resizedtank");
     this.turret1 = turret1;
     this.layer0 = container;
-   
+    
   };
   
   //----------------------------------------------------------------------------
@@ -66,10 +66,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
   Winners.entity.Player2.prototype.init = function () {
      
     rune.display.Sprite.prototype.init.call(this);
-  
-  
-   
-   console.log(this.turret1); 
+    this.rotation = (-90);
    
   var lifeX = 1230; 
   var lifeY = 25; 
@@ -130,7 +127,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
     this.velocity.max.x = 1.8;
     this.velocity.max.y = 1.8;
   
-    this.rotation = (- 180);
+    
   };
   
   /**
@@ -154,7 +151,7 @@ Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base
     this.application.scenes.selected.groups.add(this.bullets);
     this.bullet = this.bullets.create(this.centerX, this.centerY);
     
-    
+    this.turret1.shotAnimation();
     this.bullet.velocity.x = this.velocity.x;
     this.bullet.velocity.y = this.velocity.y;
     this.bullet.globalX = this.velocity.x;

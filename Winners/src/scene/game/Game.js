@@ -71,22 +71,24 @@ Winners.scene.Game.prototype.init = function() {
     
    
 
-    this.turret1 = new Winners.entity.Turret1(70, 359.5);
+    this.turret1 = new Winners.entity.Turret1(70, 345.5);
     this.layer2.addChild(this.turret1);
 
-    this.turret2 = new Winners.entity.Turret2(1150, 359.5, this.layer0, this.player);
+    this.turret2 = new Winners.entity.Turret2(1150, 345.5, this.layer0, this.player);
 
-    this.base = new Winners.entity.Base(10, 359.5);
-    this.base2 = new Winners.entity.Base2(1220, 359.5);
 
-    this.player = new Winners.entity.Player(70, 359.5, this.turret1, this.layer0, this.base, this.base2); 
-    this.player2 = new Winners.entity.Player2(1150, 359.5, this.layer0, this.turret2, this.player, this.base2, this.base);
+    this.base = new Winners.entity.Base(10, 345.5);
+    this.base2 = new Winners.entity.Base2(1220, 345.5);
+
+    this.player = new Winners.entity.Player(80, 345.5, this.turret1, this.layer0, this.base, this.base2); 
+    this.player2 = new Winners.entity.Player2(1140, 345.5, this.layer0, this.turret2, this.player, this.base2, this.base);
     this.player.player2 = this.player2;
    
    // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
 
+
     this.base = new Winners.entity.Base(10, 359.5);
-    this.base2 = new Winners.entity.Base2(1220, 359.5);
+    this.base2 = new Winners.entity.Base2(1240, 359.5);
 
 
     var camera = this.cameras.getCameraAt(0);
@@ -95,11 +97,6 @@ Winners.scene.Game.prototype.init = function() {
     this.timers.create({
         duration: 4000,
         onComplete: function(){
-            this.pb = new rune.ui.Progressbar (100, 25, "#ffff00", "#ff00ff");
-            this.layer0.addChild(this.pb);
-            this.pb.m_x = 1100;
-            this.pb.m_y = 600;
-           
             var randomY = Math.random() * 720; 
             this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
             this.stage.addChild(this.truck)
@@ -118,8 +115,8 @@ Winners.scene.Game.prototype.init = function() {
     // }
 
 
-    this.Base1shield = new Winners.entity.Base1shield(5, 344); 
-    this.Base2shield = new Winners.entity.Base2shield(1150, 340);
+    this.Base1shield = new Winners.entity.Base1shield(5, 344.5); 
+    this.Base2shield = new Winners.entity.Base2shield(1210, 344.5);
 
 
   //  this.hp2 = new Winners.entity.Hps(300, 300);
