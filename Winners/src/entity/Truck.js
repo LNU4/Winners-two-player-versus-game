@@ -102,20 +102,20 @@ Winners.entity.Truck.prototype.update = function(step) {
         this.layer0.removeChild(this.soldier);
     }*/
     if (!this.reachedPlayer) {
-        var dx = this.player2.x - this.x;
-        var dy = this.player2.y - this.y;
-        var distance = Math.sqrt(dx * dx + dy * dy);
+        var distanceX = this.player2.x - this.x;
+        var distanceY = this.player2.y - this.y;
+        var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
         
-        if (distance <= 120) {
+        if (distance <= 160) {
             this.reachedPlayer = true;
             this.stopAndSpawnSoldiers();
         } else {
             
-            dx /= distance;
-            dy /= distance;
-            this.x += dx * this.movementspeed;
-            this.y += dy * this.movementspeed;
+            distanceX /= distance;
+            distanceY /= distance;
+            this.x += distanceX * this.movementspeed;
+            this.y += distanceY * this.movementspeed;
         }
 
  }
