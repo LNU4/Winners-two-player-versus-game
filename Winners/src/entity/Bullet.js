@@ -162,6 +162,9 @@ Winners.entity.Bullet.prototype.update = function(step) {
     } else if (this.baseTarget.HPValue <= 0){
         console.log(this.bulletTarget.parent.numChildren)
         this.layer0.removeChild(this.baseTarget)
+        //console.log(this.baseTarget);
+        //this.baseTarget.parent.removeChild(this.baseTarget);
+        console.log(this.baseTarget);
         console.log('done')
     }
     this.m_updateMotion(step);
