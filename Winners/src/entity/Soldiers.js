@@ -16,21 +16,30 @@
 /**
  * 
  */
-Winners.entity.Soldiers = function (x, y, targetPlayer, layer, play) {
-    this.targetPlayer = targetPlayer;
+//Winners.entity.Soldiers = function (x, y, targetPlayer, layer, play) {
+Winners.entity.Soldiers = function (x, y, game) {
+  
     this.shootDistance = 200;
     this.moveSpeed = 1;
     this.shootCooldown = 900;
     this.lastShootTime = 0;
-    this.play = play;
-
+   // this.play = play;
+   this.play = game; 
+    // this.targetPlayer = targetPlayer;
+    this.targetPlayer = this.play.player2;
     this.isDead = false;
     this.powerUpProb = 0;
 
-    this.layer = layer;
-    
-    this.baseOwner = this.targetPlayer.player2Base;
-    this.baseTarget = this.targetPlayer.enemy1Base;
+
+    //this.layer = layer;
+    this.layer = this.play.layer0;
+
+    //this.baseOwner = this.targetPlayer.player2Base;
+    this.baseOwner = this.play.base2;
+
+    //this.baseTarget = this.targetPlayer.enemy1Base;
+    this.baseTarget = this.play.base2;
+
 
 
     rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");

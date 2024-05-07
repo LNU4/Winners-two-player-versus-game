@@ -13,11 +13,12 @@
  *
  * Game scene.
  */
-Winners.entity.Turret1 = function (x, y) {
+Winners.entity.Turret1 = function (x, y, game) {
     /**
      * placeholder to refer to the second player
      */
         this.turret1 = null;
+        this.game = game;
       //--------------------------------------------------------------------------
       // Super call
       //--------------------------------------------------------------------------

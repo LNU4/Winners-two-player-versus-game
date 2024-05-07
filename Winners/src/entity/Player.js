@@ -13,21 +13,29 @@
  *
  * Game scene.
  */
-Winners.entity.Player = function (x, y, turret1, container, playerBase, enemyBase) {
+// Winners.entity.Player = function (x, y, turret1, container, playerBase, enemyBase) {
+  Winners.entity.Player = function (x,y, game) {
 /**
  * placeholder to refer to the second player
  */
 
-    this.player2 = null;
+   // this.player2 = null;
+    this.game = game;
     this.lifeIx = 0;
     this.lives = 3;
     this.initX = x;
     this.initY = y;
     this.livesArr = [];
-    this.playerBase = playerBase;
-    this.enemyBase = enemyBase;
+    //this.playerBase = playerBase;
+    this.playerBase = this.game.base; 
+    //this.enemyBase = enemyBase;
+    this.enemyBase = this.game.base2;
     
-    
+   // this.turret1 = turret1;
+    this.turret1 = this.game.turret1;
+    // this.layer0 = container;
+    this.layer0 = this.game.layer0;
+   
 
   //--------------------------------------------------------------------------
   // Super call
@@ -37,8 +45,7 @@ Winners.entity.Player = function (x, y, turret1, container, playerBase, enemyBas
    * Calls the constructor method of the super class.
    */
   rune.display.Sprite.call(this, x, y, 64, 64, "resizedtank");
-  this.turret1 = turret1;
-  this.layer0 = container;
+ 
  
 };
 
