@@ -13,9 +13,10 @@
  * 
  * Game scene.
  */
-Winners.entity.Base = function(x, y) {
+Winners.entity.Base = function(x, y, game) {
 
-    this.HPValue = 1000; 
+    this.HPValue = 1000;
+    this.game = game; 
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
