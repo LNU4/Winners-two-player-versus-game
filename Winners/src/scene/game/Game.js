@@ -77,8 +77,8 @@ Winners.scene.Game.prototype.init = function() {
     this.turret2 = new Winners.entity.Turret2(1150, 345.5, this.layer0, this.player);
 
 
-    this.base = new Winners.entity.Base(10, 345.5);
-    this.base2 = new Winners.entity.Base2(1220, 345.5);
+    this.base = new Winners.entity.Base(10, 345.5, this);
+    this.base2 = new Winners.entity.Base2(1220, 345.5, this);
 
     this.player = new Winners.entity.Player(80, 345.5 ,this.turret1, this.layer0, this.base, this.base2); 
     this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
@@ -126,7 +126,7 @@ Winners.scene.Game.prototype.init = function() {
     // }
 
 
-    this.Base1shield = new Winners.entity.Base1shield(5, 344.5); 
+    this.Base1shield = new Winners.entity.Base1shield(5, 344.5, this); 
     this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
 
 

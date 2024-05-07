@@ -28,6 +28,7 @@ Winners.entity.Soldiers = function (x, y, targetPlayer, layer, play) {
     this.powerUpProb = 0;
 
     this.layer = layer;
+    
     this.baseOwner = this.targetPlayer.player2Base;
     this.baseTarget = this.targetPlayer.enemy1Base;
 
@@ -72,8 +73,9 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         var ranX = rune.util.Math.random(0, 1280);
         var ranY = rune.util.Math.random(0, 720);
         */
-        var ranX = Math.random() * 1280;
-        var ranY = Math.random() * 720;
+        var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;;
+        var ranY =  Math.floor(Math.random() * (600 -  120 + 1)) + 120;
+        console.log('x is ', ranX, ' y is ', ranY)
         this.play.timers.create({
             duration: 1000,
             onComplete: function () {

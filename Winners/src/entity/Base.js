@@ -13,13 +13,13 @@
  * 
  * Game scene.
  */
-Winners.entity.Base = function(x, y) {
+Winners.entity.Base = function(x, y, game) {
 
     this.HPValue = 1000; 
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
-    
+    this.game  = game;
     /**
      * Calls the constructor method of the super class.
      */
@@ -45,6 +45,7 @@ Winners.entity.Base.prototype.constructor = Winners.entity.Base;
  */
 Winners.entity.Base.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
+    this.immovable = true
     
    
 };
@@ -58,6 +59,8 @@ Winners.entity.Base.prototype.init = function() {
  */
 Winners.entity.Base.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
+    this.hitTestAndSeparate(this.game.player2)
+    this.hitTestAndSeparate(this.game.player)
     
 };
 

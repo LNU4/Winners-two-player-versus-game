@@ -127,10 +127,8 @@ Winners.entity.Truck.prototype.update = function (step) {
     }
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
-    if (this.hitTestAndSeparate(this.game.player2)) {
-        console.log('stop there')
-    }
-
+    this.hitTestAndSeparate(this.game.player2);
+    this.hitTestAndSeparate(this.game.player);
 
 };
 
