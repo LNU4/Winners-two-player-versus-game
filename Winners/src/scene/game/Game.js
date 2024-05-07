@@ -71,20 +71,20 @@ Winners.scene.Game.prototype.init = function() {
     
    
 
-    this.turret1 = new Winners.entity.Turret1(70, 345.5, this);
+    this.turret1 = new Winners.entity.Turret1(70, 360, this);
     this.layer2.addChild(this.turret1);
 
-    this.turret2 = new Winners.entity.Turret2(1150, 345.5, this);
+    this.turret2 = new Winners.entity.Turret2(1150, 360, this);
 
 
-    this.base = new Winners.entity.Base(10, 345.5, this);
-    this.base2 = new Winners.entity.Base2(1220, 345.5, this);
+    this.base = new Winners.entity.Base(10, 360, this);
+    this.base2 = new Winners.entity.Base2(1235, 360, this);
 
     //this.player = new Winners.entity.Player(80, 345.5 ,this.turret1, this.layer0, this.base, this.base2); 
-    this.player = new Winners.entity.Player(80, 345.5 , this); 
+    this.player = new Winners.entity.Player(80, 345 , this); 
 
     //this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
-    this.player2 = new Winners.entity.Player2(1140, 345.5, this);
+    this.player2 = new Winners.entity.Player2(1140, 345, this);
     this.player.player2 = this.player2;
    
    // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
