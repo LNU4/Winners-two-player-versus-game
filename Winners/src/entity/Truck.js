@@ -13,7 +13,8 @@
  * 
  * Game scene.
  */
-Winners.entity.Truck = function (x, y, player, player2, layer0, game) {
+//Winners.entity.Truck = function (x, y, player, player2, layer0, game) {
+    Winners.entity.Truck = function (x, y, game) {
 
     //--------------------------------------------------------------------------
     // Super call
@@ -23,11 +24,15 @@ Winners.entity.Truck = function (x, y, player, player2, layer0, game) {
      * Calls the constructor method of the super class.
      */
     this.soldier = null;
-    rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
-    this.player2 = player2;
-    this.layer0 = layer0;
-    this.player = player;
     this.game = game;
+    rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
+   // this.player2 = player2;
+   this.player2 = this.game.player2; 
+    //this.layer0 = layer0;
+    this.layer0 = this.game.layer0; 
+    //this.player = player;
+    this.player = this.game.player; 
+    //this.game = game;
     this.deadSoldiers = 0;  // test
     this.movementspeed = 5;
     this.reachedPlayer = false;
@@ -85,7 +90,8 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
         var soldierY = truckY + Math.sin(angle) * distance;
 
 
-        this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player2, this.layer0, this.game);
+      //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player2, this.layer0, this.game);
+      this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.game);
         this.soldierArr.push(this.soldier);
 
     }
@@ -110,6 +116,8 @@ Winners.entity.Truck.prototype.update = function (step) {
     if (!this.reachedPlayer) {
         var distanceX = this.player2.x - this.x;
         var distanceY = this.player2.y - this.y;
+
+        // Use runes sdk instead N.A
         var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
 
