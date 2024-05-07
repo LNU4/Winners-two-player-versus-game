@@ -87,8 +87,8 @@ Winners.scene.Game.prototype.init = function() {
    // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
 
 
-    this.base = new Winners.entity.Base(10, 359.5);
-    this.base2 = new Winners.entity.Base2(1240, 359.5);
+    //this.base = new Winners.entity.Base(10, 359.5);
+    //this.base2 = new Winners.entity.Base2(1240, 359.5);
 
 
     var camera = this.cameras.getCameraAt(0);
