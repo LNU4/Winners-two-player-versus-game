@@ -80,8 +80,8 @@ Winners.scene.Game.prototype.init = function() {
     this.base = new Winners.entity.Base(10, 345.5);
     this.base2 = new Winners.entity.Base2(1220, 345.5);
 
-    this.player = new Winners.entity.Player(80, 345.5, this.turret1, this.layer0, this.base, this.base2); 
-    this.player2 = new Winners.entity.Player2(1140, 345.5, this.layer0, this.turret2, this.player, this.base2, this.base);
+    this.player = new Winners.entity.Player(80, 345.5 ,this.turret1, this.layer0, this.base, this.base2); 
+    this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
     this.player.player2 = this.player2;
    
    // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
@@ -91,7 +91,7 @@ Winners.scene.Game.prototype.init = function() {
     //this.base2 = new Winners.entity.Base2(1240, 359.5);
 
 
-    var camera = this.cameras.getCameraAt(0);
+    this.camera = this.cameras.getCameraAt(0);
     //camera.addChild(smth);
 
    //this.truck = null;
@@ -127,7 +127,7 @@ Winners.scene.Game.prototype.init = function() {
 
 
     this.Base1shield = new Winners.entity.Base1shield(5, 344.5); 
-    this.Base2shield = new Winners.entity.Base2shield(1210, 344.5);
+    this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
 
 
   //  this.hp2 = new Winners.entity.Hps(300, 300);

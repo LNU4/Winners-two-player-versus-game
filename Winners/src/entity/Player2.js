@@ -14,12 +14,13 @@
  * Game scene.
  */
 
-Winners.entity.Player2 = function (x, y, container, turret1, player, player2Base, enemy1Base
+Winners.entity.Player2 = function (x, y, game,container, turret1, player, player2Base, enemy1Base
 ) {
   /**
    * placeholder to refer to the second player
    */
   // this.soldierHit = 0; 
+  this.game = game;
   this.player = player;
   this.lifeIx = 0;
   this.lives = 3;
@@ -96,7 +97,16 @@ Winners.entity.Player2.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   this.life.globalX = this.globalX;
   this.life.globalY = this.globalY;
-  //console.log(this.soldierHit)
+  this.hitTestAndSeparate(this.game.base)
+  this.hitTestAndSeparate(this.game.base2)
+  this.hitTestAndSeparate(this.game.Base1shield)
+  if (this.hitTestAndSeparate(this.game.Base2shield)) {
+    //console.log('.-.-.-.') 
+  
+    
+  }
+ // console.log(this.game.Base2shield)
+  
   this.m_updateInput();
 
 };

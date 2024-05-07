@@ -64,17 +64,18 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         this.play.layer0.removeChild(this);
         this.dispose()
     }
-    if (Math.round(this.powerUpProb) == 2) {
+    if ( this.isDead == true) {
         console.log('UUU')
         //perhaps we can do it like this? 
         /*
+        Math.round(this.powerUpProb) == 0 || Math.round(this.powerUpProb) == 1 || Math.round(this.powerUpProb) == 2 || Math.round(this.powerUpProb) == 3 || Math.round(this.powerUpProb) == 4 ||
         var ranX = rune.util.Math.random(0, 1280);
         var ranY = rune.util.Math.random(0, 720);
         */
         var ranX = Math.random() * 1280;
         var ranY = Math.random() * 720;
         this.play.timers.create({
-            duration: 5000,
+            duration: 1000,
             onComplete: function () {
                 console.log(this)
                 console.log(m_this)
@@ -146,7 +147,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
 
     if (this.play.player2.hitTest(this)) {
-        console.log('HIT');
+        //console.log('HIT');
         this.play.layer0.removeChild(this);
     }
 
@@ -162,7 +163,7 @@ Winners.entity.Soldiers.prototype.shoot = function () {
 
 
     var distance = currentPosition.distance(targetPosition);
-    console.log(distance);
+    // console.log(distance);
     if (distance <= this.shootDistance) {
         var bulletSpeed = 1;
 
@@ -181,5 +182,4 @@ Winners.entity.Soldiers.prototype.shoot = function () {
         bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
     }
 };
-
 
