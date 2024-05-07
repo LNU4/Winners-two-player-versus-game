@@ -30,7 +30,7 @@ Winners.entity.Player2 = function (x, y, game ){
   this.initX = x;
   this.initY = y;
  // this.player2Base = player2Base;
- this.playerBase = this.game.base2; 
+ this.player2Base = this.game.base2; 
  // this.enemy1Base = enemy1Base;
 
 this.enemy1Base = this.game.base;
