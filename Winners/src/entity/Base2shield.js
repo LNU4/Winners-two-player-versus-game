@@ -27,8 +27,7 @@ Winners.entity.Base2shield = function(x, y, game) {
      */
     rune.display.Sprite.call(this, x, y, 64, 64, "Baseprotection");
    //this.movable = false;
-   this.immovable = true
-   console.log(this.immovable)
+  
 };
 
 //------------------------------------------------------------------------------
@@ -53,6 +52,8 @@ Winners.entity.Base2shield.prototype.init = function() {
     console.log(this.rotation);
     this.movable = false;
     this.rotation = 90;
+    this.immovable = true
+   
 };
 
 /**
@@ -64,15 +65,16 @@ Winners.entity.Base2shield.prototype.init = function() {
  */
 Winners.entity.Base2shield.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    //this.hitTestAndSeparate(this.game.player2)
-    if (this.hitTestAndSeparate(this.game.player2)) {
-        this.velocity.x = 0;
-        this.velocity.y = 0;
-        console.log('.-.-.-.') 
-       return;
+    this.hitTestAndSeparate(this.game.player2)
+    this.hitTestAndSeparate(this.game.player)
+    // if (this.hitTestAndSeparate(this.game.player2)) {
+    //     this.velocity.x = 0;
+    //     this.velocity.y = 0;
+    //     console.log('.-.-.-.') 
+    //    return;
       
         
-      }
+    //   }
     // this.hitTestAndSeparate()
     
 };

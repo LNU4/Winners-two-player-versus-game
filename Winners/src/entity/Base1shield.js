@@ -13,12 +13,12 @@
  * 
  * Game scene.
  */
-Winners.entity.Base1shield = function(x, y) {
+Winners.entity.Base1shield = function(x, y, game) {
 
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
-    
+    this.game  = game;
     /**
      * Calls the constructor method of the super class.
      */
@@ -44,6 +44,7 @@ Winners.entity.Base1shield.prototype.constructor = Winners.entity.Base1shield;
  */
 Winners.entity.Base1shield.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
+    this.immovable = true
     this.rotation = (-90); 
    
 };
@@ -57,7 +58,8 @@ Winners.entity.Base1shield.prototype.init = function() {
  */
 Winners.entity.Base1shield.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    
+    this.hitTestAndSeparate(this.game.player2)
+    this.hitTestAndSeparate(this.game.player)
 };
 
 /**

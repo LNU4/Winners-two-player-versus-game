@@ -20,7 +20,7 @@ Winners.entity.Base2 = function(x, y, game) {
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
-    
+    this.game  = game;
     /**
      * Calls the constructor method of the super class.
      */
@@ -46,6 +46,7 @@ Winners.entity.Base2.prototype.constructor = Winners.entity.Base2;
  */
 Winners.entity.Base2.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
+    this.immovable = true
     this.m_placement();
 };
 
@@ -58,6 +59,8 @@ Winners.entity.Base2.prototype.init = function() {
  */
 Winners.entity.Base2.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
+    this.hitTestAndSeparate(this.game.player2)
+    this.hitTestAndSeparate(this.game.player)
     
 };
 
