@@ -163,6 +163,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
         console.log(this.bulletTarget.parent.numChildren)
         this.layer0.removeChild(this.baseTarget)
         console.log('done, powerUp')
+
     }
     this.m_updateMotion(step);
   
