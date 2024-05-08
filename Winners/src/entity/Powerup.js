@@ -10,9 +10,10 @@
  *
  * @class
  * @classdesc
- * 
+ *
  * Game scene.
  */
+
 Winners.entity.Powerup = function(x, y, game, parentOb) {
     var m_this = this; 
      this.game = game;
@@ -38,6 +39,7 @@ Winners.entity.Powerup = function(x, y, game, parentOb) {
     }
     );
    
+
 };
 
 //------------------------------------------------------------------------------
@@ -56,10 +58,8 @@ Winners.entity.Powerup.prototype.constructor = Winners.entity.Powerup;
  *
  * @returns {undefined}
  */
-Winners.entity.Powerup.prototype.init = function() {
-    rune.display.Sprite.prototype.init.call(this);
-   
-   
+Winners.entity.Powerup.prototype.init = function () {
+  rune.display.Sprite.prototype.init.call(this);
 };
 
 /**
@@ -69,6 +69,7 @@ Winners.entity.Powerup.prototype.init = function() {
  *
  * @returns {undefined}
  */
+
 Winners.entity.Powerup.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
     if(this.hitTest(this.game.player2)){
@@ -95,6 +96,7 @@ Winners.entity.Powerup.prototype.update = function(step) {
     }
     }
     
+
 };
 
 /**
@@ -102,13 +104,10 @@ Winners.entity.Powerup.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Powerup.prototype.dispose = function() {
-    rune.display.Sprite.prototype.dispose.call(this);
+Winners.entity.Powerup.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };
 
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
-
-
-
