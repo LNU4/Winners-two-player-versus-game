@@ -55,8 +55,29 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
  *
  * @returns {undefined}
  */
-Winners.scene.Game.prototype.init = function () {
-  rune.scene.Scene.prototype.init.call(this);
+
+Winners.scene.Game.prototype.init = function() {
+    rune.scene.Scene.prototype.init.call(this);
+    this.powerupsArr = [];
+    this.powerCounter = 0;
+    this.bg = new rune.display.Graphic(0,0,1280,720,"background");
+    this.layer0 = new rune.display.DisplayObjectContainer(0,0, 1280, 720);
+    this.layer1 = new rune.display.DisplayObjectContainer(0,0, 1280, 720);
+    this.layer2 = new rune.display.DisplayObjectContainer(0,0, 1280, 720);
+    
+    
+    this.stage.addChild(this.layer0);
+    this.stage.addChild(this.layer1);
+    this.stage.addChild(this.layer2); 
+    
+   
+
+    this.turret1 = new Winners.entity.Turret1(70, 360, this);
+    this.layer2.addChild(this.turret1);
+
+    this.turret2 = new Winners.entity.Turret2(1150, 360, this);
+
+
 
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "background");
   this.layer0 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
@@ -67,8 +88,14 @@ Winners.scene.Game.prototype.init = function () {
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
 
-  this.turret1 = new Winners.entity.Turret1(70, 360, this);
-  this.layer2.addChild(this.turret1);
+
+    this.Base1shield = new Winners.entity.Base1shield(5, 344.5, this); 
+    this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
+
+
+    //this.player = new Winners.entity.Player(80, 345.5 ,this.turret1, this.layer0, this.base, this.base2); 
+    this.player = new Winners.entity.Player(80, 345 , this); 
+
 
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
 
@@ -113,12 +140,6 @@ Winners.scene.Game.prototype.init = function () {
 
   // var timer = new rune.timer.TimerOptions({duration: timeInMs});
 
-  // timer.onComplete = function (){
-  //     console.log('.-.-.')
-  // }
-
-  this.Base1shield = new Winners.entity.Base1shield(5, 344.5, this);
-  this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
 
   //  this.hp2 = new Winners.entity.Hps(300, 300);
   // this.player2.hp = this.hp2;

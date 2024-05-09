@@ -13,30 +13,57 @@
  * 
  * Game scene.
  */
-Winners.entity.Base2shield = function(x, y, game) {
+Winners.entity.PowerupCounter = function(x, y, game, parentOb, order) {
 
+
+    this.game = game;
+    this.parentOb = parentOb;
+    this.order = order;
+    console.log('ORDER',this.order)
+    this.x = 0;
+    this.y = 0;
+
+    22
+
+console.log(this.game.powerupsArr.indexOf(this))
+console.log(this.game.powerupsArr.length);
+console.log(this.game.powerupsArr[1])
+    if (this === this.game.powerupsArr[0]){
+     this.x = x;
+     this.y = y;
+     console.log(this.game.powerupsArr[0])
+    } else if(this === this.game.powerupsArr[1]){
+        this.x = x + 15;
+        this.y = y;
+        console.log(this.game.powerupsArr[1])
+    }  else if(this === this.game.powerupsArr[2]){
+        this.x = x + 30;
+        this.y = y;
+        console.log(this.game.powerupsArr[2])
+
+    }
+    // console.log(this.game.layer0.numChildren)
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
-    this.game = game;
+    
+    //console.log(this.parentOb.powerupsArr)
    
-    this.x = x;
-    this.y = y
-    this.hpValue = 1000;
+   
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 64, 64, "Baseprotection");
-   //this.movable = false;
-  
+    rune.display.Sprite.call(this, x,  y, 16, 16, "star");
+    
+   
 };
 
 //------------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
 
-Winners.entity.Base2shield.prototype = Object.create(rune.display.Sprite.prototype);
-Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
+Winners.entity.PowerupCounter.prototype = Object.create(rune.display.Sprite.prototype);
+Winners.entity.PowerupCounter.prototype.constructor = Winners.entity.PowerupCounter;
 
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
@@ -47,13 +74,9 @@ Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
  *
  * @returns {undefined}
  */
-Winners.entity.Base2shield.prototype.init = function() {
+Winners.entity.PowerupCounter.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
-    console.log("Initialized"); 
-    console.log(this.rotation);
-    this.movable = false;
-    this.rotation = 90;
-    this.immovable = true
+   
    
 };
 
@@ -64,10 +87,10 @@ Winners.entity.Base2shield.prototype.init = function() {
  *
  * @returns {undefined}
  */
-Winners.entity.Base2shield.prototype.update = function(step) {
+Winners.entity.PowerupCounter.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    this.hitTestAndSeparate(this.game.player2)
-    this.hitTestAndSeparate(this.game.player)
+    // this.hitTestAndSeparate(this.game.player2)
+    // this.hitTestAndSeparate(this.game.player)
     // if (this.hitTestAndSeparate(this.game.player2)) {
     //     this.velocity.x = 0;
     //     this.velocity.y = 0;
@@ -85,8 +108,8 @@ Winners.entity.Base2shield.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Base2shield.prototype.dispose = function() {
-    console.log('Base2shield is disposed')
+Winners.entity.PowerupCounter.prototype.dispose = function() {
+    console.log('PowerupCounter is disposed')
     rune.display.Sprite.prototype.dispose.call(this);
 };
 
