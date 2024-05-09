@@ -64,7 +64,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.x,
     this.y
   );
-  if (this.play.player2.hitTest(this)) {
+  if (this.enemy.hitTest(this)) {
     this.isDead = true;
     this.powerUpProb = Math.random() * 5;
     this.play.layer0.removeChild(this);
@@ -148,7 +148,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.lastShootTime = currentTime;
   }
 
-  if (this.play.player2.hitTest(this)) {
+  if (this.enemy.hitTest(this)) {
     this.play.layer0.removeChild(this);
   }
 };

@@ -25,20 +25,17 @@ Winners.entity.Truck = function (x, y, game, enemy) {
   this.soldier = null;
   this.game = game;
   rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
-  // this.player = player2;
-  // this.player = this.game.player2;
+
   this.enemy = enemy;
-  //this.layer0 = layer0;
+
   this.layer0 = this.game.layer0;
-  //this.player = player;
-  //this.player = this.game.player;
 
   if (this.enemy === this.game.player) {
     this.player = this.game.player;
   } else if (this.enemy === this.game.player2) {
     this.player = this.game.player2;
   }
-  //this.game = game;
+
   this.deadSoldiers = 0; // test
   this.movementspeed = 5;
   this.reachedPlayer = false;
@@ -132,8 +129,9 @@ Winners.entity.Truck.prototype.update = function (step) {
   }
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
-  this.hitTestAndSeparate(this.game.player2);
-  this.hitTestAndSeparate(this.game.player);
+  if (this.enemy) {
+    this.hitTestAndSeparate(this.enemy);
+  }
 };
 
 /**
