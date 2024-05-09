@@ -92,6 +92,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
       this.game,
       this.enemy
     );
+    this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX,soldierY, this.game, this.enemy);
     this.soldierArr.push(this.soldier);
   }
   console.log(this.soldierArr);
