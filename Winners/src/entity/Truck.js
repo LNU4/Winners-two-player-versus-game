@@ -77,28 +77,6 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
 };
 
 Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
-
-
-   /* this.velocity.x = 0;
-    var truckX = this.x;
-    var truckY = this.y;
-    this.soldierArr = [];
-    console.log(this.soldierArr)
-    for (var i = 0; i < 5; i++) {
-
-        var angle = Math.random() * Math.PI * 2;
-        var distance = 30;
-        var soldierX = truckX + Math.cos(angle) * distance;
-        var soldierY = truckY + Math.sin(angle) * distance;
-
-
-      //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player2, this.layer0, this.game);
-      this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.game);
-        this.soldierArr.push(this.soldier);
-
-    }
-    console.log(this.soldierArr) */
-
   this.velocity.x = 0;
   var truckX = this.x;
   var truckY = this.y;
@@ -120,7 +98,6 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     this.soldierArr.push(this.soldier);
   }
   console.log(this.soldierArr);
-
 };
 
 /**

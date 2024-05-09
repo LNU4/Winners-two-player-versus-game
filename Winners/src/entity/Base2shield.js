@@ -19,10 +19,9 @@ Winners.entity.Base2shield = function(x, y, game) {
     // Super call
     //--------------------------------------------------------------------------
     this.game = game;
-   
     this.x = x;
     this.y = y
-    this.hpValue = 1000;
+
     /**
      * Calls the constructor method of the super class.
      */
@@ -48,7 +47,7 @@ Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
  * @returns {undefined}
  */
 Winners.entity.Base2shield.prototype.init = function() {
-    rune.display.Sprite.prototype.init.call(this);
+    rune.display.Sprite.p
     console.log("Initialized"); 
     console.log(this.rotation);
     this.movable = false;
@@ -86,7 +85,6 @@ Winners.entity.Base2shield.prototype.update = function(step) {
  * @returns {undefined}
  */
 Winners.entity.Base2shield.prototype.dispose = function() {
-    console.log('Base2shield is disposed')
     rune.display.Sprite.prototype.dispose.call(this);
 };
 

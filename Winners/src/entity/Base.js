@@ -20,7 +20,7 @@ Winners.entity.Base = function(x, y, game) {
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
- 
+    this.game  = game;
     /**
      * Calls the constructor method of the super class.
      */

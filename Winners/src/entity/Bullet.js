@@ -154,47 +154,16 @@ Winners.entity.Bullet.prototype.update = function(step) {
        
     }
 
-   
-
-
-    if (this.hitTest(this.bulletTarget.playerBaseShield)){
-        console.log('.-.-.-')
-        this.layer0.removeChild(this)
-        this.bulletTarget.playerBaseShield.hpValue -= 200;
-        console.log(this.bulletTarget.playerBaseShield.hpValue)
-    } else if (this.bulletTarget.playerBaseShield.hpValue == 0){
-       // this.bulletTarget.playerBaseShield.dispose();
-        console.log(this.bulletTarget.playerBaseShield);
-      //  rune.display.Sprite.prototype.dispose.call(this.bulletTarget.playerBaseShield);
-       this.layer0.removeChild(this.bulletTarget.playerBaseShield)
-       //this.bulletTarget.playerBaseShield = null;
-       // console.log('cant dispose')
-       
-      // this.bulletTarget.playerBaseShield.dispose();
-     
-        
-    } else if (this.bulletTarget.playerBaseShield.hpValue <= -1000){
-        // **** SILVER TAPE ***
-        this.layer0.removeChild(this.baseTarget)
-      
-         
-         
-     }
     if (this.hitTest(this.baseTarget)){
         this.layer0.removeChild(this);
-
-        
+        console.log(this.bulletTarget.parent.numChildren)
         this.baseTarget.HPValue -= 200;
-
         console.log(this.baseTarget.HPValue)
-
-        console.log(this.bulletTarget)
-
     } else if (this.baseTarget.HPValue <= 0){
-        
+        console.log(this.bulletTarget.parent.numChildren)
         this.layer0.removeChild(this.baseTarget)
-        
-// console.log(this.bulletTarget.playerBaseShield)
+        console.log('done, powerUp')
+
     }
     this.m_updateMotion(step);
   

@@ -34,9 +34,6 @@ Winners.entity.Bullets = function(container, owner, turret,enemy, ownerBase, ene
     this.turret = turret;
     this.ownerBase = ownerBase;
     this.enemyBase = enemyBase;
-    console.log(this.application.sounds.sound);
-    this.m_soundFire = this.application.sounds.sound.get("fire");
-    console.log( this.m_soundFire)
     // console.log(this.owner)
     // console.log(this.enemy)
     
@@ -91,7 +88,7 @@ Winners.entity.Bullets.prototype.create = function(x, y) {
 
     this.addMember(bullet);
    // this.m_soundFire.play(true);
-   this.m_soundFire.play(true);
+    
     return bullet;
 };
 

@@ -19,7 +19,6 @@ Winners.entity.Base1shield = function(x, y, game) {
     // Super call
     //--------------------------------------------------------------------------
     this.game  = game;
-    this.hpValue = 1000;
     /**
      * Calls the constructor method of the super class.
      */
@@ -69,7 +68,6 @@ Winners.entity.Base1shield.prototype.update = function(step) {
  * @returns {undefined}
  */
 Winners.entity.Base1shield.prototype.dispose = function() {
-    console.log('Base1shield is disposed')
     rune.display.Sprite.prototype.dispose.call(this);
 };
 

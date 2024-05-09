@@ -35,8 +35,6 @@
     this.turret1 = this.game.turret1;
     // this.layer0 = container;
     this.layer0 = this.game.layer0;
-    this.playerBaseShield = this.game.Base1shield;
-    this.enemyBaseShield = this.game.Base2shield;
    
 
   //--------------------------------------------------------------------------
