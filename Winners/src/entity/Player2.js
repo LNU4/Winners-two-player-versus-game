@@ -30,10 +30,9 @@ Winners.entity.Player2 = function (x, y, game ){
   this.initX = x;
   this.initY = y;
  // this.player2Base = player2Base;
- this.player2Base = this.game.base2; 
+ this.playerBase = this.game.base2; 
  // this.enemy1Base = enemy1Base;
-
-this.enemy1Base = this.game.base;
+this.enemyBase = this.game.base;
 //this.turret1 = turret1;
 this.turret1 = this.game.turret2;
 //this.layer0 = container;
@@ -164,7 +163,7 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
 
 Winners.entity.Player2.prototype.shoot = function () {
   this.bullets = new
-    Winners.entity.Bullets(this.layer0, this, this.turret1, this.player, this.player2Base, this.enemy1Base);
+    Winners.entity.Bullets(this.game ,this.layer0, this, this.turret1, this.player);
   this.application.scenes.selected.groups.add(this.bullets);
   this.bullet = this.bullets.create(this.centerX, this.centerY);
 

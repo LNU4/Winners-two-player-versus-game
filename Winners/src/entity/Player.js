@@ -146,7 +146,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
 
 
 Winners.entity.Player.prototype.shoot = function () {
-  this.bullets = new Winners.entity.Bullets(this.layer0, this, this.turret1, this.player2, this.playerBase,  this.enemyBase);
+  this.bullets = new Winners.entity.Bullets(this.game, this.layer0, this, this.turret1, this.player2);
   this.application.scenes.selected.groups.add(this.bullets);
   this.bullet = this.bullets.create(this.centerX, this.centerY);
   

@@ -42,6 +42,7 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
 /**
  * @inheritDoc
  */
+
 Winners.data.Requests.prototype.m_construct = function () {
   rune.resource.Requests.prototype.m_construct.call(this);
   this.add("100hp", "./../asset/png/100hp.png");
@@ -54,6 +55,8 @@ Winners.data.Requests.prototype.m_construct = function () {
   this.add("powerUp", "./../asset/png/powerUp.png");
   this.add("resizedtank", "./../asset/png/resizedtank.png");
   this.add("soldiers", "./../asset/png/soldiers.png");
+	this.add("heavysoldier.png", "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABFUlEQVRYR2NkIB38J6CFkRQjSVIMNfj/lkR5rHb4zH8IEifJTGIUE/IxIQ/jtYMoB+DyMSGbiQkRejgAmzvh9tLcAfvyDVAc4DTxAko6GXXA8A8BHDmF8kQIzWJw87FlVZplQ5DBx5OEUDxnOe8dA7oj0ByAXKCRHwLYLIe5BN0R6A4AORqkBrm4JikR4rMc2RG4Ski6OQA9epAdRJcQGHXAgIcAzRIhyOABzYYwnw1oQYTsCOSgplZRTGn7D6U4JqcuADvg/1VCrT1MeUZtBgaZ/fsYnjg6wR0xdB1Auv8ROpDTAlkhgK0RSc9mOdZESE8HYAt9nF0xQlFFThRgdQAhiwjIU9w1Qzef7p1TDAdQ4mN0vQCQ39khF7EqZQAAAABJRU5ErkJgggAA");
+
   this.add("star", "./../asset/png/star.png");
   this.add("tank-frames-raw", "./../asset/png/tank-frames-raw.png");
   this.add("tank-reworked", "./../asset/png/tank-reworked.png");

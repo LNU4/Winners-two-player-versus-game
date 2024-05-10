@@ -32,8 +32,10 @@ Winners.entity.Truck = function (x, y, game, enemy) {
 
   if (this.enemy === this.game.player) {
     this.player = this.game.player;
+   //this.target1 = this.game.player;
   } else if (this.enemy === this.game.player2) {
     this.player = this.game.player2;
+   //this.target2 = this.game.player2;
   }
 
   this.deadSoldiers = 0; // test
@@ -63,7 +65,6 @@ Winners.entity.Truck.prototype.init = function () {
   this.m_initAnimation();
   this.m_initPhysics();
   this.rotation = 90;
-  console.log(this.game);
 };
 
 Winners.entity.Truck.prototype.m_initAnimation = function () {
@@ -78,8 +79,9 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   var truckX = this.x;
   var truckY = this.y;
   this.soldierArr = [];
-  console.log(this.soldierArr);
+  
   for (var i = 0; i < 3; i++) {
+    this.soldierix = i;
     var angle = Math.random() * Math.PI * 2;
     var distance = 30;
     var soldierX = truckX + Math.cos(angle) * distance;
@@ -90,12 +92,18 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
       soldierX,
       soldierY,
       this.game,
-      this.enemy
+      this.player, this.soldierix
     );
-    this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX,soldierY, this.game, this.enemy);
+    // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
+    //     soldierY, 
+    //     this.game, 
+    //     this.player);
+
+    // this.layer0.addChild(this.HeavySoldier)
+
     this.soldierArr.push(this.soldier);
   }
-  console.log(this.soldierArr);
+  
 };
 
 /**
@@ -133,6 +141,10 @@ Winners.entity.Truck.prototype.update = function (step) {
   if (this.enemy) {
     this.hitTestAndSeparate(this.enemy);
   }
+
+//   if (this.enemy === this.game.player) {
+//     this.player2.bullets.bullet.hitTestAndSeparate(this.soldier)
+//   } 
 };
 
 /**
