@@ -84,13 +84,17 @@ Winners.scene.Menu.prototype.update = function (step) {
         this.application.scenes.load([new Winners.scene.Game()]);
     }
     */
+
+    
   if (this.keyboard.justPressed("UP")) {
     this.menu.up();
-    this.selected--;
+    this.selected = (this.selected - 1 + 4) % 4;
   } else if (this.keyboard.justPressed("DOWN")) {
     this.menu.down();
-    this.selected++;
+    this.selected = (this.selected + 1) % 4;
+
   }
+
 
   if (this.keyboard.justPressed("SPACE")) {
     switch (this.selected) {
