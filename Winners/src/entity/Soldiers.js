@@ -17,24 +17,53 @@
  *
  */
 
-Winners.entity.Soldiers = function (x, y, game, enemy) {
+Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   this.shootDistance = 200;
   this.moveSpeed = 1;
   this.shootCooldown = 900;
   this.lastShootTime = 0;
+  //this.texture = texture;
 
-  this.play = game;
+  this.game = game;
+  
   this.enemy = enemy;
+//   this.baseOwner = null;
 
-  this.targetPlayer = enemy;
+//   this.baseTarget = null; 
+
+
+// if (this.enemy == this.game.player2){
+//     this.baseOwner = this.game.base2;
+//     this.baseTarget = this.game.base;
+
+//     console.log( this.baseOwner , '.-.-.-.-.',  this.baseTarget)
+// } else if (this.enemy == this.game.player) {
+//     this.baseOwner = this.game.base;
+//     this.baseTarget = this.game.base2;
+
+//     console.log( this.baseOwner , '.-.-.-.-.',  this.baseTarget)
+// }
+
+if (this.enemy === this.game.player) {
+    this.player = this.game.player;
+  //  this.target1 = this.game.player;
+  } else if (this.enemy === this.game.player2) {
+    this.player = this.game.player2;
+   // this.target2 = this.game.player2;
+  }
+
+
+
+  this.ix = ix; 
+
+  //this.enemy = enemy;
+
   this.isDead = false;
   this.powerUpProb = 0;
 
-  this.layer = this.play.layer0;
+  this.layer = this.game.layer0;
 
-  this.baseOwner = this.play.base2;
-
-  this.baseTarget = this.play.base2;
+  
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
   this.layer.addChild(this);
@@ -56,18 +85,18 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
   var m_this = this;
-  var distanceX = this.targetPlayer.x - this.x;
-  var distanceY = this.targetPlayer.y - this.y;
+  var distanceX = this.enemy.x - this.x;
+  var distanceY = this.enemy.y - this.y;
   var distance = rune.util.Math.distance(
-    this.targetPlayer.x,
-    this.targetPlayer.y,
+    this.enemy.x,
+    this.enemy.y,
     this.x,
     this.y
   );
   if (this.enemy.hitTest(this)) {
     this.isDead = true;
     this.powerUpProb = Math.random() * 5;
-    this.play.layer0.removeChild(this);
+    this.game.layer0.removeChild(this);
     this.dispose();
   }
   if (this.isDead == true) {
@@ -78,10 +107,12 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         */
     var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
     var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
-    this.play.timers.create({
+    this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-        this.powerUp = new Winners.entity.Powerup(ranX, ranY);
+        
+        this.powerUp = new Winners.entity.Powerup(ranX, ranY, m_this.game, m_this.player);
+        
         this.layer0.addChild(this.powerUp);
       },
     });
@@ -93,7 +124,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-      this.shoot();
+    //   this.shoot();
       this.lastShootTime = currentTime;
     }
   } else {
@@ -108,8 +139,8 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
   var currentPosition = new rune.geom.Point(this.x, this.y);
   var targetPosition = new rune.geom.Point(
-    this.targetPlayer.centerX,
-    this.targetPlayer.centerY
+    this.enemy.centerX,
+    this.enemy.centerY
   );
   var distanceX = targetPosition.x - currentPosition.x;
   var distanceY = targetPosition.y - currentPosition.y;
@@ -144,20 +175,20 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
   var currentTime = Date.now();
   if (currentTime - this.lastShootTime >= this.shootCooldown) {
-    this.shoot();
+    // this.shoot();
     this.lastShootTime = currentTime;
   }
 
   if (this.enemy.hitTest(this)) {
-    this.play.layer0.removeChild(this);
+    this.game.layer0.removeChild(this);
   }
 };
 
 Winners.entity.Soldiers.prototype.shoot = function () {
   var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
   var targetPosition = new rune.geom.Point(
-    this.targetPlayer.centerX,
-    this.targetPlayer.centerY
+    this.enemy.centerX,
+    this.enemy.centerY
   );
 
   var distanceX = targetPosition.x - currentPosition.x;
@@ -170,13 +201,11 @@ Winners.entity.Soldiers.prototype.shoot = function () {
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
 
-    this.bullets = new Winners.entity.Bullets(
+    this.bullets = new Winners.entity.Bullets( this.game,
       this.layer,
       this,
       this.turret1,
-      this.targetPlayer,
-      this.baseOwner,
-      this.baseTarget
+      this.enemy,
     );
     this.application.scenes.selected.groups.add(this.bullets);
 

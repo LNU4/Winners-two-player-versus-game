@@ -1,14 +1,44 @@
-Winners.entity.HeavySoldier = function (x, y, game, enemy) {
-  Winners.entity.Soldiers.call(this, x, y, game, enemy);
+//------------------------------------------------------------------------------
+// Constructor scope
+//------------------------------------------------------------------------------
 
-  this.shootDistance = 100; 
+/**
+ * Creates a new object.
+ *
+ * @constructor
+ * @extends rune.display.Sprite
+ *
+ * @class
+ * @classdesc
+ *
+ * Game scene.
+ */
+/**
+ *
+ */
+Winners.entity.HeavySoldier = function (x, y, game, enemy) {
+ // Winners.entity.Soldiers.call(this, x, y, game, enemy);
+
+  this.game = game;
+  this.enemy = enemy;
+ this.shootDistance = 100; 
   this.moveSpeed = 0.2; 
+  console.log(this)
+
+  rune.display.Sprite.call(this, x, y, 32, 32, "heavysoldier.png");
+
+  
 };
 
-Winners.entity.HeavySoldier.prototype = Object.create(Winners.entity.Soldiers.prototype);
+
+
+Winners.entity.HeavySoldier.prototype = Object.create(
+  rune.display.Sprite.prototype
+);
 Winners.entity.HeavySoldier.prototype.constructor = Winners.entity.HeavySoldier;
 
 Winners.entity.HeavySoldier.prototype.shoot = function () {
+  console.log('havy is shooting')
   var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
   var targetPosition = new rune.geom.Point(
     this.targetPlayer.centerX,

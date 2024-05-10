@@ -66,7 +66,10 @@ Winners.scene.Game.prototype.init = function () {
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
-
+  this.powerupIx = 0;
+  this.powerupsArray = [];
+ // this.powerupCounter = new  Winners.entity.PowerupCounter (this, this.powerupIx);
+ 
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
   this.layer2.addChild(this.turret1);
 
@@ -131,6 +134,7 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.player2);
   this.layer0.addChild(this.base);
   this.layer0.addChild(this.base2);
+  //this.layer0.addChild(this.powerupCounter)
   // this.layer0.addChild(this.Soldiers);
   this.layer2.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
@@ -141,6 +145,8 @@ Winners.scene.Game.prototype.createTruck = function () {
   // this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
   this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
   this.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
+//   this.player.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
+//   this.player2.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
   this.layer0.addChild(this.truck);
   this.layer0.addChild(this.truck2);
   if (this.player2.hitTest(this.truck.soldier)) {
@@ -206,4 +212,11 @@ Winners.scene.Game.prototype.m_updateInput = function (step) {
     this.player.hitTestAndSeparate(this.player2)
   ) {
   }
+
+//   if (this.truck.enemy === this.player) {
+//     this.player2.bullets.bullet.hitTestAndSeparate(this.truck.soldier)
+//   } 
+//   else if (this.enemy === this.game.player2) {
+//     this.player = this.game.player2;
+//   }
 };

@@ -16,7 +16,7 @@
  * 
  * Represents a bullet.
  */
-Winners.entity.Bullet = function(layer0, bulletOwner, bulletTarget, baseOwner, baseTarget, x, y) {
+Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, x, y) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -29,15 +29,21 @@ Winners.entity.Bullet = function(layer0, bulletOwner, bulletTarget, baseOwner, b
      * @default 20
      */
 
-
+    this.game = game; 
     this.damage = 20.0;
 
     this.layer0 = layer0;
 
     this.bulletOwner = bulletOwner;
     this.bulletTarget = bulletTarget;
-    this.baseOwner = baseOwner;
-    this.baseTarget = baseTarget; 
+
+    this.baseOwner = this.bulletOwner.playerBase;
+    console.log('owner',this.baseOwner)
+    this.baseTarget = this.bulletTarget.enemyBase; 
+    console.log('target',this.baseTarget)
+    // this.baseOwner = baseOwner;
+    // this.baseTarget = baseTarget; 
+    
     //this.baseTarget.debug = true;
   
  
@@ -154,17 +160,67 @@ Winners.entity.Bullet.prototype.update = function(step) {
        
     }
 
-    if (this.hitTest(this.baseTarget)){
+    if (this.bulletOwner.bullets.bullet.hitTest(this.bulletOwner.enemyBase)){
         this.layer0.removeChild(this);
-        console.log(this.bulletTarget.parent.numChildren)
-        this.baseTarget.HPValue -= 200;
-        console.log(this.baseTarget.HPValue)
-    } else if (this.baseTarget.HPValue <= 0){
-        console.log(this.bulletTarget.parent.numChildren)
-        this.layer0.removeChild(this.baseTarget)
-        console.log('done, powerUp')
+       // baseTarget console.log(this.bulletTarget.parent.numChildren)
+       this.bulletOwner.enemyBase.HPValue -= 200;
+        //console.log(this.baseTarget.HPValue)
+    } else if (this.bulletOwner.enemyBase.HPValue <= 0){
+        //console.log(this.bulletTarget.parent.numChildren)
+        this.layer0.removeChild(this.bulletOwner.enemyBase)
+       // console.log('done, powerUp')
 
     }
+
+    // if (this.hitTest(this.baseTarget)){
+    //     this.layer0.removeChild(this);
+    //    // baseTarget console.log(this.bulletTarget.parent.numChildren)
+    //     this.baseTarget.HPValue -= 200;
+    //     //console.log(this.baseTarget.HPValue)
+    // } else if (this.baseTarget.HPValue <= 0){
+    //     //console.log(this.bulletTarget.parent.numChildren)
+    //     this.layer0.removeChild(this.baseTarget)
+    //    // console.log('done, powerUp')
+
+    // }
+
+    if (this.game.truck){
+      
+        if (this.game.truck.soldier){
+           
+           //console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck.soldier.enemy)
+        if (this.game.truck.soldier.enemy == this.bulletOwner){
+        //  console.log(this.game.truck.soldier.enemy)
+            if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[0])  ) {
+             
+                 this.game.layer0.removeChild(this);
+                 this.game.layer0.removeChild(this.game.truck.soldierArr[0])
+
+            } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[1])){
+                this.game.layer0.removeChild(this);
+                this.game.layer0.removeChild(this.game.truck.soldierArr[1])
+
+            } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[2])){
+                this.game.layer0.removeChild(this);
+                this.game.layer0.removeChild(this.game.truck.soldierArr[2])
+            }
+       
+            
+             }
+
+    }
+    // else {
+    //     return 
+    // }
+
+}
+//  else {
+//     return 
+// }
+    // if (this.game.truck.soldier.enemy === this.bulletTarget){
+
+    //     console.log(this.game.truck.soldier.enemy)
+    // }
     this.m_updateMotion(step);
   
 
