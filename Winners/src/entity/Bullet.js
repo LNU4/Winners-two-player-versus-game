@@ -108,7 +108,9 @@ Winners.entity.Bullet.prototype.update = function(step) {
             
            
              console.log('GAME OVER')
-             this.application.scenes.load([new Winners.scene.Menu()]);
+            // this.application.scenes.load([new Winners.scene.Menu()]);
+
+            // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A 
         } else if (actualLife.value <= 0){
        
             
