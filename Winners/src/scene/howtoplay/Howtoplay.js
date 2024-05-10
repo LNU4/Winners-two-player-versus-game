@@ -78,10 +78,10 @@ Winners.scene.Howtoplay.prototype.update = function (step) {
     */
   if (this.keyboard.justPressed("UP")) {
     this.menu.up();
-    this.selected--;
+    this.selected = (this.selected - 1 + 1) % 1;
   } else if (this.keyboard.justPressed("DOWN")) {
     this.menu.down();
-    this.selected++;
+    this.selected = (this.selected + 1 + 1) % 1;
   }
 
   if (this.keyboard.justPressed("SPACE")) {
