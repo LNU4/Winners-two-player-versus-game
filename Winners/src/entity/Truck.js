@@ -141,6 +141,26 @@ Winners.entity.Truck.prototype.update = function (step) {
   if (this.enemy) {
     this.hitTestAndSeparate(this.enemy);
   }
+  
+//   if (this.game.truck){
+//     this.enemyTruck = this.game.truck;
+    if (this.player.bullets){
+  if (this.player.bullets.bullet){
+    if (this.player.bullets.bullet.hitTest(this)){
+    console.log('.-.-.-.')
+    this.layer0.removeChild(this.player.bullets.bullet)
+    this.layer0.removeChild(this)
+  }
+  }
+    //console.log(this.enemyTruck)
+  //}
+  // if (this.hitTestAndSeparate(this.game.Base2shield)) {
+  //   //console.log('.-.-.-.') 
+  
+    
+  // }
+
+}  
 
 //   if (this.enemy === this.game.player) {
 //     this.player2.bullets.bullet.hitTestAndSeparate(this.soldier)

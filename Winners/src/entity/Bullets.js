@@ -33,6 +33,8 @@ Winners.entity.Bullets = function(game ,container, owner, turret,enemy) {
     this.enemy = enemy;
     this.game = game; 
     this.turret = turret;
+    this.fire = this.application.sounds.sound.get("fire1");
+  
     // this.ownerBase = ownerBase;
     // this.enemyBase = enemyBase;
     // console.log(this.owner)
@@ -83,11 +85,12 @@ Winners.entity.Bullets.prototype.create = function(x, y) {
         this.removeChild(this.getChildAt(0));
     }
     
-    this.bullet = new Winners.entity.Bullet(this.game, this.container, this.owner, this.enemy);
+    this.bullet = new Winners.entity.Bullet(this.game, this.container, this.owner, this.enemy, this);
     this.bullet.x = (x || 0) - (this.bullet.width  >> 1);
     this.bullet.y = (y || 0) - (this.bullet.height >> 1);
 
     this.addMember(this.bullet);
+    this.fire.play(true);
    // this.m_soundFire.play(true);
     
     return this.bullet;
