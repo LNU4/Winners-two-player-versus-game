@@ -36,7 +36,7 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, x, y) {
 
     this.bulletOwner = bulletOwner;
     this.bulletTarget = bulletTarget;
-
+    console.log(bulletTarget);
     this.baseOwner = this.bulletOwner.playerBase;
     console.log('owner',this.baseOwner)
     this.baseTarget = this.bulletTarget.enemyBase; 
