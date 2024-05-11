@@ -86,7 +86,8 @@ Winners.scene.Game.prototype.init = function () {
   this.player.player2 = this.player2;
 
   // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
-
+  this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
+  this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
   //this.base = new Winners.entity.Base(10, 359.5);
   //this.base2 = new Winners.entity.Base2(1240, 359.5);
 
@@ -134,8 +135,11 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.player2);
   this.layer0.addChild(this.base);
   this.layer0.addChild(this.base2);
+  
   //this.layer0.addChild(this.powerupCounter)
   // this.layer0.addChild(this.Soldiers);
+  this.layer0.addChild(this.heavysoldiers);
+  this.layer0.addChild(this.snipersoldiers);
   this.layer2.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
@@ -173,7 +177,7 @@ Winners.scene.Game.prototype.update = function (step) {
 
   this.turret2.x = this.player2.x;
   this.turret2.y = this.player2.y;
-  this.timers.create({
+  this.timers.create({ //delete if not used N.A
     duration: 4000,
     onComplete: function () {},
   });

@@ -22,48 +22,23 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   this.moveSpeed = 1;
   this.shootCooldown = 900;
   this.lastShootTime = 0;
-  //this.texture = texture;
 
   this.game = game;
-  
+
   this.enemy = enemy;
-//   this.baseOwner = null;
 
-//   this.baseTarget = null; 
-
-
-// if (this.enemy == this.game.player2){
-//     this.baseOwner = this.game.base2;
-//     this.baseTarget = this.game.base;
-
-//     console.log( this.baseOwner , '.-.-.-.-.',  this.baseTarget)
-// } else if (this.enemy == this.game.player) {
-//     this.baseOwner = this.game.base;
-//     this.baseTarget = this.game.base2;
-
-//     console.log( this.baseOwner , '.-.-.-.-.',  this.baseTarget)
-// }
-
-if (this.enemy === this.game.player) {
+  if (this.enemy === this.game.player) {
     this.player = this.game.player;
-  //  this.target1 = this.game.player;
   } else if (this.enemy === this.game.player2) {
     this.player = this.game.player2;
-   // this.target2 = this.game.player2;
   }
 
-
-
-  this.ix = ix; 
-
-  //this.enemy = enemy;
+  this.ix = ix;
 
   this.isDead = false;
   this.powerUpProb = 0;
 
   this.layer = this.game.layer0;
-
-  
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
   this.layer.addChild(this);
@@ -100,19 +75,18 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.dispose();
   }
   if (this.isDead == true) {
-    //perhaps we can do it like this?
-    /*
-        var ranX = rune.util.Math.random(0, 1280);
-        var ranY = rune.util.Math.random(0, 720);
-        */
     var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
     var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-        
-        this.powerUp = new Winners.entity.Powerup(ranX, ranY, m_this.game, m_this.player);
-        
+        this.powerUp = new Winners.entity.Powerup(
+          ranX,
+          ranY,
+          m_this.game,
+          m_this.player
+        );
+
         this.layer0.addChild(this.powerUp);
       },
     });
@@ -161,6 +135,8 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     currentPosition.x += directionX * this.moveSpeed;
     currentPosition.y += directionY * this.moveSpeed;
   }
+
+ /*
   currentPosition.x = Math.min(
     Math.max(currentPosition.x, 0),
     1280 - this.width
@@ -169,6 +145,9 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     Math.max(currentPosition.y, 0),
     720 - this.height
   );
+*/
+this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
+this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
 
   this.x = currentPosition.x;
   this.y = currentPosition.y;
@@ -201,11 +180,12 @@ Winners.entity.Soldiers.prototype.shoot = function () {
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
 
-    this.bullets = new Winners.entity.Bullets( this.game,
+    this.bullets = new Winners.entity.Bullets(
+      this.game,
       this.layer,
       this,
       this.turret1,
-      this.enemy,
+      this.enemy
     );
     this.application.scenes.selected.groups.add(this.bullets);
 
