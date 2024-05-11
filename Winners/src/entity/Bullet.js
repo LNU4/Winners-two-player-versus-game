@@ -162,6 +162,8 @@ Winners.entity.Bullet.prototype.update = function(step) {
        
     }
 
+ if  (this.bulletOwner.enemyBase) {
+
     if (this.bulletOwner.bullets.bullet.hitTest(this.bulletOwner.enemyBase)){
         this.layer0.removeChild(this);
        // baseTarget console.log(this.bulletTarget.parent.numChildren)
@@ -173,6 +175,9 @@ Winners.entity.Bullet.prototype.update = function(step) {
        // console.log('done, powerUp')
 
     }
+} else {
+    // console.log( 'soldeirs dont have to shoot the enemyBase that is why they dont have - enemyBase- as a proprety' )
+}
 
     // if (this.hitTest(this.baseTarget)){
     //     this.layer0.removeChild(this);
