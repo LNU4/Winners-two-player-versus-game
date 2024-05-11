@@ -37,6 +37,8 @@ this.enemyBase = this.game.base;
 this.turret1 = this.game.turret2;
 //this.layer0 = container;
 this.layer0 = this.game.layer0; 
+
+
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -85,37 +87,10 @@ Winners.entity.Player2.prototype.init = function () {
 
     this.livesArr.push(this.life);
   }
-
+ 
   this.m_initPhysics();
   this.m_initAnimation();
 };
-
-/**
- * ...
- *
- * @param {number} step Fixed time step.
- *
- * @returns {undefined}
- */
-
-Winners.entity.Player2.prototype.update = function (step) {
-  rune.display.Sprite.prototype.update.call(this, step);
-  this.life.globalX = this.globalX;
-  this.life.globalY = this.globalY;
-  this.hitTestAndSeparate(this.game.base)
-  this.hitTestAndSeparate(this.game.base2)
-  this.hitTestAndSeparate(this.game.Base1shield)
-  if (this.hitTestAndSeparate(this.game.Base2shield)) {
-    //console.log('.-.-.-.') 
-  
-    
-  }
- // console.log(this.game.Base2shield)
-  
-  this.m_updateInput();
-
-};
-
 /**
  * ...
  *
@@ -124,6 +99,7 @@ Winners.entity.Player2.prototype.update = function (step) {
 
 Winners.entity.Player2.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
+  
 };
 
 //------------------------------------------------------------------------------
@@ -178,6 +154,43 @@ Winners.entity.Player2.prototype.shoot = function () {
 
 };
 
+/**
+ * ...
+ *
+ * @param {number} step Fixed time step.
+ *
+ * @returns {undefined}
+ */
+
+Winners.entity.Player2.prototype.update = function (step) {
+  rune.display.Sprite.prototype.update.call(this, step);
+  this.life.globalX = this.globalX;
+  this.life.globalY = this.globalY;
+  this.hitTestAndSeparate(this.game.base)
+  this.hitTestAndSeparate(this.game.base2)
+  this.hitTestAndSeparate(this.game.Base1shield)
+
+//   if (this.game.truck){
+//     this.enemyTruck = this.game.truck;
+//     if (this.bullets){
+//   if (this.bullets.bullet){
+//     if (this.bullets.bullet.hitTest(this.game.truck)){
+//     console.log('.-.-.-.')
+//     this.layer0.removeChild(this.game.truck)
+//   }
+//   }
+//     //console.log(this.enemyTruck)
+//   }
+//   // if (this.hitTestAndSeparate(this.game.Base2shield)) {
+//   //   //console.log('.-.-.-.') 
+  
+    
+//   // }
+
+// }  
+  this.m_updateInput();
+
+};
 
 /**
  * ...

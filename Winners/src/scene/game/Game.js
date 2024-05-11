@@ -146,6 +146,7 @@ Winners.scene.Game.prototype.init = function () {
 };
 Winners.scene.Game.prototype.createTruck = function () {
   var randomY = Math.random() * 720;
+  var randomY2 = Math.random() * 720;
   // this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
   this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
   this.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
@@ -181,6 +182,12 @@ Winners.scene.Game.prototype.update = function (step) {
     duration: 4000,
     onComplete: function () {},
   });
+
+  
+  if (this.truck && this.truck2){
+    this.truck.hitTestAndSeparate(this.truck2)
+  }
+
 };
 
 /**

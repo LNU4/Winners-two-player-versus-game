@@ -99,6 +99,25 @@ Winners.entity.Player.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   this.life.globalX = this.globalX;
   this.life.globalY = this.globalY;
+
+//   if (this.game.truck2){
+//     this.enemyTruck = this.game.truck2;
+//     if (this.bullets){
+//   if (this.bullets.bullet){
+//     if (this.bullets.bullet.hitTest(this.game.truck2)){
+//     console.log('.-.-.-.')
+//     this.layer0.removeChild(this.game.truck2)
+//   }
+//   }
+//     //console.log(this.enemyTruck)
+//   }
+//   // if (this.hitTestAndSeparate(this.game.Base2shield)) {
+//   //   //console.log('.-.-.-.') 
+  
+    
+//   // }
+
+// }  
   this.m_updateInput();
 
 };

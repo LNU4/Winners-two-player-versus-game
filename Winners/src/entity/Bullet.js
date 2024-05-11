@@ -16,7 +16,7 @@
  * 
  * Represents a bullet.
  */
-Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, x, y) {
+Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets ,x, y) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -38,9 +38,13 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, x, y) {
     this.bulletTarget = bulletTarget;
     console.log(bulletTarget);
     this.baseOwner = this.bulletOwner.playerBase;
-    console.log('owner',this.baseOwner)
+    this.bullets = bullets;
+    console.log(this.bullets)
+    
     this.baseTarget = this.bulletTarget.enemyBase; 
-    console.log('target',this.baseTarget)
+    this.respawn = this.bullets.application.sounds.sound.get("respwan1");
+  
+
     // this.baseOwner = baseOwner;
     // this.baseTarget = baseTarget; 
     
@@ -70,6 +74,7 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, x, y) {
     rune.display.DisplayObject.call(this, x, y, 6, 6);
     this.backgroundColor = "#FFA500";
     this.movable = true;
+   
 };
 
 //------------------------------------------------------------------------------
@@ -83,7 +88,7 @@ Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
 // Override public prototype methods (ENGINE)
 //------------------------------------------------------------------------------
 
-/**
+/** 
  * @inheritDoc
  */
 Winners.entity.Bullet.prototype.update = function(step) {
@@ -91,7 +96,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
     
     if(this.hitTest(this.bulletTarget)){
 
-        console.log(this.baseTarget.HPValue)
+       
         this.layer0.removeChild(this);
 
 
@@ -109,11 +114,12 @@ Winners.entity.Bullet.prototype.update = function(step) {
         if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
            
          this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
+
          this.bulletTarget.parent.removeChild(actualLifeHpOb);
         //this.bulletOwner.parent.removeChild(this.bulletTarget);
             
            
-             console.log('GAME OVER')
+           //  console.log('GAME OVER')
             // this.application.scenes.load([new Winners.scene.Menu()]);
 
             // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A 
@@ -122,11 +128,15 @@ Winners.entity.Bullet.prototype.update = function(step) {
             
             //console.log(this.bulletTarget.parent.removeChild(actualLifeHpOb))
            this.bulletTarget.flicker.start(); 
+           
             this.bulletTarget.x = this.bulletTarget.initX;
            
             this.bulletTarget.y = this.bulletTarget.initY;
           
-           this.bulletTarget.parent.removeChild(actualLifeHpOb)
+          this.bulletTarget.parent.removeChild(actualLifeHpOb)
+
+
+
           
             this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
 
@@ -138,6 +148,8 @@ Winners.entity.Bullet.prototype.update = function(step) {
             this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp = new Winners.entity.Hps(this.bulletTarget.livesArr[this.bulletTarget.lifeIx], this.stage, this.bulletTarget);
 
             this.bulletTarget.parent.addChildAt( this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp, 2)
+            this.respawn.play(true);
+         // this.respawn(actualLifeHpOb)
            
         } else if (actualLife.value == 80){
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 20, 10);
@@ -191,13 +203,17 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
     // }
 
-    if (this.game.truck){
+    if (this.game.truck) {
       
+        // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck)){
+        //     console.log(' hit truck') 
+        //     this.layer0.removeChild(this.game.truck);
+        // }
         if (this.game.truck.soldier){
            
-           //console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck.soldier.enemy)
+          // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck.soldier.enemy)
         if (this.game.truck.soldier.enemy == this.bulletOwner){
-        //  console.log(this.game.truck.soldier.enemy)
+         //console.log(this.game.truck.soldier.enemy)
             if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[0])  ) {
              
                  this.game.layer0.removeChild(this);
@@ -215,10 +231,45 @@ Winners.entity.Bullet.prototype.update = function(step) {
             
              }
 
-    }
+    } 
     // else {
     //     return 
     // }
+
+}
+if (this.game.truck2) {
+
+    // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2)){
+    //     console.log(' hit truck') 
+    //     this.layer0.removeChild(this.game.truck2);
+    // }
+      
+    if (this.game.truck2.soldier){
+       
+      // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck2.soldier.enemy)
+    if (this.game.truck2.soldier.enemy == this.bulletOwner){
+     //console.log(this.game.truck2.soldier.enemy)
+        if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[0])  ) {
+         
+             this.game.layer0.removeChild(this);
+             this.game.layer0.removeChild(this.game.truck2.soldierArr[0])
+
+        } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[1])){
+            this.game.layer0.removeChild(this);
+            this.game.layer0.removeChild(this.game.truck2.soldierArr[1])
+
+        } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[2])){
+            this.game.layer0.removeChild(this);
+            this.game.layer0.removeChild(this.game.truck2.soldierArr[2])
+        }
+   
+        
+         }
+
+} 
+// else {
+//     return 
+// }
 
 }
 //  else {
@@ -233,6 +284,40 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
 };
 
+
+Winners.entity.Bullet.prototype.respawn = function(actualLifeHpOb) {
+ console.log(this)
+    this.layer0.removeChild(actualLifeHpOb)
+
+    this.layer0.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
+
+           
+
+    this.bulletTarget.lifeIx ++
+  
+
+    this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp = new Winners.entity.Hps(this.bulletTarget.livesArr[this.bulletTarget.lifeIx], this.stage, this.bulletTarget);
+
+    this.bulletTarget.parent.addChildAt( this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp, 2)
+   this.bulletTarget.parent.removeChild(this.bulletTarget)
+    this.game.timers.create({
+        duration: 3000,
+        onComplete: function (){
+            this.layer0.addChild(target)
+            target.flicker.start();
+            target.x  = this.bulletTarget.initX;
+            target.y =  this.bulletTarget.initY;
+           
+        }
+    })
+
+     // this.bulletTarget.x = this.bulletTarget.initX;
+           
+            // this.bulletTarget.y = this.bulletTarget.initY;
+  
+
+
+};
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
