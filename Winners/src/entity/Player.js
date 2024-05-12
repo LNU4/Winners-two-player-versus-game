@@ -14,39 +14,39 @@
  * Game scene.
  */
 // Winners.entity.Player = function (x, y, turret1, container, playerBase, enemyBase) {
-  Winners.entity.Player = function (x,y, game) {
-/**
- * placeholder to refer to the second player
- */
+Winners.entity.Player = function (x, y, game) {
+  /**
+   * placeholder to refer to the second player
+   */
 
-   // this.player2 = null;
-    this.game = game;
-    this.lifeIx = 0;
-    this.lives = 3;
-    this.initX = x;
-    this.initY = y;
-    this.livesArr = [];
-    //this.playerBase = playerBase;
-    this.playerBase = this.game.base; 
-    //this.enemyBase = enemyBase;
-    this.enemyBase = this.game.base2;
-    
-   // this.turret1 = turret1;
-    this.turret1 = this.game.turret1;
-    // this.layer0 = container;
-    this.layer0 = this.game.layer0;
-   
+  // this.player2 = null;
+  this.game = game;
+  this.lifeIx = 0;
+  this.lives = 3;
+  this.initX = x;
+  this.initY = y;
+  this.livesArr = [];
+  //this.playerBase = playerBase;
+  this.playerBase = this.game.base;
+  //this.enemyBase = enemyBase;
+  this.enemyBase = this.game.base2;
+
+  // this.turret1 = turret1;
+  this.turret1 = this.game.turret1;
+  // this.layer0 = container;
+  this.layer0 = this.game.layer0;
+
 
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
-   
+
   /**
    * Calls the constructor method of the super class.
    */
   rune.display.Sprite.call(this, x, y, 64, 64, "resizedtank");
- 
- 
+
+
 };
 
 //----------------------------------------------------------------------------
@@ -66,20 +66,20 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
  * @returns {undefined}
  */
 Winners.entity.Player.prototype.init = function () {
-   
+
   rune.display.Sprite.prototype.init.call(this);
 
 
- 
- 
- 
- var lifeX = 5; 
- var lifeY = 25; 
 
-  for (var i = 0; i<this.lives; i++){
-   var lifeIx = i;
 
-    this.life = new Winners.entity.Life(this, lifeIx, {lifeX,lifeY} );
+
+  var lifeX = 5;
+  var lifeY = 25;
+
+  for (var i = 0; i < this.lives; i++) {
+    var lifeIx = i;
+
+    this.life = new Winners.entity.Life(this, lifeIx, { lifeX, lifeY });
 
     this.livesArr.push(this.life);
   }
@@ -100,24 +100,24 @@ Winners.entity.Player.prototype.update = function (step) {
   this.life.globalX = this.globalX;
   this.life.globalY = this.globalY;
 
-//   if (this.game.truck2){
-//     this.enemyTruck = this.game.truck2;
-//     if (this.bullets){
-//   if (this.bullets.bullet){
-//     if (this.bullets.bullet.hitTest(this.game.truck2)){
-//     console.log('.-.-.-.')
-//     this.layer0.removeChild(this.game.truck2)
-//   }
-//   }
-//     //console.log(this.enemyTruck)
-//   }
-//   // if (this.hitTestAndSeparate(this.game.Base2shield)) {
-//   //   //console.log('.-.-.-.') 
-  
-    
-//   // }
+  //   if (this.game.truck2){
+  //     this.enemyTruck = this.game.truck2;
+  //     if (this.bullets){
+  //   if (this.bullets.bullet){
+  //     if (this.bullets.bullet.hitTest(this.game.truck2)){
+  //     console.log('.-.-.-.')
+  //     this.layer0.removeChild(this.game.truck2)
+  //   }
+  //   }
+  //     //console.log(this.enemyTruck)
+  //   }
+  //   // if (this.hitTestAndSeparate(this.game.Base2shield)) {
+  //   //   //console.log('.-.-.-.') 
 
-// }  
+
+  //   // }
+
+  // }  
   this.m_updateInput();
 
 };
@@ -160,7 +160,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
 
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
-  
+
 };
 
 
@@ -168,8 +168,8 @@ Winners.entity.Player.prototype.shoot = function () {
   this.bullets = new Winners.entity.Bullets(this.game, this.layer0, this, this.turret1, this.player2);
   this.application.scenes.selected.groups.add(this.bullets);
   this.bullet = this.bullets.create(this.centerX, this.centerY);
-  
-  
+
+
   this.bullet.velocity.x = this.velocity.x;
   this.bullet.velocity.y = this.velocity.y;
   this.bullet.globalX = this.velocity.x;
@@ -177,7 +177,7 @@ Winners.entity.Player.prototype.shoot = function () {
   this.bullet.rotation = this.turret1.rotation - 90;
   this.turret1.shotAnimation();
   //console.log(this.turret1.shotAnimation());
-  
+
 
 };
 
@@ -190,41 +190,41 @@ Winners.entity.Player.prototype.shoot = function () {
  */
 Winners.entity.Player.prototype.m_updateInput = function () {
   var gamepad = this.gamepads.get(0);
-  
+
   if (this.keyboard.pressed("D") || gamepad.stickLeftRight) {
     this.velocity.x += 0.15;
-  
 
-   
+
+
     this.rotation = 90;
     this.animation.gotoAndPlay("walk");
   }
 
   if (this.keyboard.pressed("A") || gamepad.stickLeftLeft) {
     this.velocity.x -= 0.15;
-    
+
     this.rotation = -90;
-   
+
     this.animation.gotoAndPlay("walk");
   }
 
   if (this.keyboard.pressed("S") || gamepad.stickLeftDown) {
     this.velocity.y += 0.15;
     this.rotation = 180;
-    
-   
+
+
     this.animation.gotoAndPlay("walk");
   }
 
   if (this.keyboard.pressed("W") || gamepad.stickLeftUp) {
     this.velocity.y -= 0.15;
-   
+
     this.rotation = 0;
-   
+
     this.animation.gotoAndPlay("walk");
   }
 
-  if ( gamepad.justPressed(7) || this.keyboard.justPressed("P")) {
+  if (gamepad.justPressed(7) || this.keyboard.justPressed("P")) {
     this.shoot();
   }
 

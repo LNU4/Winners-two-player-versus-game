@@ -79,7 +79,7 @@ Winners.entity.SniperSodier.prototype.update = function (step) {
 
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-      this.shoot();
+     // this.shoot();
 
       this.lastShootTime = currentTime;
     }

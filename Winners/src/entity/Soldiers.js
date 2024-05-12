@@ -98,7 +98,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-     // this.shoot();
+      // this.shoot();
       this.lastShootTime = currentTime;
     }
   } else {
@@ -136,25 +136,25 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     currentPosition.y += directionY * this.moveSpeed;
   }
 
- /*
-  currentPosition.x = Math.min(
-    Math.max(currentPosition.x, 0),
-    1280 - this.width
-  );
-  currentPosition.y = Math.min(
-    Math.max(currentPosition.y, 0),
-    720 - this.height
-  );
-*/
-this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
-this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
+  /*
+   currentPosition.x = Math.min(
+     Math.max(currentPosition.x, 0),
+     1280 - this.width
+   );
+   currentPosition.y = Math.min(
+     Math.max(currentPosition.y, 0),
+     720 - this.height
+   );
+ */
+  this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
+  this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
 
   this.x = currentPosition.x;
   this.y = currentPosition.y;
 
   var currentTime = Date.now();
   if (currentTime - this.lastShootTime >= this.shootCooldown) {
-   // this.shoot();
+    // this.shoot();
     this.lastShootTime = currentTime;
   }
 

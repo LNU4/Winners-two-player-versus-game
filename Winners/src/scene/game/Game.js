@@ -88,6 +88,8 @@ Winners.scene.Game.prototype.init = function () {
   // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
   this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
+  this.rocketsoldier = new Winners.entity.Rocketsoldier(50, 50, this, this.player2);
+  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
   //this.base = new Winners.entity.Base(10, 359.5);
   //this.base2 = new Winners.entity.Base2(1240, 359.5);
 
@@ -140,6 +142,8 @@ Winners.scene.Game.prototype.init = function () {
   // this.layer0.addChild(this.Soldiers);
   this.layer0.addChild(this.heavysoldiers);
   this.layer0.addChild(this.snipersoldiers);
+  this.layer0.addChild(this.rocketsoldier);
+  this.layer0.addChild(this.repairsoldier);
   this.layer2.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
