@@ -20,7 +20,7 @@
 Winners.entity.SniperSodier = function (x, y, game, enemy) {
   this.game = game;
   this.enemy = this.game.player2;
-  
+   console.log('sniper')
   this.layer = this.game.layer0;
   this.shootDistance = 1000;   
   this.moveSpeed = 1.5;      

@@ -55,6 +55,41 @@ Winners.entity.Soldiers.prototype.constructor = Winners.entity.Soldiers;
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
 //------------------------------------------------------------------------------
+Winners.entity.Soldiers.prototype.shoot = function () {
+  var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
+  var targetPosition = new rune.geom.Point(
+    this.enemy.centerX,
+    this.enemy.centerY
+  );
+
+  var distanceX = targetPosition.x - currentPosition.x;
+  var distanceY = targetPosition.y - currentPosition.y;
+
+  var distance = currentPosition.distance(targetPosition);
+  if (distance <= this.shootDistance) {
+    var bulletSpeed = 1;
+
+    var bulletDirectionX = distanceX / distance;
+    var bulletDirectionY = distanceY / distance;
+
+    this.bullets = new Winners.entity.Bullets(
+      this.game,
+      this.layer,
+      this,
+      this.turret1,
+      this.enemy
+    );
+    this.application.scenes.selected.groups.add(this.bullets);
+
+    var bullet = this.bullets.create(this.centerX, this.centerY);
+    bullet.velocity.x = bulletDirectionX * bulletSpeed;
+    bullet.velocity.y = bulletDirectionY * bulletSpeed;
+
+    bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
+  }
+};
+
+
 
 Winners.entity.Soldiers.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
@@ -68,29 +103,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.x,
     this.y
   );
-  if (this.enemy.hitTest(this)) {
-    this.isDead = true;
-    this.powerUpProb = Math.random() * 5;
-    this.game.layer0.removeChild(this);
-    this.dispose();
-  }
-  if (this.isDead == true) {
-    var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
-    var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
-    this.game.timers.create({
-      duration: 1000,
-      onComplete: function () {
-        this.powerUp = new Winners.entity.Powerup(
-          ranX,
-          ranY,
-          m_this.game,
-          m_this.player
-        );
-
-        this.layer0.addChild(this.powerUp);
-      },
-    });
-  }
+  
 
   if (distance <= this.shootDistance && distance > 90) {
     this.x = this.x;
@@ -161,38 +174,39 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this);
   }
-};
 
-Winners.entity.Soldiers.prototype.shoot = function () {
-  var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
-  var targetPosition = new rune.geom.Point(
-    this.enemy.centerX,
-    this.enemy.centerY
-  );
+  if (this.enemy.hitTest(this)) {
+    this.isDead = true;
+    this.powerUpProb = Math.random() * 5;
+    console.log(this.powerUpProb)
+    this.game.layer0.removeChild(this);
+    this.dispose();
+  }
+  if (this.isDead == true) {
+    var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
+    var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
+    this.game.timers.create({
+      duration: 1000,
+      onComplete: function () {
+        m_this.powerUp = new Winners.entity.Powerup(
+          ranX,
+          ranY,
+          m_this.game,
+          m_this.player
+        );
 
-  var distanceX = targetPosition.x - currentPosition.x;
-  var distanceY = targetPosition.y - currentPosition.y;
-
-  var distance = currentPosition.distance(targetPosition);
-  if (distance <= this.shootDistance) {
-    var bulletSpeed = 1;
-
-    var bulletDirectionX = distanceX / distance;
-    var bulletDirectionY = distanceY / distance;
-
-    this.bullets = new Winners.entity.Bullets(
-      this.game,
-      this.layer,
-      this,
-      this.turret1,
-      this.enemy
-    );
-    this.application.scenes.selected.groups.add(this.bullets);
-
-    var bullet = this.bullets.create(this.centerX, this.centerY);
-    bullet.velocity.x = bulletDirectionX * bulletSpeed;
-    bullet.velocity.y = bulletDirectionY * bulletSpeed;
-
-    bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
+        this.layer0.addChild(m_this.powerUp);
+      },
+    });
+   
   }
 };
+/**
+ * ...
+ *
+ * @returns {undefined}
+ */
+Winners.entity.Soldiers.prototype.dispose = function() {
+    rune.display.Sprite.prototype.dispose.call(this);
+};
+

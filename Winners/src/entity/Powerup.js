@@ -13,24 +13,14 @@
  *
  * Game scene.
  */
-Winners.entity.Powerup = function (x, y, game, player) {
+Winners.entity.Powerup = function (x, y, game, unKnownPlayer) {
 
     this.game = game;
-    this.player = player;
+    console.log(game)
+    this.unKnownPlayer = unKnownPlayer;
     this.puX = 0;
     this.puY = 0;
-    if (this.player === this.game.player) {
-       // this.player = this.game.player;
-        this.puX = 5;
-        this.puY = 35;
-      //  this.target1 = this.game.player;
-      } else if (this.player === this.game.player2) {
-       // this.player = this.game.player2;
-        this.puX = 1230;
-        this.puY = 35;
-       // this.target2 = this.game.player2;
-       console.log(this.puX)
-      }
+   
 
       
     // if (){
@@ -76,27 +66,48 @@ Winners.entity.Powerup.prototype.init = function () {
  */
 Winners.entity.Powerup.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
+
+  if (this.unKnownPlayer == this.game.player) {
+    // this.player = this.game.player;
+    this.puX = 1230;
+     this.puY = 35;
+     this.player = this.game.player2
+     this.enemy = this.game.player
+   //  this.target1 = this.game.player;
+   }  else /*(this.unKnownPlayer == this.game.player2)*/ {
+    // this.player = this.game.player2;
+    
+
+     this.puX = 5;
+     this.puY = 35;
+     this.player = this.game.player
+     this.enemy = this.game.player2
+    // this.target2 = this.game.player2;
+
+    
+   }
  var puX =  this.puX;
  var puY = this.puY;
  
   // this.game.player2
   if(this.hitTest(this.player)){
-    console.log(puX)
-    this.game.layer0.removeChild(this);
-   
-    if (this.game.powerupsArray.length < 3) {
     
-       
+    
+   
+    if (this.game.player.powerupsArray.length < 3) {
+    
+       console.log(this.game.player.powerupsArray.length)
+       console.log(this.game.player.powerupsArray)
+       console.log(this.game.player)
 
-    this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.game.powerupIx, { puX ,puY});
+    this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.game.player.powerupIx, { puX ,puY}, this.player, this.enemy);
     this.game.layer0.addChild(this.powerupCounter)
-    console.log(this.game.powerupsArray)
-    this.game.powerupsArray.push(this.powerupCounter)
+    
+    this.game.player.powerupsArray.push(this.powerupCounter)
     // console.log(this.game.powerupCounter.powerupArray[0], this.game.powerupCounter.powerupIx)
-    console.log(this.game.powerupIx)
-    this.game.powerupIx++
-    console.log(this.game.powerupsArray)
-    console.log(this.game.powerupIx)
+  
+    this.game.player.powerupIx++
+  
     // this.powerupCounter = new  Winners.entity.PowerupCounter(1230, 45 ,this.game, this, this.game.powerCounter)
 
     
@@ -108,6 +119,8 @@ Winners.entity.Powerup.prototype.update = function (step) {
 
  
 //console.log(this.game.layer0.numChildren)
+this.game.layer0.removeChild(this);
+this.dispose()
 }
 }
 
