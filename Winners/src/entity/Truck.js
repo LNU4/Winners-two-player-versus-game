@@ -74,37 +74,6 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
   this.animation.create("walk", [0, 1], 1, true);
 };
 
-Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
-  this.velocity.x = 0;
-  var truckX = this.x;
-  var truckY = this.y;
-  this.soldierArr = [];
-  
-  for (var i = 0; i < 3; i++) {
-    this.soldierix = i;
-    var angle = Math.random() * Math.PI * 2;
-    var distance = 30;
-    var soldierX = truckX + Math.cos(angle) * distance;
-    var soldierY = truckY + Math.sin(angle) * distance;
-
-    //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player2, this.layer0, this.game);
-    this.soldier = new Winners.entity.Soldiers(
-      soldierX,
-      soldierY,
-      this.game,
-      this.player, this.soldierix
-    );
-    // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
-    //     soldierY, 
-    //     this.game, 
-    //     this.player);
-
-    // this.layer0.addChild(this.HeavySoldier)
-
-    this.soldierArr.push(this.soldier);
-  }
-  
-};
 
 /**
  * ...
@@ -167,13 +136,59 @@ Winners.entity.Truck.prototype.update = function (step) {
 //   } 
 };
 
+Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
+
+    var m_this = this;
+    this.velocity.x = 0;
+    var truckX = this.x;
+    var truckY = this.y;
+    this.soldierArr = [];
+    
+    for (var i = 0; i < 3; i++) {
+      this.soldierix = i;
+      var angle = Math.random() * Math.PI * 2;
+      var distance = 30;
+      var soldierX = truckX + Math.cos(angle) * distance;
+      var soldierY = truckY + Math.sin(angle) * distance;
+  
+      //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.player2, this.layer0, this.game);
+      this.soldier = new Winners.entity.Soldiers(
+        soldierX,
+        soldierY,
+        this.game,
+        this.player, this.soldierix
+      );
+      // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
+      //     soldierY, 
+      //     this.game, 
+      //     this.player);
+  
+      // this.layer0.addChild(this.HeavySoldier)
+  
+      this.soldierArr.push(this.soldier);
+    }
+this.game.timers.create({ 
+    duration: 2000,
+    onComplete: function () {
+        m_this.game.layer0.removeChild(this); 
+        m_this.dispose();
+    },
+  });
+
+   
+    
+  };
+  
+
 /**
  * ...
  *
  * @returns {undefined}
  */
 Winners.entity.Truck.prototype.dispose = function () {
+    
   rune.display.Sprite.prototype.dispose.call(this);
+  
 };
 
 //------------------------------------------------------------------------------

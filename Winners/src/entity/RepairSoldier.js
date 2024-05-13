@@ -17,7 +17,7 @@ Winners.entity.Repairsoldier = function (x, y, game, enemy, ix) {
     this.powerUpProb = 0;
 
     this.layer = this.game.layer0;
-
+ console.log('repair')
     rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
     this.layer.addChild(this);
 };
@@ -44,7 +44,7 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
     var distanceY = targetY - this.y;
     var distance = currentPosition.distance(targetPosition);
 
-    console.log(distance)
+    //console.log(distance)
     if (distance > 64) {
 
         var directionX = distanceX / distance;
