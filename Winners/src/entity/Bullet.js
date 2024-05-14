@@ -36,10 +36,10 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets
 
     this.bulletOwner = bulletOwner;
     this.bulletTarget = bulletTarget;
-    console.log(bulletTarget);
+
     this.baseOwner = this.bulletOwner.playerBase;
     this.bullets = bullets;
-    console.log(this.bullets)
+ 
     
     this.baseTarget = this.bulletTarget.enemyBase; 
     this.respawn = this.bullets.application.sounds.sound.get("respwan1");
@@ -118,8 +118,12 @@ Winners.entity.Bullet.prototype.update = function(step) {
          this.bulletTarget.parent.removeChild(actualLifeHpOb);
         //this.bulletOwner.parent.removeChild(this.bulletTarget);
             
-           
-           //  console.log('GAME OVER')
+        console.log(this.game.Player1isDefeated); 
+        if (this.bulletTarget === this.game.player) {
+            this.game.Player1isDefeated = true; 
+        } else if (this.bulletTarget === this.game.player2) {
+            this.game.Player2isDefeated = true; 
+        }
             // this.application.scenes.load([new Winners.scene.Menu()]);
 
             // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A 
