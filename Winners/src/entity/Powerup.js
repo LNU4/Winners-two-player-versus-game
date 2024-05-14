@@ -16,12 +16,15 @@
 Winners.entity.Powerup = function (x, y, game, unKnownPlayer) {
 
     this.game = game;
-    console.log(game)
+   
     this.unKnownPlayer = unKnownPlayer;
     this.puX = 0;
     this.puY = 0;
-   
-
+    console.log(unKnownPlayer)
+   //console.log(this.game.layer0.application.sounds.sound.get("fire1"))
+ this.soundEffect = this.application.sounds.sound.get("powerupSound");
+    
+  
       
     // if (){
 
@@ -67,14 +70,14 @@ Winners.entity.Powerup.prototype.init = function () {
 Winners.entity.Powerup.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-  if (this.unKnownPlayer == this.game.player) {
+  if (this.unKnownPlayer == this.game.player2) {
     // this.player = this.game.player;
     this.puX = 1230;
      this.puY = 35;
      this.player = this.game.player2
      this.enemy = this.game.player
    //  this.target1 = this.game.player;
-   }  else /*(this.unKnownPlayer == this.game.player2)*/ {
+   }  else if (this.unKnownPlayer == this.game.player) {
     // this.player = this.game.player2;
     
 
@@ -92,21 +95,31 @@ Winners.entity.Powerup.prototype.update = function (step) {
   // this.game.player2
   if(this.hitTest(this.player)){
     
-    
+    this.soundEffect.play(true);
    
     if (this.game.player.powerupsArray.length < 3) {
     
-       console.log(this.game.player.powerupsArray.length)
-       console.log(this.game.player.powerupsArray)
-       console.log(this.game.player)
+       console.log(this.player.powerupsArray.length)
+       console.log(this.player.powerupsArray)
+       console.log(this.player)
 
-    this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.game.player.powerupIx, { puX ,puY}, this.player, this.enemy);
+
+       this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.player.powerupIx, { puX ,puY}, this.player, this.enemy);
+
+    this.game.layer0.addChild(this.powerupCounter)
+    
+    this.player.powerupsArray.push(this.powerupCounter)
+    // console.log(this.game.powerupCounter.powerupArray[0], this.game.powerupCounter.powerupIx)
+  
+    this.player.powerupIx++
+
+   /* this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.game.player.powerupIx, { puX ,puY}, this.player, this.enemy);
     this.game.layer0.addChild(this.powerupCounter)
     
     this.game.player.powerupsArray.push(this.powerupCounter)
     // console.log(this.game.powerupCounter.powerupArray[0], this.game.powerupCounter.powerupIx)
   
-    this.game.player.powerupIx++
+    this.game.player.powerupIx++ */
   
     // this.powerupCounter = new  Winners.entity.PowerupCounter(1230, 45 ,this.game, this, this.game.powerCounter)
 

@@ -18,8 +18,8 @@
  */
 Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
     this.game = game;
-    this.enemy = this.game.player2;
-    
+   // this.enemy = this.game.player2;
+   this.enemy = enemy;
     this.layer = this.game.layer0;
     this.shootDistance = 200;   
     this.moveSpeed = 0.8;      
@@ -142,6 +142,21 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
     if (this.enemy.hitTest(this)) {
       this.game.layer0.removeChild(this);
     }
+
+
+    if (this.enemy.bullets){
+      console.log(this.enemy)
+      if (this.enemy.bullets.bullet){
+        if (this.enemy.bullets.bullet.hitTest(this)){
+        console.log('.-.-.-.')
+        this.layer.removeChild(this.enemy.bullets.bullet)
+        this.layer.removeChild(this)
+        this.dispose()
+      }
+      }
+       
+    
+    }  
   };
   
   Winners.entity.Rocketsoldier.prototype.shoot = function () {
@@ -190,6 +205,13 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
         rocket.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
         
     }
+  };
+  
+  Winners.entity.Rocketsoldier.prototype.dispose = function () {
+    
+    rune.display.Sprite.prototype.dispose.call(this);
+  
+    
   };
   
   

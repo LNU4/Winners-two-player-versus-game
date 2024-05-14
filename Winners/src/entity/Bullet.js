@@ -38,9 +38,8 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets
     this.bulletTarget = bulletTarget;
 
     this.baseOwner = this.bulletOwner.playerBase;
-    this.bullets = bullets;
- 
-    
+    this.bullets = bullets;    
+
     this.baseTarget = this.bulletTarget.enemyBase; 
     this.respawn = this.bullets.application.sounds.sound.get("respwan1");
   
@@ -157,21 +156,21 @@ Winners.entity.Bullet.prototype.update = function(step) {
            
         } else if (actualLife.value == 80){
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 20, 10);
-            actualLifeHpOb.backgroundColor = "#0000FF"
+            actualLifeHpOb.backgroundColor = "#3dfc03"
         }
         else if (actualLife.value == 60){
             
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 15, 10);
-            actualLifeHpOb.backgroundColor = "#800080"
+            actualLifeHpOb.backgroundColor = "#c2fc03"
         }
         else if (actualLife.value == 40){
 
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 10, 10);
-            actualLifeHpOb.backgroundColor = "#FFA500"
+            actualLifeHpOb.backgroundColor = "#fcad03"
         }
         else if (actualLife.value == 20){
             rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 5, 10);
-            actualLifeHpOb.backgroundColor = "#FF0000"
+            actualLifeHpOb.backgroundColor = "#fc0303"
         }
 
 
@@ -222,14 +221,15 @@ Winners.entity.Bullet.prototype.update = function(step) {
              
                  this.game.layer0.removeChild(this);
                  this.game.layer0.removeChild(this.game.truck.soldierArr[0])
-
+                 this.game.truck.soldierArr[0].createPowerups();
             } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[1])){
                 this.game.layer0.removeChild(this);
                 this.game.layer0.removeChild(this.game.truck.soldierArr[1])
-
+                this.game.truck.soldierArr[1].createPowerups();
             } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[2])){
                 this.game.layer0.removeChild(this);
                 this.game.layer0.removeChild(this.game.truck.soldierArr[2])
+                this.game.truck.soldierArr[2].createPowerups();
             }
        
             
@@ -257,14 +257,16 @@ if (this.game.truck2) {
          
              this.game.layer0.removeChild(this);
              this.game.layer0.removeChild(this.game.truck2.soldierArr[0])
+             this.game.truck2.soldierArr[0].createPowerups();
 
         } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[1])){
             this.game.layer0.removeChild(this);
             this.game.layer0.removeChild(this.game.truck2.soldierArr[1])
-
+            this.game.truck2.soldierArr[1].createPowerups();
         } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[2])){
             this.game.layer0.removeChild(this);
             this.game.layer0.removeChild(this.game.truck2.soldierArr[2])
+            this.game.truck2.soldierArr[2].createPowerups();
         }
    
         

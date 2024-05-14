@@ -19,13 +19,16 @@
  */
 Winners.entity.SniperSodier = function (x, y, game, enemy) {
   this.game = game;
-  this.enemy = this.game.player2;
+  this.enemy = enemy;
+  console.log(this.enemy)
    console.log('sniper')
   this.layer = this.game.layer0;
   this.shootDistance = 1000;   
   this.moveSpeed = 1.5;      
   this.shootCooldown = 920;
   this.lastShootTime = 0;
+
+  
   
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
 };
@@ -136,7 +139,25 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   */
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this);
+
   }
+
+
+  if (this.enemy.bullets){
+    console.log(this.enemy)
+    if (this.enemy.bullets.bullet){
+      if (this.enemy.bullets.bullet.hitTest(this)){
+      console.log('.-.-.-.')
+      this.layer.removeChild(this.enemy.bullets.bullet)
+      this.layer.removeChild(this)
+      this.dispose()
+    }
+    }
+     
+  
+  }  
+
+  
 };
 
 Winners.entity.SniperSodier.prototype.shoot = function () {
@@ -170,6 +191,13 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
 
     bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
   }
+};
+
+Winners.entity.SniperSodier.prototype.dispose = function () {
+    
+  rune.display.Sprite.prototype.dispose.call(this);
+
+  
 };
 
 
