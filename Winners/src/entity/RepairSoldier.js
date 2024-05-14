@@ -14,7 +14,7 @@ Winners.entity.Repairsoldier = function (x, y, game, enemy, ix) {
     this.ix = ix;
 
     this.isDead = false;
-    this.powerUpProb = 0;
+   // this.powerUpProb = 0;
 
     this.layer = this.game.layer0;
  console.log('repair')
