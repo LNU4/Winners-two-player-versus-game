@@ -13,11 +13,15 @@
  *
  * Game scene.
  */
-Winners.scene.Game = function () {
+Winners.scene.Game = function (maxRounds) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
-
+  this.maxRounds = maxRounds;
+  this.round = 1;
+  this.roundWinner = null; 
+  this.Player1isDefeated = false;
+  this.Player2isDefeated = false;
   /**
    * ...
    *
@@ -155,6 +159,8 @@ Winners.scene.Game.prototype.init = function () {
   this.layer2.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
+
+  
 };
 Winners.scene.Game.prototype.createTruck = function () {
   var randomY = Math.random() * 720;
@@ -184,7 +190,7 @@ Winners.scene.Game.prototype.update = function (step) {
   var self = this;
   rune.scene.Scene.prototype.update.call(this, step);
   this.m_updateInput(step);
-
+  
   this.turret1.x = this.player.x;
   this.turret1.y = this.player.y;
 
@@ -199,8 +205,12 @@ Winners.scene.Game.prototype.update = function (step) {
   if (this.truck && this.truck2){
     this.truck.hitTestAndSeparate(this.truck2)
   }
-
+  if (this.Player1isDefeated || this.Player2isDefeated) {
+    this.handleGameOver();
+  };
+  
 };
+
 
 /**
  * This method is automatically called once just before the scene ends. Use
@@ -243,3 +253,47 @@ Winners.scene.Game.prototype.m_updateInput = function (step) {
 //     this.player = this.game.player2;
 //   }
 };
+
+Winners.scene.Game.prototype.handleGameOver = function() {
+  /*
+  if (this.Player1isDefeated) {
+    this.showGameOverScreen("Player 2");
+  } else if (this.Player2isDefeated) {
+    this.showGameOverScreen("Player 1");
+  }
+  */
+  if (this.maxRounds === 1) {
+   
+    if (this.Player1isDefeated) {
+      this.showGameOverScreen("player2");
+      this.roundWinner = "Player2";
+    } else {
+      this.showGameOverScreen("player1");
+      this.roundWinner = "Player1";
+    }
+  } else if (this.maxRounds === 3) {
+   
+    if (this.round === 1) {
+      
+      console.log("Round Over! Winner: " + this.roundWinner);
+      this.round++;
+      
+      
+    } else if (this.round === 2) {
+      this.showMatchResult();
+    }
+  }
+
+};
+
+Winners.scene.Game.prototype.showGameOverScreen = function(winner) {
+
+  console.log("Game Over! Winner: " + winner);
+};
+
+
+/* Do not delete this N.A */
+// requires further adjustments to the increments of the rounds and how they should be reseted
+// though if everything resets upon restarting the game then sending the round count through referance, it may be an issue. 
+// game should take additional referance called currentround, and if the max rounds count is 3, 
+//  this.application.scenes.load([new Winners.scene.Game(currentaround, maxrounds)]), it should call endgame function upon reaching 3 in the state of 3 rounds

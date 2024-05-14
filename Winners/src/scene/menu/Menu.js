@@ -103,11 +103,18 @@ Winners.scene.Menu.prototype.update = function (step) {
         this.timers.create({
           duration: 2000,
           onComplete: function () {
-            this.application.scenes.load([new Winners.scene.Game()]);
+            this.application.scenes.load([new Winners.scene.Game(1)]);
           },
         });
         break;
       case 1:
+        this.menu.select();
+        this.timers.create({
+          duration: 2000,
+          onComplete: function () {
+            this.application.scenes.load([new Winners.scene.Game(3)]);
+          },
+        });
         break;
       case 2:
         this.menu.select();
