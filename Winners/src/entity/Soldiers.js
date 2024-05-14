@@ -27,11 +27,11 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
 
   this.enemy = enemy;
 
-  if (this.enemy === this.game.player) {
-    this.player = this.game.player;
-  } else if (this.enemy === this.game.player2) {
-    this.player = this.game.player2;
-  }
+//   if (this.enemy === this.game.player) {
+//     this.player = this.game.player;
+//   } else if (this.enemy === this.game.player2) {
+//     this.player = this.game.player2;
+//   }  ** WAIT WITH THIS **
 
   this.ix = ix;
 
@@ -178,29 +178,44 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   if (this.enemy.hitTest(this)) {
     this.isDead = true;
     this.powerUpProb = Math.random() * 5;
-    console.log(this.powerUpProb)
+
     this.game.layer0.removeChild(this);
     this.dispose();
   }
   if (this.isDead == true) {
-    var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
-    var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-        m_this.powerUp = new Winners.entity.Powerup(
-          ranX,
-          ranY,
-          m_this.game,
-          m_this.player
-        );
+       //** console.group(m_this.enemy)
+       m_this.createPowerups()
+        // m_this.powerUp = new Winners.entity.Powerup(
+        //   ranX,
+        //   ranY,
+        //   m_this.game,
+        //   m_this.enemy
+        // );
 
-        this.layer0.addChild(m_this.powerUp);
+       // this.layer0.addChild(m_this.powerUp);
       },
     });
    
   }
 };
+Winners.entity.Soldiers.prototype.createPowerups = function (){
+    console.log('powerup is created')
+    var m_this = this; 
+    var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
+    var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
+    m_this.powerUp = new Winners.entity.Powerup(
+        ranX,
+        ranY,
+        m_this.game,
+        m_this.enemy
+      );
+
+      m_this.game.layer0.addChild(m_this.powerUp);
+
+}
 /**
  * ...
  *

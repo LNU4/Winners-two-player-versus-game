@@ -35,7 +35,7 @@ Winners.scene.Game = function () {
    * Calls the constructor method of the super class.
    */
   rune.scene.Scene.call(this);
-  console.log(this.application);
+  
 };
 
 //------------------------------------------------------------------------------
@@ -107,17 +107,7 @@ Winners.scene.Game.prototype.init = function () {
     duration: 4000,
     onComplete: function () {
       this.createTruck();
-      // this.pb = new rune.ui.Progressbar (100, 25, "#ffff00", "#ff00ff");
-      // this.layer0.addChild(this.pb);
-      // this.pb.m_x = 1100;
-      // this.pb.m_y = 600;
-
-      // var randomY = Math.random() * 720;
-      //  this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
-      // this.stage.addChild(this.truck)
-
-      //     console.log(this.stage.numChildren);
-      //   console.log('.-.-.')
+      
     },
   });
 
@@ -171,6 +161,13 @@ Winners.scene.Game.prototype.createTruck = function () {
     this.player2.soldierHit++;
     console.log(this.player2.soldierHit);
   }
+//   this.timers.create({
+//     duration: 40000,
+//     onComplete: function () {
+//       this.createTruck();
+      
+//     },
+//   });
 };
 /**
  * This method is automatically executed once per "tick". The method is used for

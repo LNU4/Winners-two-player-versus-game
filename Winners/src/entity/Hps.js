@@ -19,12 +19,12 @@
  * 
  */
 
-Winners.entity.Hps = function (life, actualSateg, player){
+Winners.entity.Hps = function (life, Sateg, player){
 
 
     this.life = life;
     this.lifeIx = life.ix;
-    this.parentSatge = actualSateg;
+    this.parentSatge = Sateg;
     this.player = player;
     this.x = this.player.x;
     this.y = this.player.y;
@@ -36,7 +36,7 @@ Winners.entity.Hps = function (life, actualSateg, player){
    
 
     rune.display.DisplayObject.call(this, this.x, this.y, 25, 10);
-    this.backgroundColor = "#00FF00";
+    this.backgroundColor = "#03fc24";
     this.movable = true;
 
     //rune.display.Sprite.call(this, 1160, 359.5, 32, 32, "100hp");

@@ -34,6 +34,7 @@ Winners.entity.Bullets = function(game ,container, owner, turret,enemy) {
     this.game = game; 
     this.turret = turret;
     this.fire = this.application.sounds.sound.get("fire1");
+  //  console.log(this.application.sounds.sound.get("fire1"))
   
     // this.ownerBase = ownerBase;
     // this.enemyBase = enemyBase;

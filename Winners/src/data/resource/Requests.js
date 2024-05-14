@@ -63,5 +63,6 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("winner-mainchar", "./../asset/png/winner-mainchar.png");
 	this.add("winners-bg", "./../asset/png/winners-bg.png");
 	this.add("fire1", "./../asset/wav/fire1.wav");
+	this.add("powerupSound", "./../asset/wav/powerupSound.wav");
 	this.add("respwan1", "./../asset/wav/respwan1.wav");
 };

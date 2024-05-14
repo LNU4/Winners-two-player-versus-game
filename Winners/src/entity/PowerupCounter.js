@@ -52,6 +52,7 @@ Winners.entity.PowerupCounter = function (
     this.typeIx = Math.floor(Math.random() * 3);
     // console.log(this.typeIx)
     this.type = this.SoldierTypesArray[this.typeIx];
+   // this.type = "snipersoldiers"
     this.createSoldier();
   }
 
@@ -186,7 +187,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       break;
 
     case "snipersoldiers":
-      m_this.game.snipersoldiers = new Winners.entity.HeavySoldier(
+      m_this.game.snipersoldiers = new Winners.entity.SniperSodier(
         10,
         10,
         m_this.game,
@@ -200,13 +201,13 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       break;
 
     case "rocketsoldier":
-      m_this.game.rocketsoldier = new Winners.entity.HeavySoldier(
+      m_this.game.rocketsoldier = new Winners.entity.Rocketsoldier(
         50,
         50,
         m_this.game,
         m_this.enemy
       );
-      m_this.game.layer0.addChild(m_this.game.snipersoldiers);
+      m_this.game.layer0.addChild(m_this.game.rocketsoldier);
       m_this.emptyArray();
     
       console.log("rocketsoldier");
@@ -242,9 +243,9 @@ Winners.entity.PowerupCounter.prototype.emptyArray = function () {
     console.log(this.type)
     
   for (var i = 0; i < 3; i++) {
-    var powerupElem = this.game.player.powerupsArray[i];
+    var powerupElem = this.player.powerupsArray[i];
     console.log(powerupElem)
-    this.game.player.powerupsArray.splice(i, 1, powerupElem)
+    this.player.powerupsArray.splice(i, 1, powerupElem)
     this.game.layer0.removeChild(powerupElem)
         
     

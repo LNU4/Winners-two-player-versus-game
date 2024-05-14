@@ -3,12 +3,13 @@ function Soldiers(x, y, game, enemy) {
   this.moveSpeed = 1;
   this.shootCooldown = 900;
   this.lastShootTime = 0;
-  this.play = game;
+  this.game = game;
+  //this.game
   this.enemy = enemy;
-  this.targetPlayer = enemy;
+  //this.enemy = enemy;
   this.isDead = false;
   this.powerUpProb = 0;
-  this.layer = this.play.layer0;
+  this.layer = this.game.layer0;
 
  
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
@@ -23,25 +24,25 @@ Soldiers.prototype.constructor = Soldiers;
 Soldiers.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-  var distanceX = this.targetPlayer.x - this.x;
-  var distanceY = this.targetPlayer.y - this.y;
+  var distanceX = this.enemy.x - this.x;
+  var distanceY = this.enemy.y - this.y;
   var distance = rune.util.Math.distance(
-    this.targetPlayer.x,
-    this.targetPlayer.y,
+    this.enemy.x,
+    this.enemy.y,
     this.x,
     this.y
   );
 
   if (this.enemy.hitTest(this)) {
     this.isDead = true;
-    this.play.layer0.removeChild(this);
+    this.game.layer0.removeChild(this);
     this.dispose();
   }
 
   if (this.isDead) {
     var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
     var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
-    this.play.timers.create({
+    this.game.timers.create({
       duration: 1000,
       onComplete: function () {
         var powerUp = new Winners.entity.Powerup(ranX, ranY);
@@ -71,8 +72,8 @@ Soldiers.prototype.update = function (step) {
 Soldiers.prototype.shoot = function () {
   var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
   var targetPosition = new rune.geom.Point(
-    this.targetPlayer.centerX,
-    this.targetPlayer.centerY
+    this.enemy.centerX,
+    this.enemy.centerY
   );
 
   var distanceX = targetPosition.x - currentPosition.x;
@@ -83,7 +84,7 @@ Soldiers.prototype.shoot = function () {
     var bulletSpeed = 1;
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
-    var bullet = new Winners.entity.Bullets(this.layer, this, this.targetPlayer);
+    var bullet = new Winners.entity.Bullets(this.layer, this, this.enemy);
     this.layer.application.scenes.selected.groups.add(bullet);
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;

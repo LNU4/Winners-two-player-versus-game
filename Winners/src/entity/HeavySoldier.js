@@ -18,7 +18,8 @@
  */
 Winners.entity.HeavySoldier = function (x, y, game, enemy) {
   this.game = game;
-  this.enemy = this.game.player2;
+  //this.enemy = this.game.player2;
+  this.enemy = enemy;
   
   this.layer = this.game.layer0;
   this.shootDistance = 200;   
@@ -136,6 +137,19 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this);
   }
+
+
+  if (this.enemy.bullets){
+    console.log(this.enemy)
+    if (this.enemy.bullets.bullet){
+      if (this.enemy.bullets.bullet.hitTest(this)){
+      console.log('.-.-.-.')
+      this.layer.removeChild(this.enemy.bullets.bullet)
+      this.layer.removeChild(this)
+      this.dispose()
+    }
+    }
+  }  
 };
 
 Winners.entity.HeavySoldier.prototype.shoot = function () {
@@ -171,3 +185,9 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
   }
 };
 
+Winners.entity.HeavySoldier.prototype.dispose = function () {
+    
+  rune.display.Sprite.prototype.dispose.call(this);
+
+  
+};
