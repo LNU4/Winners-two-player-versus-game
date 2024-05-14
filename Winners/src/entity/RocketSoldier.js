@@ -55,12 +55,12 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
       this.y
     );
     if (this.enemy.hitTest(this)) {
-      this.isDead = true;
-      this.powerUpProb = Math.random() * 5;
+     /*  this.isDead = true;
+      this.powerUpProb = Math.random() * 5; */
       this.game.layer0.removeChild(this);
       this.dispose();
     }
-    if (this.isDead == true) {
+   /*  if (this.isDead == true) {
       var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
       var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
       this.game.timers.create({
@@ -75,8 +75,8 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
   
           this.layer0.addChild(this.powerUp);
         },
-      });
-    }
+      }); 
+    }*/
   
     if (distance <= this.shootDistance && distance > 0) {
       this.x = this.x;

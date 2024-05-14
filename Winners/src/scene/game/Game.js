@@ -13,13 +13,14 @@
  *
  * Game scene.
  */
-Winners.scene.Game = function (maxRounds) {
+Winners.scene.Game = function (maxRounds, roundiX) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
   this.maxRounds = maxRounds;
-  this.round = 1;
-  this.roundWinner = null; 
+  this.round = 0;
+  roundiX = this.round + 1;
+  this.roundWinner = null;
   this.Player1isDefeated = false;
   this.Player2isDefeated = false;
   /**
@@ -70,10 +71,9 @@ Winners.scene.Game.prototype.init = function () {
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
- 
- 
- // this.powerupCounter = new  Winners.entity.PowerupCounter (this, this.powerupIx);
- 
+
+  // this.powerupCounter = new  Winners.entity.PowerupCounter (this, this.powerupIx);
+
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
   this.layer2.addChild(this.turret1);
 
@@ -94,12 +94,11 @@ Winners.scene.Game.prototype.init = function () {
   this.player2.powerupIx = 0;
   // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this);
 
- //  this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
+  //this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
- // this.rocketsoldier = new Winners.entity.Rocketsoldier(50, 50, this, this.player2);
+  //this.rocketsoldier = new Winners.entity.Rocketsoldier(50, 50, this, this.player2);
   //this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
 
-  
   //this.base = new Winners.entity.Base(10, 359.5);
   //this.base2 = new Winners.entity.Base2(1240, 359.5);
 
@@ -147,20 +146,18 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.player2);
   this.layer0.addChild(this.base);
   this.layer0.addChild(this.base2);
-  
+
   //this.layer0.addChild(this.powerupCounter)
   // this.layer0.addChild(this.Soldiers);
 
   //this.layer0.addChild(this.heavysoldiers);
   //this.layer0.addChild(this.snipersoldiers);
- // this.layer0.addChild(this.rocketsoldier);
+  //this.layer0.addChild(this.rocketsoldier);
   //this.layer0.addChild(this.repairsoldier);
 
   this.layer2.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
-
-  
 };
 Winners.scene.Game.prototype.createTruck = function () {
   var randomY = Math.random() * 720;
@@ -168,8 +165,8 @@ Winners.scene.Game.prototype.createTruck = function () {
   // this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
   this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
   this.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
-//   this.player.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
-//   this.player2.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
+  //   this.player.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
+  //   this.player2.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
   this.layer0.addChild(this.truck);
   this.layer0.addChild(this.truck2);
   if (this.player2.hitTest(this.truck.soldier)) {
@@ -190,27 +187,25 @@ Winners.scene.Game.prototype.update = function (step) {
   var self = this;
   rune.scene.Scene.prototype.update.call(this, step);
   this.m_updateInput(step);
-  
+
   this.turret1.x = this.player.x;
   this.turret1.y = this.player.y;
 
   this.turret2.x = this.player2.x;
   this.turret2.y = this.player2.y;
-  this.timers.create({ //delete if not used N.A
+  this.timers.create({
+    //delete if not used N.A
     duration: 4000,
     onComplete: function () {},
   });
 
-  
-  if (this.truck && this.truck2){
-    this.truck.hitTestAndSeparate(this.truck2)
+  if (this.truck && this.truck2) {
+    this.truck.hitTestAndSeparate(this.truck2);
   }
   if (this.Player1isDefeated || this.Player2isDefeated) {
     this.handleGameOver();
-  };
-  
+  }
 };
-
 
 /**
  * This method is automatically called once just before the scene ends. Use
@@ -246,15 +241,15 @@ Winners.scene.Game.prototype.m_updateInput = function (step) {
   ) {
   }
 
-//   if (this.truck.enemy === this.player) {
-//     this.player2.bullets.bullet.hitTestAndSeparate(this.truck.soldier)
-//   } 
-//   else if (this.enemy === this.game.player2) {
-//     this.player = this.game.player2;
-//   }
+  //   if (this.truck.enemy === this.player) {
+  //     this.player2.bullets.bullet.hitTestAndSeparate(this.truck.soldier)
+  //   }
+  //   else if (this.enemy === this.game.player2) {
+  //     this.player = this.game.player2;
+  //   }
 };
 
-Winners.scene.Game.prototype.handleGameOver = function() {
+Winners.scene.Game.prototype.handleGameOver = function () {
   /*
   if (this.Player1isDefeated) {
     this.showGameOverScreen("Player 2");
@@ -263,7 +258,6 @@ Winners.scene.Game.prototype.handleGameOver = function() {
   }
   */
   if (this.maxRounds === 1) {
-   
     if (this.Player1isDefeated) {
       this.showGameOverScreen("player2");
       this.roundWinner = "Player2";
@@ -272,28 +266,25 @@ Winners.scene.Game.prototype.handleGameOver = function() {
       this.roundWinner = "Player1";
     }
   } else if (this.maxRounds === 3) {
-   
     if (this.round === 1) {
-      
       console.log("Round Over! Winner: " + this.roundWinner);
+      
       this.round++;
-      
-      
+      var roundIx;
+      this.application.scenes.load([new Winners.scene.Game(3, roundIx)]);
+      console.log(this.round);
     } else if (this.round === 2) {
       this.showMatchResult();
     }
   }
-
 };
 
-Winners.scene.Game.prototype.showGameOverScreen = function(winner) {
-
+Winners.scene.Game.prototype.showGameOverScreen = function (winner) {
   console.log("Game Over! Winner: " + winner);
 };
 
-
 /* Do not delete this N.A */
 // requires further adjustments to the increments of the rounds and how they should be reseted
-// though if everything resets upon restarting the game then sending the round count through referance, it may be an issue. 
-// game should take additional referance called currentround, and if the max rounds count is 3, 
+// though if everything resets upon restarting the game then sending the round count through referance, it may be an issue.
+// game should take additional referance called currentround, and if the max rounds count is 3,
 //  this.application.scenes.load([new Winners.scene.Game(currentaround, maxrounds)]), it should call endgame function upon reaching 3 in the state of 3 rounds
