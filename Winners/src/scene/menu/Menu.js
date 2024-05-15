@@ -103,7 +103,7 @@ Winners.scene.Menu.prototype.update = function (step) {
         this.timers.create({
           duration: 2000,
           onComplete: function () {
-            this.application.scenes.load([new Winners.scene.Game(1)]);
+            this.application.scenes.load([new Winners.scene.Game(1, 1, [])]);
           },
         });
         break;
@@ -112,7 +112,7 @@ Winners.scene.Menu.prototype.update = function (step) {
         this.timers.create({
           duration: 2000,
           onComplete: function () {
-            this.application.scenes.load([new Winners.scene.Game(3)]);
+            this.application.scenes.load([new Winners.scene.Game(3, 1, [])]);
           },
         });
         break;
