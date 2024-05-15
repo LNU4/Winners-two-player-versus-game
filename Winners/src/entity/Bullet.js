@@ -29,9 +29,12 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets
      * @default 20
      */
 
-    this.game = game; 
+   
     this.damage = 20.0;
 
+    this.game = game;
+    console.log(this.game)
+   
     this.layer0 = layer0;
 
     this.bulletOwner = bulletOwner;
@@ -61,7 +64,7 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets
      * @type {number}
      * @protected
      */
-    this.m_speed = 0.18;
+    this.m_speed = 1;
 
     //--------------------------------------------------------------------------
     // Super call
@@ -92,7 +95,11 @@ Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
  */
 Winners.entity.Bullet.prototype.update = function(step) {
     rune.display.DisplayObject.prototype.update.call(this, step);
-    
+    if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
+       this.bulletTarget.lifeIx = 0; 
+    };
+    console.log(this.damage);
+   
     if(this.hitTest(this.bulletTarget)){
 
        
@@ -111,17 +118,18 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
         
         if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
-           
-         this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
-
+           console.log('rip');
+           this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2])
          this.bulletTarget.parent.removeChild(actualLifeHpOb);
         //this.bulletOwner.parent.removeChild(this.bulletTarget);
-            
-        console.log(this.game.Player1isDefeated); 
+          
+       // console.log(this.game.Player1isDefeated); 
         if (this.bulletTarget === this.game.player) {
-            this.game.Player1isDefeated = true; 
+          //  this.handePlayerDead = true;
+            this.game.handePlayerDead("player1");
         } else if (this.bulletTarget === this.game.player2) {
-            this.game.Player2isDefeated = true; 
+           // this.Player2isDefeated = true; 
+            this.game.handePlayerDead("player2");
         }
             // this.application.scenes.load([new Winners.scene.Menu()]);
 
