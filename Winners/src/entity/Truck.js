@@ -32,9 +32,11 @@ Winners.entity.Truck = function (x, y, game, enemy) {
 
   if (enemy === this.game.player) {
     this.enemy = this.game.player;
+    this.player = this.game.player2;
    //this.target1 = this.game.player;
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
+    this.player = this.game.player;
    //this.target2 = this.game.player2; this.enemy
   }
 
@@ -107,8 +109,11 @@ Winners.entity.Truck.prototype.update = function (step) {
   }
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
-  if (this.enemy) {
+  if (this.enemy && this.player) {
     this.hitTestAndSeparate(this.enemy);
+    this.hitTestAndSeparate(this.player);
+
+  
   }
   
 //   if (this.game.truck){
@@ -165,7 +170,8 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
 this.game.timers.create({ 
     duration: 2000,
     onComplete: function () {
-        m_this.game.layer0.removeChild(this); 
+        this.layer0.removeChild(m_this); 
+    //    m_this.game.layer0.removeChild(m_this); 
         m_this.dispose();
     },
   });

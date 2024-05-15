@@ -166,6 +166,8 @@ Winners.entity.Player2.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   this.life.globalX = this.globalX;
   this.life.globalY = this.globalY;
+  this.playerBaseShield = this.game.Base2shield;
+  this.enemyBaseShield = this.game.Base1shield;
   this.hitTestAndSeparate(this.game.base)
   this.hitTestAndSeparate(this.game.base2)
   this.hitTestAndSeparate(this.game.Base1shield)

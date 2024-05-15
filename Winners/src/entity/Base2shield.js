@@ -19,6 +19,7 @@ Winners.entity.Base2shield = function(x, y, game) {
     // Super call
     //--------------------------------------------------------------------------
     this.game = game;
+    this.hpValue = 1000;
     this.x = x;
     this.y = y
 
@@ -85,6 +86,7 @@ Winners.entity.Base2shield.prototype.update = function(step) {
  */
 Winners.entity.Base2shield.prototype.dispose = function() {
     rune.display.Sprite.prototype.dispose.call(this);
+    console.log('player2 baseShild is disposed')
 };
 
 //------------------------------------------------------------------------------
