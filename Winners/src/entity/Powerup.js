@@ -20,7 +20,7 @@ Winners.entity.Powerup = function (x, y, game, unKnownPlayer) {
     this.unKnownPlayer = unKnownPlayer;
     this.puX = 0;
     this.puY = 0;
-    console.log(unKnownPlayer)
+    
    //console.log(this.game.layer0.application.sounds.sound.get("fire1"))
  this.soundEffect = this.application.sounds.sound.get("powerupSound");
     
@@ -69,7 +69,7 @@ Winners.entity.Powerup.prototype.init = function () {
  */
 Winners.entity.Powerup.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-
+ var m_this = this;
   if (this.unKnownPlayer == this.game.player2) {
     // this.player = this.game.player;
     this.puX = 1230;
@@ -95,23 +95,20 @@ Winners.entity.Powerup.prototype.update = function (step) {
   // this.game.player2
   if(this.hitTest(this.player)){
     
-    this.soundEffect.play(true);
-   
-    if (this.game.player.powerupsArray.length < 3) {
     
-       console.log(this.player.powerupsArray.length)
-       console.log(this.player.powerupsArray)
-       console.log(this.player)
+   
+    if (this.player.powerupsArray.length < 3) {
+        this.soundEffect.play(true);
+        console.log('powerup', puX ,puY)
 
-
-       this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.player.powerupIx, { puX ,puY}, this.player, this.enemy);
+       this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.player, {puX ,puY}, this.player, this.enemy);
 
     this.game.layer0.addChild(this.powerupCounter)
-    
     this.player.powerupsArray.push(this.powerupCounter)
     // console.log(this.game.powerupCounter.powerupArray[0], this.game.powerupCounter.powerupIx)
   
     this.player.powerupIx++
+    console.log(this.powerupCounter)
 
    /* this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.game.player.powerupIx, { puX ,puY}, this.player, this.enemy);
     this.game.layer0.addChild(this.powerupCounter)
@@ -135,6 +132,18 @@ Winners.entity.Powerup.prototype.update = function (step) {
 this.game.layer0.removeChild(this);
 this.dispose()
 }
+} else {
+    this.game.timers.create({
+        //delete if not used N.A
+        duration: 5000,
+        onComplete: function () {
+          //  m_this.game.layer0.removeChild(m_this)
+        this.layer0.removeChild(m_this)
+
+        // m_this.dispose() // for some reasone this causes error
+        },
+      });
+    
 }
 
 };
