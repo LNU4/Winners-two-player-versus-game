@@ -13,14 +13,14 @@
  *
  * Game scene.
  */
-Winners.scene.Game = function (maxRounds, roundiX) {
+Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
   this.maxRounds = maxRounds;
-  this.round = 0;
-  roundiX = this.round + 1;
-  this.roundWinner = null;
+
+  this.currentRound = currentRound;
+  this.roundWinners = roundWinners || [];
   this.Player1isDefeated = false;
   this.Player2isDefeated = false;
   /**
@@ -40,7 +40,7 @@ Winners.scene.Game = function (maxRounds, roundiX) {
    * Calls the constructor method of the super class.
    */
   rune.scene.Scene.call(this);
-  
+  console.log("Starting Round " + this.currentRound);
 };
 
 //------------------------------------------------------------------------------
@@ -115,7 +115,6 @@ Winners.scene.Game.prototype.init = function () {
     duration: 4000,
     onComplete: function () {
       this.createTruck();
-      
     },
   });
 
@@ -168,6 +167,7 @@ Winners.scene.Game.prototype.createTruck = function () {
     this.player2.soldierHit++;
     console.log(this.player2.soldierHit);
   }
+
   this.timers.create({
     duration: 60000,
     onComplete: function () {
@@ -175,6 +175,7 @@ Winners.scene.Game.prototype.createTruck = function () {
       
     },
   });
+
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -203,9 +204,6 @@ Winners.scene.Game.prototype.update = function (step) {
   if (this.truck && this.truck2) {
     this.truck.hitTestAndSeparate(this.truck2);
   }
-  if (this.Player1isDefeated || this.Player2isDefeated) {
-    this.handleGameOver();
-  }
 };
 
 /**
@@ -232,10 +230,10 @@ Winners.scene.Game.prototype.dispose = function () {
  * @returns {undefined}
  */
 Winners.scene.Game.prototype.m_updateInput = function (step) {
-  if (this.keyboard.justPressed("SPACE")) {
+  /*  if (this.keyboard.justPressed("SPACE")) {
     this.application.scenes.load([new Winners.scene.Menu()]);
   }
-
+ */
   if (
     this.player2.hitTestAndSeparate(this.player) &&
     this.player.hitTestAndSeparate(this.player2)
@@ -248,6 +246,8 @@ Winners.scene.Game.prototype.m_updateInput = function (step) {
   //   else if (this.enemy === this.game.player2) {
   //     this.player = this.game.player2;
   //   }
+  /* if (this.Player1isDefeated || this.Player2isDefeated) {
+    this.handleGameOver();} */
 };
 
 Winners.scene.Game.prototype.handleGameOver = function () {
@@ -258,34 +258,117 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     this.showGameOverScreen("Player 1");
   }
   */
-  if (this.maxRounds === 1) {
-    if (this.Player1isDefeated) {
-      this.showGameOverScreen("player2");
-      this.roundWinner = "Player2";
-    } else {
-      this.showGameOverScreen("player1");
-      this.roundWinner = "Player1";
-    }
-  } else if (this.maxRounds === 3) {
-    if (this.round === 1) {
-      console.log("Round Over! Winner: " + this.roundWinner);
-      
-      this.round++;
-      var roundIx;
-      this.application.scenes.load([new Winners.scene.Game(3, roundIx)]);
-      console.log(this.round);
-    } else if (this.round === 2) {
-      this.showMatchResult();
-    }
+  console.log("handelGamwover");
+  if (this.Player1isDefeated) {
+    //console.log("Player 1 is defeated");
+    this.roundWinners.push("Player2");
+  } else if (this.Player2isDefeated) {
+    // console.log("Player 2 is defeated");
+
+    this.roundWinners.push("Player1");
+  }
+  console.log(
+    "current round: ",
+    this.currentRound,
+    "Max rounds: ",
+    this.maxRounds
+  );
+  if (this.currentRound < this.maxRounds) {
+    this.currentRound++;
+    var resultMsg = "Round won by " + this.roundWinners; 
+    var text = new rune.text.BitmapField(resultMsg);
+
+   
+    
+    text.center = this.application.screen.center;
+    text.scaleX = 2;
+    text.scaleY = 2;
+
+
+
+    this.cameras.getCameraAt(0).addChild(text);
+
+    this.timers.create({
+      duration: 5000,
+      onComplete: function () {
+        this.application.scenes.load([
+          new Winners.scene.Game(
+            this.maxRounds,
+            this.currentRound,
+            this.roundWinners
+          ),
+        ]);
+      },
+    });
+  } else {
+    this.showMatchResult();
   }
 };
 
-Winners.scene.Game.prototype.showGameOverScreen = function (winner) {
-  console.log("Game Over! Winner: " + winner);
+Winners.scene.Game.prototype.showMatchResult = function () {
+  var player1Wins = 0;
+  var player2Wins = 0;
+
+  for (var i = 0; i < this.roundWinners.length; i++) {
+    if (this.roundWinners[i] === "Player1") {
+      player1Wins++;
+    } else if (this.roundWinners[i] === "Player2") {
+      player2Wins++;
+    }
+  }
+
+  // var resultMsg = "Match Over! Player 1 Wins: " + player1Wins + "Player 2 Wins: " + player2Wins;
+  var resultMsg = "Match Over! ";
+  if (player1Wins > player2Wins) {
+    resultMsg += "Player 1 Won";
+  } else if (player2Wins > player1Wins) {
+    resultMsg += "Player 2 Won";
+  } else {
+    resultMsg += "error";
+  }
+  var text = new rune.text.BitmapField(resultMsg);
+
+  //text.autoSize = true;
+  //text.x = this.application.screen.center.x;
+  //text.y = this.application.screen.center.y;
+  text.center = this.application.screen.center;
+  text.scaleX = 2;
+  text.scaleY = 2;
+
+  //console.log(text);
+  //console.log("text to stage");
+
+  this.cameras.getCameraAt(0).addChild(text);
+
+  this.timers.create({
+    duration: 8000,
+    onComplete: function () {
+      this.application.scenes.load([new Winners.scene.Menu()]);
+    },
+  });
+};
+
+Winners.scene.Game.prototype.handePlayerDead = function (playerDeafeted) {
+  console.log(playerDeafeted);
+  if (playerDeafeted === "player1") {
+    this.Player1isDefeated = true;
+    this.handleGameOver();
+  } else if (playerDeafeted === "player2") {
+    this.Player2isDefeated = true;
+    this.handleGameOver();
+  }
+
+  /*   if (this.Player1isDefeated || this.Player2isDefeated) {
+    this.handleGameOver();}; */
 };
 
 /* Do not delete this N.A */
-// requires further adjustments to the increments of the rounds and how they should be reseted
+// requires further adjustments to the increments of the rounds and how they should reset
 // though if everything resets upon restarting the game then sending the round count through referance, it may be an issue.
 // game should take additional referance called currentround, and if the max rounds count is 3,
 //  this.application.scenes.load([new Winners.scene.Game(currentaround, maxrounds)]), it should call endgame function upon reaching 3 in the state of 3 rounds
+
+//soldiers arent killing players "match"
+//single round needs a fix
+// animations around
+//gamepad controls to menu

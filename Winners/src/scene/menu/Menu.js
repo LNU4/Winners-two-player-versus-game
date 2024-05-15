@@ -85,25 +85,26 @@ Winners.scene.Menu.prototype.update = function (step) {
     }
     */
 
-    
-  if (this.keyboard.justPressed("UP")) {
+  var gamepad = this.gamepads.get(0);
+
+  if (this.keyboard.justPressed("UP") || gamepad.justPressed("12")) {
     this.menu.up();
     this.selected = (this.selected - 1 + 4) % 4;
-  } else if (this.keyboard.justPressed("DOWN")) {
+  } else if (this.keyboard.justPressed("DOWN")|| gamepad.justPressed("13")) {
     this.menu.down();
     this.selected = (this.selected + 1) % 4;
 
   }
 
 
-  if (this.keyboard.justPressed("SPACE")) {
+  if (this.keyboard.justPressed("SPACE") || gamepad.justPressed("0")) {
     switch (this.selected) {
       case 0:
         this.menu.select();
         this.timers.create({
           duration: 2000,
           onComplete: function () {
-            this.application.scenes.load([new Winners.scene.Game(1)]);
+            this.application.scenes.load([new Winners.scene.Game(1, 1, [])]);
           },
         });
         break;
@@ -112,7 +113,7 @@ Winners.scene.Menu.prototype.update = function (step) {
         this.timers.create({
           duration: 2000,
           onComplete: function () {
-            this.application.scenes.load([new Winners.scene.Game(3)]);
+            this.application.scenes.load([new Winners.scene.Game(3, 1, [])]);
           },
         });
         break;

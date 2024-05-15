@@ -71,11 +71,13 @@ Winners.scene.Howtoplay.prototype.init = function () {
  */
 Winners.scene.Howtoplay.prototype.update = function (step) {
   rune.scene.Scene.prototype.update.call(this, step);
+  var gamepad = this.gamepads.get(0);
   /*
     if (this.keyboard.justPressed("SPACE")) {
         this.application.scenes.load([new Winners.scene.Game()]);
     }
     */
+   
   if (this.keyboard.justPressed("UP")) {
     this.menu.up();
     this.selected = (this.selected - 1 + 1) % 1;
@@ -84,7 +86,7 @@ Winners.scene.Howtoplay.prototype.update = function (step) {
     this.selected = (this.selected + 1 + 1) % 1;
   }
 
-  if (this.keyboard.justPressed("SPACE")) {
+  if (this.keyboard.justPressed("SPACE")|| gamepad.justPressed("0") ) {
     switch (this.selected) {
       case 0:
         this.menu.select();
