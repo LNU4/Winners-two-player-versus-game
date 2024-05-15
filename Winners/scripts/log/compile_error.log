@@ -1,0 +1,13 @@
+./../../src/entity/Player.js:84:54: ERROR - [JSC_LANGUAGE_FEATURE] This language feature is only supported for ECMASCRIPT_2015 mode or better: extended object literal.
+  84|     this.life = new Winners.entity.Life(this, lifeIx, { lifeX, lifeY });
+                                                            ^
+
+./../../src/entity/Player2.js:86:40: ERROR - [JSC_LANGUAGE_FEATURE] This language feature is only supported for ECMASCRIPT_2015 mode or better: extended object literal.
+  86|       Winners.entity.Life(this, lifeIx, { lifeX, lifeY });
+                                              ^
+
+./../../src/entity/Powerup.js:104:88: ERROR - [JSC_LANGUAGE_FEATURE] This language feature is only supported for ECMASCRIPT_2015 mode or better: extended object literal.
+  104|        this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.player, {puX ,puY}, this.player, this.enemy);
+                                                                                               ^
+
+3 error(s), 0 warning(s)
