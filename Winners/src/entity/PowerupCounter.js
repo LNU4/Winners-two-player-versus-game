@@ -21,7 +21,7 @@ Winners.entity.PowerupCounter = function (
   enemy
 ) {
   this.game = game;
-  this.ix = ix;
+  this.ix =  ix;
   this.x = 0;
   this.y = 0;
   this.player = player;
@@ -33,14 +33,14 @@ Winners.entity.PowerupCounter = function (
   this.type = "";
 
   this.powerupCords = powerupCords;
-
-  if (this.ix === 0) {
+  if (this.ix.powerupIx === 0) {
     this.x = powerupCords.puX;
     this.y = powerupCords.puY;
-  } else if (this.ix === 1) {
+  } else if (this.ix.powerupIx === 1) {
     this.x = powerupCords.puX + 15;
     this.y = powerupCords.puY;
-  } else if (this.ix === 2) {
+  } else if (this.ix.powerupIx === 2) {
+    this.ix.powerupIx = 
     this.x = powerupCords.puX + 30;
     this.y = powerupCords.puY;
     this.SoldierTypesArray = [
@@ -171,7 +171,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
    this.game.timers.create({ 
     duration: 2000,
     onComplete: function () {
-        console.log(m_this.game.player.powerupsArray.length)
+       // console.log(m_this.game.player.powerupsArray.length)
   switch (type) {
     case "heavysoldier":
       m_this.game.heavysoldiers = new Winners.entity.HeavySoldier(
@@ -231,7 +231,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
     default:
        
 
-      console.log("Sorry, we are out of ", type);
+      console.log("Sorry, all the ", type, " are dead");
   }
     },
   });
@@ -241,15 +241,45 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
 Winners.entity.PowerupCounter.prototype.emptyArray = function () {
 
     console.log(this.type)
+
+    // while (this.player.powerupsArray.length > 0) {
+    //     var powerupElem = this.player.powerupsArray[0]; //  always get the 1st element
+    //     console.log(powerupElem);
+    //     this.game.layer0.removeChild(powerupElem);
+    //     this.player.powerupsArray.splice(0, 1); // remove the 1st element
+    //     console.log(this.player.powerupsArray.length);
+    // }
+
+    while (this.player.powerupsArray.length > 0) {
+        var p = this.player.powerupsArray.splice(0,1);
+        p[0].parent.removeChild(p[0], true);
+
+    }
+
+    this.player.powerupsArray.length = 0;
+    this.ix.powerupIx = 0;
+    console.log(">> " + this.player.powerupsArray.length);
     
+    /*
   for (var i = 0; i < 3; i++) {
     var powerupElem = this.player.powerupsArray[i];
-    console.log(powerupElem)
+   
+    if (i === 3){
+        this.player.powerupsArray.splice(3, 1, powerupElem)
+        this.game.layer0.removeChild(powerupElem); 
+        this.player.powerupsArray = []
+        this.player.powerupsArray.length = 0
+        console.log(this.player.powerupsArray.length)
+    }
     this.player.powerupsArray.splice(i, 1, powerupElem)
     this.game.layer0.removeChild(powerupElem)
+ 
+   
+    console.log(this.player.powerupsArray.length)
+ }
+    */
         
     
- }
 };
 
 /**

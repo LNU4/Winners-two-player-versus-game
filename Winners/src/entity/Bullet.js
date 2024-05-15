@@ -176,15 +176,64 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
        
     }
+  
+    if (this.bulletTarget.playerBaseShield) {
+        if (this.hitTest(this.bulletTarget.playerBaseShield)){
+            console.log('.-.-.-')
+    
+            this.layer0.removeChild(this);
+            console.log(this.bulletTarget.playerBaseShield)
+    
+            this.bulletTarget.playerBaseShield.hpValue -= 200;
+            console.log(this.bulletTarget.playerBaseShield.hpValue)
+        } else if (this.bulletTarget.playerBaseShield.hpValue == 0){
+           // this.bulletTarget.playerBaseShield.dispose();
+          //  rune.display.Sprite.prototype.dispose.call(this.bulletTarget.playerBaseShield);
+         
+           this.layer0.removeChild(this.bulletTarget.playerBaseShield, true);
+           this.bulletTarget.playerBaseShield = null; 
+           //this.bulletTarget.playerBaseShield = null;
+           // console.log('cant dispose')
+           
+          // this.bulletTarget.playerBaseShield.dispose();
+         
+            
+        } /*else if (this.bulletTarget.playerBaseShield.hpValue <= -1000){
+            // **** SILVER TAPE ***
+            this.layer0.removeChild(this.baseTarget)
+          
+             
+             
+         }
+         */ 
+    }
+ 
+    // if (this.hitTest(this.baseTarget)){  ***
+    //     console.log(this.baseTarget)
+    //     this.layer0.removeChild(this);
+    //     this.baseTarget.HPValue -= 200;
+    //     console.log(this.baseTarget.HPValue)
+    //     console.log(this.bulletTarget)
+
+    // } else if (this.baseTarget.HPValue <= 0){
+        
+    //     this.layer0.removeChild(this.baseTarget)
+        
+
+    // } ***
+
 
  if  (this.bulletOwner.enemyBase) {
-
-    if (this.bulletOwner.bullets.bullet.hitTest(this.bulletOwner.enemyBase)){
+ console.log(',.,.,.,')
+    if (this.bulletOwner.bullets.bullet.hitTestAndSeparate(this.bulletOwner.enemyBase)){
+        console.log(this.bulletOwner.enemyBase)
         this.layer0.removeChild(this);
        // baseTarget console.log(this.bulletTarget.parent.numChildren)
        this.bulletOwner.enemyBase.HPValue -= 200;
+       console.log(this.bulletOwner.enemyBase.HPValue)
+
         //console.log(this.baseTarget.HPValue)
-    } else if (this.bulletOwner.enemyBase.HPValue <= 0){
+    } else if (this.bulletOwner.enemyBase.HPValue == 0){
         //console.log(this.bulletTarget.parent.numChildren)
         this.layer0.removeChild(this.bulletOwner.enemyBase)
        // console.log('done, powerUp')
@@ -192,7 +241,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
     }
 } else {
     // console.log( 'soldeirs dont have to shoot the enemyBase that is why they dont have - enemyBase- as a proprety' )
-}
+} 
 
     // if (this.hitTest(this.baseTarget)){
     //     this.layer0.removeChild(this);
@@ -206,7 +255,51 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
     // }
 
+
+
     if (this.game.truck) {
+      
+        // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck)){
+        //     console.log(' hit truck') 
+        //     this.layer0.removeChild(this.game.truck);
+        // }
+        if (this.game.truck.soldier){
+           
+          // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck.soldier.enemy)
+        if (this.game.truck.soldier.enemy == this.bulletOwner){
+         //console.log(this.game.truck.soldier.enemy)
+         for (var i = 0; i < 3; i++ ){
+            if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[i])) {
+
+                 this.game.layer0.removeChild(this);
+                  this.game.layer0.removeChild(this.game.truck.soldierArr[i])
+                  this.game.truck.soldierArr[i].createPowerups();
+                  this.game.truck.soldierArr[i].dispose()
+                    console.log('soldier', i, 'is removed')
+            }
+
+         }
+            // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[0])  ) {
+             
+            //      this.game.layer0.removeChild(this);
+            //      this.game.layer0.removeChild(this.game.truck.soldierArr[0])
+            //      this.game.truck.soldierArr[0].createPowerups();
+            //      this.game.truck.soldierArr[0].dispose()
+            // } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[1])){
+            //     this.game.layer0.removeChild(this);
+            //     this.game.layer0.removeChild(this.game.truck.soldierArr[1])
+            //     this.game.truck.soldierArr[1].createPowerups();
+
+            // } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[2])){
+            //     this.game.layer0.removeChild(this);
+            //     this.game.layer0.removeChild(this.game.truck.soldierArr[2])
+            //     this.game.truck.soldierArr[2].createPowerups();
+            // }
+       
+            
+             }
+
+   /* if (this.game.truck) {
       
         // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck)){
         //     console.log(' hit truck') 
@@ -222,10 +315,12 @@ Winners.entity.Bullet.prototype.update = function(step) {
                  this.game.layer0.removeChild(this);
                  this.game.layer0.removeChild(this.game.truck.soldierArr[0])
                  this.game.truck.soldierArr[0].createPowerups();
+                 this.game.truck.soldierArr[0].dispose()
             } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[1])){
                 this.game.layer0.removeChild(this);
                 this.game.layer0.removeChild(this.game.truck.soldierArr[1])
                 this.game.truck.soldierArr[1].createPowerups();
+
             } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[2])){
                 this.game.layer0.removeChild(this);
                 this.game.layer0.removeChild(this.game.truck.soldierArr[2])
@@ -233,12 +328,10 @@ Winners.entity.Bullet.prototype.update = function(step) {
             }
        
             
-             }
+             }*/
 
     } 
-    // else {
-    //     return 
-    // }
+    
 
 }
 if (this.game.truck2) {
@@ -253,7 +346,19 @@ if (this.game.truck2) {
       // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck2.soldier.enemy)
     if (this.game.truck2.soldier.enemy == this.bulletOwner){
      //console.log(this.game.truck2.soldier.enemy)
-        if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[0])  ) {
+
+     for (var i = 0; i < 3; i++ ){
+        if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[i])) {
+
+             this.game.layer0.removeChild(this);
+              this.game.layer0.removeChild(this.game.truck2.soldierArr[i])
+              this.game.truck2.soldierArr[i].createPowerups();
+              this.game.truck2.soldierArr[i].dispose()
+                console.log('soldier', i, 'is removed')
+        }
+
+     }
+       /* if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[0])  ) {
          
              this.game.layer0.removeChild(this);
              this.game.layer0.removeChild(this.game.truck2.soldierArr[0])
@@ -267,7 +372,7 @@ if (this.game.truck2) {
             this.game.layer0.removeChild(this);
             this.game.layer0.removeChild(this.game.truck2.soldierArr[2])
             this.game.truck2.soldierArr[2].createPowerups();
-        }
+        }*/
    
         
          }

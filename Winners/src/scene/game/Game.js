@@ -52,7 +52,7 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
 
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
-//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------ 
 
 /**
  * This method is automatically executed once after the scene is instantiated.
@@ -72,6 +72,12 @@ Winners.scene.Game.prototype.init = function () {
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
 
+  this.base = new Winners.entity.Base(10, 360, this);
+  this.base2 = new Winners.entity.Base2(1235, 360, this);
+
+  this.Base1shield = new Winners.entity.Base1shield(5, 344.5, this);
+  this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
+
   // this.powerupCounter = new  Winners.entity.PowerupCounter (this, this.powerupIx);
 
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
@@ -79,8 +85,7 @@ Winners.scene.Game.prototype.init = function () {
 
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
 
-  this.base = new Winners.entity.Base(10, 360, this);
-  this.base2 = new Winners.entity.Base2(1235, 360, this);
+ 
 
   //this.player = new Winners.entity.Player(80, 345.5 ,this.turret1, this.layer0, this.base, this.base2);
   this.player = new Winners.entity.Player(80, 345, this);
@@ -122,8 +127,7 @@ Winners.scene.Game.prototype.init = function () {
   //     console.log('.-.-.')
   // }
 
-  this.Base1shield = new Winners.entity.Base1shield(5, 344.5, this);
-  this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
+  
 
   //  this.hp2 = new Winners.entity.Hps(300, 300);
   // this.player2.hp = this.hp2;
@@ -154,7 +158,7 @@ Winners.scene.Game.prototype.createTruck = function () {
   var randomY2 = Math.random() * 720;
   // this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
   this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
-  this.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
+  this.truck2 = new Winners.entity.Truck(1300, randomY2, this, this.player);
   //   this.player.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
   //   this.player2.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
   this.layer0.addChild(this.truck);
@@ -164,13 +168,13 @@ Winners.scene.Game.prototype.createTruck = function () {
     this.player2.soldierHit++;
     console.log(this.player2.soldierHit);
   }
-//   this.timers.create({
-//     duration: 40000,
-//     onComplete: function () {
-//       this.createTruck();
+  this.timers.create({
+    duration: 60000,
+    onComplete: function () {
+      this.createTruck();
       
-//     },
-//   });
+    },
+  });
 };
 /**
  * This method is automatically executed once per "tick". The method is used for

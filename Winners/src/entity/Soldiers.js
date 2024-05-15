@@ -22,6 +22,7 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   this.moveSpeed = 1;
   this.shootCooldown = 900;
   this.lastShootTime = 0;
+ // this.elasticity = 1.0;
 
   this.game = game;
 
@@ -200,9 +201,14 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     });
    
   }
+
+//   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
+//     console.log('..-.-.-')
+//    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
+//   }
 };
 Winners.entity.Soldiers.prototype.createPowerups = function (){
-    console.log('powerup is created')
+    
     var m_this = this; 
     var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
     var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
@@ -223,5 +229,6 @@ Winners.entity.Soldiers.prototype.createPowerups = function (){
  */
 Winners.entity.Soldiers.prototype.dispose = function() {
     rune.display.Sprite.prototype.dispose.call(this);
+    console.log('soldier is disposed')
 };
 
