@@ -9,9 +9,13 @@ npx google-closure-compiler \
 --js "./../../lib/rune.js" \
 --js "./../../src/scope/Manifest.js" \
 --js "./../../src/data/resource/Requests.js" \
+--js "./../../src/entity/Powerup.js" \
+--js "./../../src/entity/PowerupCounter.js" \
+--js "./../../src/entity/Effect.js" \
 --js "./../../src/system/Main.js" \
 --js "./../../src/entity/Player.js" \
 --js "./../../src/entity/Player2.js" \
+--js "./../../src/entity/Life.js" \
 --js "./../../src/entity/Turret1.js" \
 --js "./../../src/entity/Turret2.js" \
 --js "./../../src/entity/Base.js" \
@@ -19,12 +23,17 @@ npx google-closure-compiler \
 --js "./../../src/entity/Base1shield.js" \
 --js "./../../src/entity/Base2shield.js" \
 --js "./../../src/entity/Truck.js" \
---js "./../../src/entity/soldier.js" \
+--js "./../../src/entity/Soldiers.js" \
+--js "./../../src/entity/HeavySoldier.js" \
+--js "./../../src/entity/SniperSoldier.js" \
+--js "./../../src/entity/RocketSoldier.js" \
+--js "./../../src/entity/RepairSoldier.js" \
 --js "./../../src/entity/Hps.js" \
 --js "./../../src/entity/Bullet.js" \
 --js "./../../src/entity/Bullets.js" \
+--js "./../../src/entity/Rocket.js" \
 --js "./../../src/scene/menu/Menu.js" \
+--js "./../../src/scene/howtoplay/Howtoplay.js" \
 --js "./../../src/scene/game/Game.js" \
---js "./../../src/entity/Effect.js" \
 --js "./../../src/scope/Alias.js" \
 --js_output_file "./../../dist/Winners.js";

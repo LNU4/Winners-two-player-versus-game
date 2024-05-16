@@ -68,7 +68,7 @@ Winners.entity.Soldiers.prototype.shoot = function () {
 
   var distance = currentPosition.distance(targetPosition);
   if (distance <= this.shootDistance) {
-    var bulletSpeed = 1;
+    var bulletSpeed = 0.2;
 
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
@@ -112,7 +112,8 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-      // this.shoot();
+      this.shoot();
+      console.log("The shooting worked on line 116")
       this.lastShootTime = currentTime;
     }
   } else {
@@ -167,10 +168,11 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   this.y = currentPosition.y;
 
   var currentTime = Date.now();
-  if (currentTime - this.lastShootTime >= this.shootCooldown) {
-    // this.shoot();
+  /* if (currentTime - this.lastShootTime >= this.shootCooldown) {
+      this.shoot();
+      console.log("The shooting worked on line 172")
     this.lastShootTime = currentTime;
-  }
+  } */
 
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this);

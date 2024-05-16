@@ -30,7 +30,7 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets
      */
 
    
-    this.damage = 20.0;
+    this.damage = 5.0;
 
     this.game = game;
     console.log(this.game)

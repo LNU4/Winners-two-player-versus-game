@@ -8,7 +8,7 @@ Winners.entity.Rocket = function(game, layer0, bulletOwner, bulletTarget, bullet
 
     rune.display.Sprite.call(this, x, y, 16, 16, "100hp");
 
-    this.m_speed = 6;
+    this.m_speed = 3;
 
    
 
@@ -22,7 +22,10 @@ Winners.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
 Winners.entity.Rocket.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
 
-    
+    if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
+        this.bulletTarget.lifeIx = 0; 
+     };
+
     this.x += Math.cos(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
     this.y += Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 
@@ -37,7 +40,13 @@ Winners.entity.Rocket.prototype.update = function(step) {
        
         var actualLifeHpOb = actualLife.hp;
 
-        
+        if (this.bulletTarget === this.game.player) {
+            //  this.handePlayerDead = true;
+              this.game.handePlayerDead("player1");
+          } else if (this.bulletTarget === this.game.player2) {
+             // this.Player2isDefeated = true; 
+              this.game.handePlayerDead("player2");
+          }
 
         actualLife.value -= this.damage;
 
