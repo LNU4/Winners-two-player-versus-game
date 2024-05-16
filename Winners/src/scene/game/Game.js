@@ -52,7 +52,7 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
 
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
-//------------------------------------------------------------------------------ 
+//------------------------------------------------------------------------------
 
 /**
  * This method is automatically executed once after the scene is instantiated.
@@ -85,8 +85,6 @@ Winners.scene.Game.prototype.init = function () {
 
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
 
- 
-
   //this.player = new Winners.entity.Player(80, 345.5 ,this.turret1, this.layer0, this.base, this.base2);
   this.player = new Winners.entity.Player(80, 345, this);
 
@@ -101,7 +99,7 @@ Winners.scene.Game.prototype.init = function () {
 
   //this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
-  //this.rocketsoldier = new Winners.entity.Rocketsoldier(50, 50, this, this.player2);
+  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
   //this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
 
   //this.base = new Winners.entity.Base(10, 359.5);
@@ -125,8 +123,6 @@ Winners.scene.Game.prototype.init = function () {
   // timer.onComplete = function (){
   //     console.log('.-.-.')
   // }
-
-  
 
   //  this.hp2 = new Winners.entity.Hps(300, 300);
   // this.player2.hp = this.hp2;
@@ -169,13 +165,11 @@ Winners.scene.Game.prototype.createTruck = function () {
   }
 
   this.timers.create({
-    duration: 60000,
+    duration: 20000,
     onComplete: function () {
       this.createTruck();
-      
     },
   });
-
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -275,16 +269,13 @@ Winners.scene.Game.prototype.handleGameOver = function () {
   );
   if (this.currentRound < this.maxRounds) {
     this.currentRound++;
-    var resultMsg = "Round won by " + this.roundWinners; 
+    var resultMsg =
+      "Round won by " + this.roundWinners[this.roundWinners.length - 1];
     var text = new rune.text.BitmapField(resultMsg);
 
-   
-    
     text.center = this.application.screen.center;
     text.scaleX = 2;
     text.scaleY = 2;
-
-
 
     this.cameras.getCameraAt(0).addChild(text);
 

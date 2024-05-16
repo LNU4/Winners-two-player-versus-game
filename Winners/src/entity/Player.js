@@ -81,7 +81,7 @@ Winners.entity.Player.prototype.init = function () {
   for (var i = 0; i < this.lives; i++) {
     var lifeIx = i;
 
-    this.life = new Winners.entity.Life(this, lifeIx, { lifeX, lifeY });
+    this.life = new Winners.entity.Life(this, lifeIx, { lifeX: lifeX, lifeY: lifeY });
 
     this.livesArr.push(this.life);
   }
