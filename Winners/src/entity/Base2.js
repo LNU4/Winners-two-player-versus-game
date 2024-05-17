@@ -52,6 +52,11 @@ Winners.entity.Base2.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
     this.immovable = true
     this.m_placement();
+
+    this.texture.replaceColor (
+        new rune.color.Color24(34, 32, 52),
+        new rune.color.Color24(32, 32, 32)
+    );
 };
 
 /**

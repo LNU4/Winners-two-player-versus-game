@@ -69,9 +69,18 @@ Winners.entity.Player.prototype.init = function () {
 
   rune.display.Sprite.prototype.init.call(this);
 
-
-
-
+  this.texture.replaceColor (
+    new rune.color.Color24(69, 40, 60),
+    new rune.color.Color24(255, 102, 102)
+  );
+  this.texture.replaceColor (
+    new rune.color.Color24(223, 113, 38),
+    new rune.color.Color24(105, 57, 49)
+  );
+  this.texture.replaceColor (
+    new rune.color.Color24(102, 57, 49),
+    new rune.color.Color24(172, 50, 50)
+  );
 
   var lifeX = 5;
   var lifeY = 25;

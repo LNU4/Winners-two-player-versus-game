@@ -110,12 +110,12 @@ Winners.scene.Game.prototype.init = function () {
   //camera.addChild(smth);
 
   
-  // this.timers.create({
-  //   duration: 4000,
-  //   onComplete: function () {
-  //     this.createTruck();
-  //   },
-  // });
+  this.timers.create({
+   duration: 4000,
+   onComplete: function () {
+    this.createTruck();
+   }, 
+  });
 
   // var timeInMs = 2000;
 
@@ -165,12 +165,12 @@ Winners.scene.Game.prototype.createTruck = function () {
     console.log(this.player2.soldierHit);
   }
 
-  // this.timers.create({
-  //   duration: 20000,
-  //   onComplete: function () {
-  //     this.createTruck();
-  //   },
-  // });
+   this.timers.create({
+   duration: 20000,
+    onComplete: function () {
+     this.createTruck();
+   },
+   });
 };
 /**
  * This method is automatically executed once per "tick". The method is used for

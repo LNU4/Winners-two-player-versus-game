@@ -22,17 +22,17 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   this.moveSpeed = 1;
   this.shootCooldown = 900;
   this.lastShootTime = 0;
- // this.elasticity = 1.0;
+  // this.elasticity = 1.0;
 
   this.game = game;
 
   this.enemy = enemy;
 
-//   if (this.enemy === this.game.player) {
-//     this.player = this.game.player;
-//   } else if (this.enemy === this.game.player2) {
-//     this.player = this.game.player2;
-//   }  ** WAIT WITH THIS **
+  //   if (this.enemy === this.game.player) {
+  //     this.player = this.game.player;
+  //   } else if (this.enemy === this.game.player2) {
+  //     this.player = this.game.player2;
+  //   }  ** WAIT WITH THIS **
 
   this.ix = ix;
 
@@ -43,6 +43,18 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
   this.layer.addChild(this);
+
+  if (enemy === this.game.player) {
+    this.texture.replaceColor(
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(172, 50, 50)
+    );
+  } else if (enemy === this.game.player2) {
+    this.texture.replaceColor(
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(32, 32, 32)
+    );
+  }
 };
 
 //----------------------------------------------------------------------------
@@ -104,7 +116,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.x,
     this.y
   );
-  
+
 
   if (distance <= this.shootDistance && distance > 90) {
     this.x = this.x;
@@ -189,8 +201,8 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-       //** console.group(m_this.enemy)
-       m_this.createPowerups()
+        //** console.group(m_this.enemy)
+        m_this.createPowerups()
         // m_this.powerUp = new Winners.entity.Powerup(
         //   ranX,
         //   ranY,
@@ -198,29 +210,29 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         //   m_this.enemy
         // );
 
-       // this.layer0.addChild(m_this.powerUp);
+        // this.layer0.addChild(m_this.powerUp);
       },
     });
-   
+
   }
-  if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this) ){
+  if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
     //this.enemy.bullets.bullet.hitTestAndSeparate(this);
     console.log(this.enemy.bullets.bullet)
-     this.isDead = true;
+    this.isDead = true;
     this.powerUpProb = Math.random() * 5;
 
     this.game.layer0.removeChild(this.enemy.bullets.bullet);
-     this.game.layer0.removeChild(this);
+    this.game.layer0.removeChild(this);
     this.dispose();
     //this.enemy.bullets.reset()
-    this.enemy.bullets.bullet.dispose();  
+    this.enemy.bullets.bullet.dispose();
   }
   if (this.isDead == true) {
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-       //** console.group(m_this.enemy) 
-       m_this.createPowerups()
+        //** console.group(m_this.enemy) 
+        m_this.createPowerups()
         // m_this.powerUp = new Winners.entity.Powerup(
         //   ranX,
         //   ranY,
@@ -228,30 +240,30 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         //   m_this.enemy
         // );
 
-       // this.layer0.addChild(m_this.powerUp);
+        // this.layer0.addChild(m_this.powerUp);
       },
     });
-   
+
 
   }
-//   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
-//     console.log('..-.-.-')
-//    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
-//   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
+  //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
+  //     console.log('..-.-.-')
+  //    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
+  //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
 };
-Winners.entity.Soldiers.prototype.createPowerups = function (){
-    
-    var m_this = this; 
-    var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
-    var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
-    m_this.powerUp = new Winners.entity.Powerup(
-        ranX,
-        ranY,
-        m_this.game,
-        m_this.enemy
-      );
+Winners.entity.Soldiers.prototype.createPowerups = function () {
 
-      m_this.game.layer0.addChild(m_this.powerUp);
+  var m_this = this;
+  var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
+  var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
+  m_this.powerUp = new Winners.entity.Powerup(
+    ranX,
+    ranY,
+    m_this.game,
+    m_this.enemy
+  );
+
+  m_this.game.layer0.addChild(m_this.powerUp);
 
 }
 /**
@@ -259,8 +271,8 @@ Winners.entity.Soldiers.prototype.createPowerups = function (){
  *
  * @returns {undefined}
  */
-Winners.entity.Soldiers.prototype.dispose = function() {
-    rune.display.Sprite.prototype.dispose.call(this);
-    console.log('soldier is disposed')
+Winners.entity.Soldiers.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
+  console.log('soldier is disposed')
 };
 

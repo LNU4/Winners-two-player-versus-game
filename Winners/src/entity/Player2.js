@@ -29,7 +29,7 @@ Winners.entity.Player2 = function (x, y, game) {
   this.livesArr = [];
   this.initX = x;
   this.initY = y;
- 
+
   // this.playerBase = this.game.base2;
   // this.enemyBase = this.game.base;
   //this.turret1 = turret1;
@@ -81,7 +81,11 @@ Winners.entity.Player2.prototype.init = function () {
     });
 
     this.livesArr.push(this.life);
-  }
+  };
+  this.texture.replaceColor(
+    new rune.color.Color24(32, 32, 52),
+    new rune.color.Color24(32, 32, 32)
+  );
 
   this.m_initPhysics();
   this.m_initAnimation();

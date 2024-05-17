@@ -26,18 +26,23 @@ Winners.entity.Truck = function (x, y, game, enemy) {
   this.game = game;
   rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
 
-//  this.enemy = enemy;   ** WAIT WITH THIS **
+  //  this.enemy = enemy;   ** WAIT WITH THIS **
 
   this.layer0 = this.game.layer0;
 
   if (enemy === this.game.player) {
     this.enemy = this.game.player;
     this.player = this.game.player2;
-   //this.target1 = this.game.player;
+
+    //this.target1 = this.game.player;
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
     this.player = this.game.player;
-   //this.target2 = this.game.player2; this.enemy
+    this.texture.replaceColor(
+      new rune.color.Color24(82, 75, 36),
+      new rune.color.Color24(172, 50, 50)
+    );
+    //this.target2 = this.game.player2; this.enemy
   }
 
   this.deadSoldiers = 0; // test
@@ -113,73 +118,73 @@ Winners.entity.Truck.prototype.update = function (step) {
     this.hitTestAndSeparate(this.enemy);
     this.hitTestAndSeparate(this.player);
 
-  
-  }
-  
-//   if (this.game.truck){
-//     this.enemyTruck = this.game.truck;
-    if (this.enemy.bullets){
-  if (this.enemy.bullets.bullet){
-    if (this.enemy.bullets.bullet.hitTest(this)){
-    console.log('.-.-.-.')
-    this.layer0.removeChild(this.enemy.bullets.bullet)
-    this.layer0.removeChild(this)
-  }
-  }
-   
 
-}  
+  }
 
-//   if (this.enemy === this.game.player) {
-//     this.enemy2.bullets.bullet.hitTestAndSeparate(this.soldier)
-//   } 
+  //   if (this.game.truck){
+  //     this.enemyTruck = this.game.truck;
+  if (this.enemy.bullets) {
+    if (this.enemy.bullets.bullet) {
+      if (this.enemy.bullets.bullet.hitTest(this)) {
+        console.log('.-.-.-.')
+        this.layer0.removeChild(this.enemy.bullets.bullet)
+        this.layer0.removeChild(this)
+      }
+    }
+
+
+  }
+
+  //   if (this.enemy === this.game.player) {
+  //     this.enemy2.bullets.bullet.hitTestAndSeparate(this.soldier)
+  //   } 
 };
 
 Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
 
-    var m_this = this;
-    this.velocity.x = 0;
-    var truckX = this.x;
-    var truckY = this.y;
-    this.soldierArr = [];
-    
-    for (var i = 0; i < 6; i++) {
-      this.soldierix = i;
-      var angle = Math.random() * Math.PI * 2;
-      var distance = 30;
-      var soldierX = truckX + Math.cos(angle) * distance;
-      var soldierY = truckY + Math.sin(angle) * distance;
-  
-      //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.enemy2, this.layer0, this.game);
+  var m_this = this;
+  this.velocity.x = 0;
+  var truckX = this.x;
+  var truckY = this.y;
+  this.soldierArr = [];
+
+  for (var i = 0; i < 6; i++) {
+    this.soldierix = i;
+    var angle = Math.random() * Math.PI * 2;
+    var distance = 30;
+    var soldierX = truckX + Math.cos(angle) * distance;
+    var soldierY = truckY + Math.sin(angle) * distance;
+
+    //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.enemy2, this.layer0, this.game);
     // **  console.log(this.enemy)
-      this.soldier = new Winners.entity.Soldiers(
-        soldierX,
-        soldierY,
-        this.game,
-        this.enemy, this.soldierix
-      );
-      // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
-      //     soldierY, 
-      //     this.game, 
-      //     this.enemy);
-  
-      // this.layer0.addChild(this.HeavySoldier)
-  
-      this.soldierArr.push(this.soldier);
-    }
-this.game.timers.create({ 
+    this.soldier = new Winners.entity.Soldiers(
+      soldierX,
+      soldierY,
+      this.game,
+      this.enemy, this.soldierix
+    );
+    // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
+    //     soldierY, 
+    //     this.game, 
+    //     this.enemy);
+
+    // this.layer0.addChild(this.HeavySoldier)
+
+    this.soldierArr.push(this.soldier);
+  }
+  this.game.timers.create({
     duration: 2000,
     onComplete: function () {
-        this.layer0.removeChild(m_this); 
-    //    m_this.game.layer0.removeChild(m_this); 
-        m_this.dispose();
+      this.layer0.removeChild(m_this);
+      //    m_this.game.layer0.removeChild(m_this); 
+      m_this.dispose();
     },
   });
 
-   
-    
-  };
-  
+
+
+};
+
 
 /**
  * ...
@@ -187,17 +192,17 @@ this.game.timers.create({
  * @returns {undefined}
  */
 Winners.entity.Truck.prototype.dispose = function () {
-    
+
   rune.display.Sprite.prototype.dispose.call(this);
-//   var m_this = this;
-//   this.game.timers.create({
-//     duration: 10000,
-//     onComplete: function () {
-//         m_this.game.createTruck();
-      
-//     },
-//   });
-  
+  //   var m_this = this;
+  //   this.game.timers.create({
+  //     duration: 10000,
+  //     onComplete: function () {
+  //         m_this.game.createTruck();
+
+  //     },
+  //   });
+
 };
 
 //------------------------------------------------------------------------------

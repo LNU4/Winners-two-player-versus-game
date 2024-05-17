@@ -31,6 +31,18 @@ Winners.entity.SniperSodier = function (x, y, game, enemy) {
   
   
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
+
+  if (enemy === this.game.player) {
+    this.texture.replaceColor (
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(172, 50, 50)
+    );
+  } else if (enemy === this.game.player2) {
+    this.texture.replaceColor (
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(32, 32, 32)
+    );
+  }
 };
 
 

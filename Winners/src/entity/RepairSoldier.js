@@ -14,12 +14,24 @@ Winners.entity.Repairsoldier = function (x, y, game, enemy, ix) {
     this.ix = ix;
 
     this.isDead = false;
-   // this.powerUpProb = 0;
+    // this.powerUpProb = 0;
 
     this.layer = this.game.layer0;
- console.log('repair')
+    console.log('repair')
     rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
     this.layer.addChild(this);
+
+    if (enemy === this.game.player) {
+        this.texture.replaceColor(
+            new rune.color.Color24(0, 0, 0),
+            new rune.color.Color24(172, 50, 50)
+        );
+    } else if (enemy === this.game.player2) {
+        this.texture.replaceColor(
+            new rune.color.Color24(0, 0, 0),
+            new rune.color.Color24(32, 32, 32)
+        );
+    }
 };
 
 Winners.entity.Repairsoldier.prototype = Object.create(
@@ -57,8 +69,8 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
 
         this.rotation = Math.atan2(directionY, directionX) * (180 / Math.PI);
     } else if (distance <= 64) {
-        this.moveSpeed = 0; 
-        this.repair(); 
+        this.moveSpeed = 0;
+        this.repair();
     }
 
 
@@ -67,18 +79,18 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
 };
 
 Winners.entity.Repairsoldier.prototype.repair = function () {
- 
-  if (this.player && !this.player.isDead) {
-   
-    var playerBullets = this.player.bullets;
-    
- 
-    if (playerBullets) {
-        
-        var healAmount = 10; 
-        playerBullets.hp += healAmount;
-        //check further N.A
-        console.log("healed with dog", healAmount, "HP");
+
+    if (this.player && !this.player.isDead) {
+
+        var playerBullets = this.player.bullets;
+
+
+        if (playerBullets) {
+
+            var healAmount = 10;
+            playerBullets.hp += healAmount;
+            //check further N.A
+            console.log("healed with dog", healAmount, "HP");
+        }
     }
-}
 }

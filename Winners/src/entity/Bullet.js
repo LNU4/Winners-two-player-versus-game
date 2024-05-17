@@ -123,6 +123,7 @@ Winners.entity.Bullet.prototype.update = function (step) {
       } else if (this.bulletTarget === this.game.player2) {
         // this.Player2isDefeated = true;
         this.game.handePlayerDead("player2");
+      
       }
       // this.application.scenes.load([new Winners.scene.Menu()]);
 

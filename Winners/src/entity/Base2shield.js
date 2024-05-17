@@ -53,6 +53,11 @@ Winners.entity.Base2shield.prototype.init = function() {
     this.movable = false;
     this.rotation = 90;
     this.immovable = true
+
+    this.texture.replaceColor (
+        new rune.color.Color24(86, 85, 88),
+        new rune.color.Color24(32, 32, 32)
+    );
    
 };
 

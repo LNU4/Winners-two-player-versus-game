@@ -54,6 +54,11 @@ Winners.entity.Turret1.prototype.init = function () {
 
   this.m_initPhysics();
   this.m_initAnimation();
+
+  this.texture.replaceColor(
+    new rune.color.Color24(0, 0, 0),
+    new rune.color.Color24(50, 60, 150)
+  )
 };
 
 /**

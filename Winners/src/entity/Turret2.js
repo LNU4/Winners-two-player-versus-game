@@ -48,12 +48,16 @@ Winners.entity.Turret2.prototype.constructor = Winners.entity.Turret2;
 Winners.entity.Turret2.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  // this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
-
-  //this.addChild(this.turret);
+  this.texture.replaceColor(
+    new rune.color.Color24(0, 0, 0),
+    new rune.color.Color24(32, 32, 32)
+  );
 
   this.m_initPhysics();
   this.m_initAnimation();
+
+
+
 };
 
 /**

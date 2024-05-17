@@ -74,6 +74,11 @@ Winners.entity.Powerup.prototype.update = function (step) {
     this.player = this.game.player2;
     this.enemy = this.game.player;
     //  this.target1 = this.game.player;
+
+    this.texture.replaceColor (
+      new rune.color.Color24(34, 32, 52),
+      new rune.color.Color24(32, 32, 32)
+    );
   } else if (this.unKnownPlayer == this.game.player) {
     // this.player = this.game.player2;
 
@@ -82,6 +87,11 @@ Winners.entity.Powerup.prototype.update = function (step) {
     this.player = this.game.player;
     this.enemy = this.game.player2;
     // this.target2 = this.game.player2;
+    this.texture.replaceColor (
+      new rune.color.Color24(34, 32, 52),
+      new rune.color.Color24(172, 50, 50)
+    );
+    
   }
   var puX = this.puX;
   var puY = this.puY;

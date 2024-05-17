@@ -47,7 +47,10 @@ Winners.entity.Base1shield.prototype.init = function() {
     rune.display.Sprite.prototype.init.call(this);
     this.immovable = true
     this.rotation = (-90); 
-   
+    this.texture.replaceColor (
+        new rune.color.Color24(86, 85, 88),
+        new rune.color.Color24(172, 50, 50)
+    );
 };
 
 /**
