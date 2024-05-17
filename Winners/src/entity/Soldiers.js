@@ -113,7 +113,6 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
-      console.log("The shooting worked on line 116")
       this.lastShootTime = currentTime;
     }
   } else {
@@ -179,6 +178,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   }
 
   if (this.enemy.hitTest(this)) {
+    // console.log(this.enemy.bullets.bullet)
     this.isDead = true;
     this.powerUpProb = Math.random() * 5;
 
@@ -203,11 +203,41 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     });
    
   }
+  if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this) ){
+    //this.enemy.bullets.bullet.hitTestAndSeparate(this);
+    console.log(this.enemy.bullets.bullet)
+     this.isDead = true;
+    this.powerUpProb = Math.random() * 5;
 
+    this.game.layer0.removeChild(this.enemy.bullets.bullet);
+     this.game.layer0.removeChild(this);
+    this.dispose();
+    //this.enemy.bullets.reset()
+    this.enemy.bullets.bullet.dispose();  
+  }
+  if (this.isDead == true) {
+    this.game.timers.create({
+      duration: 1000,
+      onComplete: function () {
+       //** console.group(m_this.enemy) 
+       m_this.createPowerups()
+        // m_this.powerUp = new Winners.entity.Powerup(
+        //   ranX,
+        //   ranY,
+        //   m_this.game,
+        //   m_this.enemy
+        // );
+
+       // this.layer0.addChild(m_this.powerUp);
+      },
+    });
+   
+
+  }
 //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
 //     console.log('..-.-.-')
 //    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
-//   }
+//   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
 };
 Winners.entity.Soldiers.prototype.createPowerups = function (){
     

@@ -164,12 +164,12 @@ Winners.scene.Game.prototype.createTruck = function () {
     console.log(this.player2.soldierHit);
   }
 
-  this.timers.create({
-    duration: 20000,
-    onComplete: function () {
-      this.createTruck();
-    },
-  });
+  // this.timers.create({
+  //   duration: 20000,
+  //   onComplete: function () {
+  //     this.createTruck();
+  //   },
+  // });
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -261,12 +261,12 @@ Winners.scene.Game.prototype.handleGameOver = function () {
 
     this.roundWinners.push("Player1");
   }
-  console.log(
-    "current round: ",
-    this.currentRound,
-    "Max rounds: ",
-    this.maxRounds
-  );
+  // console.log(
+  //   "current round: ",
+  //   this.currentRound,
+  //   "Max rounds: ",
+  //   this.maxRounds
+  // );
   if (this.currentRound < this.maxRounds) {
     this.currentRound++;
     var resultMsg =
@@ -340,7 +340,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
 };
 
 Winners.scene.Game.prototype.handePlayerDead = function (playerDeafeted) {
-  console.log(playerDeafeted);
+ 
   if (playerDeafeted === "player1") {
     this.Player1isDefeated = true;
     this.handleGameOver();
