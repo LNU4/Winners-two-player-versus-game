@@ -44,10 +44,9 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
 Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
     this.add("100hp", "./../asset/png/100hp.png");
-	this.add("Baseprotection", "./../asset/png/Baseprotection.png");
-	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("background", "./../asset/png/background.png");
 	this.add("base", "./../asset/png/base.png");
+	this.add("Baseprotection", "./../asset/png/Baseprotection.png");
 	this.add("heart", "./../asset/png/heart.png");
 	this.add("heavysoldier", "./../asset/png/heavysoldier.png");
 	this.add("howtoplay", "./../asset/png/howtoplay.png");
@@ -59,6 +58,7 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("tank-frames-raw", "./../asset/png/tank-frames-raw.png");
 	this.add("tank-reworked", "./../asset/png/tank-reworked.png");
 	this.add("torret", "./../asset/png/torret.png");
+	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("turret-remake", "./../asset/png/turret-remake.png");
 	this.add("winner-mainchar", "./../asset/png/winner-mainchar.png");
 	this.add("winners-bg", "./../asset/png/winners-bg.png");
