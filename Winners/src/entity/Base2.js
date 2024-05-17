@@ -71,6 +71,8 @@ Winners.entity.Base2.prototype.update = function(step) {
  */
 Winners.entity.Base2.prototype.dispose = function() {
     rune.display.Sprite.prototype.dispose.call(this);
+    console.log('base 1 is disposed')
+
 };
 
 //------------------------------------------------------------------------------

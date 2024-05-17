@@ -104,4 +104,5 @@ Winners.entity.Bullets.prototype.create = function(x, y) {
  */
 Winners.entity.Bullets.prototype.reset = function() {
     this.removeChildren();
+    console.log('ccccc')
 };

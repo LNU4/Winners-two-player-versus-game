@@ -33,7 +33,7 @@ Winners.entity.Bullet = function(game,layer0, bulletOwner, bulletTarget, bullets
     this.damage = 5.0;
 
     this.game = game;
-    console.log(this.game)
+  
    
     this.layer0 = layer0;
 
@@ -98,7 +98,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
     if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
        this.bulletTarget.lifeIx = 0; 
     };
-    console.log(this.damage);
+    
    
     if(this.hitTest(this.bulletTarget)){
 
@@ -118,7 +118,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
         
         if ( this.bulletTarget.lifeIx === 2 && actualLife.value <= 0){
-           console.log('rip');
+          
            this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2])
          this.bulletTarget.parent.removeChild(actualLifeHpOb);
         //this.bulletOwner.parent.removeChild(this.bulletTarget);
@@ -232,7 +232,7 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
 
  if  (this.bulletOwner.enemyBase) {
- console.log(',.,.,.,')
+ 
     if (this.bulletOwner.bullets.bullet.hitTestAndSeparate(this.bulletOwner.enemyBase)){
         console.log(this.bulletOwner.enemyBase)
         this.layer0.removeChild(this);
@@ -241,13 +241,16 @@ Winners.entity.Bullet.prototype.update = function(step) {
        console.log(this.bulletOwner.enemyBase.HPValue)
 
         //console.log(this.baseTarget.HPValue)
-    } else if (this.bulletOwner.enemyBase.HPValue == 0){
+    } else if (this.bulletOwner.enemyBase.HPValue <= 0){
         //console.log(this.bulletTarget.parent.numChildren)
-        this.layer0.removeChild(this.bulletOwner.enemyBase)
-       // console.log('done, powerUp')
-
+        this.layer0.removeChild(this.bulletOwner.enemyBase, true);
+        this.bulletOwner.enemyBase = null; 
+        console.log('base 1 is disposed')
+       //this.bulletOwner.enemyBase.dispose()
+     
     }
-} else {
+} 
+else {
     // console.log( 'soldeirs dont have to shoot the enemyBase that is why they dont have - enemyBase- as a proprety' )
 } 
 
@@ -265,139 +268,60 @@ Winners.entity.Bullet.prototype.update = function(step) {
 
 
 
-    if (this.game.truck) {
+//     if (this.game.truck) {
       
-        // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck)){
-        //     console.log(' hit truck') 
-        //     this.layer0.removeChild(this.game.truck);
-        // }
-        if (this.game.truck.soldier){
-           
-          // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck.soldier.enemy)
-        if (this.game.truck.soldier.enemy == this.bulletOwner){
-         //console.log(this.game.truck.soldier.enemy)
-         for (var i = 0; i < 3; i++ ){
-            if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[i])) {
-
-                 this.game.layer0.removeChild(this);
-                  this.game.layer0.removeChild(this.game.truck.soldierArr[i])
-                  this.game.truck.soldierArr[i].createPowerups();
-                  this.game.truck.soldierArr[i].dispose()
-                    console.log('soldier', i, 'is removed')
-            }
-
-         }
-            // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[0])  ) {
-             
-            //      this.game.layer0.removeChild(this);
-            //      this.game.layer0.removeChild(this.game.truck.soldierArr[0])
-            //      this.game.truck.soldierArr[0].createPowerups();
-            //      this.game.truck.soldierArr[0].dispose()
-            // } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[1])){
-            //     this.game.layer0.removeChild(this);
-            //     this.game.layer0.removeChild(this.game.truck.soldierArr[1])
-            //     this.game.truck.soldierArr[1].createPowerups();
-
-            // } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[2])){
-            //     this.game.layer0.removeChild(this);
-            //     this.game.layer0.removeChild(this.game.truck.soldierArr[2])
-            //     this.game.truck.soldierArr[2].createPowerups();
-            // }
        
-            
-             }
-
-   /* if (this.game.truck) {
+//         if (this.game.truck.soldier){
+         
+//         if (this.game.truck.soldier.enemy == this.bulletOwner){
       
-        // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck)){
-        //     console.log(' hit truck') 
-        //     this.layer0.removeChild(this.game.truck);
-        // }
-        if (this.game.truck.soldier){
-           
-          // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck.soldier.enemy)
-        if (this.game.truck.soldier.enemy == this.bulletOwner){
-         //console.log(this.game.truck.soldier.enemy)
-            if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[0])  ) {
-             
-                 this.game.layer0.removeChild(this);
-                 this.game.layer0.removeChild(this.game.truck.soldierArr[0])
-                 this.game.truck.soldierArr[0].createPowerups();
-                 this.game.truck.soldierArr[0].dispose()
-            } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[1])){
-                this.game.layer0.removeChild(this);
-                this.game.layer0.removeChild(this.game.truck.soldierArr[1])
-                this.game.truck.soldierArr[1].createPowerups();
+//          for (var i = 0; i < 3; i++ ){
+//             if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[i])) {
 
-            } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck.soldierArr[2])){
-                this.game.layer0.removeChild(this);
-                this.game.layer0.removeChild(this.game.truck.soldierArr[2])
-                this.game.truck.soldierArr[2].createPowerups();
-            }
-       
+//                  this.game.layer0.removeChild(this);
+//                   this.game.layer0.removeChild(this.game.truck.soldierArr[i])
+//                   this.game.truck.soldierArr[i].createPowerups();
+//                   this.game.truck.soldierArr[i].dispose()
+//                     console.log('soldier', i, 'is removed')
+//             }
+
+//          }
             
-             }*/
+//              }
 
-    } 
+//     }   
+
+// }
+
+// if (this.game.truck2) {
+
+   
+//     if (this.game.truck2.soldier){
+       
+     
+//     if (this.game.truck2.soldier.enemy == this.bulletOwner){
     
 
-}
-if (this.game.truck2) {
+//      for (var i = 0; i < 3; i++ ){
+//         if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[i])) {
 
-    // if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2)){
-    //     console.log(' hit truck') 
-    //     this.layer0.removeChild(this.game.truck2);
-    // }
-      
-    if (this.game.truck2.soldier){
-       
-      // console.log( ".-. ",this.bulletOwner, "-.- ", this.bulletTarget, '...', this.game.truck2.soldier.enemy)
-    if (this.game.truck2.soldier.enemy == this.bulletOwner){
-     //console.log(this.game.truck2.soldier.enemy)
+//              this.game.layer0.removeChild(this);
+//               this.game.layer0.removeChild(this.game.truck2.soldierArr[i])
+//               this.game.truck2.soldierArr[i].createPowerups();
+//               this.game.truck2.soldierArr[i].dispose()
+//                 console.log('soldier', i, 'is removed')
+//         }
 
-     for (var i = 0; i < 3; i++ ){
-        if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[i])) {
+//      }
 
-             this.game.layer0.removeChild(this);
-              this.game.layer0.removeChild(this.game.truck2.soldierArr[i])
-              this.game.truck2.soldierArr[i].createPowerups();
-              this.game.truck2.soldierArr[i].dispose()
-                console.log('soldier', i, 'is removed')
-        }
-
-     }
-       /* if ( this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[0])  ) {
-         
-             this.game.layer0.removeChild(this);
-             this.game.layer0.removeChild(this.game.truck2.soldierArr[0])
-             this.game.truck2.soldierArr[0].createPowerups();
-
-        } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[1])){
-            this.game.layer0.removeChild(this);
-            this.game.layer0.removeChild(this.game.truck2.soldierArr[1])
-            this.game.truck2.soldierArr[1].createPowerups();
-        } else if (this.bulletOwner.bullets.bullet.hitTest(this.game.truck2.soldierArr[2])){
-            this.game.layer0.removeChild(this);
-            this.game.layer0.removeChild(this.game.truck2.soldierArr[2])
-            this.game.truck2.soldierArr[2].createPowerups();
-        }*/
-   
         
-         }
+//          }
 
-} 
-// else {
-//     return 
+// } 
+
+
 // }
 
-}
-//  else {
-//     return 
-// }
-    // if (this.game.truck.soldier.enemy === this.bulletTarget){
-
-    //     console.log(this.game.truck.soldier.enemy)
-    // }
     this.m_updateMotion(step);
   
 
@@ -455,4 +379,10 @@ Winners.entity.Bullet.prototype.respawn = function(actualLifeHpOb) {
 
 
 };
+
+Winners.entity.Bullet.prototype.dispose = function() {
+    rune.display.DisplayObject.prototype.dispose.call(this);
+    console.log('Bullet is disposed')
+};
+
 

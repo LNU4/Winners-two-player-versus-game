@@ -145,7 +145,8 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
 
 
     if (this.enemy.bullets){
-      console.log(this.enemy)
+     
+      
       if (this.enemy.bullets.bullet){
         if (this.enemy.bullets.bullet.hitTest(this)){
         console.log('.-.-.-.')
