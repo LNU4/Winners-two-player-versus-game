@@ -20,7 +20,11 @@ Winners.entity.Base2 = function(x, y, game) {
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
-    this.game  = game;
+    if (this.game.player){
+    
+        this.enemy = this.game.player
+
+    }
     /**
      * Calls the constructor method of the super class.
      */
@@ -61,6 +65,39 @@ Winners.entity.Base2.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
     this.hitTestAndSeparate(this.game.player2)
     this.hitTestAndSeparate(this.game.player)
+
+
+    if(this.enemy)   { 
+       
+        if (this.enemy.bullets)  {
+
+         if (this.enemy.bullets.bullet){
+            console.log('-.-')
+       if (this.enemy.bullets.bullet.hitTest(this)) {
+     
+       // this.enemy.bullets.bullet.hitTestAndSeparate(this)
+        this.game.layer0.removeChild(this.enemy.bullets.bullet, true);
+        this.HPValue -=200;
+        
+        console.log(this.HPValue);
+       
+        if (this.HPValue  == 0){
+            console.log('zxzxz')
+           // this.enemy.bullets.bullet.hitTestAndSeparate(this)
+            this.game.layer0.removeChild(this, true);
+            
+           
+
+        }
+
+        // this.game.layer0.removeChild(this.enemy.bullets.bullet, true)
+        // this.game.layer0.removeChild(this, true);
+        //this.dispose()
+
+        } 
+    } 
+} 
+}
     
 };
 

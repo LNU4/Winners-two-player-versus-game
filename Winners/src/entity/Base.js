@@ -20,10 +20,12 @@ Winners.entity.Base = function(x, y, game) {
     //--------------------------------------------------------------------------
     // Super call
     //--------------------------------------------------------------------------
-    this.game  = game;
-    if (this.game.playere){
-        this.enemy = this.game.playere
+    if (this.game.player2){
+    
+        this.enemy = this.game.player2
+
     }
+    
     /**
      * Calls the constructor method of the super class.
      */
@@ -62,16 +64,43 @@ Winners.entity.Base.prototype.init = function() {
  * @returns {undefined}
  */
 Winners.entity.Base.prototype.update = function(step) {
+    // this.debug = true;
+    var m_this = this;
     rune.display.Sprite.prototype.update.call(this, step);
     this.hitTestAndSeparate(this.game.player2)
     this.hitTestAndSeparate(this.game.player)
 
-    if(this.enemy && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
-        this.game.layer0.removeChild(this.enemy.bullets.bullet, true)
-        this.game.layer0.removeChild(this, true);
-        this.dispose()
+    if(this.enemy)   { 
+       
+        if (this.enemy.bullets)  {
+
+         if (this.enemy.bullets.bullet){
+            
+       if (this.enemy.bullets.bullet.hitTest(this)) {
+       
+        //this.enemy.bullets.bullet.hitTestAndSeparate(this)
+        this.game.layer0.removeChild(this.enemy.bullets.bullet, true);
+        this.HPValue -=200;
+
+        console.log(this.HPValue);
+
+        if (this.HPValue  == 0){
+
+          //  this.enemy.bullets.bullet.hitTestAndSeparate(this)
+            this.game.layer0.removeChild(this, true);
+
+           
 
         }
+
+        // this.game.layer0.removeChild(this.enemy.bullets.bullet, true)
+        // this.game.layer0.removeChild(this, true);
+        //this.dispose()
+
+        } 
+    } 
+} 
+}
     
 };
 

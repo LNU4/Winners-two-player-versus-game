@@ -72,8 +72,6 @@ Winners.scene.Game.prototype.init = function () {
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
 
-  this.base = new Winners.entity.Base(10, 360, this);
-  this.base2 = new Winners.entity.Base2(1235, 360, this);
 
   this.Base1shield = new Winners.entity.Base1shield(5, 344.5, this);
   this.Base2shield = new Winners.entity.Base2shield(1210, 344.5, this);
@@ -91,6 +89,9 @@ Winners.scene.Game.prototype.init = function () {
   //this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
   this.player2 = new Winners.entity.Player2(1140, 345, this);
   this.player.player2 = this.player2;
+
+  this.base = new Winners.entity.Base(10, 360, this);
+  this.base2 = new Winners.entity.Base2(1235, 360, this);
   this.player.powerupsArray = [];
   this.player2.powerupsArray = [];
   this.player.powerupIx = 0;
@@ -108,13 +109,13 @@ Winners.scene.Game.prototype.init = function () {
   this.camera = this.cameras.getCameraAt(0);
   //camera.addChild(smth);
 
-  //this.truck = null;
-  this.timers.create({
-    duration: 4000,
-    onComplete: function () {
-      this.createTruck();
-    },
-  });
+  
+  // this.timers.create({
+  //   duration: 4000,
+  //   onComplete: function () {
+  //     this.createTruck();
+  //   },
+  // });
 
   // var timeInMs = 2000;
 

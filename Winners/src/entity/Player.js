@@ -26,10 +26,8 @@ Winners.entity.Player = function (x, y, game) {
   this.initX = x;
   this.initY = y;
   this.livesArr = [];
-  //this.playerBase = playerBase;
-  this.playerBase = this.game.base;
-  //this.enemyBase = enemyBase;
-  this.enemyBase = this.game.base2;
+  // this.playerBase = this.game.base;
+  // this.enemyBase = this.game.base2;
   this.playerBaseShield = this.game.Base1shield;
   this.enemyBaseShield = this.game.Base2shield;
 
