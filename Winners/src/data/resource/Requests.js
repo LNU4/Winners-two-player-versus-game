@@ -55,13 +55,9 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("resizedtank", "./../asset/png/resizedtank.png");
 	this.add("soldiers", "./../asset/png/soldiers.png");
 	this.add("star", "./../asset/png/star.png");
-	this.add("tank-frames-raw", "./../asset/png/tank-frames-raw.png");
 	this.add("tank-reworked", "./../asset/png/tank-reworked.png");
-	this.add("torret", "./../asset/png/torret.png");
 	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("turret-remake", "./../asset/png/turret-remake.png");
-	this.add("winner-mainchar", "./../asset/png/winner-mainchar.png");
-	this.add("winners-bg", "./../asset/png/winners-bg.png");
 	this.add("fire1", "./../asset/wav/fire1.wav");
 	this.add("powerupSound", "./../asset/wav/powerupSound.wav");
 	this.add("respwan1", "./../asset/wav/respwan1.wav");
