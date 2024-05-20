@@ -30,6 +30,9 @@ Winners.entity.Player = function (x, y, game) {
   // this.enemyBase = this.game.base2;
   this.playerBaseShield = this.game.Base1shield;
   this.enemyBaseShield = this.game.Base2shield;
+  this.playerBase = this.game.base;
+  this.enemyBase = this.game.base2;
+  this.turret = this.game.turret1;
 
   // this.turret1 = turret1;
   this.turret1 = this.game.turret1;
