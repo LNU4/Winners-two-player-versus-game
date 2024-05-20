@@ -55,6 +55,8 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
       new rune.color.Color24(32, 32, 32)
     );
   }
+
+  this.m_initAnimation();
 };
 
 //----------------------------------------------------------------------------
@@ -99,10 +101,9 @@ Winners.entity.Soldiers.prototype.shoot = function () {
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
 
     bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
+    this.animation.gotoAndPlay("shot");
   }
 };
-
-
 
 Winners.entity.Soldiers.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
@@ -117,11 +118,10 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.y
   );
 
-
   if (distance <= this.shootDistance && distance > 90) {
     this.x = this.x;
     this.y = this.y;
-
+    this.animation.gotoAndPlay("idle");
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
@@ -132,6 +132,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+    this.animation.gotoAndPlay("walk");
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
@@ -202,7 +203,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
       duration: 1000,
       onComplete: function () {
         //** console.group(m_this.enemy)
-        m_this.createPowerups()
+        m_this.createPowerups();
         // m_this.powerUp = new Winners.entity.Powerup(
         //   ranX,
         //   ranY,
@@ -213,11 +214,14 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         // this.layer0.addChild(m_this.powerUp);
       },
     });
-
   }
-  if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
+  if (
+    this.enemy.bullets &&
+    this.enemy.bullets.bullet &&
+    this.enemy.bullets.bullet.hitTestAndSeparate(this)
+  ) {
     //this.enemy.bullets.bullet.hitTestAndSeparate(this);
-    console.log(this.enemy.bullets.bullet)
+    console.log(this.enemy.bullets.bullet);
     this.isDead = true;
     this.powerUpProb = Math.random() * 5;
 
@@ -231,8 +235,8 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-        //** console.group(m_this.enemy) 
-        m_this.createPowerups()
+        //** console.group(m_this.enemy)
+        m_this.createPowerups();
         // m_this.powerUp = new Winners.entity.Powerup(
         //   ranX,
         //   ranY,
@@ -243,8 +247,6 @@ Winners.entity.Soldiers.prototype.update = function (step) {
         // this.layer0.addChild(m_this.powerUp);
       },
     });
-
-
   }
   //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
   //     console.log('..-.-.-')
@@ -252,7 +254,6 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
 };
 Winners.entity.Soldiers.prototype.createPowerups = function () {
-
   var m_this = this;
   var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
   var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
@@ -264,8 +265,7 @@ Winners.entity.Soldiers.prototype.createPowerups = function () {
   );
 
   m_this.game.layer0.addChild(m_this.powerUp);
-
-}
+};
 /**
  * ...
  *
@@ -273,6 +273,12 @@ Winners.entity.Soldiers.prototype.createPowerups = function () {
  */
 Winners.entity.Soldiers.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
-  console.log('soldier is disposed')
+  console.log("soldier is disposed");
 };
 
+Winners.entity.Soldiers.prototype.m_initAnimation = function () {
+
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 1, true);
+  this.animation.create("shot", [0, 2, 3], 1, true);
+};
