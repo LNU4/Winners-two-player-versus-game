@@ -23,6 +23,8 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
   this.roundWinners = roundWinners || [];
   this.Player1isDefeated = false;
   this.Player2isDefeated = false;
+  this.player1isDead = false;
+  this.player2isDead = false;
   /**
    * ...
    *
@@ -208,7 +210,9 @@ Winners.scene.Game.prototype.update = function (step) {
 
   if (this.truck && this.truck2) {
     this.truck.hitTestAndSeparate(this.truck2);
-  }
+  }; 
+
+ 
 };
 
 /**
@@ -350,12 +354,12 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   });
 };
 
-Winners.scene.Game.prototype.handePlayerDead = function (playerDeafeted) {
+Winners.scene.Game.prototype.handeBasedefeated = function (playerDeafeted) {
  
-  if (playerDeafeted === "player1") {
+  if (playerDeafeted === "Base1") {
     this.Player1isDefeated = true;
     this.handleGameOver();
-  } else if (playerDeafeted === "player2") {
+  } else if (playerDeafeted === "Base2") {
     this.Player2isDefeated = true;
     this.handleGameOver();
   }
@@ -364,13 +368,50 @@ Winners.scene.Game.prototype.handePlayerDead = function (playerDeafeted) {
     this.handleGameOver();}; */
 };
 
-/* Do not delete this N.A */
-// requires further adjustments to the increments of the rounds and how they should reset
-// though if everything resets upon restarting the game then sending the round count through referance, it may be an issue.
-// game should take additional referance called currentround, and if the max rounds count is 3,
-//  this.application.scenes.load([new Winners.scene.Game(currentaround, maxrounds)]), it should call endgame function upon reaching 3 in the state of 3 rounds
+Winners.scene.Game.prototype.handlePlayerDead = function (playerDead) {
+ 
+  if (playerDead === "Player1") {
+    this.player1isDead = true;
+    this.removeTurret(this.turret1);
+   // this.respawnPlayer(this.player, this.turret1);
+  } else if (playerDead === "Player2") {
+    this.player2isDead = true; 
+    this.removeTurret(this.turret2);
+   // this.respawnPlayer(this.player2, this.turret2);
 
-//soldiers arent killing players "match"
-//single round needs a fix
-// animations around
-//gamepad controls to menu
+  }
+
+  /*   if (this.Player1isDefeated || this.Player2isDefeated) {
+    this.handleGameOver();}; */
+};
+
+Winners.scene.Game.prototype.removeTurret = function (turret) {
+  if (turret && turret.parent) {
+    turret.parent.removeChild(turret);
+  };
+};
+
+/* Winners.scene.Game.prototype.respawnPlayer = function (player, turret) {
+  this.layer0.removeChild(player);
+  this.layer2.removeChild(turret);
+
+  this.timers.create({
+    duration: 4000,
+    onComplete: function () {
+      player.x = player.initX;
+      player.y = player.initY;
+      turret.x = player.x;
+      turret.y = player.y;
+
+      this.layer0.addChild(player);
+      this.layer2.addChild(turret);
+
+      player.flicker.start();
+      //this.respawn.play(true);
+    }
+  });
+}; */
+
+/* Do not delete this N.A */
+//why player respawn in bullets Oo it should be handled in game and adjusted accordingly "this is my opnion only N.A" Above logic to handle respawn in game.js rather than bullet.js, if u want to try it, make sure to activite the call 
+// in handle player dead

@@ -1,18 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //------------------------------------------------------------------------------
 // Constructor scope
 //------------------------------------------------------------------------------
@@ -63,7 +48,7 @@ Winners.entity.Bullet = function (
   //this.baseOwner = this.bulletOwner.playerBase;
   this.bullets = bullets;
 
- // this.baseTarget = this.bulletTarget.enemyBase;
+  // this.baseTarget = this.bulletTarget.enemyBase;
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
 
   // this.baseOwner = baseOwner;
@@ -114,9 +99,10 @@ Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
 Winners.entity.Bullet.prototype.update = function (step) {
   rune.display.DisplayObject.prototype.update.call(this, step);
   var m_this = this;
-  if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
-    this.bulletTarget.lifeIx = 0;
-  }
+  // we possibly need to adjust it so its base shield here N.A
+  /*  if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
+     this.bulletTarget.lifeIx = 0;
+   } */
 
   if (this.hitTest(this.bulletTarget)) {
     this.layer0.removeChild(this);
@@ -133,116 +119,117 @@ Winners.entity.Bullet.prototype.update = function (step) {
       //this.bulletOwner.parent.removeChild(this.bulletTarget);
 
       // console.log(this.game.Player1isDefeated);
-      if (this.bulletTarget === this.game.player) {
-        //  this.handePlayerDead = true;
-        this.game.handePlayerDead("player1");
-      } else if (this.bulletTarget === this.game.player2) {
-        // this.Player2isDefeated = true;
-        this.game.handePlayerDead("player2");
-      
-      }
+
       // this.application.scenes.load([new Winners.scene.Menu()]);
 
       // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A
     } else if (actualLife.value <= 0) {
       //console.log(this.bulletTarget.parent.removeChild(actualLifeHpOb))
 
+      if (this.bulletTarget === this.game.player) {
+        //  this.handePlayerDead = true;
+        this.game.handlePlayerDead("Player1");
+      } else if (this.bulletTarget === this.game.player2) {
+        // this.Player2isDefeated = true;
+        this.game.handlePlayerDead("Player2");
 
+      }
 
-// this.bulletTarget.flicker.start();
+      // this.bulletTarget.flicker.start();
 
-// this.bulletTarget.x = this.bulletTarget.initX;
+      // this.bulletTarget.x = this.bulletTarget.initX;
 
-// this.bulletTarget.y = this.bulletTarget.initY;
-
-
-
-this.layer0.removeChild(actualLifeHpOb);
-
-this.layer0.removeChild(
-  this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
-);
-this.layer0.removeChild(this.bulletTarget)
-
-this.game.timers.create({
-  duration: 4000,
-  onComplete: function (){
-    m_this.bulletTarget.x = m_this.bulletTarget.initX;
-
-m_this.bulletTarget.y = m_this.bulletTarget.initY;
-    m_this.layer0.addChild(m_this.bulletTarget);
-m_this.bulletTarget.flicker.start();
-m_this.bulletTarget.lifeIx++;
-
-m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx].hp =
-  new Winners.entity.Hps(
-    m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx],
-    m_this.stage,
-    m_this.bulletTarget
-  );
-
-m_this.layer0.addChildAt(
-  m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx].hp,
-  2
-);
-m_this.respawn.play(true);
-
-
-  }
-})
-
-// this.bulletTarget.lifeIx++;
-
-// this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp =
-//   new Winners.entity.Hps(
-//     this.bulletTarget.livesArr[this.bulletTarget.lifeIx],
-//     this.stage,
-//     this.bulletTarget
-//   );
-
-// this.layer0.addChildAt(
-//   this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
-//   2
-// );
-// this.respawn.play(true);
+      // this.bulletTarget.y = this.bulletTarget.initY;
 
 
 
+      this.layer0.removeChild(actualLifeHpOb);
 
-//       this.layer0.removeChild(this.bulletTarget);
+      this.layer0.removeChild(
+        this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
+      );
+      this.layer0.removeChild(this.bulletTarget)
+
+      this.game.timers.create({
+        duration: 4000,
+        onComplete: function () {
+          m_this.bulletTarget.x = m_this.bulletTarget.initX;
+
+          m_this.bulletTarget.y = m_this.bulletTarget.initY;
+          m_this.layer0.addChild(m_this.bulletTarget);
+          m_this.bulletTarget.flicker.start();
+          m_this.bulletTarget.lifeIx++;
+
+          m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx].hp =
+            new Winners.entity.Hps(
+              m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx],
+              m_this.stage,
+              m_this.bulletTarget
+            );
+
+          m_this.layer0.addChildAt(
+            m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx].hp,
+            2
+          );
+          m_this.respawn.play(true);
+
+          
+
+        }
+      })
+
+      // this.bulletTarget.lifeIx++;
+
+      // this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp =
+      //   new Winners.entity.Hps(
+      //     this.bulletTarget.livesArr[this.bulletTarget.lifeIx],
+      //     this.stage,
+      //     this.bulletTarget
+      //   );
+
+      // this.layer0.addChildAt(
+      //   this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
+      //   2
+      // );
+      // this.respawn.play(true);
 
 
-//       this.bulletTarget.flicker.start();
-//       this.layer0.addChildAt(this.bulletTarget);
 
 
-//       this.bulletTarget.x = this.bulletTarget.initX;
+      //       this.layer0.removeChild(this.bulletTarget);
 
-//       this.bulletTarget.y = this.bulletTarget.initY;
 
-//       this.layer0.removeChild(actualLifeHpOb);
+      //       this.bulletTarget.flicker.start();
+      //       this.layer0.addChildAt(this.bulletTarget);
 
-//       this.layer0.removeChild(
-//         this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
-//       );
 
-//       this.bulletTarget.lifeIx++;
+      //       this.bulletTarget.x = this.bulletTarget.initX;
 
-//       this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp =
-//         new Winners.entity.Hps(
-//           this.bulletTarget.livesArr[this.bulletTarget.lifeIx],
-//           this.stage,
-//           this.bulletTarget
-//         );
+      //       this.bulletTarget.y = this.bulletTarget.initY;
 
-//       this.layer0.addChildAt(
-//         this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
-//         2
-//       );
+      //       this.layer0.removeChild(actualLifeHpOb);
 
-//       this.respawn.play(true);
-      
-//       // this.respawn(actualLifeHpOb)
+      //       this.layer0.removeChild(
+      //         this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
+      //       );
+
+      //       this.bulletTarget.lifeIx++;
+
+      //       this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp =
+      //         new Winners.entity.Hps(
+      //           this.bulletTarget.livesArr[this.bulletTarget.lifeIx],
+      //           this.stage,
+      //           this.bulletTarget
+      //         );
+
+      //       this.layer0.addChildAt(
+      //         this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
+      //         2
+      //       );
+
+      //       this.respawn.play(true);
+
+      //       // this.respawn(actualLifeHpOb)
     } else if (actualLife.value == 80) {
       rune.display.DisplayObject.call(
         actualLifeHpOb,
@@ -284,28 +271,28 @@ m_this.respawn.play(true);
 
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
-   
-    
-    //  this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)
+
+
+      //  this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)
       this.layer0.removeChild(this, true);
       this.dispose();
 
       this.bulletTarget.playerBaseShield.hpValue -= 200;
       console.log(this.bulletTarget.playerBaseShield.hpValue);
-      if (this.bulletTarget.playerBaseShield.hpValue == 800){
+      if (this.bulletTarget.playerBaseShield.hpValue == 800) {
         console.log('8080')
         this.bulletTarget.playerBaseShield.animation.create("1", [1], 1, true);
-       // this.bulletTarget.playerBaseShield.animation.create("4", [4], 1, true);
-       console.log('88')
-      } else if (this.bulletTarget.playerBaseShield.hpValue == 600){
+        // this.bulletTarget.playerBaseShield.animation.create("4", [4], 1, true);
+        console.log('88')
+      } else if (this.bulletTarget.playerBaseShield.hpValue == 600) {
         console.log('6060')
         this.bulletTarget.playerBaseShield.animation.create("2", [2], 1, true);
         console.log('66')
-      }else if (this.bulletTarget.playerBaseShield.hpValue == 400){
+      } else if (this.bulletTarget.playerBaseShield.hpValue == 400) {
         console.log('4040')
-       console.log(this.bulletTarget.playerBaseShield.animation.create("3", [3], 1, true))
+        console.log(this.bulletTarget.playerBaseShield.animation.create("3", [3], 1, true))
         console.log('44')
-      }else if (this.bulletTarget.playerBaseShield.hpValue == 200){
+      } else if (this.bulletTarget.playerBaseShield.hpValue == 200) {
         console.log('2020')
         this.bulletTarget.playerBaseShield.animation.create("4", [4], 1, true);
         console.log('22')
@@ -313,29 +300,29 @@ m_this.respawn.play(true);
       else if (this.bulletTarget.playerBaseShield.hpValue == 0) {
         // this.bulletTarget.playerBaseShield.dispose();
         //  rune.display.Sprite.prototype.dispose.call(this.bulletTarget.playerBaseShield);
-  
+
         this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)
-  
-       // this.layer0.removeChild(this, true);
+
+        // this.layer0.removeChild(this, true);
         this.layer0.removeChild(this.bulletTarget.playerBaseShield, true);
         this.bulletTarget.playerBaseShield = null;
-       // this.dispose();
+        // this.dispose();
         //this.bulletTarget.playerBaseShield = null;
         // this.bulletTarget.playerBaseShield.dispose();
-  
-      } 
-    }  
+
+      }
+    }
   }
 
- //***** */
- 
+  //***** */
+
   if (this.bulletTarget.playerBase) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBase)) {
 
 
-    console.log('^^^^^')
-    
-    //  this.hitTestAndSeparate(this.bulletTarget.playerBase)
+      console.log('^^^^^')
+
+      //  this.hitTestAndSeparate(this.bulletTarget.playerBase)
       this.layer0.removeChild(this, true);
       this.dispose();
 
@@ -347,16 +334,25 @@ m_this.respawn.play(true);
 
       this.hitTestAndSeparate(this.bulletTarget.playerBase)
 
-     // this.layer0.removeChild(this, true);
+      // this.layer0.removeChild(this, true);
       this.layer0.removeChild(this.bulletTarget.playerBase, true);
       this.bulletTarget.playerBase = null;
-     // this.dispose();
+      // this.dispose();
       //this.bulletTarget.playerBase = null;
       // this.bulletTarget.playerBase.dispose();
 
-    } 
+      if (this.bulletTarget === this.game.player) {
+        //  this.handePlayerDead = true;
+        this.game.handeBasedefeated("Base1");
+      } else if (this.bulletTarget === this.game.player2) {
+        // this.Player2isDefeated = true;
+        this.game.handeBasedefeated("Base2");
+
+      }
+
+    }
   }
-//***** */
+  //***** */
 
   /* if (this.hitTest(this.baseTarget)){  ***
       console.log(this.baseTarget)
@@ -371,24 +367,24 @@ m_this.respawn.play(true);
 
   } ***/
 
- /* if (this.bulletOwner.enemyBase) {
-    if (
-      this.bulletOwner.bullets.bullet.hitTestAndSeparate(
-        this.bulletOwner.enemyBase
-      )
-    ) {
-      console.log(this.bulletOwner.enemyBase);
-      this.layer0.removeChild(this);
-
-      this.bulletOwner.enemyBase.HPValue -= 200;
-      console.log(this.bulletOwner.enemyBase.HPValue);
-    } else if (this.bulletOwner.enemyBase.HPValue <= 0) {
-      this.layer0.removeChild(this.bulletOwner.enemyBase, true);
-      this.bulletOwner.enemyBase = null;
-      console.log("base 1 is disposed");
-    }
-  } else {
-  } */
+  /* if (this.bulletOwner.enemyBase) {
+     if (
+       this.bulletOwner.bullets.bullet.hitTestAndSeparate(
+         this.bulletOwner.enemyBase
+       )
+     ) {
+       console.log(this.bulletOwner.enemyBase);
+       this.layer0.removeChild(this);
+ 
+       this.bulletOwner.enemyBase.HPValue -= 200;
+       console.log(this.bulletOwner.enemyBase.HPValue);
+     } else if (this.bulletOwner.enemyBase.HPValue <= 0) {
+       this.layer0.removeChild(this.bulletOwner.enemyBase, true);
+       this.bulletOwner.enemyBase = null;
+       console.log("base 1 is disposed");
+     }
+   } else {
+   } */
 
   this.m_updateMotion(step);
 };
@@ -423,7 +419,9 @@ Winners.entity.Bullet.prototype.respawn = function (actualLifeHpOb) {
     },
   });
 
- 
+  /* this.game.player1isDead = false;
+  this.game.player2isDead = false; */
+
 };
 //------------------------------------------------------------------------------
 // Private prototype methods
