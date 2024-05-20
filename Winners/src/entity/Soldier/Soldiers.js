@@ -185,52 +185,91 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.lastShootTime = currentTime;
   } */
 
-  if (this.enemy.hitTest(this)) {
-    this.game.layer0.removeChild(this);
-  }
+  // if (this.enemy.hitTest(this)) {
+  //   this.game.layer0.removeChild(this);
+  // }
 
   if (this.enemy.hitTest(this)) {
-    // console.log(this.enemy.bullets.bullet)
-    this.isDead = true;
-    this.powerUpProb = Math.random() * 5;
-
-    this.game.layer0.removeChild(this);
-    this.dispose();
+    this.handelKillSoldier()
+    // this.isDead = true;
+    // this.powerUpProb = Math.random() * 5;
+    // this.game.layer0.removeChild(this);
+    // this.dispose();
   }
-  if (this.isDead == true) {
-    this.game.timers.create({
-      duration: 1000,
-      onComplete: function () {
-        //** console.group(m_this.enemy)
-        m_this.createPowerups()
-        // m_this.powerUp = new Winners.entity.Powerup(
-        //   ranX,
-        //   ranY,
-        //   m_this.game,
-        //   m_this.enemy
-        // );
+  // if (this.isDead == true) {
+  //   this.game.timers.create({
+  //     duration: 1000,
+  //     onComplete: function () {
+       
+  //       m_this.createPowerups()
+        
+  //     },
+  //   });
 
-        // this.layer0.addChild(m_this.powerUp);
-      },
-    });
-
-  }
+  // }
   if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
-    //this.enemy.bullets.bullet.hitTestAndSeparate(this);
-    console.log(this.enemy.bullets.bullet)
-    this.isDead = true;
-    this.powerUpProb = Math.random() * 5;
-
     this.game.layer0.removeChild(this.enemy.bullets.bullet);
-    this.game.layer0.removeChild(this);
-    this.dispose();
-    //this.enemy.bullets.reset()
-    this.enemy.bullets.bullet.dispose();
+    this.enemy.bullets.bullet.dispose();  
+    this.handelKillSoldier()
+
+    //this.enemy.bullets.bullet.hitTestAndSeparate(this);
+
+    // this.isDead = true;
+    // this.powerUpProb =  Math.floor(Math.random() * 4);
+    // console.log(this.powerUpProb)
+
+    // this.game.layer0.removeChild(this.enemy.bullets.bullet);
+    // this.game.layer0.removeChild(this);
+    // // this.dispose();
+    // //this.enemy.bullets.reset()
+    // this.enemy.bullets.bullet.dispose();
   }
-  if (this.isDead == true) {
+  // if (this.isDead && this.powerUpProb == 0 || this.powerUpProb == 2) {
+  //   console.log(this.powerUpProb)
+  //   this.game.timers.create({
+  //     duration: 1000,
+  //     onComplete: function () {
+  //       console.log(m_this.powerUpProb)
+  //       //** console.group(m_this.enemy) 
+  //       m_this.createPowerups()
+  //       // m_this.powerUp = new Winners.entity.Powerup(
+  //       //   ranX,
+  //       //   ranY,
+  //       //   m_this.game,
+  //       //   m_this.enemy
+  //       // );
+
+  //       // this.layer0.addChild(m_this.powerUp);
+  //     },
+  //   });
+
+
+  // }
+  //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
+  //     console.log('..-.-.-')
+  //    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
+  //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
+};
+Winners.entity.Soldiers.prototype.handelKillSoldier = function (){
+ console.log('handelKillSoldier')
+
+  var m_this = this;
+  this.game.layer0.removeChild(this);
+  this.isDead = true;
+  this.powerUpProb =  Math.floor(Math.random() * 4);
+  console.log(this.powerUpProb)
+  
+  // this.game.layer0.removeChild(this.enemy.bullets.bullet);
+  // this.game.layer0.removeChild(this);
+  // this.dispose();
+  //this.enemy.bullets.reset()
+ // this.enemy.bullets.bullet.dispose();
+  if (this.isDead && this.powerUpProb == 0 || this.powerUpProb == 2) {
+    console.log(this.powerUpProb)
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
+        console.log(m_this.powerUpProb)
         //** console.group(m_this.enemy) 
         m_this.createPowerups()
         // m_this.powerUp = new Winners.entity.Powerup(
@@ -246,11 +285,8 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
 
   }
-  //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
-  //     console.log('..-.-.-')
-  //    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
-  //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
-};
+}
+
 Winners.entity.Soldiers.prototype.createPowerups = function () {
 
   var m_this = this;
@@ -263,7 +299,7 @@ Winners.entity.Soldiers.prototype.createPowerups = function () {
     m_this.enemy
   );
 
-  m_this.game.layer0.addChild(m_this.powerUp);
+  m_this.game.camera.addChild(m_this.powerUp);
 
 }
 /**
@@ -273,6 +309,6 @@ Winners.entity.Soldiers.prototype.createPowerups = function () {
  */
 Winners.entity.Soldiers.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
-  console.log('soldier is disposed')
+  //console.log('soldier is disposed')
 };
 
