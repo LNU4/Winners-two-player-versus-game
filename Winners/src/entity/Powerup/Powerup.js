@@ -100,7 +100,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
   if (this.hitTest(this.player)) {
     if (this.player.powerupsArray.length < 3) {
       this.soundEffect.play(true);
-      console.log("powerup", puX, puY);
+     
 
       this.powerupCounter = new Winners.entity.PowerupCounter(
         this.game,
@@ -110,12 +110,12 @@ Winners.entity.Powerup.prototype.update = function (step) {
         this.enemy
       );
 
-      this.game.layer0.addChild(this.powerupCounter);
+      this.game.camera.addChild(this.powerupCounter);
       this.player.powerupsArray.push(this.powerupCounter);
       // console.log(this.game.powerupCounter.powerupArray[0], this.game.powerupCounter.powerupIx)
 
       this.player.powerupIx++;
-      console.log(this.powerupCounter);
+    
 
       /* this.powerupCounter = new Winners.entity.PowerupCounter (this.game, this.game.player.powerupIx, { puX ,puY}, this.player, this.enemy);
     this.game.layer0.addChild(this.powerupCounter)
@@ -132,7 +132,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
       // this.game.layer0.addChild(this)
 
       //console.log(this.game.layer0.numChildren)
-      this.game.layer0.removeChild(this);
+      this.game.camera.removeChild(this);
       this.dispose();
     }
   } else {

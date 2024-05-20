@@ -182,8 +182,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       );
       m_this.game.layer0.addChild(m_this.game.heavysoldiers);
       m_this.emptyArray();
-     
-      console.log("heavysoldier");
+    
       break;
 
     case "snipersoldiers":
@@ -196,7 +195,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       m_this.game.layer0.addChild(m_this.game.snipersoldiers);
       m_this.emptyArray();
      
-      console.log("snipersoldiers");
+
 
       break;
 
@@ -210,7 +209,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       m_this.game.layer0.addChild(m_this.game.rocketsoldier);
       m_this.emptyArray();
     
-      console.log("rocketsoldier");
+  
 
       break;
 
@@ -223,8 +222,6 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       );
       m_this.game.layer0.addChild(m_this.game.repairsoldier);
       m_this.emptyArray();
-
-      console.log("repairsoldier");
 
       break;
 
@@ -252,7 +249,8 @@ Winners.entity.PowerupCounter.prototype.emptyArray = function () {
 
     while (this.player.powerupsArray.length > 0) {
         var p = this.player.powerupsArray.splice(0,1);
-        p[0].parent.removeChild(p[0], true);
+       p[0].parent.removeChild(p[0], true);
+
 
     }
 
