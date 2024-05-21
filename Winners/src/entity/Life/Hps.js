@@ -19,13 +19,14 @@
  * 
  */
 
-Winners.entity.Hps = function (life, Sateg, player){
+Winners.entity.Hps = function (Sateg, player){
 
 
-    this.life = life;
-    this.lifeIx = life.ix;
+    // this.life = life;
+    // this.lifeIx = life.ix;
     this.parentSatge = Sateg;
     this.player = player;
+    this.value = 100;  
     this.x = this.player.x;
     this.y = this.player.y;
     // this.width = 25;

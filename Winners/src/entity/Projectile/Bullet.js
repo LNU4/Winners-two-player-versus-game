@@ -106,30 +106,30 @@ Winners.entity.Bullet.prototype.update = function (step) {
   if (this.hitTest(this.bulletTarget)) {
     this.layer0.removeChild(this);
 
-    var actualLife = this.bulletTarget.livesArr[this.bulletTarget.lifeIx];
+    //var HpOb = this.bulletTarget.livesArr[this.bulletTarget.lifeIx];
 
-    var actualLifeHpOb = actualLife.hp;
+    var HpOb = this.bulletTarget.hp;
+    HpOb.value -= this.damage;
 
-    actualLife.value -= this.damage;
+    // if (this.bulletTarget.lifeIx === 2 && HpOb.value <= 0) {
+    //   this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
+    //   this.bulletTarget.parent.removeChild(HpOb);
+    //   //this.bulletOwner.parent.removeChild(this.bulletTarget);
 
-    if (this.bulletTarget.lifeIx === 2 && actualLife.value <= 0) {
-      this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
-      this.bulletTarget.parent.removeChild(actualLifeHpOb);
-      //this.bulletOwner.parent.removeChild(this.bulletTarget);
+    //   // console.log(this.game.Player1isDefeated);
+    //   if (this.bulletTarget === this.game.player) {
+    //     //  this.handePlayerDead = true;
+    //     this.game.handePlayerDead("player1");
+    //   } else if (this.bulletTarget === this.game.player2) {
+    //     // this.Player2isDefeated = true;
+    //     this.game.handePlayerDead("player2");
+    //   }
+    //   // this.application.scenes.load([new Winners.scene.Menu()]);
 
-      // console.log(this.game.Player1isDefeated);
-      if (this.bulletTarget === this.game.player) {
-        //  this.handePlayerDead = true;
-        this.game.handePlayerDead("player1");
-      } else if (this.bulletTarget === this.game.player2) {
-        // this.Player2isDefeated = true;
-        this.game.handePlayerDead("player2");
-      }
-      // this.application.scenes.load([new Winners.scene.Menu()]);
-
-      // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A
-    } else if (actualLife.value <= 0) {
-      //console.log(this.bulletTarget.parent.removeChild(actualLifeHpOb))
+    //   // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A
+    // } else ****
+    if (HpOb.value <= 0) {
+      //console.log(this.bulletTarget.parent.removeChild(HpOb))
 
       // this.bulletTarget.flicker.start();
 
@@ -137,11 +137,17 @@ Winners.entity.Bullet.prototype.update = function (step) {
 
       // this.bulletTarget.y = this.bulletTarget.initY;
 
-      this.layer0.removeChild(actualLifeHpOb);
+      //this.layer0.removeChild(HpOb);
 
-      this.layer0.removeChild(
-        this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
-      );
+      // this.layer0.removeChild(
+      //   this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
+      // );
+      console.log(HpOb)
+      HpOb.dispose();
+      this.game.camera.removeChild(HpOb);
+     
+      //HpOb = null;
+      console.log(HpOb)
       this.game.layer2.removeChild(this.bulletTarget.turret1);
       this.layer0.removeChild(this.bulletTarget);
 
@@ -149,24 +155,25 @@ Winners.entity.Bullet.prototype.update = function (step) {
         duration: 4000,
         onComplete: function () {
           m_this.bulletTarget.x = m_this.bulletTarget.initX;
-
           m_this.bulletTarget.y = m_this.bulletTarget.initY;
+
+
           m_this.layer0.addChild(m_this.bulletTarget);
           m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
           m_this.bulletTarget.flicker.start();
-          m_this.bulletTarget.lifeIx++;
 
-          m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx].hp =
+        //  m_this.bulletTarget.lifeIx++;
+        console.log(HpOb)
+          m_this.bulletTarget.hp =
             new Winners.entity.Hps(
-              m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx],
-              m_this.stage,
+              m_this.game.camera,
               m_this.bulletTarget
             );
-
-          m_this.layer0.addChildAt(
-            m_this.bulletTarget.livesArr[m_this.bulletTarget.lifeIx].hp,
-            2
+          console.log(m_this.bulletTarget.hp)
+          m_this.game.camera.addChild(
+            m_this.bulletTarget.hp
           );
+         
           m_this.respawn.play(true);
         },
       });
@@ -195,7 +202,7 @@ Winners.entity.Bullet.prototype.update = function (step) {
 
       //       this.bulletTarget.y = this.bulletTarget.initY;
 
-      //       this.layer0.removeChild(actualLifeHpOb);
+      //       this.layer0.removeChild(HpOb);
 
       //       this.layer0.removeChild(
       //         this.bulletTarget.livesArr[this.bulletTarget.lifeIx]
@@ -217,43 +224,43 @@ Winners.entity.Bullet.prototype.update = function (step) {
 
       //       this.respawn.play(true);
 
-      //       // this.respawn(actualLifeHpOb)
-    } else if (actualLife.value == 80) {
+      //       // this.respawn(HpOb)
+    } else if (HpOb.value == 80) {
       rune.display.DisplayObject.call(
-        actualLifeHpOb,
+        HpOb,
         this.bulletTarget.x,
         this.bulletTarget.y,
         20,
         10
       );
-      actualLifeHpOb.backgroundColor = "#3dfc03";
-    } else if (actualLife.value == 60) {
+      HpOb.backgroundColor = "#3dfc03";
+    } else if (HpOb.value == 60) {
       rune.display.DisplayObject.call(
-        actualLifeHpOb,
+        HpOb,
         this.bulletTarget.x,
         this.bulletTarget.y,
         15,
         10
       );
-      actualLifeHpOb.backgroundColor = "#c2fc03";
-    } else if (actualLife.value == 40) {
+      HpOb.backgroundColor = "#c2fc03";
+    } else if (HpOb.value == 40) {
       rune.display.DisplayObject.call(
-        actualLifeHpOb,
+        HpOb,
         this.bulletTarget.x,
         this.bulletTarget.y,
         10,
         10
       );
-      actualLifeHpOb.backgroundColor = "#fcad03";
-    } else if (actualLife.value == 20) {
+      HpOb.backgroundColor = "#fcad03";
+    } else if (HpOb.value == 20) {
       rune.display.DisplayObject.call(
-        actualLifeHpOb,
+        HpOb,
         this.bulletTarget.x,
         this.bulletTarget.y,
         5,
         10
       );
-      actualLifeHpOb.backgroundColor = "#fc0303";
+      HpOb.backgroundColor = "#fc0303";
     }
   }
 
@@ -363,9 +370,9 @@ Winners.entity.Bullet.prototype.update = function (step) {
   this.m_updateMotion(step);
 };
 
-Winners.entity.Bullet.prototype.respawn = function (actualLifeHpOb) {
+Winners.entity.Bullet.prototype.respawn = function (HpOb) {
   console.log(this);
-  this.layer0.removeChild(actualLifeHpOb);
+  this.layer0.removeChild(HpOb);
 
   this.layer0.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx]);
 
