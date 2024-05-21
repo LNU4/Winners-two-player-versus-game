@@ -21,11 +21,14 @@
   
     // this.player2 = null;
     this.game = game;
-    this.lifeIx = 0;
-    this.lives = 3;
+    // this.lifeIx = 0;
+    // this.lives = 3;
     this.initX = x;
     this.initY = y;
-    this.livesArr = [];
+  this.hp = new  Winners.entity.Hps(this.parent, this);
+  this.game.camera.addChild(this.hp);
+
+   // this.livesArr = [];
     // this.playerBase = this.game.base;
     // this.enemyBase = this.game.base2;
     this.playerBaseShield = this.game.Base1shield;
@@ -85,16 +88,16 @@
       new rune.color.Color24(172, 50, 50)
     );
   
-    var lifeX = 5;
-    var lifeY = 25;
+    // var lifeX = 5;
+    // var lifeY = 25;
   
-    for (var i = 0; i < this.lives; i++) {
-      var lifeIx = i;
+    // for (var i = 0; i < this.lives; i++) {
+    //   var lifeIx = i;
   
-      this.life = new Winners.entity.Life(this, lifeIx, { lifeX: lifeX, lifeY: lifeY });
+    //   this.life = new Winners.entity.Life(this, lifeIx, { lifeX: lifeX, lifeY: lifeY });
   
-      this.livesArr.push(this.life);
-    }
+    //   this.livesArr.push(this.life);
+    // }
   
     this.m_initPhysics();
     this.m_initAnimation();
@@ -109,8 +112,8 @@
    */
   Winners.entity.Player.prototype.update = function (step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    this.life.globalX = this.globalX;
-    this.life.globalY = this.globalY;
+    // this.life.globalX = this.globalX;
+    // this.life.globalY = this.globalY;
   
     //   if (this.game.truck2){
     //     this.enemyTruck = this.game.truck2;
