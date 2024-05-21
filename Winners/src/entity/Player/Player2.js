@@ -24,12 +24,15 @@ Winners.entity.Player2 = function (x, y, game) {
   this.game = game;
   //this.player = player;
   this.player = this.game.player;
-  this.lifeIx = 0;
-  this.lives = 3;
-  this.livesArr = [];
+  //this.lifeIx = 0;
+  //this.lives = 3;
+  //this.livesArr = [];
   this.initX = x;
   this.initY = y;
-
+  this.hp = new  Winners.entity.Hps(this.parent, this);
+  console.log(this.game.camera.numChildren)
+  this.game.camera.addChild(this.hp);
+  console.log(this.game.camera.numChildren)
   // this.playerBase = this.game.base2;
   // this.enemyBase = this.game.base;
   //this.turret1 = turret1;
@@ -72,23 +75,23 @@ Winners.entity.Player2.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
   this.rotation = -90;
 
-  var lifeX = 1230;
-  var lifeY = 25;
+  // var lifeX = 1230;
+  // var lifeY = 25;
 
-  for (var i = 0; i < this.lives; i++) {
-    var lifeIx = i;
+  // for (var i = 0; i < this.lives; i++) {
+  //   var lifeIx = i;
 
-    this.life = new Winners.entity.Life(this, lifeIx, {
-      lifeX: lifeX,
-      lifeY: lifeY,
-    });
+  //   this.life = new Winners.entity.Life(this, lifeIx, {
+  //     lifeX: lifeX,
+  //     lifeY: lifeY,
+  //   });
 
-    this.livesArr.push(this.life);
-  };
-  this.texture.replaceColor(
-    new rune.color.Color24(32, 32, 52),
-    new rune.color.Color24(32, 32, 32)
-  );
+  //   this.livesArr.push(this.life);
+  // };
+  // this.texture.replaceColor(
+  //   new rune.color.Color24(32, 32, 52),
+  //   new rune.color.Color24(32, 32, 32)
+  // );
 
   this.m_initPhysics();
   this.m_initAnimation();
@@ -162,8 +165,8 @@ Winners.entity.Player2.prototype.shoot = function () {
 
 Winners.entity.Player2.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  this.life.globalX = this.globalX;
-  this.life.globalY = this.globalY;
+  // this.life.globalX = this.globalX;
+  // this.life.globalY = this.globalY;
   this.playerBaseShield = this.game.Base2shield;
   this.enemyBaseShield = this.game.Base1shield;
   this.hitTestAndSeparate(this.game.base);
