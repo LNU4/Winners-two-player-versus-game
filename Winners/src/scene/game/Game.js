@@ -347,7 +347,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   });
 };
 
-Winners.scene.Game.prototype.handePlayerDead = function (playerDeafeted) {
+Winners.scene.Game.prototype.handlePlayerDefeat = function (playerDeafeted) {
  
   if (playerDeafeted === "player1") {
     this.Player1isDefeated = true;
