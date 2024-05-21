@@ -99,9 +99,9 @@ Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
 Winners.entity.Bullet.prototype.update = function (step) {
   rune.display.DisplayObject.prototype.update.call(this, step);
   var m_this = this;
-  if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
+/*   if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
     this.bulletTarget.lifeIx = 0;
-  }
+  } */
 
   if (this.hitTest(this.bulletTarget)) {
     this.layer0.removeChild(this);
@@ -118,13 +118,7 @@ Winners.entity.Bullet.prototype.update = function (step) {
       //this.bulletOwner.parent.removeChild(this.bulletTarget);
 
       // console.log(this.game.Player1isDefeated);
-      if (this.bulletTarget === this.game.player) {
-        //  this.handePlayerDead = true;
-        this.game.handePlayerDead("player1");
-      } else if (this.bulletTarget === this.game.player2) {
-        // this.Player2isDefeated = true;
-        this.game.handePlayerDead("player2");
-      }
+      //player die here N.A
       // this.application.scenes.load([new Winners.scene.Menu()]);
 
       // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A
@@ -321,6 +315,14 @@ Winners.entity.Bullet.prototype.update = function (step) {
       // this.layer0.removeChild(this, true);
       this.layer0.removeChild(this.bulletTarget.playerBase, true);
       this.bulletTarget.playerBase = null;
+
+      if (this.bulletTarget === this.game.player) {
+        //  this.handePlayerDead = true;
+        this.game.handlePlayerDefeat("player1");
+      } else if (this.bulletTarget === this.game.player2) {
+        // this.Player2isDefeated = true;
+        this.game.handlePlayerDefeat("player2");
+      }
       // this.dispose();
       //this.bulletTarget.playerBase = null;
       // this.bulletTarget.playerBase.dispose();
