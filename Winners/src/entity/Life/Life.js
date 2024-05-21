@@ -46,7 +46,7 @@ Winners.entity.Life = function (player, ix, cordOb) {
 
     // console.log(this.player.parent)
          if (this.ix === 0){
-            this.value = 100
+            this.value = 80
            
           // this.hp = new rune.ui.Progressbar(16, 16, "#ffff00", "#ff00ff"); 
          // this.hp = new Winners.entity.Hps(this, this.player.parent, this.player)

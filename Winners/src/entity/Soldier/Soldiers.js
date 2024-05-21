@@ -186,16 +186,17 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.lastShootTime = currentTime;
   } */
 
-  // if (this.enemy.hitTest(this)) {
-  //   this.game.layer0.removeChild(this);
-  // }
+  if (this.enemy.hitTest(this)) {
+    this.game.layer0.removeChild(this);
+  }
 
   if (this.enemy.hitTest(this)) {
-    this.handelKillSoldier()
-    // this.isDead = true;
-    // this.powerUpProb = Math.random() * 5;
-    // this.game.layer0.removeChild(this);
-    // this.dispose();
+    // console.log(this.enemy.bullets.bullet)
+    this.isDead = true;
+    this.powerUpProb = Math.random() * 5;
+
+    this.game.layer0.removeChild(this);
+    this.dispose();
   }
   if (this.isDead == true) {
     this.game.timers.create({
@@ -223,72 +224,19 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     console.log(this.enemy.bullets.bullet);
     this.isDead = true;
     this.powerUpProb = Math.random() * 5;
+
+    this.game.layer0.removeChild(this.enemy.bullets.bullet);
+    this.game.layer0.removeChild(this);
+    this.dispose();
+    //this.enemy.bullets.reset()
+    this.enemy.bullets.bullet.dispose();
   }
-if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
-this.game.layer0.removeChild(this.enemy.bullets.bullet);
-    this.enemy.bullets.bullet.dispose();  
-    this.handelKillSoldier()
-
-    //this.enemy.bullets.bullet.hitTestAndSeparate(this);
-
-    // this.isDead = true;
-    // this.powerUpProb =  Math.floor(Math.random() * 4);
-    // console.log(this.powerUpProb)
-
-    // this.game.layer0.removeChild(this.enemy.bullets.bullet);
-    // this.game.layer0.removeChild(this);
-    // // this.dispose();
-    // //this.enemy.bullets.reset()
-    // this.enemy.bullets.bullet.dispose();
-  }
-  // if (this.isDead && this.powerUpProb == 0 || this.powerUpProb == 2) {
-  //   console.log(this.powerUpProb)
-  //   this.game.timers.create({
-  //     duration: 1000,
-  //     onComplete: function () {
-  //       console.log(m_this.powerUpProb)
-  //       //** console.group(m_this.enemy) 
-  //       m_this.createPowerups()
-  //       // m_this.powerUp = new Winners.entity.Powerup(
-  //       //   ranX,
-  //       //   ranY,
-  //       //   m_this.game,
-  //       //   m_this.enemy
-  //       // );
-
-  //       // this.layer0.addChild(m_this.powerUp);
-  //     },
-  //   });
-
-
-  // }
-  //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
-  //     console.log('..-.-.-')
-  //    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
-  //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
-};
-Winners.entity.Soldiers.prototype.handelKillSoldier = function (){
- console.log('handelKillSoldier')
-
-  var m_this = this;
-  this.game.layer0.removeChild(this);
-  this.isDead = true;
-  this.powerUpProb =  Math.floor(Math.random() * 4);
-  console.log(this.powerUpProb)
-  
-  // this.game.layer0.removeChild(this.enemy.bullets.bullet);
-  // this.game.layer0.removeChild(this);
-  // this.dispose();
-  //this.enemy.bullets.reset()
- // this.enemy.bullets.bullet.dispose();
-  if (this.isDead && this.powerUpProb == 0 || this.powerUpProb == 2) {
-    console.log(this.powerUpProb)
+  if (this.isDead == true) {
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-        console.log(m_this.powerUpProb)
-        //** console.group(m_this.enemy) 
-        m_this.createPowerups()
+        //** console.group(m_this.enemy)
+        m_this.createPowerups();
         // m_this.powerUp = new Winners.entity.Powerup(
         //   ranX,
         //   ranY,
@@ -300,8 +248,11 @@ Winners.entity.Soldiers.prototype.handelKillSoldier = function (){
       },
     });
   }
-}
-
+  //   for (var i = 0; i < this.game.truck.soldierArr.length; i++) {
+  //     console.log('..-.-.-')
+  //    this.hitTestAndSeparate(this.game.truck.soldierArr[i])
+  //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
+};
 Winners.entity.Soldiers.prototype.createPowerups = function () {
   var m_this = this;
   var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;

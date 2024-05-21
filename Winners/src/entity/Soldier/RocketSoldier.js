@@ -29,7 +29,8 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
   this.color = new rune.color.Color24()
   var soldierColor = this.color;
   this.color.setRGB(0, 255, 255);
-  
+  console.log(this.color);
+
   rune.display.Sprite.call(this, x, y, 32, 32, "heavysoldier");
 
   if (enemy === this.game.player) {

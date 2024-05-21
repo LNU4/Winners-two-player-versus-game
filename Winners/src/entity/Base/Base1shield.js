@@ -51,14 +51,6 @@ Winners.entity.Base1shield.prototype.init = function() {
         new rune.color.Color24(86, 85, 88),
         new rune.color.Color24(172, 50, 50)
     );
-
-    // this.animation.create("0", [0], 1, true);
-    // this.animation.create("1", [1], 1, true);
-    // this.animation.create("2", [2], 1, true);
-    // this.animation.create("3", [3], 1, true);
-    // this.animation.create("4", [4], 1, true);
-
-    // this.animation.gotoAndStop("4");
 };
 
 /**
@@ -70,8 +62,8 @@ Winners.entity.Base1shield.prototype.init = function() {
  */
 Winners.entity.Base1shield.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
-    this.hitTestAndSeparate(this.game.player2);
-    this.hitTestAndSeparate(this.game.player);
+    this.hitTestAndSeparate(this.game.player2)
+    this.hitTestAndSeparate(this.game.player)
 };
 
 /**

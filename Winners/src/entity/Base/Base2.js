@@ -72,37 +72,37 @@ Winners.entity.Base2.prototype.update = function(step) {
     this.hitTestAndSeparate(this.game.player)
 
 
-//     if(this.enemy)   { 
+    if(this.enemy)   { 
        
-//         if (this.enemy.bullets)  {
+        if (this.enemy.bullets)  {
 
-//          if (this.enemy.bullets.bullet){
-           
-//        if (this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
+         if (this.enemy.bullets.bullet){
+            console.log('-.-')
+       if (this.enemy.bullets.bullet.hitTest(this)) {
      
-//        // this.enemy.bullets.bullet.hitTestAndSeparate(this)
-//         this.game.layer0.removeChild(this.enemy.bullets.bullet, true);
-//         this.HPValue -=200;
+       // this.enemy.bullets.bullet.hitTestAndSeparate(this)
+        this.game.layer0.removeChild(this.enemy.bullets.bullet, true);
+        this.HPValue -=200;
         
-//         console.log(this.HPValue);
+        console.log(this.HPValue);
        
-//         if (this.HPValue  == 0){
-//             console.log('zxzxz')
-//            // this.enemy.bullets.bullet.hitTestAndSeparate(this)
-//             this.game.layer0.removeChild(this, true);
+        if (this.HPValue  == 0){
+            console.log('zxzxz')
+           // this.enemy.bullets.bullet.hitTestAndSeparate(this)
+            this.game.layer0.removeChild(this, true);
             
            
 
-//         }
+        }
 
-//         // this.game.layer0.removeChild(this.enemy.bullets.bullet, true)
-//         // this.game.layer0.removeChild(this, true);
-//         //this.dispose()
+        // this.game.layer0.removeChild(this.enemy.bullets.bullet, true)
+        // this.game.layer0.removeChild(this, true);
+        //this.dispose()
 
-//         } 
-//     } 
-// } 
-// }
+        } 
+    } 
+} 
+}
     
 };
 

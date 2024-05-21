@@ -36,9 +36,6 @@ Winners.entity.Player2 = function (x, y, game) {
   this.turret1 = this.game.turret2;
   //this.layer0 = container;
   this.layer0 = this.game.layer0;
-  this.playerBase = this.game.base2;
-  this.enemyBase = this.game.base;
- 
 
   //--------------------------------------------------------------------------
   // Super call
