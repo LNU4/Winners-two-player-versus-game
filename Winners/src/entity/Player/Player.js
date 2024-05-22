@@ -25,7 +25,7 @@
     // this.lives = 3;
     this.initX = x;
     this.initY = y;
-  this.hp = new  Winners.entity.Hps(this.parent, this);
+  this.hp = new  Winners.entity.Hps(this.game.camera, this);
   this.game.camera.addChild(this.hp);
 
    // this.livesArr = [];
@@ -261,7 +261,9 @@
     this.y = Math.min(Math.max(this.y, minY), maxY);
     */
     //way easier alternative
-    this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
-    this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
+    if (this.active) {
+      this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
+      this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
+    }
   };
   

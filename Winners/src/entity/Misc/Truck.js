@@ -148,7 +148,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   var truckY = this.y;
   this.soldierArr = [];
 
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 3; i++) {
     this.soldierix = i;
     var angle = Math.random() * Math.PI * 2;
     var distance = 30;

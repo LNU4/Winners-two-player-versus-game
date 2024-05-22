@@ -207,10 +207,18 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   //   });
 
   // }
-  if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
-    this.game.layer0.removeChild(this.enemy.bullets.bullet);
-    this.enemy.bullets.bullet.dispose();  
+
+  this.hitTest(this.enemy.bullets, function(bullet, soldier) {
+    console.warn(this.enemy.bullets.numMembers);
+    this.game.layer0.removeChild(bullet);
+    bullet.dispose();  
     this.handelKillSoldier()
+  }, this)
+
+  // if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
+  //   this.game.layer0.removeChild(this.enemy.bullets.bullet);
+  //   this.enemy.bullets.bullet.dispose();  
+  //   this.handelKillSoldier()
 
     //this.enemy.bullets.bullet.hitTestAndSeparate(this);
 
@@ -223,7 +231,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     // // this.dispose();
     // //this.enemy.bullets.reset()
     // this.enemy.bullets.bullet.dispose();
-  }
+ // }
   // if (this.isDead && this.powerUpProb == 0 || this.powerUpProb == 2) {
   //   console.log(this.powerUpProb)
   //   this.game.timers.create({

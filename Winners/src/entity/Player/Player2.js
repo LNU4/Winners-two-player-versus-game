@@ -29,7 +29,7 @@ Winners.entity.Player2 = function (x, y, game) {
   //this.livesArr = [];
   this.initX = x;
   this.initY = y;
-  this.hp = new  Winners.entity.Hps(this.parent, this);
+  this.hp = new  Winners.entity.Hps(this.game.camera, this);
   console.log(this.game.camera.numChildren)
   this.game.camera.addChild(this.hp);
   console.log(this.game.camera.numChildren)
