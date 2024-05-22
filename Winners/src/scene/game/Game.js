@@ -67,6 +67,8 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
   this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
   this.layer2 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
+  
+  this.bullets = this.groups.add(new Winners.entity.Bullets(this));
 
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);

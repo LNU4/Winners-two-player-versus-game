@@ -58,6 +58,14 @@ Winners.entity.Base2shield.prototype.init = function() {
         new rune.color.Color24(86, 85, 88),
         new rune.color.Color24(32, 32, 32)
     );
+
+    this.animation.create("0", [0], 1, true);
+    this.animation.create("1", [1], 1, true);
+    this.animation.create("2", [2], 1, true);
+    this.animation.create("3", [3], 1, true);
+    this.animation.create("4", [4], 1, true);
+
+    this.animation.gotoAndStop("0");
    
 };
 
