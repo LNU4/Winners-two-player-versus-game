@@ -90,10 +90,9 @@ Winners.scene.Game.prototype.init = function () {
  
 
   // this.Soldiers = new Winners.entity.Soldiers(350, 360, this.player2, this.layer0, this)
-  //this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
-  //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
-  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
-  //this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
+  //
+  
+  //
 
   //this.base = new Winners.entity.Base(10, 359.5);
   //this.base2 = new Winners.entity.Base2(1240, 359.5);
@@ -110,7 +109,10 @@ Winners.scene.Game.prototype.init = function () {
   //this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
   this.player2 = new Winners.entity.Player2(1140, 345, this);
   this.player.player2 = this.player2;
-
+//  this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
+//  this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
+//  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
+//  this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   // this.base = new Winners.entity.Base(10, 360, this);
   // this.base2 = new Winners.entity.Base2(1235, 360, this);
   this.player.powerupsArray = [];

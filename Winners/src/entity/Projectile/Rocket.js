@@ -1,141 +1,177 @@
-Winners.entity.Rocket = function (game, layer0, bulletOwner, bulletTarget, bullets, x, y) {
-    this.game = game;
-    this.damage = 20;
-    this.layer0 = layer0;
-    this.bulletOwner = bulletOwner;
-    this.bulletTarget = bulletTarget;
-    this.bullets = bullets;
+Winners.entity.Rocket = function (
+  game,
+  layer0,
+  bulletOwner,
+  bulletTarget,
+  bullets,
+  x,
+  y
+) {
+  this.game = game;
+  this.damage = 20;
+  this.layer0 = layer0;
+  this.bulletOwner = bulletOwner;
+  this.bulletTarget = bulletTarget;
+  this.bullets = bullets;
 
-    rune.display.Sprite.call(this, x, y, 16, 16, "100hp");
+  rune.display.Sprite.call(this, x, y, 16, 16, "rocket");
 
-    this.m_speed = 3;
+  this.m_speed = 3;
 
-
-
-
-    //this.Nasseryelling = this.application.sounds.sound.get("rocket");
+  this.respawn = this.application.sounds.sound.get("respwan1");
 };
+
+Winners.entity.Rocket.prototype.init = function () {
+    rune.display.Sprite.prototype.init.call(this);
+  this.m_initAnimation();
+};
+
+Winners.entity.Rocket.prototype.m_initAnimation = function () {
+  this.m_initAnimation.create("walk", [0], 1, true);
+};
+
+Winners.entity.Rocket.prototype.updateAnimation = function (step) {};
 
 Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
 
 Winners.entity.Rocket.prototype.update = function (step) {
-    rune.display.Sprite.prototype.update.call(this, step);
-
-    if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
+  rune.display.Sprite.prototype.update.call(this, step);
+  var m_this = this;
+  /*  if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
         this.bulletTarget.lifeIx = 0;
-    };
+    }; */
+  this.animation.gotoAndPlay("walk");
 
-    this.x += Math.cos(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
-    this.y += Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
+  this.x +=
+    Math.cos(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
+  this.y +=
+    Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 
+  if (this.hitTest(this.bulletTarget)) {
+    this.layer0.removeChild(this);
 
-    if (this.hitTest(this.bulletTarget)) {
-        this.layer0.removeChild(this);
+    this.HpOb = this.bulletTarget.hp;
+    this.HpOb.value -= this.damage;
 
+    if (this.HpOb.value == 80) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        20,
+        10
+      );
+      this.HpOb.backgroundColor = "#3dfc03";
+    } else if (this.HpOb.value == 60) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        15,
+        10
+      );
+      this.HpOb.backgroundColor = "#c2fc03";
+    } else if (this.HpOb.value == 40) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        10,
+        10
+      );
+      this.HpOb.backgroundColor = "#fcad03";
+    } else if (this.HpOb.value == 20) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        5,
+        10
+      );
+      this.HpOb.backgroundColor = "#fc0303";
+    } else if (this.HpOb.value <= 0) {
+      this.bulletTarget.active = false;
+      this.bulletTarget.x = -1000;
+      this.bulletTarget.y = 1000;
+      this.game.timers.create({
+        duration: 4000,
+        scope: this,
+        onComplete: function () {
+          this.bulletTarget.active = true;
+          m_this.bulletTarget.x = m_this.bulletTarget.initX;
+          m_this.bulletTarget.y = m_this.bulletTarget.initY;
 
+          m_this.layer0.addChild(m_this.bulletTarget);
+          m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
+          m_this.bulletTarget.flicker.start();
 
+          m_this.game.camera.addChild(m_this.HpOb);
+          m_this.HpOb.value = 100;
+          rune.display.DisplayObject.call(
+            m_this.HpOb,
+            m_this.bulletTarget.x,
+            m_this.bulletTarget.y,
+            25,
+            10
+          );
+          m_this.HpOb.backgroundColor = "#03fc24";
 
-        var actualLife = this.bulletTarget.livesArr[this.bulletTarget.lifeIx];
-
-        var actualLifeHpOb = actualLife.hp;
-
-        if (this.bulletTarget === this.game.player) {
-            //  this.handePlayerDead = true;
-            this.game.handePlayerDead("player1");
-        } else if (this.bulletTarget === this.game.player2) {
-            // this.Player2isDefeated = true; 
-            this.game.handePlayerDead("player2");
-        }
-
-        actualLife.value -= this.damage;
-
-
-        if (this.bulletTarget.lifeIx === 2 && actualLife.value <= 0) {
-
-            this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[2]);
-
-            this.bulletTarget.parent.removeChild(actualLifeHpOb);
-            //this.bulletOwner.parent.removeChild(this.bulletTarget);
-
-
-            //  console.log('GAME OVER')
-            // this.application.scenes.load([new Winners.scene.Menu()]);
-
-            // Add a transparent scene or pause the game then add text feedback to ensure that a specific player has won the match. N.A 
-        } else if (actualLife.value <= 0) {
-
-
-            //console.log(this.bulletTarget.parent.removeChild(actualLifeHpOb))
-            this.bulletTarget.flicker.start();
-
-            this.bulletTarget.x = this.bulletTarget.initX;
-
-            this.bulletTarget.y = this.bulletTarget.initY;
-
-            this.bulletTarget.parent.removeChild(actualLifeHpOb)
-
-
-
-
-            this.bulletTarget.parent.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx])
-
-
-
-            this.bulletTarget.lifeIx++
-
-
-            this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp = new Winners.entity.Hps(this.bulletTarget.livesArr[this.bulletTarget.lifeIx], this.stage, this.bulletTarget);
-
-            this.bulletTarget.parent.addChildAt(this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp, 2)
-
-
-
-        } else if (actualLife.value == 80) {
-            rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 20, 10);
-            actualLifeHpOb.backgroundColor = "#0000FF"
-        }
-        else if (actualLife.value == 60) {
-
-            rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 15, 10);
-            actualLifeHpOb.backgroundColor = "#800080"
-        }
-        else if (actualLife.value == 40) {
-
-            rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 10, 10);
-            actualLifeHpOb.backgroundColor = "#FFA500"
-        }
-        else if (actualLife.value == 20) {
-            rune.display.DisplayObject.call(actualLifeHpOb, this.bulletTarget.x, this.bulletTarget.y, 5, 10);
-            actualLifeHpOb.backgroundColor = "#FF0000"
-        }
-
-
+          m_this.respawn.play(true);
+        },
+      });
     }
+  }
 };
+
+Winners.entity.Rocket.prototype.respawn = function (HpOb) {
+  console.log(this);
+  this.layer0.removeChild(HpOb);
+
+  this.layer0.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx]);
+
+  this.bulletTarget.lifeIx++;
+
+  this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp =
+    new Winners.entity.Hps(
+      this.bulletTarget.livesArr[this.bulletTarget.lifeIx],
+      this.stage,
+      this.bulletTarget
+    );
+
+  this.bulletTarget.parent.addChildAt(
+    this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
+    2
+  );
+  this.bulletTarget.parent.removeChild(this.bulletTarget);
+  this.game.timers.create({
+    duration: 3000,
+    onComplete: function () {
+      this.layer0.addChild(target);
+      target.flicker.start();
+      target.x = this.bulletTarget.initX;
+      target.y = this.bulletTarget.initY;
+    },
+  });
+};
+
+Winners.entity.Rocket.prototype.dispose = function () {
+    rune.display.DisplayObject.prototype.dispose.call(this);
+    console.log("Bullet is disposed");
+  };
 /*
-Winners.entity.Rocket.prototype.init = function() {
-   
-    this.initAnimation();
-};
+
 
 Winners.entity.Rocket.prototype.dispose = function() {
   
 };
 
-Winners.entity.Rocket.prototype.initAnimation = function() {
-    
-    
-};
 
-Winners.entity.Rocket.prototype.updateAnimation = function(step) {
-  
-    
-};
+
+
 
 Winners.entity.Rocket.prototype.launch = function() {
    
    
 };
 */
-
