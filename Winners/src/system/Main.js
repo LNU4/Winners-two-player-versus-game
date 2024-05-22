@@ -25,7 +25,7 @@ Winners.system.Main = function() {
         developer: "se.lnu",
         app: "Winners",
         build: "1.0.0",
-        scene: Winners.scene.Menu,
+        scene: Winners.scene.Game,
         resources: Winners.data.Requests,
         useGamepads:true,
         useKeyboard:true,

@@ -41,7 +41,7 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
 
   this.layer = this.game.layer0;
 
-  rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
+  rune.display.Sprite.call(this, x, y, 32, 32, "soldier");
   this.layer.addChild(this);
 
   if (enemy === this.game.player) {

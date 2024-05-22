@@ -30,7 +30,7 @@ Winners.entity.SniperSodier = function (x, y, game, enemy) {
 
   
   
-  rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
+  rune.display.Sprite.call(this, x, y, 32, 32, "snipersoldier");
 
   if (enemy === this.game.player) {
     this.texture.replaceColor (
@@ -182,9 +182,9 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
   var distanceX = targetPosition.x - currentPosition.x;
   var distanceY = targetPosition.y - currentPosition.y;
   var distance = currentPosition.distance(targetPosition);
-
+  // bullet speed is bugged atm, looking into this N.A
   if (distance <= this.shootDistance) {
-    var bulletSpeed = 30.5;   
+    var bulletSpeed = 1000.5;   
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
 
