@@ -109,7 +109,7 @@ Winners.scene.Game.prototype.init = function () {
   //this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
   this.player2 = new Winners.entity.Player2(1090, 360, this);
   this.player.player2 = this.player2;
-  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
+  this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
  this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
 //  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
  this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
@@ -153,7 +153,7 @@ Winners.scene.Game.prototype.init = function () {
 
   this.layer0.addChild(this.heavysoldiers);
  this.layer0.addChild(this.snipersoldiers);
-  //this.layer0.addChild(this.rocketsoldier);
+  this.layer0.addChild(this.rocketsoldier);
   //this.layer0.addChild(this.repairsoldier);
   this.layer2.addChild(this.turret1);
   this.layer2.addChild(this.turret2);

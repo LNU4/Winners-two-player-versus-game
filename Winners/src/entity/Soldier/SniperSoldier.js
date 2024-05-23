@@ -19,7 +19,7 @@
  */
 Winners.entity.SniperSodier = function (x, y, game, enemy) {
   this.game = game;
-  this.enemy = enemy;
+ // this.enemy = enemy;
   console.log(this.enemy)
    console.log('sniper')
   this.layer = this.game.layer0;
@@ -33,11 +33,15 @@ Winners.entity.SniperSodier = function (x, y, game, enemy) {
   rune.display.Sprite.call(this, x, y, 32, 32, "snipersoldier");
 
   if (enemy === this.game.player) {
+    this.enemy = this.game.player;
+    this.SoldierOwner = this.game.player2;
     this.texture.replaceColor (
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(172, 50, 50)
     );
   } else if (enemy === this.game.player2) {
+    this.enemy = this.game.player2;
+    this.SoldierOwner = this.game.player;
     this.texture.replaceColor (
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(32, 32, 32)
@@ -94,7 +98,7 @@ Winners.entity.SniperSodier.prototype.update = function (step) {
 
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-     this.shoot();
+     //this.shoot();
 
       this.lastShootTime = currentTime;
     }
@@ -153,21 +157,31 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
     this.game.layer0.removeChild(this);
 
   }
+ 
+  this.hitTest(this.game.bullets, function(soldier, bullet) {
+    if (bullet.bulletTarget == soldier.SoldierOwner) {
 
-
-  if (this.enemy.bullets){
-    console.log(this.enemy)
-    if (this.enemy.bullets.bullet){
-      if (this.enemy.bullets.bullet.hitTest(this)){
-      console.log('.-.-.-.')
-      this.layer.removeChild(this.enemy.bullets.bullet)
-      this.layer.removeChild(this)
-      this.dispose()
+     console.log(bullet, soldier) 
+     
+     this.game.layer0.removeChild(bullet); 
+      bullet.dispose();
+      this.game.layer0.removeChild(soldier);
+    //  this.handelKillSoldier();
     }
-    }
+  }, this)
+  // if (this.enemy.bullets){
+  //   console.log(this.enemy)
+  //   if (this.enemy.bullets.bullet){
+  //     if (this.enemy.bullets.bullet.hitTest(this)){
+  //     console.log('.-.-.-.')
+  //     this.layer.removeChild(this.enemy.bullets.bullet)
+  //     this.layer.removeChild(this)
+  //     this.dispose()
+  //   }
+  //   }
      
   
-  }  
+  // }  
 
   
 };
