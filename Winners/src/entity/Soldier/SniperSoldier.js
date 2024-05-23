@@ -188,16 +188,16 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
 
-    this.bullets = new Winners.entity.Bullets(
+   /*  this.bullets = new Winners.entity.Bullets(
       this.game,
       this.layer,
       this,
       this.turret1,
       this.enemy
     );
-    this.application.scenes.selected.groups.add(this.bullets);
+    this.application.scenes.selected.groups.add(this.bullets); */
 
-    var bullet = this.bullets.create(this.centerX, this.centerY);
+    var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
 

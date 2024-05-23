@@ -17,7 +17,8 @@
  *
  */
 
-Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
+Winners.entity.Soldiers = function (x, y, game, enemy, ix, SoldierOwner, truck) {
+ 
   this.shootDistance = 200;
   this.moveSpeed = 1;
   this.shootCooldown = 900;
@@ -25,6 +26,9 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   // this.elasticity = 1.0;
 
   this.game = game;
+  
+  this.SoldierOwner = SoldierOwner; 
+  this.truck = truck;
 
   this.enemy = enemy;
 
@@ -43,7 +47,7 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldier");
   this.layer.addChild(this);
-
+  //change to iniit N.A
   if (enemy === this.game.player) {
     this.texture.replaceColor(
       new rune.color.Color24(0, 0, 0),
@@ -69,6 +73,7 @@ Winners.entity.Soldiers.prototype.constructor = Winners.entity.Soldiers;
 // Override public prototype methods (ENGINE)
 //------------------------------------------------------------------------------
 Winners.entity.Soldiers.prototype.shoot = function () {
+  
   var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
   var targetPosition = new rune.geom.Point(
     this.enemy.centerX,
@@ -84,21 +89,24 @@ Winners.entity.Soldiers.prototype.shoot = function () {
 
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
-
-    this.bullets = new Winners.entity.Bullets(
+    
+ /*    this.bullets = new Winners.entity.Bullets(
       this.game,
       this.layer,
       this,
       this.turret1,
       this.enemy
     );
-    this.application.scenes.selected.groups.add(this.bullets);
+    this.application.scenes.selected.groups.add(this.bullets); */
 
-    var bullet = this.bullets.create(this.centerX, this.centerY);
+    this.animation.gotoAndPlay("shoot");
+    var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
 
     bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
+    
+
   }
 };
 
@@ -106,7 +114,7 @@ Winners.entity.Soldiers.prototype.shoot = function () {
 
 Winners.entity.Soldiers.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-
+  
   var m_this = this;
   var distanceX = this.enemy.x - this.x;
   var distanceY = this.enemy.y - this.y;
@@ -116,22 +124,25 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.x,
     this.y
   );
-
+  
 
   if (distance <= this.shootDistance && distance > 90) {
     this.x = this.x;
     this.y = this.y;
-
+    this.animation.gotoAndPlay("idle"); 
+    
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
       this.lastShootTime = currentTime;
+      
     }
   } else {
     distanceX /= distance;
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+    this.animation.gotoAndPlay("walk"); 
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
@@ -208,11 +219,19 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
   // }
 
-  this.hitTest(this.enemy.bullets, function(bullet, soldier) {
+  this.hitTest(this.game.bullets, function(soldier, bullet) {
+    if (bullet.bulletTarget == soldier.SoldierOwner) {
+
+console.log(bullet, soldier) 
+     this.game.layer0.removeChild(bullet); 
+      bullet.dispose();
+      this.handelKillSoldier();
+    }
+/* 
     console.warn(this.enemy.bullets.numMembers);
     this.game.layer0.removeChild(bullet);
     bullet.dispose();  
-    this.handelKillSoldier()
+    this.handelKillSoldier() */
   }, this)
 
   // if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
@@ -320,3 +339,19 @@ Winners.entity.Soldiers.prototype.dispose = function () {
   //console.log('soldier is disposed')
 };
 
+Winners.entity.Soldiers.prototype.init = function () {
+  
+  rune.display.Sprite.prototype.init.call(this);
+
+  
+ 
+  this.m_initAnimation();
+};
+
+Winners.entity.Soldiers.prototype.m_initAnimation = function () {
+  this.animation.create("shoot", [0, 3], 5, true);
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 5, true);
+  
+
+};

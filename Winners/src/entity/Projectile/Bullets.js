@@ -15,7 +15,7 @@
  * 
  * Represents a handler for bullets.
  */
-Winners.entity.Bullets = function(game ,container, owner, turret,enemy) {
+Winners.entity.Bullets = function(game) {
 
     //--------------------------------------------------------------------------
     // Public properties
@@ -28,11 +28,9 @@ Winners.entity.Bullets = function(game ,container, owner, turret,enemy) {
      * @default 4
      */
     this.maxNumBullets = 4;
-    this.container = container;
-    this.owner = owner;
-    this.enemy = enemy;
+   
     this.game = game; 
-    this.turret = turret;
+    this.container = this.game.layer0;
     this.fire = this.application.sounds.sound.get("fire1");
   //  console.log(this.application.sounds.sound.get("fire1"))
   
@@ -59,7 +57,7 @@ Winners.entity.Bullets = function(game ,container, owner, turret,enemy) {
     /**
      *  ...
      */
-    rune.display.DisplayGroup.call(this, container);
+    rune.display.DisplayGroup.call(this, game.layer0);
 };
 
 //------------------------------------------------------------------------------
@@ -81,8 +79,13 @@ Winners.entity.Bullets.prototype.constructor = Winners.entity.Bullets;
  *
  * @return {undefined}
  */
-Winners.entity.Bullets.prototype.create = function(x, y) {
-    if (this.numChildren == this.maxNumBullets) {
+Winners.entity.Bullets.prototype.create = function(x, y, owner, turret, enemy) {
+    this.owner = owner;
+    this.turret = turret;
+    this.enemy = enemy;
+   
+
+    if (this.numMemebers == this.maxNumBullets) {
         this.removeChild(this.getChildAt(0));
     }
     
@@ -105,4 +108,8 @@ Winners.entity.Bullets.prototype.create = function(x, y) {
 Winners.entity.Bullets.prototype.reset = function() {
     this.removeChildren();
     console.log('ccccc')
+};
+
+Winners.entity.Bullets.prototype.update = function(step) {
+    
 };
