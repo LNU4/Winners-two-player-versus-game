@@ -136,16 +136,19 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
   this.animation.create("walk", [0, 1], 1, true);
 };
 
-Winners.entity.Player2.prototype.shoot = function () {
-  this.bullets = new Winners.entity.Bullets(
-    this.game,
-    this.layer0,
-    this,
+ Winners.entity.Player2.prototype.shoot = function () {
+//   this.bullets = new Winners.entity.Bullets(
+//     this.game,
+//     this.layer0,
+//     this,
+//     this.turret1,
+//     this.player
+//   );
+  //this.application.scenes.selected.groups.add(this.game.bullets);
+  this.bullet = this.game.bullets.create(this.centerX, this.centerY, 
+     this,
     this.turret1,
-    this.player
-  );
-  this.application.scenes.selected.groups.add(this.bullets);
-  this.bullet = this.bullets.create(this.centerX, this.centerY);
+    this.player);
 
   this.turret1.shotAnimation();
   this.bullet.velocity.x = this.velocity.x;

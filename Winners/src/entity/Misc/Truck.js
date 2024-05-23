@@ -14,7 +14,7 @@
  * Game scene.
  */
 //Winners.entity.Truck = function (x, y, player, player2, layer0, game) {
-Winners.entity.Truck = function (x, y, game, enemy) {
+Winners.entity.Truck = function (x, y, game, enemy, owner) {
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -161,7 +161,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
       soldierX,
       soldierY,
       this.game,
-      this.enemy, this.soldierix
+      this.enemy, this.soldierix, this.player, this
     );
     // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
     //     soldierY, 
@@ -171,6 +171,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     // this.layer0.addChild(this.HeavySoldier)
 
     this.soldierArr.push(this.soldier);
+    console.log(this.soldierArr.length)
   }
   this.game.timers.create({
     duration: 2000,

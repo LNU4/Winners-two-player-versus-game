@@ -162,8 +162,8 @@ Winners.scene.Game.prototype.createTruck = function () {
   var randomY = Math.random() * 720;
   var randomY2 = Math.random() * 720;
   // this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
-  this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
-  this.truck2 = new Winners.entity.Truck(1300, randomY2, this, this.player);
+  this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2, this.player );
+  this.truck2 = new Winners.entity.Truck(1300, randomY2, this, this.player, this.player2);
   //   this.player.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
   //   this.player2.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
   this.layer0.addChild(this.truck);

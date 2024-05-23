@@ -17,7 +17,7 @@
  *
  */
 
-Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
+Winners.entity.Soldiers = function (x, y, game, enemy, ix, SoldierOwner, truck) {
   this.shootDistance = 200;
   this.moveSpeed = 1;
   this.shootCooldown = 900;
@@ -27,6 +27,9 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   this.game = game;
 
   this.enemy = enemy;
+  this.SoldierOwner = SoldierOwner;
+  
+  this.truck = truck;
 
   //   if (this.enemy === this.game.player) {
   //     this.player = this.game.player;
@@ -42,6 +45,7 @@ Winners.entity.Soldiers = function (x, y, game, enemy, ix) {
   this.layer = this.game.layer0;
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldiers");
+
   this.layer.addChild(this);
 
   if (enemy === this.game.player) {
@@ -85,16 +89,18 @@ Winners.entity.Soldiers.prototype.shoot = function () {
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
 
-    this.bullets = new Winners.entity.Bullets(
-      this.game,
-      this.layer,
-      this,
-      this.turret1,
-      this.enemy
-    );
-    this.application.scenes.selected.groups.add(this.bullets);
+    // this.bullets = new Winners.entity.Bullets(
+    //   this.game,
+    //   this.layer,
+    //   this,
+    //   this.turret1,
+    //   this.enemy
+    // );
+    // this.application.scenes.selected.groups.add(this.bullets);
 
-    var bullet = this.bullets.create(this.centerX, this.centerY);
+    var bullet = this.game.bullets.create(this.centerX, this.centerY,  this,
+      this.turret1,
+      this.enemy);
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
 
@@ -208,11 +214,16 @@ Winners.entity.Soldiers.prototype.update = function (step) {
 
   // }
 
-  this.hitTest(this.enemy.bullets, function(bullet, soldier) {
-    console.warn(this.enemy.bullets.numMembers);
-    this.game.layer0.removeChild(bullet);
-    bullet.dispose();  
-    this.handelKillSoldier()
+  this.hitTest(this.game.bullets, function(soldier, bullet ) {
+if (bullet.bulletTarget ==  soldier.SoldierOwner){
+ // console.log(bullet,soldier)
+  this.game.layer0.removeChild(bullet);
+  bullet.dispose();  
+  this.handelKillSoldier()
+ // console.log(this.truck.soldierArr)
+}
+  //if (this.enemy.bullets.numMembers == this.SoldierOwner)
+  
   }, this)
 
   // if (this.enemy.bullets && this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
@@ -259,13 +270,13 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   //   }  ||  this.enemy.bullets.bullet && this.enemy.bullets.bullet.hitTest(this)
 };
 Winners.entity.Soldiers.prototype.handelKillSoldier = function (){
- console.log('handelKillSoldier')
+ 
 
   var m_this = this;
   this.game.layer0.removeChild(this);
   this.isDead = true;
   this.powerUpProb =  Math.floor(Math.random() * 4);
-  console.log(this.powerUpProb)
+
   
   // this.game.layer0.removeChild(this.enemy.bullets.bullet);
   // this.game.layer0.removeChild(this);
@@ -273,11 +284,11 @@ Winners.entity.Soldiers.prototype.handelKillSoldier = function (){
   //this.enemy.bullets.reset()
  // this.enemy.bullets.bullet.dispose();
   if (this.isDead && this.powerUpProb == 0 || this.powerUpProb == 2) {
-    console.log(this.powerUpProb)
+ 
     this.game.timers.create({
       duration: 1000,
       onComplete: function () {
-        console.log(m_this.powerUpProb)
+        
         //** console.group(m_this.enemy) 
         m_this.createPowerups()
         // m_this.powerUp = new Winners.entity.Powerup(
