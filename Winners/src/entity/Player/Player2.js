@@ -29,10 +29,10 @@ Winners.entity.Player2 = function (x, y, game) {
   //this.livesArr = [];
   this.initX = x;
   this.initY = y;
-  this.hp = new  Winners.entity.Hps(this.game.camera, this);
-  console.log(this.game.camera.numChildren)
+  this.hp = new Winners.entity.Hps(this.game.camera, this);
+  console.log(this.game.camera.numChildren);
   this.game.camera.addChild(this.hp);
-  console.log(this.game.camera.numChildren)
+  console.log(this.game.camera.numChildren);
   // this.playerBase = this.game.base2;
   // this.enemyBase = this.game.base;
   //this.turret1 = turret1;
@@ -41,7 +41,6 @@ Winners.entity.Player2 = function (x, y, game) {
   this.layer0 = this.game.layer0;
   this.playerBase = this.game.base2;
   this.enemyBase = this.game.base;
- 
 
   //--------------------------------------------------------------------------
   // Super call
@@ -137,15 +136,15 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
 };
 
 Winners.entity.Player2.prototype.shoot = function () {
-  this.bullets = new Winners.entity.Bullets(
+ /*  this.bullets = new Winners.entity.Bullets(
     this.game,
     this.layer0,
     this,
     this.turret1,
     this.player
   );
-  this.application.scenes.selected.groups.add(this.bullets);
-  this.bullet = this.bullets.create(this.centerX, this.centerY);
+  this.application.scenes.selected.groups.add(this.bullets); */
+  this.bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.player);
 
   this.turret1.shotAnimation();
   this.bullet.velocity.x = this.velocity.x;

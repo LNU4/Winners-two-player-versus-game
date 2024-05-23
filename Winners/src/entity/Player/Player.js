@@ -180,9 +180,10 @@
   
   
   Winners.entity.Player.prototype.shoot = function () {
-    this.bullets = new Winners.entity.Bullets(this.game, this.layer0, this, this.turret1, this.player2);
-    this.application.scenes.selected.groups.add(this.bullets);
-    this.bullet = this.bullets.create(this.centerX, this.centerY);
+  /*   this.bullets = new Winners.entity.Bullets(this.game, this.layer0, this, this.turret1, this.player2);
+    this.application.scenes.selected.groups.add(this.bullets); */
+    
+    this.bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.player2);
   
   
     this.bullet.velocity.x = this.velocity.x;

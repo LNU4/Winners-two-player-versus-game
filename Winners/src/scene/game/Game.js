@@ -109,10 +109,10 @@ Winners.scene.Game.prototype.init = function () {
   //this.player2 = new Winners.entity.Player2(1140, 345.5, this ,this.layer0, this.turret2, this.player, this.base2, this.base);
   this.player2 = new Winners.entity.Player2(1090, 360, this);
   this.player.player2 = this.player2;
-// this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
+  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
  this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
 //  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
-//  this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
+ this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   // this.base = new Winners.entity.Base(10, 360, this);
   // this.base2 = new Winners.entity.Base2(1235, 360, this);
   this.player.powerupsArray = [];
@@ -151,9 +151,9 @@ Winners.scene.Game.prototype.init = function () {
   //this.layer0.addChild(this.powerupCounter)
   // this.layer0.addChild(this.Soldiers);
 
-  //this.layer0.addChild(this.heavysoldiers);
-  this.layer0.addChild(this.snipersoldiers);
- // this.layer0.addChild(this.rocketsoldier);
+  this.layer0.addChild(this.heavysoldiers);
+ this.layer0.addChild(this.snipersoldiers);
+  //this.layer0.addChild(this.rocketsoldier);
   //this.layer0.addChild(this.repairsoldier);
   this.layer2.addChild(this.turret1);
   this.layer2.addChild(this.turret2);
@@ -164,8 +164,8 @@ Winners.scene.Game.prototype.createTruck = function () {
   var randomY = Math.random() * 720;
   var randomY2 = Math.random() * 720;
   // this.truck = new Winners.entity.Truck(-100, randomY,this.player, this.player2, this.layer0, this)
-  this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
-  this.truck2 = new Winners.entity.Truck(1300, randomY2, this, this.player);
+  this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2, this.player);
+  this.truck2 = new Winners.entity.Truck(1300, randomY2, this, this.player, this.player2);
   //   this.player.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
   //   this.player2.truck2 = new Winners.entity.Truck(1300, randomY, this, this.player);
   this.layer0.addChild(this.truck);
