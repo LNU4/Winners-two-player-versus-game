@@ -95,10 +95,10 @@ Winners.entity.SniperSodier.prototype.update = function (step) {
   if (distance <= this.shootDistance && distance > 0) {
     this.x = this.x;
     this.y = this.y;
-
+   this.animation.gotoAndPlay("idle"); //note the shoot
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-     //this.shoot();
+     this.shoot();
 
       this.lastShootTime = currentTime;
     }
@@ -107,6 +107,7 @@ Winners.entity.SniperSodier.prototype.update = function (step) {
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+    this.animation.gotoAndPlay("walk"); 
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
@@ -188,6 +189,7 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
 
 Winners.entity.SniperSodier.prototype.shoot = function () {
   var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
+  
   var targetPosition = new rune.geom.Point(
     this.enemy.centerX,
     this.enemy.centerY
@@ -196,12 +198,12 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
   var distanceX = targetPosition.x - currentPosition.x;
   var distanceY = targetPosition.y - currentPosition.y;
   var distance = currentPosition.distance(targetPosition);
-  // bullet speed is bugged atm, looking into this N.A
-  if (distance <= this.shootDistance) {
+  
+  if (distance - 30 <= this.shootDistance) {
     var bulletSpeed = 8;   
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
-
+    this.animation.gotoAndPlay("shoot");
    /*  this.bullets = new Winners.entity.Bullets(
       this.game,
       this.layer,
@@ -210,7 +212,7 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
       this.enemy
     );
     this.application.scenes.selected.groups.add(this.bullets); */
-
+    
     var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
@@ -225,7 +227,21 @@ Winners.entity.SniperSodier.prototype.dispose = function () {
 
   
 };
+Winners.entity.SniperSodier.prototype.init = function () {
+  
+  rune.display.Sprite.prototype.init.call(this);
 
+  
+ 
+  this.m_initAnimation();
+};
+Winners.entity.SniperSodier.prototype.m_initAnimation = function () {
+  this.animation.create("shoot", [0, 3], 5, true);
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 5, true);
+  
+
+};
 
 
 

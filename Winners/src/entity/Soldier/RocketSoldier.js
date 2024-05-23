@@ -23,27 +23,27 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
   this.layer = this.game.layer0;
   this.shootDistance = 200;
   this.moveSpeed = 0.8;
-  this.shootCooldown = 320;
+  this.shootCooldown = 2420;
   this.lastShootTime = 0;
 
-  this.color = new rune.color.Color24()
+  /* this.color = new rune.color.Color24()
   var soldierColor = this.color;
-  this.color.setRGB(0, 255, 255);
-  
+  this.color.setRGB(0, 255, 255); */
+
   rune.display.Sprite.call(this, x, y, 32, 32, "rocketsoldier");
 
 
   if (enemy === this.game.player) {
     this.enemy = this.game.player;
     this.SoldierOwner = this.game.player2;
-    this.texture.replaceColor (
+    this.texture.replaceColor(
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(172, 50, 50)
     );
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
     this.SoldierOwner = this.game.player;
-    this.texture.replaceColor (
+    this.texture.replaceColor(
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(32, 32, 32)
     );
@@ -106,10 +106,10 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
      }); 
    }*/
 
-  if (distance <= this.shootDistance && distance > 0) {
+  if (distance  <= this.shootDistance && distance > 0) {
     this.x = this.x;
     this.y = this.y;
-
+    this.animation.gotoAndPlay("idle");// Probablyh due to shoot animation N.A caused crash earlier
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
@@ -117,6 +117,7 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
       this.lastShootTime = currentTime;
     }
   } else {
+    this.animation.gotoAndPlay("walk");
     distanceX /= distance;
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
@@ -145,7 +146,7 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
 
   var directionX = distanceX / distance;
   var directionY = distanceY / distance;
-
+  //look if required N.A otherwise delete
   if (this.shootDistance < distance) {
     currentPosition.x += directionX * this.moveSpeed;
     currentPosition.y += directionY * this.moveSpeed;
@@ -171,15 +172,15 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
     this.game.layer0.removeChild(this);
   }
 
-  this.hitTest(this.game.bullets, function(soldier, bullet) {
+  this.hitTest(this.game.bullets, function (soldier, bullet) {
     if (bullet.bulletTarget == soldier.SoldierOwner) {
 
-     console.log(bullet, soldier) 
-     
-     this.game.layer0.removeChild(bullet); 
+      console.log(bullet, soldier)
+
+      this.game.layer0.removeChild(bullet);
       bullet.dispose();
       this.game.layer0.removeChild(soldier);
-    //  this.handelKillSoldier();
+      //  this.handelKillSoldier();
     }
   }, this)
 
@@ -234,8 +235,8 @@ Winners.entity.Rocketsoldier.prototype.shoot = function () {
  
      bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
    } */
-
-  if (distance <= this.shootDistance) {
+   //check again N.A because one has to be negative and the other has to be positive
+  if (distance -48 <= this.shootDistance) { //subtract the distance to adjust the bug
     var rocketSpeed = 6;
     var rocketDirectionX = distanceX / distance;
     var rocketDirectionY = distanceY / distance;
@@ -247,7 +248,8 @@ Winners.entity.Rocketsoldier.prototype.shoot = function () {
     rocket.velocity.y = rocketDirectionY * rocketSpeed;
 
     rocket.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
-
+    
+    this.animation.gotoAndPlay("shoot");
   }
 };
 
@@ -255,6 +257,22 @@ Winners.entity.Rocketsoldier.prototype.dispose = function () {
 
   rune.display.Sprite.prototype.dispose.call(this);
 
+
+};
+
+Winners.entity.Rocketsoldier.prototype.init = function () {
+
+  rune.display.Sprite.prototype.init.call(this);
+
+
+
+  this.m_initAnimation();
+};
+Winners.entity.Rocketsoldier.prototype.m_initAnimation = function () {
+  this.animation.create("shoot", [0,1,2, 3], 5, false);
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 5, true);
+  
 
 };
 
