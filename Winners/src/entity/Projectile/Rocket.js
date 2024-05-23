@@ -16,24 +16,28 @@ Winners.entity.Rocket = function (
 
   rune.display.Sprite.call(this, x, y, 16, 16, "rocket");
 
-  this.m_speed = 3;
+  this.m_speed = 0.0002;
 
   this.respawn = this.application.sounds.sound.get("respwan1");
 };
 
+Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
+Winners.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
+
 Winners.entity.Rocket.prototype.init = function () {
+  console.warn("init !!!!!!!!!");
     rune.display.Sprite.prototype.init.call(this);
-  this.m_initAnimation();
+    this.m_initAnimation();
 };
 
 Winners.entity.Rocket.prototype.m_initAnimation = function () {
-  this.m_initAnimation.create("walk", [0], 1, true);
+  console.log("animation");
+  this.animation.create("active", [0, 1, 2 ,3], 5, true);
+  this.animation.gotoAndPlay("active");
 };
 
-Winners.entity.Rocket.prototype.updateAnimation = function (step) {};
-
-Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
-Winners.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
+//Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
+//.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
 
 Winners.entity.Rocket.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);

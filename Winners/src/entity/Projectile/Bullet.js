@@ -76,10 +76,10 @@ Winners.entity.Bullet = function (
    * ...
    */
   rune.display.DisplayObject.call(this, x, y, 6, 6);
-  this.backgroundColor = "#FFA500";
+  this.backgroundColor = "#FF00FF";
   this.movable = true;
-  this.velocity.max.x = 8;
-  this.velocity.max.y = 8;
+ // this.velocity.max.x = 8;
+ // this.velocity.max.y = 8;
 };
 
 //------------------------------------------------------------------------------

@@ -184,7 +184,7 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
   var distance = currentPosition.distance(targetPosition);
   // bullet speed is bugged atm, looking into this N.A
   if (distance <= this.shootDistance) {
-    var bulletSpeed = 1000.5;   
+    var bulletSpeed = 8;   
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
 
