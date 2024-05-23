@@ -30,7 +30,7 @@ Winners.entity.Base = function(x, y, game) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 32, 32, "Base");
+    rune.display.Sprite.call(this, x, y, 64, 64, "Base");
    
 };
 

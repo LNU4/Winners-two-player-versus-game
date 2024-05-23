@@ -26,7 +26,7 @@ Winners.entity.Base2shield = function(x, y, game) {
     /**
      * Calls the constructor method of the super class.
      */
-    rune.display.Sprite.call(this, x, y, 64, 64, "Baseprotection");
+    rune.display.Sprite.call(this, x, y, 128, 128, "baseprotection");
    //this.movable = false;
   
 };
