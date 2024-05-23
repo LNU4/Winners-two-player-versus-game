@@ -19,7 +19,7 @@
 Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
   this.game = game;
   // this.enemy = this.game.player2;
-  this.enemy = enemy;
+  //this.enemy = enemy;
   this.layer = this.game.layer0;
   this.shootDistance = 200;
   this.moveSpeed = 0.8;
@@ -32,17 +32,34 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
   
   rune.display.Sprite.call(this, x, y, 32, 32, "rocketsoldier");
 
+
   if (enemy === this.game.player) {
-    this.texture.replaceColor(
+    this.enemy = this.game.player;
+    this.SoldierOwner = this.game.player2;
+    this.texture.replaceColor (
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(172, 50, 50)
     );
   } else if (enemy === this.game.player2) {
-    this.texture.replaceColor(
+    this.enemy = this.game.player2;
+    this.SoldierOwner = this.game.player;
+    this.texture.replaceColor (
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(32, 32, 32)
     );
   }
+
+  // if (enemy === this.game.player) {
+  //   this.texture.replaceColor(
+  //     new rune.color.Color24(0, 0, 0),
+  //     new rune.color.Color24(172, 50, 50)
+  //   );
+  // } else if (enemy === this.game.player2) {
+  //   this.texture.replaceColor(
+  //     new rune.color.Color24(0, 0, 0),
+  //     new rune.color.Color24(32, 32, 32)
+  //   );
+  // }
 };
 
 
@@ -154,21 +171,36 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
     this.game.layer0.removeChild(this);
   }
 
+  this.hitTest(this.game.bullets, function(soldier, bullet) {
+    if (bullet.bulletTarget == soldier.SoldierOwner) {
 
-  if (this.enemy.bullets) {
-
-
-    if (this.enemy.bullets.bullet) {
-      if (this.enemy.bullets.bullet.hitTest(this)) {
-        console.log('.-.-.-.')
-        this.layer.removeChild(this.enemy.bullets.bullet)
-        this.layer.removeChild(this)
-        this.dispose()
-      }
+     console.log(bullet, soldier) 
+     
+     this.game.layer0.removeChild(bullet); 
+      bullet.dispose();
+      this.game.layer0.removeChild(soldier);
+    //  this.handelKillSoldier();
     }
+  }, this)
 
 
-  }
+  // if (this.enemy.bullets) {
+
+
+  //   if (this.enemy.bullets.bullet) {
+  //     if (this.enemy.bullets.bullet.hitTest(this)) {
+  //       console.log('.-.-.-.')
+  //       this.layer.removeChild(this.enemy.bullets.bullet)
+  //       this.layer.removeChild(this)
+  //       this.dispose()
+  //     }
+  //   }
+
+
+  // }
+
+
+
 };
 
 Winners.entity.Rocketsoldier.prototype.shoot = function () {

@@ -19,13 +19,31 @@
 Winners.entity.HeavySoldier = function (x, y, game, enemy) {
   this.game = game;
   //this.enemy = this.game.player2;
-  this.enemy = enemy;
+ // this.enemy = enemy;
   
   this.layer = this.game.layer0;
   this.shootDistance = 200;   
   this.moveSpeed = 0.8;      
   this.shootCooldown = 320;
   this.lastShootTime = 0;
+
+  if (enemy === this.game.player) {
+    this.enemy = this.game.player;
+    this.SoldierOwner = this.game.player2;
+    // this.texture.replaceColor (
+    //   new rune.color.Color24(0, 0, 0),
+    //   new rune.color.Color24(172, 50, 50)
+    // );
+  } else if (enemy === this.game.player2) {
+    this.enemy = this.game.player2;
+    this.SoldierOwner = this.game.player;
+    // this.texture.replaceColor (
+    //   new rune.color.Color24(0, 0, 0),
+    //   new rune.color.Color24(32, 32, 32)
+    // );
+  }
+
+
   
   rune.display.Sprite.call(this, x, y, 32, 32, "heavysoldier");
 };
@@ -139,17 +157,30 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   }
 
 
-  if (this.enemy.bullets){
-    console.log(this.enemy)
-    if (this.enemy.bullets.bullet){
-      if (this.enemy.bullets.bullet.hitTest(this)){
-      console.log('.-.-.-.')
-      this.layer.removeChild(this.enemy.bullets.bullet)
-      this.layer.removeChild(this)
-      this.dispose()
+  this.hitTest(this.game.bullets, function(soldier, bullet) {
+    if (bullet.bulletTarget == soldier.SoldierOwner) {
+
+     console.log(bullet, soldier) 
+     
+     this.game.layer0.removeChild(bullet); 
+      bullet.dispose();
+      this.game.layer0.removeChild(soldier);
+    //  this.handelKillSoldier();
     }
-    }
-  }  
+  }, this)
+
+
+  // if (this.enemy.bullets){
+  //   console.log(this.enemy)
+  //   if (this.enemy.bullets.bullet){
+  //     if (this.enemy.bullets.bullet.hitTest(this)){
+  //     console.log('.-.-.-.')
+  //     this.layer.removeChild(this.enemy.bullets.bullet)
+  //     this.layer.removeChild(this)
+  //     this.dispose()
+  //   }
+  //   }
+  // }  
 };
 
 Winners.entity.HeavySoldier.prototype.shoot = function () {
