@@ -14,18 +14,12 @@
  * Game scene.
  */
 Winners.entity.Turret1 = function (x, y, game) {
-  /**
-   * placeholder to refer to the second player
-   */
   this.turret1 = null;
   this.game = game;
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
 
-  /**
-   * Calls the constructor method of the super class.
-   */
   rune.display.Sprite.call(this, x, y, 64, 64, "turret-remake");
 };
 
@@ -48,17 +42,13 @@ Winners.entity.Turret1.prototype.constructor = Winners.entity.Turret1;
 Winners.entity.Turret1.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  // this.turret = new rune.display.Sprite(0, 0, 64, 64, "turret-remake");
-
-  //this.addChild(this.turret);
-
   this.m_initPhysics();
   this.m_initAnimation();
 
   this.texture.replaceColor(
     new rune.color.Color24(0, 0, 0),
     new rune.color.Color24(50, 60, 150)
-  )
+  );
 };
 
 /**
@@ -70,7 +60,6 @@ Winners.entity.Turret1.prototype.init = function () {
  */
 Winners.entity.Turret1.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  //this.m_updateInput();
   this.m_torretRotation();
 };
 
@@ -132,10 +121,4 @@ Winners.entity.Turret1.prototype.m_torretRotation = function () {
   } else if (gamepad.stickRightDown) {
     this.rotation += 5;
   }
-
-  /*
-      if ( gamepad.pressed(7)) {
-        this.shoot();
-      }
-     */
 };

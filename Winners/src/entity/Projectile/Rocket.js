@@ -25,26 +25,19 @@ Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
 
 Winners.entity.Rocket.prototype.init = function () {
-  console.warn("init !!!!!!!!!");
-    rune.display.Sprite.prototype.init.call(this);
-    this.m_initAnimation();
+  rune.display.Sprite.prototype.init.call(this);
+  this.m_initAnimation();
 };
 
 Winners.entity.Rocket.prototype.m_initAnimation = function () {
-  console.log("animation");
-  this.animation.create("active", [0, 1, 2 ,3], 5, true);
+  this.animation.create("active", [0, 1, 2, 3], 5, true);
   this.animation.gotoAndPlay("active");
 };
-
-//Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
-//.entity.Rocket.prototype.constructor = Winners.entity.Rocket;
 
 Winners.entity.Rocket.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   var m_this = this;
-  /*  if (this.game.Player1isDefeated || this.game.Player2isDefeated) {
-        this.bulletTarget.lifeIx = 0;
-    }; */
+
   this.animation.gotoAndPlay("walk");
 
   this.x +=
@@ -129,7 +122,7 @@ Winners.entity.Rocket.prototype.update = function (step) {
 };
 
 Winners.entity.Rocket.prototype.respawn = function (HpOb) {
-  console.log(this);
+
   this.layer0.removeChild(HpOb);
 
   this.layer0.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx]);
@@ -160,22 +153,6 @@ Winners.entity.Rocket.prototype.respawn = function (HpOb) {
 };
 
 Winners.entity.Rocket.prototype.dispose = function () {
-    rune.display.DisplayObject.prototype.dispose.call(this);
-    console.log("Bullet is disposed");
-  };
-/*
-
-
-Winners.entity.Rocket.prototype.dispose = function() {
-  
+  rune.display.DisplayObject.prototype.dispose.call(this);
+ 
 };
-
-
-
-
-
-Winners.entity.Rocket.prototype.launch = function() {
-   
-   
-};
-*/

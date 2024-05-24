@@ -55,9 +55,6 @@ Winners.entity.Turret2.prototype.init = function () {
 
   this.m_initPhysics();
   this.m_initAnimation();
-
-
-
 };
 
 /**

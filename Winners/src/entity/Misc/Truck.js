@@ -13,7 +13,6 @@
  *
  * Game scene.
  */
-//Winners.entity.Truck = function (x, y, player, player2, layer0, game) {
 Winners.entity.Truck = function (x, y, game, enemy, owner) {
   //--------------------------------------------------------------------------
   // Super call
@@ -26,15 +25,14 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
   this.game = game;
   rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
 
-  //  this.enemy = enemy;   ** WAIT WITH THIS **
-
+  
   this.layer0 = this.game.layer0;
 
   if (enemy === this.game.player) {
     this.enemy = this.game.player;
     this.player = this.game.player2;
 
-    //this.target1 = this.game.player;
+  
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
     this.player = this.game.player;
@@ -42,7 +40,6 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
       new rune.color.Color24(82, 75, 36),
       new rune.color.Color24(172, 50, 50)
     );
-    //this.target2 = this.game.player2; this.enemy
   }
 
   this.deadSoldiers = 0; // test
@@ -75,8 +72,7 @@ Winners.entity.Truck.prototype.init = function () {
 };
 
 Winners.entity.Truck.prototype.m_initAnimation = function () {
-  //   this.life.globalX = this.globalX;
-  // this.life.globalY = this.globalY;
+  
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
@@ -91,15 +87,12 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
  */
 Winners.entity.Truck.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  /* if (this.game.player2.hitTest(this.soldier))   {
-         console.log('HIT')
-         this.layer0.removeChild(this.soldier);
-     }*/
+  
   if (!this.reachedPlayer && this.enemy) {
     var distanceX = this.enemy.x - this.x;
     var distanceY = this.enemy.y - this.y;
 
-    // Use runes sdk instead N.A
+   
     var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
     if (distance <= 160) {
@@ -121,12 +114,11 @@ Winners.entity.Truck.prototype.update = function (step) {
 
   }
 
-  //   if (this.game.truck){
-  //     this.enemyTruck = this.game.truck;
+ 
   if (this.enemy.bullets) {
     if (this.enemy.bullets.bullet) {
       if (this.enemy.bullets.bullet.hitTest(this)) {
-        console.log('.-.-.-.')
+      
         this.layer0.removeChild(this.enemy.bullets.bullet)
         this.layer0.removeChild(this)
       }
@@ -135,9 +127,7 @@ Winners.entity.Truck.prototype.update = function (step) {
 
   }
 
-  //   if (this.enemy === this.game.player) {
-  //     this.enemy2.bullets.bullet.hitTestAndSeparate(this.soldier)
-  //   } 
+
 };
 
 Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
@@ -155,19 +145,12 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     var soldierX = truckX + Math.cos(angle) * distance;
     var soldierY = truckY + Math.sin(angle) * distance;
 
-    //  this.soldier = new Winners.entity.Soldiers(soldierX, soldierY, this.enemy2, this.layer0, this.game);
-    // **  console.log(this.enemy)
     this.soldier = new Winners.entity.Soldiers( soldierX,
       soldierY,
       this.game,
       this.enemy, this.soldierix, this.player, this
     );
-    // this.HeavySoldier = new Winners.entity.HeavySoldier(soldierX, 
-    //     soldierY, 
-    //     this.game, 
-    //     this.enemy);
-
-    // this.layer0.addChild(this.HeavySoldier)
+    
 
     this.soldierArr.push(this.soldier);
   }
@@ -175,7 +158,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     duration: 2000,
     onComplete: function () {
       this.layer0.removeChild(m_this);
-      //    m_this.game.layer0.removeChild(m_this); 
+     
       m_this.dispose();
     },
   });
@@ -193,14 +176,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
 Winners.entity.Truck.prototype.dispose = function () {
 
   rune.display.Sprite.prototype.dispose.call(this);
-  //   var m_this = this;
-  //   this.game.timers.create({
-  //     duration: 10000,
-  //     onComplete: function () {
-  //         m_this.game.createTruck();
-
-  //     },
-  //   });
+  
 
 };
 
