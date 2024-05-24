@@ -7,28 +7,66 @@
  *
  * @constructor
  * @extends rune.display.Sprite
- *
+ * 
+ *@param {number}  x ...
+ * @param {number}  y ...
+ * @param {object}  game ...
  * @class
  * @classdesc
  *
  * Game scene.
  */
 Winners.entity.Player = function (x, y, game) {
+  /**
+   * Reference to the game object
+   * @type {Object}
+   */
   this.game = game;
-
+  /**
+   * Reference to the initial x and y coordinates of the player
+   * @type {number}
+   */
   this.initX = x;
   this.initY = y;
-  this.hp = new Winners.entity.Hps(this.game.camera, this);
+  /**
+   * Reference to the new created hp object 
+   * @type {Object}
+   */
+  this.hp = new Winners.entity.Hps(this);
   this.game.camera.addChild(this.hp);
-
+  /**
+   * Reference to the pleyer's base shield object
+   * @type {Object}
+   */
   this.playerBaseShield = this.game.Base1shield;
+  /**
+   * Reference to the base shield object of the pleyer's enemy
+   * @type {Object}
+   */
   this.enemyBaseShield = this.game.Base2shield;
+  /**
+   * Reference to the pleyer's base object
+   * @type {Object}
+   */
   this.playerBase = this.game.base;
+  /**
+   * Reference to the base object of the pleyer's enemy
+   * @type {Object}
+   */
   this.enemyBase = this.game.base2;
-  this.turret = this.game.turret1;
-
+  /**
+   * Reference to the pleyer's turret object
+   * @type {Object}
+   */
   this.turret1 = this.game.turret1;
+  /**
+   * Reference to the container layer of pleyer object
+   * @type {Object}
+   */
   this.layer0 = this.game.layer0;
+
+  
+
 
   //--------------------------------------------------------------------------
   // Super call
@@ -52,8 +90,9 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
 //------------------------------------------------------------------------------
 
 /**
- * ...
- *
+ * 
+ * Setting the color of plyer and calling this.m_initPhysics() and this.m_initAnimation()
+ * @method
  * @returns {undefined}
  */
 Winners.entity.Player.prototype.init = function () {
@@ -71,16 +110,15 @@ Winners.entity.Player.prototype.init = function () {
     new rune.color.Color24(102, 57, 49),
     new rune.color.Color24(172, 50, 50)
   );
-
   this.m_initPhysics();
   this.m_initAnimation();
 };
 
 /**
- * ...
+ * The update method of the player object, exutes its logic per tick
  *
+ * @method
  * @param {number} step Fixed time step.
- *
  * @returns {undefined}
  */
 Winners.entity.Player.prototype.update = function (step) {
@@ -90,45 +128,26 @@ Winners.entity.Player.prototype.update = function (step) {
 };
 
 /**
- * ...
+ *This method prepares the player object to be removed from the memory by the garbage collector
  *
+ *@method
  * @returns {undefined}
  */
 Winners.entity.Player.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
 };
 
-//------------------------------------------------------------------------------
-// Private prototype methods
-//------------------------------------------------------------------------------
 
 /**
- * ...
- *
+ * Method to create one bullet each time it's called
+ * @method
  * @returns {undefined}
- * @private
  */
-Winners.entity.Player.prototype.m_initPhysics = function () {
-  this.velocity.drag.x = 0.05;
-  this.velocity.drag.y = 0.05;
-  this.velocity.max.x = 1.8;
-  this.velocity.max.y = 1.8;
-
-  this.rotation = 90;
-};
-
-/**
- * ...
- *
- * @returns {undefined}
- * @private
- */
-Winners.entity.Player.prototype.m_initAnimation = function () {
-  this.animation.create("idle", [0], 1, true);
-  this.animation.create("walk", [0, 1], 1, true);
-};
-
 Winners.entity.Player.prototype.shoot = function () {
+  /**
+   * Property that references the bullet object returnd by the bullets.create method of the bullets class
+   * @type {Object}
+   */
   this.bullet = this.game.bullets.create(
     this.centerX,
     this.centerY,
@@ -144,10 +163,40 @@ Winners.entity.Player.prototype.shoot = function () {
   this.bullet.rotation = this.turret1.rotation - 90;
   this.turret1.shotAnimation();
 };
+//------------------------------------------------------------------------------
+// Private prototype methods
+//------------------------------------------------------------------------------
 
 /**
- * ...
+ * Method to adjust the velocity and the rotation of the player object by manipulating inbuilt properties
  *
+ * @method
+ * @returns {undefined}
+ * @private
+ */
+Winners.entity.Player.prototype.m_initPhysics = function () {
+  this.velocity.drag.x = 0.05;
+  this.velocity.drag.y = 0.05;
+  this.velocity.max.x = 1.8;
+  this.velocity.max.y = 1.8;
+
+  this.rotation = 90;
+};
+
+/**
+ * Method to calll the inbuilt animation.create method to create animation for the idle and walkin modes
+ *
+ * @method
+ * @returns {undefined}
+ * @private
+ */
+Winners.entity.Player.prototype.m_initAnimation = function () {
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 1, true);
+};
+/**
+ * Method to update the player's velocity and rotation of the player object
+ * @method
  * @returns {undefined}
  * @private
  */
@@ -194,10 +243,10 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   ) {
     this.animation.gotoAndPlay("idle");
   }
-  this.debug = true;
-
+  
   if (this.active) {
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   }
-};
+}; 
+// Slut m_updateInput 

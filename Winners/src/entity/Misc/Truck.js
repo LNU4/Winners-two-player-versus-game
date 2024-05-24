@@ -172,11 +172,13 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
    */
   //this.soldierArr = [];
 
+
   for (var i = 0; i < 4; i++) {
     /**
      * index the soldier that specified in the loop
      * @type {number}
      */
+
     this.soldierix = i;
     /**
      * spcifies the angle of the soldier upon drop
