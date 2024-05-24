@@ -14,7 +14,10 @@
  * Game scene.
  */
 Winners.entity.Turret1 = function (x, y, game) {
-  this.turret1 = null;
+  /**
+   * Reference to the game class
+   * @type {object}
+   */
   this.game = game;
   //--------------------------------------------------------------------------
   // Super call
@@ -42,13 +45,12 @@ Winners.entity.Turret1.prototype.constructor = Winners.entity.Turret1;
 Winners.entity.Turret1.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  this.m_initPhysics();
-  this.m_initAnimation();
-
   this.texture.replaceColor(
     new rune.color.Color24(0, 0, 0),
     new rune.color.Color24(50, 60, 150)
   );
+  this.rotation = 90;
+  this.m_initAnimation();
 };
 
 /**
@@ -63,15 +65,6 @@ Winners.entity.Turret1.prototype.update = function (step) {
   this.m_torretRotation();
 };
 
-/**
- * ...
- *
- * @returns {undefined}
- */
-Winners.entity.Turret1.prototype.dispose = function () {
-  rune.display.Sprite.prototype.dispose.call(this);
-};
-
 Winners.entity.Turret1.prototype.shotAnimation = function () {
   this.animation.gotoAndPlay("shot");
 };
@@ -82,17 +75,7 @@ Winners.entity.Turret1.prototype.shotAnimation = function () {
 
 /**
  * ...
- *
- * @returns {undefined}
- * @private
- */
-Winners.entity.Turret1.prototype.m_initPhysics = function () {
-  this.rotation = 90;
-};
-
-/**
- * ...
- *
+ * Method to handle the animation creatation related to the turret class.
  * @returns {undefined}
  * @private
  */
@@ -104,15 +87,23 @@ Winners.entity.Turret1.prototype.m_initAnimation = function () {
 
 /**
  * ...
- *
+ * Method that handles the turret rotation
  * @returns {undefined}
  * @private
  */
 
 Winners.entity.Turret1.prototype.m_torretRotation = function () {
+  /**
+   *  properties to speicify the first gamepad as a controller
+   * @type {Object}
+   */
   var gamepad = this.gamepads.get(0);
 
   if (gamepad.stickRightLeft || this.keyboard.pressed("J")) {
+    /**
+     * speicify on how many degrees to rotate for time the gamepad input is pressed
+     * @type {number}
+     */
     this.rotation -= 5;
   } else if (gamepad.stickRightRight || this.keyboard.pressed("L")) {
     this.rotation += 5;
@@ -121,4 +112,13 @@ Winners.entity.Turret1.prototype.m_torretRotation = function () {
   } else if (gamepad.stickRightDown) {
     this.rotation += 5;
   }
+};
+
+/**
+ * ...
+ *
+ * @returns {undefined}
+ */
+Winners.entity.Turret1.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };

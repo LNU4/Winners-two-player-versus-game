@@ -21,18 +21,26 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
   /**
    * Calls the constructor method of the super class.
    */
-  this.soldier = null;
+
+  /**
+   * reference to the game class
+   * @type {object}
+   */
   this.game = game;
   rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
-
-  
+  /**
+   * reference to the display object container
+   * @type {object}
+   */
   this.layer0 = this.game.layer0;
 
   if (enemy === this.game.player) {
+    /**
+     * Referene to the player object as the enemy object
+     * @type {object}
+     */
     this.enemy = this.game.player;
     this.player = this.game.player2;
-
-  
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
     this.player = this.game.player;
@@ -42,8 +50,15 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
     );
   }
 
-  this.deadSoldiers = 0; // test
+  /**
+   * Properity to state the movement speed of the truck object
+   * @type {number}
+   */
   this.movementspeed = 5;
+  /**
+   * Properity to state if the truck has reached the player
+   * @type {boolean}
+   */
   this.reachedPlayer = false;
 };
 
@@ -68,15 +83,21 @@ Winners.entity.Truck.prototype.init = function () {
 
   this.m_initAnimation();
   this.m_initPhysics();
+  /**
+   * Properity to speicify the rotation of the object
+   * @type {number}
+   */
   this.rotation = 90;
 };
-
+/**
+ * Method to handle the animation creatation related to the truck class.
+ *
+ * @returns {undefined}
+ */
 Winners.entity.Truck.prototype.m_initAnimation = function () {
-  
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
-
 
 /**
  * ...
@@ -87,86 +108,110 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
  */
 Winners.entity.Truck.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  
+
   if (!this.reachedPlayer && this.enemy) {
+    /**
+     * Normalized distance "both X and Y axis" between the soldier object and the enemy
+     */
     var distanceX = this.enemy.x - this.x;
     var distanceY = this.enemy.y - this.y;
-
-   
+    /* Calculate the distance between the two object "truck and enemy player object" */
     var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
     if (distance <= 160) {
       this.reachedPlayer = true;
       this.stopAndSpawnSoldiers();
     } else {
+      /**
+       * Move the truck towards the enemy player object
+       */
       distanceX /= distance;
       distanceY /= distance;
       this.x += distanceX * this.movementspeed;
       this.y += distanceY * this.movementspeed;
     }
   }
+  /**
+   * Clamp the soldier to stay within the display object container "on both axis".
+   * @type {number}
+   */
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   if (this.enemy && this.player) {
     this.hitTestAndSeparate(this.enemy);
     this.hitTestAndSeparate(this.player);
-
-
   }
 
- 
   if (this.enemy.bullets) {
     if (this.enemy.bullets.bullet) {
       if (this.enemy.bullets.bullet.hitTest(this)) {
-      
-        this.layer0.removeChild(this.enemy.bullets.bullet)
-        this.layer0.removeChild(this)
+        this.layer0.removeChild(this.enemy.bullets.bullet);
+        this.layer0.removeChild(this);
       }
     }
-
-
   }
-
-
 };
-
+/**
+ * Method to handle the truck stop and create soldiers
+ * @method
+ */
 Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
-
+  /**
+   * Reference to the truck
+   * @type {Object}
+   */
   var m_this = this;
-  this.velocity.x = 0;
+  /**
+   * Stops the movement of the truck on both axis
+   * @type {number}
+   */
   var truckX = this.x;
   var truckY = this.y;
-  this.soldierArr = [];
+  /**
+   *
+   */
+  //this.soldierArr = [];
 
   for (var i = 0; i < 4; i++) {
+    /**
+     * index the soldier that specified in the loop
+     * @type {number}
+     */
     this.soldierix = i;
+    /**
+     * spcifies the angle of the soldier upon drop
+     * @type {number}
+     */
     var angle = Math.random() * Math.PI * 2;
+    /**
+     * spcifies the the drop distance of the soldiers and the angle
+     * @type {number}
+     */
     var distance = 30;
     var soldierX = truckX + Math.cos(angle) * distance;
     var soldierY = truckY + Math.sin(angle) * distance;
 
-    this.soldier = new Winners.entity.Soldiers( soldierX,
+    this.soldier = new Winners.entity.Soldiers(
+      soldierX,
       soldierY,
       this.game,
-      this.enemy, this.soldierix, this.player, this
+      this.enemy,
+      this.soldierix,
+      this.player,
+      this
     );
-    
 
-    this.soldierArr.push(this.soldier);
+    //this.soldierArr.push(this.soldier);
   }
   this.game.timers.create({
     duration: 2000,
     onComplete: function () {
       this.layer0.removeChild(m_this);
-     
+
       m_this.dispose();
     },
   });
-
-
-
 };
-
 
 /**
  * ...
@@ -174,19 +219,27 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
  * @returns {undefined}
  */
 Winners.entity.Truck.prototype.dispose = function () {
-
   rune.display.Sprite.prototype.dispose.call(this);
-  
-
 };
 
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
-
+/**
+ * Method to handle the physics applied on the truck object
+ * @method
+ */
 Winners.entity.Truck.prototype.m_initPhysics = function () {
+  /**
+   * Drag physics applied on the truck object
+   * @type {number}
+   */
   this.velocity.drag.x = 0.05;
   this.velocity.drag.y = 0.05;
+  /**
+   * Max velocity applied on the truck object
+   * @type {number}
+   */
   this.velocity.max.x = 1.8;
   this.velocity.max.y = 1.8;
 };

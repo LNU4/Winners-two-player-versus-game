@@ -10,28 +10,28 @@
  *
  * @class
  * @classdesc
- * 
+ *
  * Game scene.
  */
-Winners.entity.Base1shield = function(x, y, game) {
-
-    //--------------------------------------------------------------------------
-    // Super call
-    //--------------------------------------------------------------------------
-    this.game  = game;
-    this.hpValue = 1000;
-    /**
-     * Calls the constructor method of the super class.
-     */
-    rune.display.Sprite.call(this, x, y, 128, 128, "baseprotection");
-   
+Winners.entity.Base1shield = function (x, y, game) {
+  //--------------------------------------------------------------------------
+  // Super call
+  //--------------------------------------------------------------------------
+  this.game = game;
+  this.hpValue = 1000;
+  /**
+   * Calls the constructor method of the super class.
+   */
+  rune.display.Sprite.call(this, x, y, 128, 128, "baseprotection");
 };
 
 //------------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
 
-Winners.entity.Base1shield.prototype = Object.create(rune.display.Sprite.prototype);
+Winners.entity.Base1shield.prototype = Object.create(
+  rune.display.Sprite.prototype
+);
 Winners.entity.Base1shield.prototype.constructor = Winners.entity.Base1shield;
 
 //------------------------------------------------------------------------------
@@ -43,22 +43,30 @@ Winners.entity.Base1shield.prototype.constructor = Winners.entity.Base1shield;
  *
  * @returns {undefined}
  */
-Winners.entity.Base1shield.prototype.init = function() {
-    rune.display.Sprite.prototype.init.call(this);
-    this.immovable = true
-    this.rotation = (-90); 
-    this.texture.replaceColor (
-        new rune.color.Color24(86, 85, 88),
-        new rune.color.Color24(172, 50, 50)
-    );
+Winners.entity.Base1shield.prototype.init = function () {
+  rune.display.Sprite.prototype.init.call(this);
+  /**
+   * Property that makes the base object not moveable
+   * @type {boolean}
+   */
+  this.immovable = true;
+  /**
+   * specifiy the rotation angle of the object
+   * @type {number}
+   */
+  this.rotation = -90;
+  this.texture.replaceColor(
+    new rune.color.Color24(86, 85, 88),
+    new rune.color.Color24(172, 50, 50)
+  );
 
-    this.animation.create("0", [0], 1, true);
-    this.animation.create("1", [1], 1, true);
-    this.animation.create("2", [2], 1, true);
-    this.animation.create("3", [3], 1, true);
-    this.animation.create("4", [4], 1, true);
-console.log(this)
-    this.animation.gotoAndStop("0");
+  this.animation.create("0", [0], 1, true);
+  this.animation.create("1", [1], 1, true);
+  this.animation.create("2", [2], 1, true);
+  this.animation.create("3", [3], 1, true);
+  this.animation.create("4", [4], 1, true);
+  console.log(this);
+  this.animation.gotoAndStop("0");
 };
 
 /**
@@ -68,10 +76,10 @@ console.log(this)
  *
  * @returns {undefined}
  */
-Winners.entity.Base1shield.prototype.update = function(step) {
-    rune.display.Sprite.prototype.update.call(this, step);
-    this.hitTestAndSeparate(this.game.player2);
-    this.hitTestAndSeparate(this.game.player);
+Winners.entity.Base1shield.prototype.update = function (step) {
+  rune.display.Sprite.prototype.update.call(this, step);
+  this.hitTestAndSeparate(this.game.player2);
+  this.hitTestAndSeparate(this.game.player);
 };
 
 /**
@@ -79,14 +87,6 @@ Winners.entity.Base1shield.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Base1shield.prototype.dispose = function() {
-    rune.display.Sprite.prototype.dispose.call(this);
-   
+Winners.entity.Base1shield.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };
-
-//------------------------------------------------------------------------------
-// Private prototype methods
-//------------------------------------------------------------------------------
-
-
-
