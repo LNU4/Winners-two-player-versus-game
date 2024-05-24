@@ -66,7 +66,7 @@ Winners.entity.Bullet = function (
    * @type {number}
    * @protected
    */
-  this.m_speed = 1;
+  this.m_speed = 0.8;
 
   //--------------------------------------------------------------------------
   // Super call
@@ -176,8 +176,8 @@ Winners.entity.Bullet.prototype.update = function (step) {
     //   this.game.layer2.removeChild(this.bulletTarget.turret1);
     //   this.layer0.removeChild(this.bulletTarget);
     this.bulletTarget.active = false;
-    this.bulletTarget.x = -1000;
-    this.bulletTarget.y = 1000;
+    this.bulletTarget.x =  Math.random() * (2000 - (-2000)) + (-2000);
+    this.bulletTarget.y = Math.random() * (1000 - (-1000)) + (-1000);
       this.game.timers.create({
         duration: 4000,
         scope: this,

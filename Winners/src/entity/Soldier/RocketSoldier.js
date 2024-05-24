@@ -255,7 +255,9 @@ Winners.entity.Rocketsoldier.prototype.shoot = function () {
 
     rocket.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
     
-    this.animation.gotoAndPlay("shoot");
+    if (this.animation) {
+      this.animation.gotoAndPlay("shoot");
+      };
   }
 };
 
