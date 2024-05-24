@@ -9,8 +9,7 @@
  *  @extends rune.display.DisplayObject
  * 
  *  
- * rune.display.Sprite
- *  rune.ui.Progressbar
+ * 
  *
  * 
  * @class
@@ -22,29 +21,18 @@
 Winners.entity.Hps = function (Sateg, player){
 
 
-    // this.life = life;
-    // this.lifeIx = life.ix;
+   
     this.parentSatge = Sateg;
     this.player = player;
     this.value = 100;  
     this.x = this.player.x;
     this.y = this.player.y;
-    // this.width = 25;
-    // this.hight = 10; 
-    // console.log(this.width)
-    // console.log(this.hight)
-
+    
    
 
     rune.display.DisplayObject.call(this, this.x, this.y, 25, 10);
     this.backgroundColor = "#03fc24";
     this.movable = true;
-
-    //rune.display.Sprite.call(this, 1160, 359.5, 32, 32, "100hp");
-    //rune.ui.Progressbar.call(this,100, 25, "#ffff00", "#ff00ff")
-    /**
-      * ****** THESE LINES SJOULD BE MOVED INTO init() ******
-      */
 
     
 

@@ -17,8 +17,7 @@ Winners.entity.Life = function (player, ix, cordOb) {
 
       this.ix = ix;
       this.cordOb = cordOb;
-      // console.log(this.ix)
-      // this.value = 100
+      
       this.x = 0;
       this.y = 0;
       this.value = 0;
@@ -37,14 +36,14 @@ Winners.entity.Life = function (player, ix, cordOb) {
      * Calls the constructor method of the super class.
      */
     rune.display.Sprite.call(this,this.x, this.y, 16,16, "heart");
-  //  console.log(this.ix)
+  
    this.player.parent.addChild(this)
 
    /**
     * ****** THESE LINES SJOULD BE MOVED INTO init() ******
     */
 
-  // console.log(this.player.parent)
+
        if (this.ix === 0){
           this.value = 100
          

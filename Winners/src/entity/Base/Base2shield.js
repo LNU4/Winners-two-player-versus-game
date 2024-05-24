@@ -27,7 +27,6 @@ Winners.entity.Base2shield = function(x, y, game) {
      * Calls the constructor method of the super class.
      */
     rune.display.Sprite.call(this, x, y, 128, 128, "baseprotection");
-   //this.movable = false;
   
 };
 
@@ -80,15 +79,7 @@ Winners.entity.Base2shield.prototype.update = function(step) {
     rune.display.Sprite.prototype.update.call(this, step);
     this.hitTestAndSeparate(this.game.player2)
     this.hitTestAndSeparate(this.game.player)
-    // if (this.hitTestAndSeparate(this.game.player2)) {
-    //     this.velocity.x = 0;
-    //     this.velocity.y = 0;
-    //     console.log('.-.-.-.') 
-    //    return;
-      
-        
-    //   }
-    // this.hitTestAndSeparate()
+ 
     
 };
 
@@ -99,7 +90,7 @@ Winners.entity.Base2shield.prototype.update = function(step) {
  */
 Winners.entity.Base2shield.prototype.dispose = function() {
     rune.display.Sprite.prototype.dispose.call(this);
-    console.log('player2 baseShild is disposed')
+    
 };
 
 //------------------------------------------------------------------------------

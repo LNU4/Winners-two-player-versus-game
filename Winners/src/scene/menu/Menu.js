@@ -43,16 +43,17 @@ Winners.scene.Menu.prototype.constructor = Winners.scene.Menu;
  */
 Winners.scene.Menu.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
-  this.bg = new rune.display.Graphic(0, 0, 1280, 720, "mainbackground");
+  console.log(this.tweens)
+  console.log(this.tweens.create(this, "mainbackground"))
+  this.bg = new rune.display.Sprite(0, 0, 1280, 720, "mainbackground");
+  console.log(this.bg)
   this.stage.addChild(this.bg);
   var text = new rune.text.BitmapField("Winners ");
-  //text.debug = true;
   text.autoSize = true;
   text.scaleX = 6;
   text.scaleY = 6;
   text.x = 500;
   text.y = 160;
-  //text.center = this.cameras.getCameraAt(0).viewport.center;
 
   this.stage.addChild(text);
 
@@ -67,6 +68,19 @@ Winners.scene.Menu.prototype.init = function () {
   this.menu.center = this.application.screen.center;
   this.stage.addChild(this.menu);
   this.selected = 0;
+  // this.bg.animation.create("0", [0], 1, true); 
+  // this.bg.animation.create("1", [1], 1, true); 
+  // this.bg.animation.create("2", [2], 1, true); 
+  // this.bg.animation.create("3", [3], 1, true); 
+  // this.bg.animation.create("4", [4], 1, true); 
+  // this.bg.animation.create("5", [5], 1, true); 
+  // this.bg.animation.create("6", [6], 1, true); 
+  // this.bg.animation.create("7", [7], 1, true); 
+  // this.bg.animation.create("8", [8], 1, true); 
+  // this.bg.animation.create("9", [9], 1, true); 
+
+  this.m_initAnimation();
+
 };
 
 /**
@@ -79,23 +93,16 @@ Winners.scene.Menu.prototype.init = function () {
  */
 Winners.scene.Menu.prototype.update = function (step) {
   rune.scene.Scene.prototype.update.call(this, step);
-  /*
-    if (this.keyboard.justPressed("SPACE")) {
-        this.application.scenes.load([new Winners.scene.Game()]);
-    }
-    */
 
   var gamepad = this.gamepads.get(0);
 
   if (this.keyboard.justPressed("UP") || gamepad.justPressed("12")) {
     this.menu.up();
     this.selected = (this.selected - 1 + 4) % 4;
-  } else if (this.keyboard.justPressed("DOWN")|| gamepad.justPressed("13")) {
+  } else if (this.keyboard.justPressed("DOWN") || gamepad.justPressed("13")) {
     this.menu.down();
     this.selected = (this.selected + 1) % 4;
-
   }
-
 
   if (this.keyboard.justPressed("SPACE") || gamepad.justPressed("0")) {
     switch (this.selected) {
@@ -139,7 +146,10 @@ Winners.scene.Menu.prototype.update = function (step) {
         break;
     }
   }
+
 };
+
+
 
 /**
  * This method is automatically called once just before the scene ends. Use
@@ -151,4 +161,9 @@ Winners.scene.Menu.prototype.update = function (step) {
  */
 Winners.scene.Menu.prototype.dispose = function () {
   rune.scene.Scene.prototype.dispose.call(this);
+
 };
+
+Winners.scene.Menu.prototype.m_initAnimation = function () {
+  this.bg.animation.create("animation",[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 4, true ); 
+}

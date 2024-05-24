@@ -10,26 +10,22 @@
  *
  * @class
  * @classdesc
- * 
+ *
  * Game scene.
  */
-Winners.entity.Base2 = function(x, y, game) {
-    
-    this.HPValue = 1000; 
-    this.game = game;
-    //--------------------------------------------------------------------------
-    // Super call
-    //--------------------------------------------------------------------------
-    if (this.game.player){
-    
-        this.enemy = this.game.player
-
-    }
-    /**
-     * Calls the constructor method of the super class.
-     */
-    rune.display.Sprite.call(this, x, y, 64, 64, "Base");
-   
+Winners.entity.Base2 = function (x, y, game) {
+  this.HPValue = 1000;
+  this.game = game;
+  //--------------------------------------------------------------------------
+  // Super call
+  //--------------------------------------------------------------------------
+  if (this.game.player) {
+    this.enemy = this.game.player;
+  }
+  /**
+   * Calls the constructor method of the super class.
+   */
+  rune.display.Sprite.call(this, x, y, 64, 64, "base");
 };
 
 //------------------------------------------------------------------------------
@@ -48,15 +44,23 @@ Winners.entity.Base2.prototype.constructor = Winners.entity.Base2;
  *
  * @returns {undefined}
  */
-Winners.entity.Base2.prototype.init = function() {
-    rune.display.Sprite.prototype.init.call(this);
-    this.immovable = true
-    this.m_placement();
+Winners.entity.Base2.prototype.init = function () {
+  rune.display.Sprite.prototype.init.call(this);
+  this.immovable = true;
+  this.m_placement();
 
-    this.texture.replaceColor (
-        new rune.color.Color24(34, 32, 52),
-        new rune.color.Color24(32, 32, 32)
-    );
+  this.texture.replaceColor(
+    new rune.color.Color24(34, 32, 52),
+    new rune.color.Color24(32, 32, 32)
+  );
+
+  this.animation.create("0", [0], 1, true);
+  this.animation.create("1", [1], 1, true);
+  this.animation.create("2", [2], 1, true);
+  this.animation.create("3", [3], 1, true);
+  this.animation.create("4", [4], 1, true);
+  this.animation.gotoAndStop("0");
+
 };
 
 /**
@@ -66,44 +70,10 @@ Winners.entity.Base2.prototype.init = function() {
  *
  * @returns {undefined}
  */
-Winners.entity.Base2.prototype.update = function(step) {
-    rune.display.Sprite.prototype.update.call(this, step);
-    this.hitTestAndSeparate(this.game.player2)
-    this.hitTestAndSeparate(this.game.player)
-
-
-//     if(this.enemy)   { 
-       
-//         if (this.enemy.bullets)  {
-
-//          if (this.enemy.bullets.bullet){
-           
-//        if (this.enemy.bullets.bullet.hitTestAndSeparate(this)) {
-     
-//        // this.enemy.bullets.bullet.hitTestAndSeparate(this)
-//         this.game.layer0.removeChild(this.enemy.bullets.bullet, true);
-//         this.HPValue -=200;
-        
-//         console.log(this.HPValue);
-       
-//         if (this.HPValue  == 0){
-//             console.log('zxzxz')
-//            // this.enemy.bullets.bullet.hitTestAndSeparate(this)
-//             this.game.layer0.removeChild(this, true);
-            
-           
-
-//         }
-
-//         // this.game.layer0.removeChild(this.enemy.bullets.bullet, true)
-//         // this.game.layer0.removeChild(this, true);
-//         //this.dispose()
-
-//         } 
-//     } 
-// } 
-// }
-    
+Winners.entity.Base2.prototype.update = function (step) {
+  rune.display.Sprite.prototype.update.call(this, step);
+  this.hitTestAndSeparate(this.game.player2);
+  this.hitTestAndSeparate(this.game.player);
 };
 
 /**
@@ -111,17 +81,15 @@ Winners.entity.Base2.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Base2.prototype.dispose = function() {
-    rune.display.Sprite.prototype.dispose.call(this);
-    console.log('base 1 is disposed')
-
+Winners.entity.Base2.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };
 
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
 
-Winners.entity.Base2.prototype.m_placement = function() {
-    this.flippedX = true;
-   
+Winners.entity.Base2.prototype.m_placement = function () {
+  this.flippedX = true;
 };
+

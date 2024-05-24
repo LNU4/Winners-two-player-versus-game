@@ -57,7 +57,7 @@ Winners.entity.Base1shield.prototype.init = function() {
     this.animation.create("2", [2], 1, true);
     this.animation.create("3", [3], 1, true);
     this.animation.create("4", [4], 1, true);
-
+console.log(this)
     this.animation.gotoAndStop("0");
 };
 
@@ -81,7 +81,7 @@ Winners.entity.Base1shield.prototype.update = function(step) {
  */
 Winners.entity.Base1shield.prototype.dispose = function() {
     rune.display.Sprite.prototype.dispose.call(this);
-    console.log('player1 baseShild is disposed')
+   
 };
 
 //------------------------------------------------------------------------------

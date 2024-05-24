@@ -14,30 +14,18 @@
  * Game scene.
  */
 
-//Winners.entity.Player2 = function (x, y, game,container, turret1, player, player2Base, enemy1Base
-
 Winners.entity.Player2 = function (x, y, game) {
-  /**
-   * placeholder to refer to the second player
-   */
-  // this.soldierHit = 0;
   this.game = game;
-  //this.player = player;
   this.player = this.game.player;
-  //this.lifeIx = 0;
-  //this.lives = 3;
-  //this.livesArr = [];
+
   this.initX = x;
   this.initY = y;
   this.hp = new Winners.entity.Hps(this.game.camera, this);
-  console.log(this.game.camera.numChildren);
+ 
   this.game.camera.addChild(this.hp);
-  console.log(this.game.camera.numChildren);
-  // this.playerBase = this.game.base2;
-  // this.enemyBase = this.game.base;
-  //this.turret1 = turret1;
+
+
   this.turret1 = this.game.turret2;
-  //this.layer0 = container;
   this.layer0 = this.game.layer0;
   this.playerBase = this.game.base2;
   this.enemyBase = this.game.base;
@@ -73,24 +61,6 @@ Winners.entity.Player2.prototype.constructor = Winners.entity.Player2;
 Winners.entity.Player2.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
   this.rotation = -90;
-
-  // var lifeX = 1230;
-  // var lifeY = 25;
-
-  // for (var i = 0; i < this.lives; i++) {
-  //   var lifeIx = i;
-
-  //   this.life = new Winners.entity.Life(this, lifeIx, {
-  //     lifeX: lifeX,
-  //     lifeY: lifeY,
-  //   });
-
-  //   this.livesArr.push(this.life);
-  // };
-  // this.texture.replaceColor(
-  //   new rune.color.Color24(32, 32, 52),
-  //   new rune.color.Color24(32, 32, 32)
-  // );
 
   this.m_initPhysics();
   this.m_initAnimation();
@@ -136,15 +106,13 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
 };
 
 Winners.entity.Player2.prototype.shoot = function () {
- /*  this.bullets = new Winners.entity.Bullets(
-    this.game,
-    this.layer0,
+  this.bullet = this.game.bullets.create(
+    this.centerX,
+    this.centerY,
     this,
     this.turret1,
     this.player
   );
-  this.application.scenes.selected.groups.add(this.bullets); */
-  this.bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.player);
 
   this.turret1.shotAnimation();
   this.bullet.velocity.x = this.velocity.x;
@@ -164,31 +132,13 @@ Winners.entity.Player2.prototype.shoot = function () {
 
 Winners.entity.Player2.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  // this.life.globalX = this.globalX;
-  // this.life.globalY = this.globalY;
+
   this.playerBaseShield = this.game.Base2shield;
   this.enemyBaseShield = this.game.Base1shield;
   this.hitTestAndSeparate(this.game.base);
   this.hitTestAndSeparate(this.game.base2);
   this.hitTestAndSeparate(this.game.Base1shield);
 
-  //   if (this.game.truck){
-  //     this.enemyTruck = this.game.truck;
-  //     if (this.bullets){
-  //   if (this.bullets.bullet){
-  //     if (this.bullets.bullet.hitTest(this.game.truck)){
-  //     console.log('.-.-.-.')
-  //     this.layer0.removeChild(this.game.truck)
-  //   }
-  //   }
-  //     //console.log(this.enemyTruck)
-  //   }
-  //   // if (this.hitTestAndSeparate(this.game.Base2shield)) {
-  //   //   //console.log('.-.-.-.')
-
-  //   // }
-
-  // }
   this.m_updateInput();
 };
 
@@ -234,7 +184,6 @@ Winners.entity.Player2.prototype.m_updateInput = function () {
 
   if (gamepad.justPressed(7) || this.keyboard.justPressed("M")) {
     this.shoot();
-    //console.log("shot")
   }
 
   if (
@@ -243,17 +192,6 @@ Winners.entity.Player2.prototype.m_updateInput = function () {
   ) {
     this.animation.gotoAndPlay("idle");
   }
-  /*
-  this.debug = true;
-  var minX = 0;
-  var minY = 0;
-  var maxX = 1280 - this.width;
-  var maxY = 720 - this.height;
-
-  this.x = Math.min(Math.max(this.x, minX), maxX);
-  this.y = Math.min(Math.max(this.y, minY), maxY);
-  */
-  // way easier alternative
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
