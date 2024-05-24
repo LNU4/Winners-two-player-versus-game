@@ -10,7 +10,11 @@
  *
  * @param {number} x ...
  * @param {number} y ...
- *
+ * @param {object} layer0 the container layer of the bullet objects
+ * @param {object} game reference to the game object
+ * @param {object} bulletOwner reference to the object that generated the bullets object
+ * @param {object} bulletTarget reference to the enemy of the object that generated bullets object
+ * @param {object} bullets the bullets object that instantiates the bullet objects
  * @class
  * @classdesc
  *
@@ -28,31 +32,28 @@ Winners.entity.Bullet = function (
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
-
-  /**
+  this.game = game;
+  this.bulletOwner = bulletOwner;
+  this.bulletTarget = bulletTarget;
+  this.bullets = bullets;
+  this.layer0 = layer0;
+   /**
    * The amount of damage the bullet causes.
    *
    * @type {number}
    * @default 20
    */
 
-  this.damage = 5.0;
-
-  this.game = game;
-
-  this.layer0 = layer0;
-
-  this.bulletOwner = bulletOwner;
-  this.bulletTarget = bulletTarget;
-
-  this.bullets = bullets;
-
+   this.damage = 5.0;
+    
+  /**
+   * Property calling the inbullet method for reading audio files
+   * @type {media.Sound}
+   */
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
-
-  //--------------------------------------------------------------------------
+ //--------------------------------------------------------------------------
   // Protected properties
-  //--------------------------------------------------------------------------
-
+  //------------------------------------------------------------------------
   /**
    * The speed of the bullet.
    *
@@ -60,6 +61,8 @@ Winners.entity.Bullet = function (
    * @protected
    */
   this.m_speed = 0.8;
+
+ 
 
   //--------------------------------------------------------------------------
   // Super call
@@ -69,7 +72,15 @@ Winners.entity.Bullet = function (
    * ...
    */
   rune.display.DisplayObject.call(this, x, y, 6, 6);
+  /**
+   * Property setting the color of the bullet
+   * @type {string}
+   */
   this.backgroundColor = "#FF00FF";
+  /**
+   * Property enabling the bullet to move
+   * @type {boolean}
+   */
   this.movable = true;
 };
 
@@ -83,11 +94,18 @@ Winners.entity.Bullet.prototype = Object.create(
 Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
 
 //------------------------------------------------------------------------------
-// Override public prototype methods (ENGINE)
+// Override public prototype methods 
 //------------------------------------------------------------------------------
 
 /**
- * @inheritDoc
+ * The update method of the bullets object, exutes its logic per tick
+ * It manipulates the hp values of the players, their bases, their baseShieldes, removes the bullet aafter it collides with an enemy or the objects belongen to an enemy, carys out the respawn process based on wheather a player has been killed aka has 0 in hp 
+ * 
+ * @method
+ *
+ * @param {number} step Fixed time step.
+ *
+ * @returns {undefined}
  */
 Winners.entity.Bullet.prototype.update = function (step) {
   rune.display.DisplayObject.prototype.update.call(this, step);
@@ -236,36 +254,17 @@ this.bulletTarget.y = Math.random() * (1000 + (-1000)) + (-1000);
   this.m_updateMotion(step);
 };
 
-Winners.entity.Bullet.prototype.respawn = function (HpOb) {
-
-  this.layer0.removeChild(HpOb);
-
-  this.layer0.removeChild(this.bulletTarget.livesArr[this.bulletTarget.lifeIx]);
-
-  this.bulletTarget.lifeIx++;
-
-  this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp =
-    new Winners.entity.Hps(
-      this.bulletTarget.livesArr[this.bulletTarget.lifeIx],
-      this.stage,
-      this.bulletTarget
-    );
-
-  this.bulletTarget.parent.addChildAt(
-    this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
-    2
-  );
-  this.bulletTarget.parent.removeChild(this.bulletTarget);
-  this.game.timers.create({
-    duration: 3000,
-    onComplete: function () {
-      this.layer0.addChild(target);
-      target.flicker.start();
-      target.x = this.bulletTarget.initX;
-      target.y = this.bulletTarget.initY;
-    },
-  });
+/**
+ *This method prepares the object to be removed from the memory by the garbage collector
+ *
+ *@method
+ * @returns {undefined}
+ */
+Winners.entity.Bullet.prototype.dispose = function () {
+  rune.display.DisplayObject.prototype.dispose.call(this);
 };
+
+
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
@@ -285,6 +284,4 @@ Winners.entity.Bullet.prototype.m_updateMotion = function (step) {
     Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 };
 
-Winners.entity.Bullet.prototype.dispose = function () {
-  rune.display.DisplayObject.prototype.dispose.call(this);
-};
+

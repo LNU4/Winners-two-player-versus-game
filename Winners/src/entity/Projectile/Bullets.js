@@ -8,7 +8,7 @@
  * @constructor
  * @extends rune.scene.Scene
  *
- * @param {rune.display.layer1} layer1 ...
+ * @param {object} game ...
  *
  * @class
  * @classdesc
@@ -28,11 +28,19 @@ Winners.entity.Bullets = function (game) {
    */
   this.maxNumBullets = 4;
  /**
-  * Object refering to thre game
+  * Property efering to thre game object
   * @type {object}
   */
   this.game = game;
+  /**
+   * property refering to the container layer of the object
+   * @type {object}
+   */
   this.container = this.game.layer0;
+  /**
+   * Property calling the inbullet method for reading audio files
+   * @type {media.Sound}
+   */
   this.fire = this.application.sounds.sound.get("fire1");
 
   //--------------------------------------------------------------------------
@@ -71,10 +79,12 @@ Winners.entity.Bullets.prototype.constructor = Winners.entity.Bullets;
 
 /**
  * Creates a new bullet at a specific position.
- *
+ * @method
  * @param {number} [x=0] ...
  * @param {number} [y=0] ...
- *
+ *@param {object} owner reference to the object that generated the bullets object
+ *@param {object} turret reference to the turret object that belonges to the object that generated the bullets object
+ *@param {object} enemy reference to the enemy of the object that generated bullets object
  * @return {undefined}
  */
 Winners.entity.Bullets.prototype.create = function (
@@ -84,6 +94,7 @@ Winners.entity.Bullets.prototype.create = function (
   turret,
   enemy
 ) {
+
   this.owner = owner;
   this.turret = turret;
   this.enemy = enemy;
@@ -91,7 +102,10 @@ Winners.entity.Bullets.prototype.create = function (
   if (this.numMemebers == this.maxNumBullets) {
     this.removeChild(this.getChildAt(0));
   }
-
+/**
+ * Property containing a reference to the instance of the bullet object
+ * @type {object}
+ */
   this.bullet = new Winners.entity.Bullet(
     this.game,
     this.container,
@@ -99,6 +113,10 @@ Winners.entity.Bullets.prototype.create = function (
     this.enemy,
     this
   );
+  /**
+   * Proprties to specify the x & y coords of the bullet object
+   * @type {number}
+   */
   this.bullet.x = (x || 0) - (this.bullet.width >> 1);
   this.bullet.y = (y || 0) - (this.bullet.height >> 1);
 
@@ -106,6 +124,19 @@ Winners.entity.Bullets.prototype.create = function (
   this.fire.play(true);
 
   return this.bullet;
+};
+
+/**
+ * The update method of the bullets object, exutes its logic per tick
+ *
+ * @method
+ *
+ * @param {number} step Fixed time step.
+ *
+ * @returns {undefined}
+ */
+Winners.entity.Bullets.prototype.update = function (step) {
+
 };
 
 /**
@@ -118,4 +149,3 @@ Winners.entity.Bullets.prototype.reset = function () {
 
 };
 
-Winners.entity.Bullets.prototype.update = function (step) {};
