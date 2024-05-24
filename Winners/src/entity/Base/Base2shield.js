@@ -10,31 +10,31 @@
  *
  * @class
  * @classdesc
- * 
+ *
  * Game scene.
  */
-Winners.entity.Base2shield = function(x, y, game) {
+Winners.entity.Base2shield = function (x, y, game) {
+  //--------------------------------------------------------------------------
+  // Super call
+  //--------------------------------------------------------------------------
+  this.game = game;
+  this.hpValue = 1000;
+  this.x = x;
+  this.y = y;
 
-    //--------------------------------------------------------------------------
-    // Super call
-    //--------------------------------------------------------------------------
-    this.game = game;
-    this.hpValue = 1000;
-    this.x = x;
-    this.y = y
-
-    /**
-     * Calls the constructor method of the super class.
-     */
-    rune.display.Sprite.call(this, x, y, 128, 128, "baseprotection");
-  
+  /**
+   * Calls the constructor method of the super class.
+   */
+  rune.display.Sprite.call(this, x, y, 128, 128, "baseprotection");
 };
 
 //------------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
 
-Winners.entity.Base2shield.prototype = Object.create(rune.display.Sprite.prototype);
+Winners.entity.Base2shield.prototype = Object.create(
+  rune.display.Sprite.prototype
+);
 Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
 
 //------------------------------------------------------------------------------
@@ -46,26 +46,33 @@ Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
  *
  * @returns {undefined}
  */
-Winners.entity.Base2shield.prototype.init = function() {
-    rune.display.Sprite.p
-    
-    this.movable = false;
-    this.rotation = 90;
-    this.immovable = true
+Winners.entity.Base2shield.prototype.init = function () {
+  rune.display.Sprite.p;
+  /**
+   * specify the rotation of the object
+   * @type {number}
+   */
+  this.rotation = 90;
+  /**
+   * Property that makes the base object not moveable
+   * @type {boolean}
+   */
+  this.immovable = true;
 
-    this.texture.replaceColor (
-        new rune.color.Color24(86, 85, 88),
-        new rune.color.Color24(32, 32, 32)
-    );
+  this.texture.replaceColor(
+    new rune.color.Color24(86, 85, 88),
+    new rune.color.Color24(32, 32, 32)
+  );
+  /**
+   * State the Animation state based on the index
+   */
+  this.animation.create("0", [0], 1, true);
+  this.animation.create("1", [1], 1, true);
+  this.animation.create("2", [2], 1, true);
+  this.animation.create("3", [3], 1, true);
+  this.animation.create("4", [4], 1, true);
 
-    this.animation.create("0", [0], 1, true);
-    this.animation.create("1", [1], 1, true);
-    this.animation.create("2", [2], 1, true);
-    this.animation.create("3", [3], 1, true);
-    this.animation.create("4", [4], 1, true);
-
-    this.animation.gotoAndStop("0");
-   
+  this.animation.gotoAndStop("0");
 };
 
 /**
@@ -75,12 +82,10 @@ Winners.entity.Base2shield.prototype.init = function() {
  *
  * @returns {undefined}
  */
-Winners.entity.Base2shield.prototype.update = function(step) {
-    rune.display.Sprite.prototype.update.call(this, step);
-    this.hitTestAndSeparate(this.game.player2)
-    this.hitTestAndSeparate(this.game.player)
- 
-    
+Winners.entity.Base2shield.prototype.update = function (step) {
+  rune.display.Sprite.prototype.update.call(this, step);
+  this.hitTestAndSeparate(this.game.player2);
+  this.hitTestAndSeparate(this.game.player);
 };
 
 /**
@@ -88,14 +93,6 @@ Winners.entity.Base2shield.prototype.update = function(step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Base2shield.prototype.dispose = function() {
-    rune.display.Sprite.prototype.dispose.call(this);
-    
+Winners.entity.Base2shield.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };
-
-//------------------------------------------------------------------------------
-// Private prototype methods
-//------------------------------------------------------------------------------
-
-
-

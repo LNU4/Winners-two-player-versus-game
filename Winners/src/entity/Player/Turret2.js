@@ -52,8 +52,7 @@ Winners.entity.Turret2.prototype.init = function () {
     new rune.color.Color24(0, 0, 0),
     new rune.color.Color24(32, 32, 32)
   );
-
-  this.m_initPhysics();
+  this.rotation = -90;
   this.m_initAnimation();
 };
 
@@ -69,34 +68,16 @@ Winners.entity.Turret2.prototype.update = function (step) {
   this.m_torretRotation();
 };
 
-/**
- * ...
- *
- * @returns {undefined}
- */
-Winners.entity.Turret2.prototype.dispose = function () {
-  rune.display.Sprite.prototype.dispose.call(this);
-};
-
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
 Winners.entity.Turret2.prototype.shotAnimation = function () {
   this.animation.gotoAndPlay("shot");
 };
-/**
- * ...
- *
- * @returns {undefined}
- * @private
- */
-Winners.entity.Turret2.prototype.m_initPhysics = function () {
-  this.rotation = -90;
-};
 
 /**
  * ...
- *
+ * Method to handle the animation creatation related to the turret class.
  * @returns {undefined}
  * @private
  */
@@ -106,15 +87,23 @@ Winners.entity.Turret2.prototype.m_initAnimation = function () {
 
 /**
  * ...
- *
+ * Method that handles the turret rotation
  * @returns {undefined}
  * @private
  */
 
 Winners.entity.Turret2.prototype.m_torretRotation = function () {
+  /**
+   *  properties to speicify the second gamepad as a controller
+   * @type {Object}
+   */
   var gamepad = this.gamepads.get(1);
 
   if (gamepad.stickRightLeft || this.keyboard.pressed("J")) {
+    /**
+     * speicify on how many degrees to rotate for time the gamepad input is pressed
+     * @type {number}
+     */
     this.rotation -= 5;
   } else if (gamepad.stickRightRight || this.keyboard.pressed("L")) {
     this.rotation += 5;
@@ -123,4 +112,13 @@ Winners.entity.Turret2.prototype.m_torretRotation = function () {
   } else if (gamepad.stickRightDown) {
     this.rotation += 5;
   }
+};
+
+/**
+ * ...
+ *
+ * @returns {undefined}
+ */
+Winners.entity.Turret2.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
 };

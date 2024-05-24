@@ -166,14 +166,16 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.player.player2 = this.player2;
-  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
-  //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
+ // this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
+ // this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
   //  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
+
   //this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   /**
    * Property to create an empty array to look after the powerups for player
    * @type {Array}
    */
+
   this.player.powerupsArray = [];
   /**
    * Property to create an empty array to look after the powerups for player2
@@ -209,9 +211,9 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.base);
   this.layer0.addChild(this.base2);
 
-  //   this.layer0.addChild(this.heavysoldiers);
-  //  this.layer0.addChild(this.snipersoldiers);
-  //   this.layer0.addChild(this.rocketsoldier);
+  //this.layer0.addChild(this.heavysoldiers);
+  // this.layer0.addChild(this.snipersoldiers);
+  //this.layer0.addChild(this.rocketsoldier);
   //this.layer0.addChild(this.repairsoldier);
   this.layer1.addChild(this.turret1);
   this.layer1.addChild(this.turret2);
