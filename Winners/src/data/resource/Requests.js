@@ -56,6 +56,7 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("resizedtank", "./../asset/png/resizedtank.png");
 	this.add("rocket", "./../asset/png/rocket.png");
 	this.add("rocketsoldier", "./../asset/png/rocketsoldier.png");
+	this.add("rymdsten_texture_font_large_544x78", "./../asset/png/rymdsten_texture_font_large_544x78.png");
 	this.add("snipersoldier", "./../asset/png/snipersoldier.png");
 	this.add("soldier", "./../asset/png/soldier.png");
 	this.add("star", "./../asset/png/star.png");

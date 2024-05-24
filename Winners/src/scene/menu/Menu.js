@@ -57,14 +57,16 @@ Winners.scene.Menu.prototype.init = function () {
 
   this.stage.addChild(text);
 
-  this.menu = new rune.ui.VTMenu();
+  //this.menu = new rune.ui.VTMenu();
+  this.menu = new rune.ui.VTMenu({resource : "rymdsten_texture_font_large_544x78"});
 
-  this.menu.add("Best of ONE round");
-  this.menu.add("Best of THREE rounds");
-  this.menu.add("How to Play");
-  this.menu.add("Quit");
-  this.menu.scaleX = 2;
-  this.menu.scaleY = 2;
+  this.menu.add("best of one round");
+  console.log(this.menu)
+  this.menu.add("best of three rounds");
+  this.menu.add("how to play");
+  this.menu.add("quit");
+  this.menu.scaleX = 1;
+  this.menu.scaleY = 1;
   this.menu.center = this.application.screen.center;
   this.stage.addChild(this.menu);
   this.selected = 0;
@@ -84,6 +86,13 @@ Winners.scene.Menu.prototype.init = function () {
 };
 
 /**
+ * Method for creating animations with the inbuilt create method. The method is used to create the animation, it´s frames and frames per second. Lastly it set to loop bolean.
+ * @returns {undefined}
+ */
+Winners.scene.Menu.prototype.m_initAnimation = function () {
+  this.bg.animation.create("animation",[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 4, true ); 
+}
+/**
  * This method is automatically executed once per "tick". The method is used for
  * calculations such as application logic.
  *
@@ -93,7 +102,9 @@ Winners.scene.Menu.prototype.init = function () {
  */
 Winners.scene.Menu.prototype.update = function (step) {
   rune.scene.Scene.prototype.update.call(this, step);
-
+  /**
+   * Referance to the gamepad connected to the application. In this case it´s the first gamepad connected to the application.
+   */
   var gamepad = this.gamepads.get(0);
 
   if (this.keyboard.justPressed("UP") || gamepad.justPressed("12")) {
@@ -161,9 +172,7 @@ Winners.scene.Menu.prototype.update = function (step) {
  */
 Winners.scene.Menu.prototype.dispose = function () {
   rune.scene.Scene.prototype.dispose.call(this);
-
+ 
 };
 
-Winners.scene.Menu.prototype.m_initAnimation = function () {
-  this.bg.animation.create("animation",[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], 4, true ); 
-}
+
