@@ -19,11 +19,11 @@
 Winners.entity.HeavySoldier = function (x, y, game, enemy) {
   this.game = game;
   //this.enemy = this.game.player2;
- // this.enemy = enemy;
-  
+  // this.enemy = enemy;
+
   this.layer = this.game.layer0;
-  this.shootDistance = 200;   
-  this.moveSpeed = 0.8;      
+  this.shootDistance = 200;
+  this.moveSpeed = 0.8;
   this.shootCooldown = 320;
   this.lastShootTime = 0;
 
@@ -43,13 +43,8 @@ Winners.entity.HeavySoldier = function (x, y, game, enemy) {
     // );
   }
 
-
-  
   rune.display.Sprite.call(this, x, y, 32, 32, "heavysoldier");
 };
-
-
-
 
 Winners.entity.HeavySoldier.prototype = Object.create(
   rune.display.Sprite.prototype
@@ -68,12 +63,12 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
     this.y
   );
   if (this.enemy.hitTest(this)) {
-   // this.isDead = true;
-   // this.powerUpProb = Math.random() * 5;
+    // this.isDead = true;
+    // this.powerUpProb = Math.random() * 5;
     this.game.layer0.removeChild(this);
     this.dispose();
   }
- /*  if (this.isDead == true) {
+  /*  if (this.isDead == true) {
     var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
     var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
     this.game.timers.create({
@@ -91,10 +86,13 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
     });
   } */
 
-  if (distance <= this.shootDistance && distance > 0) {
+  if (distance <= this.shootDistance) {
+    // removed the distance >0 to check if that solves the crash with gotoandplay
     this.x = this.x;
     this.y = this.y;
-    this.animation.gotoAndPlay("idle"); //caused crash earlier, check further
+    if (this.animation) {
+      this.animation.gotoAndPlay("idle"); //caused crash earlier, check further
+    };
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
@@ -106,7 +104,9 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+    if (this.animation) {
     this.animation.gotoAndPlay("walk");
+    };
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
@@ -137,7 +137,7 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
     currentPosition.y += directionY * this.moveSpeed;
   }
 
- /*
+  /*
   currentPosition.x = Math.min(
     Math.max(currentPosition.x, 0),
     1280 - this.width
@@ -147,8 +147,8 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
     720 - this.height
   );
 */
-this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
-this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
+  this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
+  this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   /*
   this.x = currentPosition.x;
   this.y = currentPosition.y;
@@ -157,19 +157,20 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
     this.game.layer0.removeChild(this);
   }
 
+  this.hitTest(
+    this.game.bullets,
+    function (soldier, bullet) {
+      if (bullet.bulletTarget == soldier.SoldierOwner) {
+        console.log(bullet, soldier);
 
-  this.hitTest(this.game.bullets, function(soldier, bullet) {
-    if (bullet.bulletTarget == soldier.SoldierOwner) {
-
-     console.log(bullet, soldier) 
-     
-     this.game.layer0.removeChild(bullet); 
-      bullet.dispose();
-      this.game.layer0.removeChild(soldier);
-    //  this.handelKillSoldier();
-    }
-  }, this)
-
+        this.game.layer0.removeChild(bullet);
+        bullet.dispose();
+        this.game.layer0.removeChild(soldier);
+        //  this.handelKillSoldier();
+      }
+    },
+    this
+  );
 
   // if (this.enemy.bullets){
   //   console.log(this.enemy)
@@ -181,7 +182,7 @@ this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   //     this.dispose()
   //   }
   //   }
-  // }  
+  // }
 };
 
 Winners.entity.HeavySoldier.prototype.shoot = function () {
@@ -195,8 +196,8 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
   var distanceY = targetPosition.y - currentPosition.y;
   var distance = currentPosition.distance(targetPosition);
 
-  if (distance -40 <= this.shootDistance) {
-    var bulletSpeed = 1.5;   
+  if (distance - 40 <= this.shootDistance) {
+    var bulletSpeed = 1.5;
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
     this.animation.gotoAndPlay("shoot");
@@ -210,7 +211,13 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
     );
     this.application.scenes.selected.groups.add(this.bullets); */
 
-    var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
+    var bullet = this.game.bullets.create(
+      this.centerX,
+      this.centerY,
+      this,
+      this.turret1,
+      this.enemy
+    );
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
 
@@ -219,24 +226,16 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
 };
 
 Winners.entity.HeavySoldier.prototype.dispose = function () {
-    
   rune.display.Sprite.prototype.dispose.call(this);
-
-  
 };
 Winners.entity.HeavySoldier.prototype.init = function () {
-  
   rune.display.Sprite.prototype.init.call(this);
 
-  
- 
   this.m_initAnimation();
 };
 
 Winners.entity.HeavySoldier.prototype.m_initAnimation = function () {
-  
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 5, true);
   this.animation.create("shoot", [0, 1], 5, true);
-
 };

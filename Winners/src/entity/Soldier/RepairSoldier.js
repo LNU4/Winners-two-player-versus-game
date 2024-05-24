@@ -54,7 +54,9 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
 
     var distanceX = targetX - this.x;
     var distanceY = targetY - this.y;
+    if (this.animation) {
     this.animation.gotoAndPlay("idle");
+    };
     var distance = currentPosition.distance(targetPosition);
 
     //console.log(distance)
@@ -66,8 +68,9 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
 
         this.x += directionX * this.moveSpeed;
         this.y += directionY * this.moveSpeed;
+        if (this.animation) {
         this.animation.gotoAndPlay("walk"); 
-
+        };
         this.rotation = Math.atan2(directionY, directionX) * (180 / Math.PI);
     } else if (distance <= 64) {
         this.moveSpeed = 0;
@@ -106,7 +109,7 @@ Winners.entity.Repairsoldier.prototype.init = function () {
   };
   
   Winners.entity.Repairsoldier.prototype.m_initAnimation = function () {
-    this.animation.create("shoot", [0, 3], 5, true);
+    
     this.animation.create("idle", [0], 1, true);
     this.animation.create("walk", [0, 1], 5, true);
     

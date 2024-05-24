@@ -106,10 +106,12 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
      }); 
    }*/
 
-  if (distance  <= this.shootDistance && distance > 0) {
+  if (distance  <= this.shootDistance && distance > 90) {
     this.x = this.x;
     this.y = this.y;
-    this.animation.gotoAndPlay("idle");// Probablyh due to shoot animation N.A caused crash earlier
+    if (this.animation) {
+    this.animation.gotoAndPlay("idle");// Probablyh due to shoot animation N.A caused crash earlier, crashes to and state cant read null
+    };
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
@@ -117,11 +119,15 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
       this.lastShootTime = currentTime;
     }
   } else {
-    this.animation.gotoAndPlay("walk");
+   
     distanceX /= distance;
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+
+    if (this.animation) {
+      this.animation.gotoAndPlay("walk");
+      };
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);

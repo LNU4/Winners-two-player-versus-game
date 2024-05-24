@@ -129,8 +129,9 @@ Winners.entity.Soldiers.prototype.update = function (step) {
   if (distance <= this.shootDistance && distance > 90) {
     this.x = this.x;
     this.y = this.y;
+    if (this.animation) {
     this.animation.gotoAndPlay("idle"); 
-    
+    };
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
     //  this.shoot();
@@ -142,7 +143,9 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+    if (this.animation) {
     this.animation.gotoAndPlay("walk"); 
+    };
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
