@@ -200,7 +200,9 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
     var bulletSpeed = 8;
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
+    if (this.animation) {
     this.animation.gotoAndPlay("shoot");
+    };
     /*  this.bullets = new Winners.entity.Bullets(
       this.game,
       this.layer,
