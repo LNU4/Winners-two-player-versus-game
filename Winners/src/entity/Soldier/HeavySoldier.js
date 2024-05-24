@@ -94,7 +94,7 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
   if (distance <= this.shootDistance && distance > 0) {
     this.x = this.x;
     this.y = this.y;
-
+    this.animation.gotoAndPlay("idle"); //caused crash earlier, check further
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       this.shoot();
@@ -106,6 +106,7 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
     distanceY /= distance;
     this.x += distanceX * this.moveSpeed;
     this.y += distanceY * this.moveSpeed;
+    this.animation.gotoAndPlay("walk");
   }
 
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
@@ -194,11 +195,12 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
   var distanceY = targetPosition.y - currentPosition.y;
   var distance = currentPosition.distance(targetPosition);
 
-  if (distance <= this.shootDistance) {
+  if (distance -40 <= this.shootDistance) {
     var bulletSpeed = 1.5;   
     var bulletDirectionX = distanceX / distance;
     var bulletDirectionY = distanceY / distance;
-/* 
+    this.animation.gotoAndPlay("shoot");
+    /*  
     this.bullets = new Winners.entity.Bullets(
       this.game,
       this.layer,
@@ -221,4 +223,20 @@ Winners.entity.HeavySoldier.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
 
   
+};
+Winners.entity.HeavySoldier.prototype.init = function () {
+  
+  rune.display.Sprite.prototype.init.call(this);
+
+  
+ 
+  this.m_initAnimation();
+};
+
+Winners.entity.HeavySoldier.prototype.m_initAnimation = function () {
+  
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("walk", [0, 1], 5, true);
+  this.animation.create("shoot", [0, 1], 5, true);
+
 };
