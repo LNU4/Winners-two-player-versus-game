@@ -327,7 +327,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   } else if (player2Wins > player1Wins) {
     resultMsg += "Player 2 Won";
   } else {
-    resultMsg += "error";
+    resultMsg += "It's a tie!";
   }
   var text = new rune.text.BitmapField(resultMsg);
 
