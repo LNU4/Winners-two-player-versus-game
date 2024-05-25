@@ -72,8 +72,8 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
   this.distance = this.currentPosition.distance(this.targetPosition);
 
   if (this.enemy.hitTest(this)) {
-    this.game.layer0.removeChild(this);
-    this.dispose();
+    this.game.layer0.removeChild(this, true);
+    //this.dispose();
     return;
   }
 
@@ -104,7 +104,7 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
   this.rotation = angle * (180 / Math.PI);
 
   if (this.enemy.hitTest(this)) {
-    this.game.layer0.removeChild(this);
+    this.game.layer0.removeChild(this, true);
   }
 
   this.hitTest(

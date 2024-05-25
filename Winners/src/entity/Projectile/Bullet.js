@@ -47,7 +47,7 @@ Winners.entity.Bullet = function (
    this.damage = 5.0;
     
   /**
-   * Property calling the inbullet method for reading audio files
+   * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
@@ -112,7 +112,7 @@ Winners.entity.Bullet.prototype.update = function (step) {
   var m_this = this;
 
   if (this.hitTest(this.bulletTarget)) {
-    this.layer0.removeChild(this);
+    this.game.bullets.removeMember(this, true);
 
     this.HpOb = this.bulletTarget.hp;
     this.HpOb.value -= this.damage;
@@ -161,7 +161,7 @@ Winners.entity.Bullet.prototype.update = function (step) {
 this.bulletTarget.x = Math.random() * (2000 + (-2000)) + (-2000);
 
 
-this.bulletTarget.y = Math.random() * (1000 + (-1000)) + (-1000);
+this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
 
 
       // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
@@ -197,8 +197,8 @@ this.bulletTarget.y = Math.random() * (1000 + (-1000)) + (-1000);
 
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
-      this.layer0.removeChild(this, true);
-      this.dispose();
+      this.game.bullets.removeMember(this, true);
+     
 
       this.bulletTarget.playerBaseShield.hpValue -= 200;
      
@@ -222,9 +222,8 @@ this.bulletTarget.y = Math.random() * (1000 + (-1000)) + (-1000);
 
   if (this.bulletTarget.playerBase) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBase)) {
-      this.layer0.removeChild(this, true);
-      this.dispose();
-
+      this.game.bullets.removeMember(this, true);
+      
       this.bulletTarget.playerBase.HPValue -= 200;
     
       if (this.bulletTarget.playerBase.HPValue == 800) {

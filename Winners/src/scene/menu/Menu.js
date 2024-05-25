@@ -45,10 +45,11 @@ Winners.scene.Menu.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
   console.log(this.tweens)
   console.log(this.tweens.create(this, "mainbackground"))
+  this.menu = new rune.ui.VTMenu({resource : "New Piskel-4"});
   this.bg = new rune.display.Sprite(0, 0, 1280, 720, "mainbackground");
   console.log(this.bg)
   this.stage.addChild(this.bg);
-  var text = new rune.text.BitmapField("Winners ");
+  var text = new rune.text.BitmapField("winners", "New Piskel-4");
   text.autoSize = true;
   text.scaleX = 6;
   text.scaleY = 6;
@@ -58,15 +59,14 @@ Winners.scene.Menu.prototype.init = function () {
   this.stage.addChild(text);
 
   //this.menu = new rune.ui.VTMenu();
-  this.menu = new rune.ui.VTMenu({resource : "rymdsten_texture_font_large_544x78"});
-
-  this.menu.add("best of one round");
+ 
+  this.menu.add("one round");
   console.log(this.menu)
-  this.menu.add("best of three rounds");
+  this.menu.add("two rounds");
   this.menu.add("how to play");
   this.menu.add("quit");
-  this.menu.scaleX = 1;
-  this.menu.scaleY = 1;
+  this.menu.scaleX = 2;
+  this.menu.scaleY = 2;
   this.menu.center = this.application.screen.center;
   this.stage.addChild(this.menu);
   this.selected = 0;

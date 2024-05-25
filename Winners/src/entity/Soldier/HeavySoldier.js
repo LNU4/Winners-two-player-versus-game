@@ -93,8 +93,8 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
    */
   this.distance = this.currentPosition.distance(this.targetPosition);
   if (this.enemy.hitTest(this)) {
-    this.game.layer0.removeChild(this);
-    this.dispose();
+    this.game.layer0.removeChild(this, true);
+    // this.dispose();
   }
 
   if (this.distance <= this.shootDistance) {
@@ -167,16 +167,17 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
   }
 
   if (this.enemy.hitTest(this)) {
-    this.game.layer0.removeChild(this);
+    this.game.layer0.removeChild(this, true);
   }
 
   this.hitTest(
     this.game.bullets,
     function (soldier, bullet) {
       if (bullet.bulletTarget == soldier.SoldierOwner) {
-        this.game.layer0.removeChild(bullet);
-        bullet.dispose();
-        this.game.layer0.removeChild(soldier);
+        this.game.bullets.removeMember(bullet, true);
+        // this.game.layer0.removeChild(bullet);
+        // bullet.dispose();
+        this.game.layer0.removeChild(soldier, true);
       }
     },
     this

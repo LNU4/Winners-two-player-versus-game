@@ -43,7 +43,11 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
  */
 Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
-    this.add("background", "./../asset/png/background.png");
+
+    this.add("Baseprotection", "./../asset/png/Baseprotection.png");
+	this.add("New Piskel-4", "./../asset/png/New Piskel-4.png");
+	this.add("Truck", "./../asset/png/Truck.png");
+	this.add("background", "./../asset/png/background.png");
 	this.add("base", "./../asset/png/base.png");
 	this.add("Baseprotection", "./../asset/png/Baseprotection.png");
 	this.add("heart", "./../asset/png/heart.png");
@@ -55,13 +59,13 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("resizedtank", "./../asset/png/resizedtank.png");
 	this.add("rocket", "./../asset/png/rocket.png");
 	this.add("rocketsoldier", "./../asset/png/rocketsoldier.png");
-	this.add("rymdsten_texture_font_large_544x78", "./../asset/png/rymdsten_texture_font_large_544x78.png");
 	this.add("snipersoldier", "./../asset/png/snipersoldier.png");
 	this.add("soldier", "./../asset/png/soldier.png");
 	this.add("star", "./../asset/png/star.png");
 	this.add("tank-reworked", "./../asset/png/tank-reworked.png");
 	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("turret-remake", "./../asset/png/turret-remake.png");
+	this.add("chaos", "./../asset/wav/chaos.mp3");
 	this.add("fire1", "./../asset/wav/fire1.wav");
 	this.add("powerupSound", "./../asset/wav/powerupSound.wav");
 	this.add("respwan1", "./../asset/wav/respwan1.wav");
