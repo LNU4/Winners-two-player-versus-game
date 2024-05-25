@@ -43,11 +43,13 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
  */
 Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
+
     this.add("Baseprotection", "./../asset/png/Baseprotection.png");
 	this.add("New Piskel-4", "./../asset/png/New Piskel-4.png");
 	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("background", "./../asset/png/background.png");
 	this.add("base", "./../asset/png/base.png");
+	this.add("Baseprotection", "./../asset/png/Baseprotection.png");
 	this.add("heart", "./../asset/png/heart.png");
 	this.add("heavysoldier", "./../asset/png/heavysoldier.png");
 	this.add("howtoplay", "./../asset/png/howtoplay.png");
@@ -61,6 +63,7 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("soldier", "./../asset/png/soldier.png");
 	this.add("star", "./../asset/png/star.png");
 	this.add("tank-reworked", "./../asset/png/tank-reworked.png");
+	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("turret-remake", "./../asset/png/turret-remake.png");
 	this.add("chaos", "./../asset/wav/chaos.mp3");
 	this.add("fire1", "./../asset/wav/fire1.wav");

@@ -125,6 +125,23 @@ Winners.entity.Player.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
   this.m_updateInput();
+
+  if (this.activeBullets) {
+    for (var i = this.activeBullets.length - 1; i >= 0; i--) {
+      var bullet = this.activeBullets[i];
+      
+      var pointOne = new rune.geom.Point(bullet.x, bullet.y);
+      var pointTwo = new rune.geom.Point(bullet.initX, bullet.initY);
+      var distance = pointOne.distance(pointTwo);
+
+      if (distance > 400) {
+        this.game.layer0.removeChild(bullet);
+        this.activeBullets.splice(i, 1);
+        this.game.bullets.removeMember(bullet);
+      }
+    }
+  }
+  console.log(this.game.bullets.numMembers)
 };
 
 /**
@@ -155,12 +172,21 @@ Winners.entity.Player.prototype.shoot = function () {
     this.turret1,
     this.player2
   );
+  if (!this.activeBullets) {
+    this.activeBullets = [];
+  }
+  
+  this.bullet.initX = this.bullet.x;
+  this.bullet.initY = this.bullet.y;
 
   this.bullet.velocity.x = this.velocity.x;
   this.bullet.velocity.y = this.velocity.y;
   this.bullet.globalX = this.velocity.x;
   this.bullet.globalX = this.velocity.x;
   this.bullet.rotation = this.turret1.rotation - 90;
+
+  this.activeBullets.push(this.bullet);
+
   this.turret1.shotAnimation();
 };
 //------------------------------------------------------------------------------

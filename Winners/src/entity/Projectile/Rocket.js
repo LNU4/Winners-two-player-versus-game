@@ -9,6 +9,12 @@ Winners.entity.Rocket = function (
 ) {
   this.game = game;
   this.damage = 20;
+
+  /**
+   * Referance to the display object container
+   * @type {object}
+   */
+
   this.layer0 = layer0;
   this.bulletOwner = bulletOwner;
   this.bulletTarget = bulletTarget;
@@ -36,6 +42,11 @@ Winners.entity.Rocket.prototype.m_initAnimation = function () {
 
 Winners.entity.Rocket.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
+
+  /**
+   * Referance to the rocket class
+   * @type {object}
+   */
   var m_this = this;
 
   this.animation.gotoAndPlay("walk");
@@ -121,26 +132,48 @@ Winners.entity.Rocket.prototype.update = function (step) {
   }
 };
 
+/**
+ * Method that handles player respawn when HP reaches 0
+ * @param {HpOb}
+ */
 Winners.entity.Rocket.prototype.respawn = function (HpOb) {
+  //this.layer0.removeChild(HpOb, true);
 
-  this.layer0.removeChild(HpOb);
-  this.bulletTarget.parent.addChildAt(
-    this.bulletTarget.livesArr[this.bulletTarget.lifeIx].hp,
-    2
-  );
-  this.bulletTarget.parent.removeChild(this.bulletTarget);
+
+  tthis.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
+  this.bulletTarget.y = Math.random() * (1000 + -1000) + -1000;
+
+  // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
+  // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
+
   this.game.timers.create({
-    duration: 3000,
+    duration: 4000,
+    scope: this,
     onComplete: function () {
-      this.layer0.addChild(target);
-      target.flicker.start();
-      target.x = this.bulletTarget.initX;
-      target.y = this.bulletTarget.initY;
+      this.bulletTarget.active = true;
+      m_this.bulletTarget.x = m_this.bulletTarget.initX;
+      m_this.bulletTarget.y = m_this.bulletTarget.initY;
+
+      m_this.layer0.addChild(m_this.bulletTarget);
+      m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
+      m_this.bulletTarget.flicker.start();
+
+      m_this.game.camera.addChild(m_this.HpOb);
+      m_this.HpOb.value = 100;
+      rune.display.DisplayObject.call(
+        m_this.HpOb,
+        m_this.bulletTarget.x,
+        m_this.bulletTarget.y,
+        25,
+        10
+      );
+      m_this.HpOb.backgroundColor = "#03fc24";
+
+      m_this.respawn.play(true);
     },
   });
 };
 
 Winners.entity.Rocket.prototype.dispose = function () {
   rune.display.DisplayObject.prototype.dispose.call(this);
- 
 };
