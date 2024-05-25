@@ -113,8 +113,9 @@ Winners.entity.Soldiers.prototype.update = function (step) {
     this.game.bullets,
     function (soldier, bullet) {
       if (bullet.bulletTarget == soldier.SoldierOwner) {
-        this.game.layer0.removeChild(bullet);
-        bullet.dispose();
+        this.game.bullets.removeMember(bullet, true);
+        // this.game.layer0.removeChild(bullet);
+       // bullet.dispose();
         this.handelKillSoldier();
       }
     },
@@ -155,7 +156,7 @@ Winners.entity.Soldiers.prototype.shoot = function () {
 
 Winners.entity.Soldiers.prototype.handelKillSoldier = function () {
   var m_this = this;
-  this.game.layer0.removeChild(this);
+  this.game.layer0.removeChild(this, true);
   this.isDead = true;
   this.powerUpProb = Math.floor(Math.random() * 4);
 
@@ -171,8 +172,8 @@ Winners.entity.Soldiers.prototype.handelKillSoldier = function () {
 
 Winners.entity.Soldiers.prototype.createPowerups = function () {
   var m_this = this;
-  var ranX = Math.floor(Math.random() * (1160 - 120 + 1)) + 120;
-  var ranY = Math.floor(Math.random() * (600 - 120 + 1)) + 120;
+  var ranX = Math.floor(Math.random() * (1160 - 200 + 1)) + 200;
+  var ranY = Math.floor(Math.random() * (600 - 200 + 1)) + 200;
   m_this.powerUp = new Winners.entity.Powerup(
     ranX,
     ranY,

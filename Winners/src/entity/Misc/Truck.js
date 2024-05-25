@@ -14,6 +14,37 @@
  * Game scene.
  */
 Winners.entity.Truck = function (x, y, game, enemy, owner) {
+  
+  /**
+   * reference to the game class
+   * @type {object}
+   */
+  this.game = game;
+ 
+  /**
+   * reference to the display object container
+   * @type {object}
+   */
+  this.layer0 = this.game.layer0;
+/**
+     * Property that limits the value of the hit points for Truck
+     * @type {number}
+     */
+  this.hp = 200;
+
+  
+  /**
+   * Properity to state the movement speed of the truck object
+   * @type {number}
+   */
+  this.movementspeed = 5;
+  /**
+   * Properity to state if the truck has reached the player
+   * @type {boolean}
+   */
+  this.reachedPlayer = false;
+
+
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -21,22 +52,11 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
   /**
    * Calls the constructor method of the super class.
    */
-
-  /**
-   * reference to the game class
-   * @type {object}
-   */
-  this.game = game;
   rune.display.Sprite.call(this, x, y, 40, 40, "Truck");
-  /**
-   * reference to the display object container
-   * @type {object}
-   */
-  this.layer0 = this.game.layer0;
 
   if (enemy === this.game.player) {
     /**
-     * Referene to the player object as the enemy object
+     * Reference to the player object as the enemy object
      * @type {object}
      */
     this.enemy = this.game.player;
@@ -50,16 +70,6 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
     );
   }
 
-  /**
-   * Properity to state the movement speed of the truck object
-   * @type {number}
-   */
-  this.movementspeed = 5;
-  /**
-   * Properity to state if the truck has reached the player
-   * @type {boolean}
-   */
-  this.reachedPlayer = false;
 };
 
 //------------------------------------------------------------------------------
@@ -70,7 +80,7 @@ Winners.entity.Truck.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Truck.prototype.constructor = Winners.entity.Truck;
 
 //------------------------------------------------------------------------------
-// Override public prototype methods (ENGINE)
+// Override public prototype methods 
 //------------------------------------------------------------------------------
 
 /**
@@ -141,15 +151,30 @@ Winners.entity.Truck.prototype.update = function (step) {
     this.hitTestAndSeparate(this.enemy);
     this.hitTestAndSeparate(this.player);
   }
-
-  if (this.enemy.bullets) {
-    if (this.enemy.bullets.bullet) {
-      if (this.enemy.bullets.bullet.hitTest(this)) {
-        this.layer0.removeChild(this.enemy.bullets.bullet);
-        this.layer0.removeChild(this);
+  if (this.game.bullets) {
+  this.hitTest( 
+    this.game.bullets,
+    function (truck, bullet) {
+      console.log(bullet)
+      truck.hp -= 20;
+      
+      if (bullet.bulletTarget === truck.player) {
+        console.log("this")
+        this.game.bullets.removeMember(bullet, true);
+        truck.hp -= 20;
+         if (truck.hp == 0) {
+        this.game.layer0.removeChild(truck, true);
       }
-    }
-  }
+      
+      }
+     
+      
+    },
+    this
+  );
+};
+
+ 
 };
 /**
  * Method to handle the truck stop and create soldiers
@@ -208,9 +233,11 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   this.game.timers.create({
     duration: 2000,
     onComplete: function () {
-      this.layer0.removeChild(m_this);
 
-      m_this.dispose();
+      if (m_this){
+        this.layer0.removeChild(m_this, true);
+      }
+    
     },
   });
 };

@@ -38,7 +38,7 @@ Winners.entity.Bullets = function (game) {
    */
   this.container = this.game.layer0;
   /**
-   * Property calling the inbullet method for reading audio files
+   * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
   this.fire = this.application.sounds.sound.get("fire1");
