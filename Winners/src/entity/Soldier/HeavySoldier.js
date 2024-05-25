@@ -69,6 +69,13 @@ Winners.entity.HeavySoldier.prototype.m_initAnimation = function () {
  */
 Winners.entity.HeavySoldier.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
+
+  this.currentPosition = new rune.geom.Point(this.centerX, this.centerY);
+  this.targetPosition = new rune.geom.Point(
+    this.enemy.centerX,
+    this.enemy.centerY
+  );
+
   /**
    * Referance to the soldier class
    * @type {object}
@@ -78,24 +85,19 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
    * Normalized distance "both X and Y axis" between the soldier object and the enemy
    * @type {number}
    */
-  var distanceX = this.enemy.x - this.x;
-  var distanceY = this.enemy.y - this.y;
+  this.distanceX = this.enemy.x - this.x;
+  this.distanceY = this.enemy.y - this.y;
   /**
    * Calculate the distance between the two object "enemy and soldier object"
    * @type {number}
    */
-  var distance = rune.util.Math.distance(
-    this.enemy.x,
-    this.enemy.y,
-    this.x,
-    this.y
-  );
+  this.distance = this.currentPosition.distance(this.targetPosition);
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this);
     this.dispose();
   }
 
-  if (distance <= this.shootDistance) {
+  if (this.distance <= this.shootDistance) {
     /**
      * if the distance is lower than the shoot distance, stop the movement
      * @type {number}
@@ -123,10 +125,10 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
      * if the distance is higher than the shoot distance, move towards the enemy with the spcified movement speed
      * @type {number}
      */
-    distanceX /= distance;
-    distanceY /= distance;
-    this.x += distanceX * this.moveSpeed;
-    this.y += distanceY * this.moveSpeed;
+    this.distanceX /= this.distance;
+    this.distanceY /= this.distance;
+    this.x += this.distanceX * this.moveSpeed;
+    this.y += this.distanceY * this.moveSpeed;
     if (this.animation) {
       this.animation.gotoAndPlay("walk");
     }
@@ -138,38 +140,30 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
 
-  var currentPosition = new rune.geom.Point(this.x, this.y);
-  var targetPosition = new rune.geom.Point(
-    this.enemy.centerX,
-    this.enemy.centerY
-  );
-  /* var distanceX = targetPosition.x - currentPosition.x;
-  var distanceY = targetPosition.y - currentPosition.y;
-  var distance = currentPosition.distance(targetPosition); 
- */
+
 
   /**
    * Speicifies the soldier angle
    * @type {number}
    */
-  var angle = Math.atan2(distanceY, distanceX);
+  this.angle = Math.atan2(this.distanceY, this.distanceX);
   /**
    * Speicifies the soldier angle "rotation"
    * @type {number}
    */
-  var rotationCords = angle * (180 / Math.PI);
+  this.rotationCords = this.angle * (180 / Math.PI);
   /**
    * Place holder for the rotation coordinates
    * @type {number}
    */
-  this.rotation = rotationCords;
+  this.rotation = this.rotationCords;
 
-  var directionX = distanceX / distance;
-  var directionY = distanceY / distance;
+  this.directionX = this.distanceX / this.distance;
+  this.directionY = this.distanceY / this.distance;
 
-  if (this.shootDistance < distance) {
-    currentPosition.x += directionX * this.moveSpeed;
-    currentPosition.y += directionY * this.moveSpeed;
+  if (this.shootDistance < this.distance) {
+    this.currentPosition.x += this.directionX * this.moveSpeed;
+    this.currentPosition.y += this.directionY * this.moveSpeed;
   }
 
   if (this.enemy.hitTest(this)) {
@@ -190,24 +184,15 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
 };
 
 Winners.entity.HeavySoldier.prototype.shoot = function () {
-  var currentPosition = new rune.geom.Point(this.centerX, this.centerY);
-  var targetPosition = new rune.geom.Point(
-    this.enemy.centerX,
-    this.enemy.centerY
-  );
 
-  var distanceX = targetPosition.x - currentPosition.x;
-  var distanceY = targetPosition.y - currentPosition.y;
-  var distance = currentPosition.distance(targetPosition);
-
-  if (distance - 40 <= this.shootDistance) {
+  if (this.distance - 40 <= this.shootDistance) {
     /**
      * Property to determine the bullet speed
      * @type {number}
      */
     var bulletSpeed = 1.5;
-    var bulletDirectionX = distanceX / distance;
-    var bulletDirectionY = distanceY / distance;
+    this.bulletDirectionX = this.distanceX / this.distance;
+    this.bulletDirectionY = this.distanceY / this.distance;
     if (this.animation) {
       this.animation.gotoAndPlay("shoot");
     }
@@ -219,13 +204,13 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
       this.turret1,
       this.enemy
     );
-    bullet.velocity.x = bulletDirectionX * bulletSpeed;
-    bullet.velocity.y = bulletDirectionY * bulletSpeed;
+    bullet.velocity.x = this.bulletDirectionX * bulletSpeed;
+    bullet.velocity.y = this.bulletDirectionY * bulletSpeed;
     /**
      * Determine the direction of the bullet
      * @type {number}
      */
-    bullet.rotation = Math.atan2(distanceY, distanceX) * (180 / Math.PI);
+    bullet.rotation = Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }
 };
 
