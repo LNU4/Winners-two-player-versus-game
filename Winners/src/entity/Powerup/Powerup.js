@@ -27,7 +27,7 @@ Winners.entity.Powerup = function (x, y, game, unKnownPlayer) {
   this.puX = 0;
   this.puY = 0;
   /**
-   * Property calling the inbullet method for reading audio files
+   * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
   this.soundEffect = this.application.sounds.sound.get("powerupSound");
@@ -143,14 +143,14 @@ Winners.entity.Powerup.prototype.update = function (step) {
 
       this.player.powerupIx++;
 
-      this.game.layer0.removeChild(this);
-      this.dispose();
+      this.game.camera.removeChild(this, true);
+     
     }
   } else {
     this.game.timers.create({
       duration: 30000,
       onComplete: function () {
-        this.layer0.removeChild(m_this);
+        this.camera.removeChild(m_this, true);
       },
     });
   }

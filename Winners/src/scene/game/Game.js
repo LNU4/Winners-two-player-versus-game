@@ -192,6 +192,13 @@ Winners.scene.Game.prototype.init = function () {
    * @type {number}
    */
   this.player2.powerupIx = 0;
+/**
+   * Property calling the builtin method for reading audio files
+   * @type {media.Sound}
+   */
+  this.chaos = this.bullets.application.sounds.sound.get("chaos");
+  this.chaos.play(true);
+  this.chaos.loop = true;
 
   /**
    * Inbuilt functionality to start a timer to create a personal carrier "Truck"
@@ -199,7 +206,7 @@ Winners.scene.Game.prototype.init = function () {
    */
 
   this.timers.create({
-    duration: 4000,
+    duration: 10000,
     onComplete: function () {
       this.createTruck();
     },
@@ -270,7 +277,6 @@ Winners.scene.Game.prototype.createTruck = function () {
     this.player,
     this.player2
   );
-  
   this.layer0.addChild(this.truck);
   this.layer0.addChild(this.truck2);
   if (this.player2.hitTest(this.truck.soldier)) {
@@ -279,12 +285,12 @@ Winners.scene.Game.prototype.createTruck = function () {
     
   };
 
-  //  this.timers.create({
-  //  duration: 2000,
-  //   onComplete: function () {
-  //    this.createTruck();
-  //  },
-  //  });
+   this.timers.create({
+   duration: 40000,
+    onComplete: function () {
+     this.createTruck();
+   },
+   });
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
