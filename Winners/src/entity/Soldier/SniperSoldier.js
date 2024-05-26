@@ -45,11 +45,11 @@ Winners.entity.SniperSodier = function (x, y, game, enemy) {
   if (enemy === this.game.player) {
     this.enemy = this.game.player;
     this.SoldierOwner = this.game.player2;
-    this.texture.replaceColor(new rune.color.Color24(0, 0, 0), new rune.color.Color24(172, 50, 50));
+    this.texture.replaceColor(new rune.color.Color24(102, 102, 102), new rune.color.Color24(172, 50, 50));
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
     this.SoldierOwner = this.game.player;
-    this.texture.replaceColor(new rune.color.Color24(0, 0, 0), new rune.color.Color24(32, 32, 32));
+    this.texture.replaceColor(new rune.color.Color24(0, 0, 0), new rune.color.Color24(172, 50, 50));
   }
 };
 
