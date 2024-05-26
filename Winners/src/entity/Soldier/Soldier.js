@@ -18,7 +18,7 @@
  * @param {object} truck reference to the truck object
  * Game scene.
  */
-Winners.entity.Soldiers = function (
+Winners.entity.Soldier = function (
   x,
   y,
   game,
@@ -84,7 +84,7 @@ Winners.entity.Soldiers = function (
  * @returns {undefined}
  */
 
-Winners.entity.Soldiers.prototype.init = function () {
+Winners.entity.Soldier.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
   this.m_initAnimation();
 };
@@ -92,15 +92,15 @@ Winners.entity.Soldiers.prototype.init = function () {
 //------------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
-Winners.entity.Soldiers.prototype = Object.create(
+Winners.entity.Soldier.prototype = Object.create(
   rune.display.Sprite.prototype
 );
-Winners.entity.Soldiers.prototype.constructor = Winners.entity.Soldiers;
+Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldier;
 
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
 //------------------------------------------------------------------------------
-Winners.entity.Soldiers.prototype.update = function (step) {
+Winners.entity.Soldier.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   /**
    * Private reference to the soldier class 
@@ -166,7 +166,15 @@ Winners.entity.Soldiers.prototype.update = function (step) {
    * @type {number}
    */
   this.rotation = angle * (180 / Math.PI);
-
+  /**
+   * Array to hold the objects that soldier cant go through
+   * @type {Array}
+   */
+  var gameObs = [this.game.base, this.game.base2, this.game.Base1shield, this.game.Base2shield];
+  for (var i = 0; i < gameObs.length; i++) {
+   var gameOb = gameObs[i];
+   this.hitTestAndSeparate(gameOb);
+  }
   if (this.enemy.hitTest(this)) {
     this.handelKillSoldier();
   }
@@ -189,7 +197,7 @@ Winners.entity.Soldiers.prototype.update = function (step) {
  *
  * @returns {undefined}
  */
-Winners.entity.Soldiers.prototype.m_initAnimation = function () {
+Winners.entity.Soldier.prototype.m_initAnimation = function () {
   this.animation.create("shoot", [0, 3], 5, true);
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 5, true);
@@ -200,7 +208,7 @@ Winners.entity.Soldiers.prototype.m_initAnimation = function () {
  * @Method
  * @return {undefined}
  */
-Winners.entity.Soldiers.prototype.shoot = function () {
+Winners.entity.Soldier.prototype.shoot = function () {
 
   if (this.distance <= this.shootDistance) {
     /**
@@ -244,7 +252,7 @@ Winners.entity.Soldiers.prototype.shoot = function () {
  * @method 
  * @returns {undefined}
  */
-Winners.entity.Soldiers.prototype.handelKillSoldier = function () {
+Winners.entity.Soldier.prototype.handelKillSoldier = function () {
   /**
    * Private reference to the solder class
    * @type {object}
@@ -268,7 +276,7 @@ Winners.entity.Soldiers.prototype.handelKillSoldier = function () {
  * @method
  * @return {undefined}
  */
-Winners.entity.Soldiers.prototype.createPowerups = function () {
+Winners.entity.Soldier.prototype.createPowerups = function () {
   /**
    * Private reference to the solder class
    * @type {object}
@@ -295,6 +303,6 @@ Winners.entity.Soldiers.prototype.createPowerups = function () {
  *@method
  * @returns {undefined}
  */
-Winners.entity.Soldiers.prototype.dispose = function () {
+Winners.entity.Soldier.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
 };

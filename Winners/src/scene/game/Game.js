@@ -166,7 +166,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.player.player2 = this.player2;
-  this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
+  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
   //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
   //  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
 
@@ -200,17 +200,7 @@ Winners.scene.Game.prototype.init = function () {
   this.chaos.play(true);
   this.chaos.loop = true;
 
-  /**
-   * Inbuilt functionality to start a timer to create a personal carrier "Truck"
-   * @type {Method}
-   */
-
-  this.timers.create({
-    duration: 10000,
-    onComplete: function () {
-      this.createTruck();
-    },
-  });
+ 
 
   this.layer0.addChild(this.bg);
   this.layer0.addChild(this.player);
@@ -220,12 +210,24 @@ Winners.scene.Game.prototype.init = function () {
 
   //this.layer0.addChild(this.heavysoldiers);
   //this.layer0.addChild(this.snipersoldiers);
-  this.layer0.addChild(this.rocketsoldier);
+  //this.layer0.addChild(this.rocketsoldier);
   //this.layer0.addChild(this.repairsoldier);
   this.layer1.addChild(this.turret1);
   this.layer1.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
+
+   /**
+   * Inbuilt functionality to start a timer to create a personal carrier "Truck"
+   * @type {Method}
+   */
+
+   this.timers.create({
+    duration: 10000,
+    onComplete: function () {
+      this.createTruck();
+    },
+  });
   
   
 };

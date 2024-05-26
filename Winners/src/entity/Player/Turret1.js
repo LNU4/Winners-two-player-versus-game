@@ -51,7 +51,6 @@ Winners.entity.Turret1.prototype.init = function () {
   );
   this.rotation = 90;
   this.m_initAnimation();
-  
 };
 
 /**
@@ -64,11 +63,7 @@ Winners.entity.Turret1.prototype.init = function () {
 Winners.entity.Turret1.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
   this.m_torretRotation();
-  
-  
 };
-
-
 
 //------------------------------------------------------------------------------
 // Private prototype methods
@@ -84,7 +79,7 @@ Winners.entity.Turret1.prototype.update = function (step) {
 Winners.entity.Turret1.prototype.m_initAnimation = function () {
   this.animation = new rune.animation.Animation();
   this.animation.create("idle", [0], 1, true);
-  this.animation.create("shot", [0, 2, 0], 1, false);
+  this.animation.create("shot", [0, 2, 2, 2, 2, 2, 0], 10, false);
 };
 
 /**

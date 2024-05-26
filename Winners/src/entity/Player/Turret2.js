@@ -82,7 +82,8 @@ Winners.entity.Turret2.prototype.shotAnimation = function () {
  * @private
  */
 Winners.entity.Turret2.prototype.m_initAnimation = function () {
-  this.animation.create("shot", [0], 2, 2, 2, true);
+  this.animation.create("idle", [0], 1, true);
+  this.animation.create("shot", [0, 2, 2, 2, 2, 2, 0], 10, false);
 };
 
 /**

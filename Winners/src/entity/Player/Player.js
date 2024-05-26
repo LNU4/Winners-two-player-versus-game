@@ -7,7 +7,7 @@
  *
  * @constructor
  * @extends rune.display.Sprite
- * 
+ *
  *@param {number}  x ...
  * @param {number}  y ...
  * @param {object}  game ...
@@ -29,7 +29,7 @@ Winners.entity.Player = function (x, y, game) {
   this.initX = x;
   this.initY = y;
   /**
-   * Reference to the new created hp object 
+   * Reference to the new created hp object
    * @type {Object}
    */
   this.hp = new Winners.entity.Hps(this);
@@ -65,9 +65,6 @@ Winners.entity.Player = function (x, y, game) {
    */
   this.layer0 = this.game.layer0;
 
-  
-
-
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -90,7 +87,7 @@ Winners.entity.Player.prototype.constructor = Winners.entity.Player;
 //------------------------------------------------------------------------------
 
 /**
- * 
+ *
  * Setting the color of plyer and calling this.m_initPhysics() and this.m_initAnimation()
  * @method
  * @returns {undefined}
@@ -128,10 +125,25 @@ Winners.entity.Player.prototype.update = function (step) {
 
   if (this.activeBullets) {
     for (var i = this.activeBullets.length - 1; i >= 0; i--) {
+      /**
+       * index of the active bullets within the active bullet list
+       * @type {number}
+       */
       var bullet = this.activeBullets[i];
-      
+      /**
+       * creates a coordinates point of the current bullet position
+       * @type {number}
+       */
       var pointOne = new rune.geom.Point(bullet.x, bullet.y);
+      /**
+       * creates a coordinates point of the current bullet initial position
+       * @type {number}
+       */
       var pointTwo = new rune.geom.Point(bullet.initX, bullet.initY);
+      /**
+       * calculates the distance between the current bullet position and the bullet initial position
+       * @type {number}
+       */
       var distance = pointOne.distance(pointTwo);
 
       if (distance > 400) {
@@ -141,7 +153,6 @@ Winners.entity.Player.prototype.update = function (step) {
       }
     }
   }
-  console.log(this.game.bullets.numMembers)
 };
 
 /**
@@ -153,7 +164,6 @@ Winners.entity.Player.prototype.update = function (step) {
 Winners.entity.Player.prototype.dispose = function () {
   rune.display.Sprite.prototype.dispose.call(this);
 };
-
 
 /**
  * Method to create one bullet each time it's called
@@ -175,21 +185,38 @@ Winners.entity.Player.prototype.shoot = function () {
   if (!this.activeBullets) {
     this.activeBullets = [];
   }
-  
+  this.game.turret1.animation.gotoAndPlay("shot");
+
+  /**
+   * specify the initial position of the bullet when generated
+   * @type {object}
+   * @property {number} x velocity of the bullet
+   * @property {number} y velocity of the bullet
+   */
   this.bullet.initX = this.bullet.x;
   this.bullet.initY = this.bullet.y;
-
+  /**
+   * specify the velocity of the bullet when generated
+   * @type {number}
+   */
   this.bullet.velocity.x = this.velocity.x;
   this.bullet.velocity.y = this.velocity.y;
+  /**
+   * specify global velocity of the bullet when generated
+   * @type {number}
+   */
   this.bullet.globalX = this.velocity.x;
-  this.bullet.globalX = this.velocity.x;
+
+  /**
+   * specify the rotation of the bullet when generated
+   * @type {number}
+   */
   this.bullet.rotation = this.turret1.rotation - 90;
-
+  /***
+   * pushes the generated bullets to active bullets array
+   * @param {object}
+   */
   this.activeBullets.push(this.bullet);
-
-  this.game.turret1.animation.gotoAndPlay("shot");
-  
-  
 };
 //------------------------------------------------------------------------------
 // Private prototype methods
@@ -212,7 +239,7 @@ Winners.entity.Player.prototype.m_initPhysics = function () {
 };
 
 /**
- * Method to calll the inbuilt animation.create method to create animation for the idle and walkin modes
+ * Method to calll the inbuilt animation.create method to create animation for the idle and walking modes
  *
  * @method
  * @returns {undefined}
@@ -271,10 +298,10 @@ Winners.entity.Player.prototype.m_updateInput = function () {
   ) {
     this.animation.gotoAndPlay("idle");
   }
-  
+
   if (this.active) {
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   }
-}; 
-// Slut m_updateInput 
+};
+// Slut m_updateInput
