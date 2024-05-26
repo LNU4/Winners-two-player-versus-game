@@ -97,7 +97,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
 
     this.texture.replaceColor(
       new rune.color.Color24(143, 151, 74),
-      new rune.color.Color24(172, 50, 50)
+      new rune.color.Color24(42, 53, 23)
     );
   } else if (this.unKnownPlayer == this.game.player) {
     this.puX = 5;
@@ -114,7 +114,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
     this.enemy = this.game.player2;
     this.texture.replaceColor(
       new rune.color.Color24(143, 151, 74),
-      new rune.color.Color24(42, 53, 23)
+      new rune.color.Color24(172, 50, 50)
     );
   }
 /**
