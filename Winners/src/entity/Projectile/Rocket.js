@@ -8,7 +8,7 @@ Winners.entity.Rocket = function (
   y
 ) {
   this.game = game;
-  this.damage = 20;
+  this.damage = 50;
 
   /**
    * Referance to the display object container

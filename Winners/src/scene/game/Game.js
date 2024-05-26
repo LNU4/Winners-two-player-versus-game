@@ -168,7 +168,7 @@ Winners.scene.Game.prototype.init = function () {
   this.player.player2 = this.player2;
   //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
   //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
-  //  this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
+  //this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
 
   //this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
   /**

@@ -13,7 +13,7 @@
  *
  * Game scene.
  */
-Winners.scene.Howtoplay = function () {
+Winners.scene.Credits = function () {
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -28,8 +28,8 @@ Winners.scene.Howtoplay = function () {
 // Inheritance
 //------------------------------------------------------------------------------
 
-Winners.scene.Howtoplay.prototype = Object.create(rune.scene.Scene.prototype);
-Winners.scene.Howtoplay.prototype.constructor = Winners.scene.Howtoplay;
+Winners.scene.Credits.prototype = Object.create(rune.scene.Scene.prototype);
+Winners.scene.Credits.prototype.constructor = Winners.scene.Credits;
 
 //------------------------------------------------------------------------------
 // Override public prototype methods (ENGINE)
@@ -41,13 +41,17 @@ Winners.scene.Howtoplay.prototype.constructor = Winners.scene.Howtoplay;
  *
  * @returns {undefined}
  */
-Winners.scene.Howtoplay.prototype.init = function () {
+Winners.scene.Credits.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
-  this.menu = new rune.ui.VTMenu({ resource: "New Piskel-4" });
-  this.bg = new rune.display.Graphic(0, 0, 1280, 720, "howtoplay");
-  this.stage.addChild(this.bg);
   /**
    * initialize a new menu and add it to the scene
+   */
+  this.menu = new rune.ui.VTMenu({ resource: "New Piskel-4" });
+  this.bg = new rune.display.Graphic(0, 0, 1280, 720, "credits");
+  this.stage.addChild(this.bg);
+ 
+  /**
+   * Menu configuration, alternatives 
    */
   this.menu.add("back to main menu");
   this.menu.scaleX = 2;
@@ -65,10 +69,10 @@ Winners.scene.Howtoplay.prototype.init = function () {
  *
  * @returns {undefined}
  */
-Winners.scene.Howtoplay.prototype.update = function (step) {
+Winners.scene.Credits.prototype.update = function (step) {
   rune.scene.Scene.prototype.update.call(this, step);
   var gamepad = this.gamepads.get(0);
- 
+  
    
   if (this.keyboard.justPressed("UP")) {
     this.menu.up();
@@ -103,6 +107,6 @@ Winners.scene.Howtoplay.prototype.update = function (step) {
  *
  * @returns {undefined}
  */
-Winners.scene.Howtoplay.prototype.dispose = function () {
+Winners.scene.Credits.prototype.dispose = function () {
   rune.scene.Scene.prototype.dispose.call(this);
 };
