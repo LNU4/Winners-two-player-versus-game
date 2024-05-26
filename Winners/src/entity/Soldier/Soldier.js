@@ -62,6 +62,8 @@ Winners.entity.Soldier = function (
    */
   this.powerUpProb = 0;
   this.layer = this.game.layer0;
+  this.ix = ix ;
+  console.log(this.ix);
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldier");
   this.layer.addChild(this);
@@ -138,7 +140,7 @@ Winners.entity.Soldier.prototype.update = function (step) {
      */
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-      this.shoot();
+      //this.shoot();
       this.lastShootTime = currentTime;
     }
   } else {
@@ -166,6 +168,14 @@ Winners.entity.Soldier.prototype.update = function (step) {
    * @type {number}
    */
   this.rotation = angle * (180 / Math.PI);
+
+  for(var i = 0; i < this.truck.soldierArr.length; i++) {
+    var soldier = this.truck.soldierArr[i];
+    if(soldier!= m_this) {
+      soldier.hitTestAndSeparate(m_this)
+    
+    }
+  }
   /**
    * Array to hold the objects that soldier cant go through
    * @type {Array}

@@ -33,11 +33,6 @@ Winners.entity.PowerupCounter = function (
    */
   this.x = 0;
   this.y = 0;
- /**
-  * Proprety to store a string that specifies the type of soldier to be generated after the player has collected 3 powerups. The property is set later.
-  * @type {string}
-  */
-  this.type = "";
 
  
   if (this.player.powerupIx === 0) {
@@ -54,27 +49,10 @@ Winners.entity.PowerupCounter = function (
    // this.player.powerupIx =
      this.x = powerupCoords.puX + 30;
      this.y = powerupCoords.puY;
-  //   /**
-  //    * An Array containing four different types of soldiers as strings
-  //    * @type {Array}
-  //    */
-  //   this.SoldierTypesArray = [
-  //     "heavysoldier",
-  //     "snipersoldiers",
-  //     "rocketsoldier",
-  //     "repairsoldier",
-  //   ];
-  //   /**
-  //    * Picks a random numbe between 0 and 3 and stores it in the typeIx property
-  //    * @type {number}
-  //    */
-  //   this.typeIx = Math.floor(Math.random() * 3);
-  //  /**
-  //   * Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated 
-  //   */
-  //   this.type = this.SoldierTypesArray[this.typeIx];
-   
-  //   this.createSoldier();
+
+     this.SelectRandomSoldier();
+     this.SelectRandomSoldier();
+
   } 
 
   
@@ -114,36 +92,52 @@ Winners.entity.PowerupCounter.prototype.constructor =
 Winners.entity.PowerupCounter.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
-  if (this.player.powerupIx === 2){
-    /**
-     * References to the index in which the powerupcounter object exists in the powerups array (powerupsArray)
-     * @type {number}
-     */
-   // this.player.powerupIx =
-   this.x = this.powerupCoords.puX + 30;
-   this.y = this.powerupCoords.puY;
-   /**
-    * An Array containing four different types of soldiers as strings
-    * @type {Array}
-    */
-   this.SoldierTypesArray = [
-     "heavysoldier",
-     "snipersoldiers",
-     "rocketsoldier",
-     "repairsoldier",
-   ];
-   /**
-    * Picks a random numbe between 0 and 3 and stores it in the typeIx property
-    * @type {number}
-    */
-   this.typeIx = Math.floor(Math.random() * 3);
-  /**
-   * Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated 
-   */
-   this.type = this.SoldierTypesArray[this.typeIx];
-   this.createSoldier();
-  }
 };
+
+/**
+ * Method to selects a random soldier 
+ * 
+ * @returns {undefined}
+ */
+
+Winners.entity.PowerupCounter.prototype.SelectRandomSoldier = function (){
+/**
+  * Private roprety to store a string that specifies the type of soldier to be generated after the player has collected 3 powerups.
+  * @type {string}
+  */
+var type = "";
+
+if (this.player.powerupIx === 2){
+  /**
+   * References to the index in which the powerupcounter object exists in the powerups array (powerupsArray)
+   * @type {number}
+   */
+ // this.player.powerupIx =
+ this.x = this.powerupCoords.puX + 30;
+ this.y = this.powerupCoords.puY;
+ /**
+  * An Array containing four different types of soldiers as strings
+  * @type {Array}
+  */
+ this.SoldierTypesArray = [
+   "heavysoldier",
+   "snipersoldiers",
+   "rocketsoldier",
+   "repairsoldier",
+ ];
+ /**
+  * Picks a random numbe between 0 and 3 and stores it in the typeIx property
+  * @type {number}
+  */
+ this.typeIx = Math.floor(Math.random() * 3);
+/**
+ * Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated 
+ */
+ type = this.SoldierTypesArray[this.typeIx];
+ this.createSoldier(type);
+}
+}
+
 
 /**
  * ...
@@ -163,12 +157,18 @@ Winners.entity.PowerupCounter.prototype.update = function (step) {
  * 
  * @returns {undefined}
  */
-Winners.entity.PowerupCounter.prototype.createSoldier = function () {
+Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
+/**
+ * Random x and y coords for the soldier, to avoid that the soldiers spawn on top of each other
+ * @type {number}
+ */
+  var randomX = Math.floor(Math.random() * (1000 - 200 + 1)) + 200;
+  var randomY = Math.floor(Math.random() * (250 - 150 + 1)) + 150;
   /**
    * Private variable to store the type of soldier to be generated  
    * @type {string}
    */
-  var type = this.type;
+  var type = soldierType;
   /**
    * Private variable to store the object
    * @type {Object}
@@ -179,10 +179,11 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
     onComplete: function () {
   
       switch (type) {
+
         case "heavysoldier":
           m_this.game.heavysoldiers = new Winners.entity.HeavySoldier(
-            350,
-            360,
+            randomX,
+            randomY,
             m_this.game,
             m_this.enemy
           );
@@ -194,8 +195,8 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
 
         case "snipersoldiers":
           m_this.game.snipersoldiers = new Winners.entity.SniperSodier(
-            10,
-            10,
+            randomX,
+            randomY,
             m_this.game,
             m_this.enemy
           );
@@ -208,8 +209,8 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
 
         case "rocketsoldier":
           m_this.game.rocketsoldier = new Winners.entity.Rocketsoldier(
-            50,
-            50,
+            randomX,
+            randomY,
             m_this.game,
             m_this.enemy
           );
@@ -221,15 +222,13 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
 
         case "repairsoldier":
           m_this.game.repairsoldier = new Winners.entity.Repairsoldier(
-            700,
-            700,
+            randomX,
+            randomY,
             m_this.game,
             m_this.player
           );
           m_this.game.layer0.addChild(m_this.game.repairsoldier);
           m_this.emptyArray();
-
-          
 
           break;
 
@@ -238,6 +237,8 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function () {
       }
     },
   });
+
+  
 };
 /**
  * Method to empty the array containing the powerupcounter objects.

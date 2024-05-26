@@ -44,6 +44,13 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
    */
   this.reachedPlayer = false;
 
+  /**
+   * An array to hold the soldiers
+   * 
+   * @type {Array}
+   */
+
+  this.soldierArr = [];
 
   //--------------------------------------------------------------------------
   // Super call
@@ -155,11 +162,11 @@ Winners.entity.Truck.prototype.update = function (step) {
   this.hitTest( 
     this.game.bullets,
     function (truck, bullet) {
-      console.log(bullet)
+      
       truck.hp -= 20;
       
       if (bullet.bulletTarget === truck.player) {
-        console.log("this")
+       
         this.game.bullets.removeMember(bullet, true);
         truck.hp -= 20;
          if (truck.hp == 0) {
@@ -192,13 +199,8 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
    */
   var truckX = this.x;
   var truckY = this.y;
-  /**
-   *
-   */
-  //this.soldierArr = [];
 
-
-  for (var i = 0; i < 4; i++) {
+  for (var i = 0; i < 8; i++) {
     /**
      * index the soldier that specified in the loop
      * @type {number}
@@ -223,12 +225,12 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
       soldierY,
       this.game,
       this.enemy,
-      this.soldierix,
+       i,
       this.player,
       this
     );
 
-    //this.soldierArr.push(this.soldier);
+    this.soldierArr.push(this.soldier);
   }
   this.game.timers.create({
     duration: 2000,

@@ -51,7 +51,9 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy) {
     this.texture.replaceColor(new rune.color.Color24(0, 0, 0), new rune.color.Color24(32, 32, 32));
   }
 };
-
+/**
+ * Innheritance of the sprite class
+ */
 Winners.entity.Rocketsoldier.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Rocketsoldier.prototype.constructor = Winners.entity.Rocketsoldier;
 
@@ -143,6 +145,16 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
    * @type {number}
    */
   this.rotation = angle * (180 / Math.PI);
+
+  /**
+   * Array to hold the objects that soldier cant go through
+   * @type {Array}
+   */
+  var gameObs = [this.game.base, this.game.base2, this.game.Base1shield, this.game.Base2shield];
+  for (var i = 0; i < gameObs.length; i++) {
+   var gameOb = gameObs[i];
+   this.hitTestAndSeparate(gameOb);
+  }
 
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this, true);

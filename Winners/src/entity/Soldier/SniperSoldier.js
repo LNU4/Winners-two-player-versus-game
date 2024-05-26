@@ -102,6 +102,15 @@ Winners.entity.SniperSodier.prototype.update = function (step) {
    * @type {number}
    */
   this.distance = this.currentPosition.distance(this.targetPosition);
+  /**
+   * Array to hold the objects that soldier cant go through
+   * @type {Array}
+   */
+  var gameObs = [this.game.base, this.game.base2, this.game.Base1shield, this.game.Base2shield];
+  for (var i = 0; i < gameObs.length; i++) {
+   var gameOb = gameObs[i];
+   this.hitTestAndSeparate(gameOb);
+  }
 
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this, true);
