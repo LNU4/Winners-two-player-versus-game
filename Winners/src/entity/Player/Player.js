@@ -187,7 +187,9 @@ Winners.entity.Player.prototype.shoot = function () {
 
   this.activeBullets.push(this.bullet);
 
-  this.turret1.shotAnimation();
+  this.game.turret1.animation.gotoAndPlay("shot");
+  
+  
 };
 //------------------------------------------------------------------------------
 // Private prototype methods
