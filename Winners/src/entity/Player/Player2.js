@@ -191,7 +191,7 @@ Winners.entity.Player2.prototype.shoot = function () {
 
   this.activeBullets.push(this.bullet);
 
-  this.turret1.shotAnimation();
+  
 };
 
 
