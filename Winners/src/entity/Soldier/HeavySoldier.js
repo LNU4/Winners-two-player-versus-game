@@ -105,7 +105,7 @@ Winners.entity.HeavySoldier.prototype.update = function (step) {
   this.distance = this.currentPosition.distance(this.targetPosition);
   if (this.enemy.hitTest(this)) {
     this.game.layer0.removeChild(this, true);
-    // this.dispose();
+    
   }
 
   if (this.distance <= this.shootDistance) {

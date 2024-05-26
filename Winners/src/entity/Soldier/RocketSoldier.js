@@ -164,9 +164,8 @@ Winners.entity.Rocketsoldier.prototype.update = function (step) {
     this.game.bullets,
     function (soldier, bullet) {
       if (bullet.bulletTarget === soldier.SoldierOwner) {
-        this.game.layer0.removeChild(bullet);
-        bullet.dispose();
-        this.game.layer0.removeChild(soldier);
+        this.game.layer0.removeChild(bullet, true);
+        this.game.layer0.removeChild(soldier, true);
       }
     },
     this

@@ -200,7 +200,7 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
       this.game.bullets.removeMember(this, true);
      
 
-      this.bulletTarget.playerBaseShield.hpValue -= 50;
+      this.bulletTarget.playerBaseShield.hpValue -= 25;
      
       if (this.bulletTarget.playerBaseShield.hpValue == 800) {
         this.bulletTarget.playerBaseShield.animation.gotoAndStop("1");
