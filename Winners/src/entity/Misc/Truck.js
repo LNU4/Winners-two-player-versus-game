@@ -218,7 +218,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     var soldierX = truckX + Math.cos(angle) * distance;
     var soldierY = truckY + Math.sin(angle) * distance;
 
-    this.soldier = new Winners.entity.Soldiers(
+    this.soldier = new Winners.entity.Soldier(
       soldierX,
       soldierY,
       this.game,

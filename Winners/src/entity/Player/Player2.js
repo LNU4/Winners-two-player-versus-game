@@ -7,7 +7,7 @@
  *
  * @constructor
  * @extends rune.display.Sprite
- * 
+ *
  * @param {number}  x ...
  * @param {number}  y ...
  * @param {object}  game ...
@@ -18,7 +18,6 @@
  */
 
 Winners.entity.Player2 = function (x, y, game) {
-
   /**
    * Reference to the game object
    * @type {Object}
@@ -29,19 +28,18 @@ Winners.entity.Player2 = function (x, y, game) {
    * @type {Object}
    */
   this.player = this.game.player;
-/**
+  /**
    * Reference to the initial x and y coordinates of the player
    * @type {number}
    */
   this.initX = x;
   this.initY = y;
   /**
-   * Reference to the new created hp object 
+   * Reference to the new created hp object
    * @type {Object}
    */
-  this.hp = new Winners.entity.Hps( this);
+  this.hp = new Winners.entity.Hps(this);
   this.game.camera.addChild(this.hp);
-
 
   /**
    * Reference to the pleyer's base shield object
@@ -54,12 +52,12 @@ Winners.entity.Player2 = function (x, y, game) {
    * @type {Object}
    */
   this.enemyBaseShield = this.game.Base1shield;
-/**
+  /**
    * Reference to the pleyer's turret object
    * @type {Object}
    */
   this.turret1 = this.game.turret2;
-   /**
+  /**
    * Reference to the container layer of pleyer object
    * @type {Object}
    */
@@ -124,13 +122,27 @@ Winners.entity.Player2.prototype.init = function () {
 Winners.entity.Player2.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-
   if (this.activeBullets) {
     for (var i = this.activeBullets.length - 1; i >= 0; i--) {
+      /**
+       * index of the active bullets within the active bullet list
+       * @type {number}
+       */
       var bullet = this.activeBullets[i];
-      
+      /**
+       * creates a coordinates point of the current bullet position
+       * @type {number}
+       */
       var pointOne = new rune.geom.Point(bullet.x, bullet.y);
+      /**
+       * creates a coordinates point of the current bullet initial position
+       * @type {number}
+       */
       var pointTwo = new rune.geom.Point(bullet.initX, bullet.initY);
+      /**
+       * calculates the distance between the current bullet position and the bullet initial position
+       * @type {number}
+       */
       var distance = pointOne.distance(pointTwo);
 
       if (distance > 400) {
@@ -163,7 +175,6 @@ Winners.entity.Player2.prototype.dispose = function () {
  */
 
 Winners.entity.Player2.prototype.shoot = function () {
-
   /**
    * Property that references the bullet object returnd by the bullets.create method of the bullets class
    * @type {Object}
@@ -179,21 +190,37 @@ Winners.entity.Player2.prototype.shoot = function () {
   if (!this.activeBullets) {
     this.activeBullets = [];
   }
-  
+  this.game.turret1.animation.gotoAndPlay("shot");
+  /**
+   * specify the initial position of the bullet when generated
+   * @type {object}
+   * @property {number} x velocity of the bullet
+   * @property {number} y velocity of the bullet
+   */
   this.bullet.initX = this.bullet.x;
   this.bullet.initY = this.bullet.y;
-
+  /**
+   * specify the velocity of the bullet when generated
+   * @type {number}
+   */
   this.bullet.velocity.x = this.velocity.x;
   this.bullet.velocity.y = this.velocity.y;
+  /**
+   * specify global velocity of the bullet when generated
+   * @type {number}
+   */
   this.bullet.globalX = this.velocity.x;
-  this.bullet.globalX = this.velocity.x;
+   /**
+   * specify the rotation of the bullet when generated
+   * @type {number}
+   */
   this.bullet.rotation = this.turret1.rotation - 90;
-
+/***
+   * pushes the generated bullets to active bullets array
+   * @param {object}
+   */
   this.activeBullets.push(this.bullet);
-
-  
 };
-
 
 //------------------------------------------------------------------------------
 // Private prototype methods
@@ -216,7 +243,7 @@ Winners.entity.Player2.prototype.m_initPhysics = function () {
 };
 
 /**
-* Method to calll the inbuilt animation.create method to create animation for the idle and walkin modes
+ * Method to calll the inbuilt animation.create method to create animation for the idle and walkin modes
  *
  * @method
  *
