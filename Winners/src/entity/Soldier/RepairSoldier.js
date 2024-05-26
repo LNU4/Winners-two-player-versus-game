@@ -50,16 +50,7 @@ Winners.entity.Repairsoldier = function (x, y, game, enemy) {
     enemyColor = new rune.color.Color24(32, 32, 32);
   }
   this.texture.replaceColor(new rune.color.Color24(0, 0, 0), enemyColor);
-  /**
-   *
-   */
-  // var enemyColor;
-  // if (enemy === game.player) {
-  //   enemyColor = new rune.color.Color24(172, 50, 50);
-  // } else {
-  //   enemyColor = new rune.color.Color24(32, 32, 32);
-  // }
-  // this.texture.replaceColor(new rune.color.Color24(0, 0, 0), enemyColor);
+  
 };
 /**
  * Innheritance of the sprite class

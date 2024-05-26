@@ -150,7 +150,7 @@ Winners.scene.Game.prototype.init = function () {
   * @type {Object}
   */
   this.camera = this.cameras.getCameraAt(0);
-  //camera.addChild(smth);
+  
   /**
    * Property to store the player object
    * @type {Object}
@@ -166,11 +166,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.player.player2 = this.player2;
-  //this.rocketsoldier = new Winners.entity.Rocketsoldier(500, 500, this, this.player2);
-  //this.snipersoldiers = new Winners.entity.SniperSodier(10, 10, this, this.player2);
-  //this.repairsoldier = new Winners.entity.Repairsoldier(700, 700, this, this.player2);
-
-  //this.heavysoldiers = new Winners.entity.HeavySoldier(350, 360, this, this.player2);
+ 
   /**
    * Property to create an empty array to look after the powerups for player
    * @type {Array}
@@ -208,10 +204,6 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.base);
   this.layer0.addChild(this.base2);
 
-  //this.layer0.addChild(this.heavysoldiers);
-  //this.layer0.addChild(this.snipersoldiers);
-  //this.layer0.addChild(this.rocketsoldier);
- // this.layer0.addChild(this.repairsoldier);
   this.layer1.addChild(this.turret1);
   this.layer1.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
@@ -376,9 +368,9 @@ Winners.scene.Game.prototype.m_updateInput = function (step) {
 Winners.scene.Game.prototype.handleGameOver = function () {
  
   if (this.Player1isDefeated) {
-    this.roundWinners.push("Player2");
+    this.roundWinners.push("player2");
   } else if (this.Player2isDefeated) {
-    this.roundWinners.push("Player1");
+    this.roundWinners.push("player1");
   }
 
   if (this.currentRound < this.maxRounds) {
@@ -392,12 +384,15 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      * @type {string}
      */
     var resultMsg =
-      "Round won by " + this.roundWinners[this.roundWinners.length - 1];
+      "round won by " + this.roundWinners[this.roundWinners.length - 1];
     /**
      * Creates a text object with the result of the round
      * @type {Object}
      */
-    var text = new rune.text.BitmapField(resultMsg);
+    var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
+    text.autoSize = true;
+    text.scaleX = 2.5;
+    text.scaleY = 2.5; 
     /**
      * Center the text on the screen
      * @type {number}
@@ -407,8 +402,8 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      * Scales the text on X and Y axis
      * @type {number}
      */
-    text.scaleX = 2;
-    text.scaleY = 2;
+    /* text.scaleX = 2;
+    text.scaleY = 2; */
     
     this.cameras.getCameraAt(0).addChild(text);
     /**
@@ -444,9 +439,9 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   var player2Wins = 0;
 
   for (var i = 0; i < this.roundWinners.length; i++) {
-    if (this.roundWinners[i] === "Player1") {
+    if (this.roundWinners[i] == "player1") {
       player1Wins++;
-    } else if (this.roundWinners[i] === "Player2") {
+    } else if (this.roundWinners[i] == "player2") {
       player2Wins++;
     }
   }
@@ -454,21 +449,25 @@ Winners.scene.Game.prototype.showMatchResult = function () {
  * updates the result message based on the match winner
  * @type {string}
  */
-  var resultMsg = "Match Over! ";
+  var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
-    resultMsg += "Player 1 Won";
+    resultMsg += "player 1 won";
   } else if (player2Wins > player1Wins) {
-    resultMsg += "Player 2 Won";
+    resultMsg += "player 2 won";
   } else {
-    resultMsg += "It's a tie!";
+    resultMsg += "its a tie!";
   }
-  var text = new rune.text.BitmapField(resultMsg);
-  /**
+  var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
+ 
+
+  text.autoSize = true;
+  text.scaleX = 2.5;
+  text.scaleY = 2.5; 
+   /**
    * Center the text on the screen and scale it accordingly
    */
   text.center = this.application.screen.center;
-  text.scaleX = 2;
-  text.scaleY = 2;
+
 
   this.cameras.getCameraAt(0).addChild(text);
 

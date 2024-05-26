@@ -158,8 +158,6 @@ Winners.entity.SniperSodier.prototype.update = function (step) {
     function (soldier, bullet) {
       if (bullet.bulletTarget === soldier.SoldierOwner) {
         this.game.bullets.removeMember(bullet, true);
-        // this.game.layer0.removeChild(bullet);
-        // bullet.dispose();
         this.game.layer0.removeChild(soldier, true);
       }
     },

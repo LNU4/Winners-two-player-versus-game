@@ -200,7 +200,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   var truckX = this.x;
   var truckY = this.y;
 
-  for (var i = 0; i < 8; i++) {
+  for (var i = 0; i < 4; i++) {
     /**
      * index the soldier that specified in the loop
      * @type {number}

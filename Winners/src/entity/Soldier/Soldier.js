@@ -63,7 +63,7 @@ Winners.entity.Soldier = function (
   this.powerUpProb = 0;
   this.layer = this.game.layer0;
   this.ix = ix ;
-  console.log(this.ix);
+
 
   rune.display.Sprite.call(this, x, y, 32, 32, "soldier");
   this.layer.addChild(this);
@@ -140,7 +140,7 @@ Winners.entity.Soldier.prototype.update = function (step) {
      */
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
-      //this.shoot();
+      this.shoot();
       this.lastShootTime = currentTime;
     }
   } else {
@@ -194,8 +194,7 @@ Winners.entity.Soldier.prototype.update = function (step) {
     function (soldier, bullet) {
       if (bullet.bulletTarget == soldier.SoldierOwner) {
         this.game.bullets.removeMember(bullet, true);
-        // this.game.layer0.removeChild(bullet);
-       // bullet.dispose();
+       
         this.handelKillSoldier();
       }
     },

@@ -14,7 +14,6 @@ npx google-closure-compiler \
 --js "./../../src/system/Main.js" \
 --js "./../../src/entity/Player/Player.js" \
 --js "./../../src/entity/Player/Player2.js" \
---js "./../../src/entity/Life/Life.js" \
 --js "./../../src/entity/Player/Turret1.js" \
 --js "./../../src/entity/Player/Turret2.js" \
 --js "./../../src/entity/Base/Base.js" \
@@ -22,7 +21,7 @@ npx google-closure-compiler \
 --js "./../../src/entity/Base/Base1shield.js" \
 --js "./../../src/entity/Base/Base2shield.js" \
 --js "./../../src/entity/Misc/Truck.js" \
---js "./../../src/entity/Soldier/Soldiers.js" \
+--js "./../../src/entity/Soldier/Soldier.js" \
 --js "./../../src/entity/Soldier/HeavySoldier.js" \
 --js "./../../src/entity/Soldier/SniperSoldier.js" \
 --js "./../../src/entity/Soldier/RocketSoldier.js" \

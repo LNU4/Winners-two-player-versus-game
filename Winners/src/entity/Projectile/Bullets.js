@@ -100,7 +100,7 @@ Winners.entity.Bullets.prototype.create = function (
   this.enemy = enemy;
 
   if (this.numMemebers == this.maxNumBullets) {
-    this.removeChild(this.getChildAt(0));
+    this.removeMemeber(this.getMemberAt(0), true);
   }
 /**
  * Property containing a reference to the instance of the bullet object

@@ -57,7 +57,7 @@ Winners.entity.Rocket.prototype.update = function (step) {
     Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 
   if (this.hitTest(this.bulletTarget)) {
-    this.layer0.removeChild(this);
+    this.layer0.removeChild(this, true);
 
     this.HpOb = this.bulletTarget.hp;
     this.HpOb.value -= this.damage;
@@ -137,14 +137,13 @@ Winners.entity.Rocket.prototype.update = function (step) {
  * @param {HpOb}
  */
 Winners.entity.Rocket.prototype.respawn = function (HpOb) {
-  //this.layer0.removeChild(HpOb, true);
+
 
 
   tthis.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
   this.bulletTarget.y = Math.random() * (1000 + -1000) + -1000;
 
-  // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
-  // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
+
 
   this.game.timers.create({
     duration: 4000,

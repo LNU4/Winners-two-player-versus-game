@@ -147,9 +147,9 @@ Winners.entity.Player.prototype.update = function (step) {
       var distance = pointOne.distance(pointTwo);
 
       if (distance > 400) {
-        this.game.layer0.removeChild(bullet);
+        this.game.layer0.removeChild(bullet, true);
         this.activeBullets.splice(i, 1);
-        this.game.bullets.removeMember(bullet);
+        this.game.bullets.removeMember(bullet, true);
       }
     }
   }

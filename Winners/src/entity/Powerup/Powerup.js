@@ -138,7 +138,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
         this.enemy
       );
 
-      this.game.layer0.addChild(this.powerupCounter);
+      this.game.camera.addChild(this.powerupCounter);
       this.player.powerupsArray.push(this.powerupCounter);
 
       this.player.powerupIx++;
