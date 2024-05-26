@@ -211,7 +211,7 @@ Winners.scene.Game.prototype.init = function () {
   //this.layer0.addChild(this.heavysoldiers);
   //this.layer0.addChild(this.snipersoldiers);
   //this.layer0.addChild(this.rocketsoldier);
-  //this.layer0.addChild(this.repairsoldier);
+ // this.layer0.addChild(this.repairsoldier);
   this.layer1.addChild(this.turret1);
   this.layer1.addChild(this.turret2);
   this.layer0.addChild(this.Base1shield);
@@ -223,7 +223,7 @@ Winners.scene.Game.prototype.init = function () {
    */
 
    this.timers.create({
-    duration: 10000,
+    duration: 6000,
     onComplete: function () {
       this.createTruck();
     },
@@ -288,7 +288,7 @@ Winners.scene.Game.prototype.createTruck = function () {
   };
 
    this.timers.create({
-   duration: 40000,
+   duration: 30000,
     onComplete: function () {
      this.createTruck();
    },

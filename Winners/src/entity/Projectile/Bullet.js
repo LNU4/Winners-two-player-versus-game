@@ -200,7 +200,7 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
       this.game.bullets.removeMember(this, true);
      
 
-      this.bulletTarget.playerBaseShield.hpValue -= 200;
+      this.bulletTarget.playerBaseShield.hpValue -= 50;
      
       if (this.bulletTarget.playerBaseShield.hpValue == 800) {
         this.bulletTarget.playerBaseShield.animation.gotoAndStop("1");
@@ -224,7 +224,7 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
     if (this.hitTestAndSeparate(this.bulletTarget.playerBase)) {
       this.game.bullets.removeMember(this, true);
       
-      this.bulletTarget.playerBase.HPValue -= 200;
+      this.bulletTarget.playerBase.HPValue -= 50;
     
       if (this.bulletTarget.playerBase.HPValue == 800) {
         this.bulletTarget.playerBase.animation.gotoAndStop("1");
