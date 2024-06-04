@@ -25,12 +25,12 @@ Winners.system.Main = function() {
         developer: "se.lnu",
         app: "Winners",
         build: "1.0.0",
-        scene: Winners.scene.Menu,
+        scene: Winners.scene.Game,
         resources: Winners.data.Requests,
         useGamepads:true,
         useKeyboard:true,
         framerate: 30,
-        debug: false,
+        debug: true,
         screenResolutionX: 1280, 
         screenResolutionY: 720
     });

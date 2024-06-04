@@ -37,21 +37,21 @@ Winners.entity.Bullet = function (
   this.bulletTarget = bulletTarget;
   this.bullets = bullets;
   this.layer0 = layer0;
-   /**
+  /**
    * The amount of damage the bullet causes.
    *
    * @type {number}
    * @default 20
    */
 
-   this.damage = 5.0;
-    
+  this.damage = 5.0;
+
   /**
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
- //--------------------------------------------------------------------------
+  //--------------------------------------------------------------------------
   // Protected properties
   //------------------------------------------------------------------------
   /**
@@ -61,8 +61,6 @@ Winners.entity.Bullet = function (
    * @protected
    */
   this.m_speed = 0.8;
-
- 
 
   //--------------------------------------------------------------------------
   // Super call
@@ -94,13 +92,13 @@ Winners.entity.Bullet.prototype = Object.create(
 Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
 
 //------------------------------------------------------------------------------
-// Override public prototype methods 
+// Override public prototype methods
 //------------------------------------------------------------------------------
 
 /**
  * The update method of the bullets object, exutes its logic per tick
- * It manipulates the hp values of the players, their bases, their baseShieldes, removes the bullet aafter it collides with an enemy or the objects belongen to an enemy, carys out the respawn process based on wheather a player has been killed aka has 0 in hp 
- * 
+ * It manipulates the hp values of the players, their bases, their baseShieldes, removes the bullet aafter it collides with an enemy or the objects belongen to an enemy, carys out the respawn process based on wheather a player has been killed aka has 0 in hp
+ *
  * @method
  *
  * @param {number} step Fixed time step.
@@ -154,15 +152,36 @@ Winners.entity.Bullet.prototype.update = function (step) {
       );
       this.HpOb.backgroundColor = "#fc0303";
     } else if (this.HpOb.value == 0) {
+      
+      if (this.bulletTarget == this.game.player) {
+        
+        this.handleDeadPlayer("player1");
+      } else if (this.bulletTarget == this.game.player2) {
+        
+        this.handleDeadPlayer("player2");
+      }
+    
+      
       this.bulletTarget.active = false;
       // this.bulletTarget.x = -1000;
       // this.bulletTarget.y = 1000;
-    
-this.bulletTarget.x = Math.random() * (2000 + (-2000)) + (-2000);
+      this.game.timers.create({
+        duration: 1500,
+        scope: this,
+        onComplete: function () {
+         
+          if (this.bulletTarget == this.game.player) {
+            this.game.turret1.animation.gotoAndPlay("idle");
+          }
+          else if (this.bulletTarget == this.game.player2) {
+            this.game.turret2.animation.gotoAndPlay("idle");
+          }
+        
+          this.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
 
-
-this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
-
+          this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
+        },
+      });
 
       // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
       // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
@@ -198,10 +217,9 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
       this.game.bullets.removeMember(this, true);
-     
 
       this.bulletTarget.playerBaseShield.hpValue -= 25;
-     
+
       if (this.bulletTarget.playerBaseShield.hpValue == 800) {
         this.bulletTarget.playerBaseShield.animation.gotoAndStop("1");
       } else if (this.bulletTarget.playerBaseShield.hpValue == 600) {
@@ -210,7 +228,6 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
         this.bulletTarget.playerBaseShield.animation.gotoAndStop("3");
       } else if (this.bulletTarget.playerBaseShield.hpValue == 200) {
         this.bulletTarget.playerBaseShield.animation.gotoAndStop("4");
-
       } else if (this.bulletTarget.playerBaseShield.hpValue == 0) {
         this.hitTestAndSeparate(this.bulletTarget.playerBaseShield);
 
@@ -223,9 +240,9 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
   if (this.bulletTarget.playerBase) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBase)) {
       this.game.bullets.removeMember(this, true);
-      
+
       this.bulletTarget.playerBase.HPValue -= 50;
-    
+
       if (this.bulletTarget.playerBase.HPValue == 800) {
         this.bulletTarget.playerBase.animation.gotoAndStop("1");
       } else if (this.bulletTarget.playerBase.HPValue == 600) {
@@ -234,21 +251,20 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
         this.bulletTarget.playerBase.animation.gotoAndStop("3");
       } else if (this.bulletTarget.playerBase.HPValue == 200) {
         this.bulletTarget.playerBase.animation.gotoAndStop("4");
-
       } else if (this.bulletTarget.playerBase.HPValue == 0) {
-      this.hitTestAndSeparate(this.bulletTarget.playerBase);
+        this.hitTestAndSeparate(this.bulletTarget.playerBase);
 
-      this.layer0.removeChild(this.bulletTarget.playerBase, true);
-      this.bulletTarget.playerBase = null;
+        this.layer0.removeChild(this.bulletTarget.playerBase, true);
+        this.bulletTarget.playerBase = null;
 
-      if (this.bulletTarget === this.game.player) {
-        this.game.handlePlayerDefeat("player1");
-      } else if (this.bulletTarget === this.game.player2) {
-        this.game.handlePlayerDefeat("player2");
+        if (this.bulletTarget === this.game.player) {
+          this.game.handlePlayerDefeat("player1");
+        } else if (this.bulletTarget === this.game.player2) {
+          this.game.handlePlayerDefeat("player2");
+        }
       }
     }
   }
-} 
 
   this.m_updateMotion(step);
 };
@@ -262,7 +278,6 @@ this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
 Winners.entity.Bullet.prototype.dispose = function () {
   rune.display.DisplayObject.prototype.dispose.call(this);
 };
-
 
 //------------------------------------------------------------------------------
 // Private prototype methods
@@ -283,4 +298,14 @@ Winners.entity.Bullet.prototype.m_updateMotion = function (step) {
     Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 };
 
-
+Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
+  
+  if (playerDead == "player1") {
+    
+    this.game.turret1.animation.gotoAndPlay("done");
+    console.log("player1 is dead")
+  } else if (playerDead == "player2") {
+    this.game.turret2.animation.gotoAndPlay("done");
+    console.log("player2 is dead")
+  }
+};
