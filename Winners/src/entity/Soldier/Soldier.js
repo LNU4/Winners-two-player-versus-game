@@ -295,7 +295,7 @@ Winners.entity.Soldier.prototype.createPowerups = function () {
    * Properties to adjust random values of the power ups positioning on both axes
    * @type {number}
    */
-  var ranX = Math.floor(Math.random() * (1160 - 200 + 1)) + 200;
+  var ranX = Math.floor(Math.random() * (1000 - 200 + 1)) + 200;
   var ranY = Math.floor(Math.random() * (600 - 200 + 1)) + 200;
   m_this.powerUp = new Winners.entity.Powerup(
     ranX,

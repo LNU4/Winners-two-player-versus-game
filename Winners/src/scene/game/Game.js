@@ -18,6 +18,8 @@
  * Game scene.
  */
 Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
+
+  console.log(this)
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
@@ -192,7 +194,8 @@ Winners.scene.Game.prototype.init = function () {
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
-  this.chaos = this.bullets.application.sounds.sound.get("chaos");
+  this.chaos = this.application.sounds.sound.get("gameplay");
+  console.log(this.chaos);
   this.chaos.play(true);
   this.chaos.loop = true;
 
@@ -233,29 +236,30 @@ Winners.scene.Game.prototype.createTruck = function () {
    * Random coordinates for the truck spawn point
    * @type {number}
    */
-  var randomY = Math.random() * (720 - 500) + 500;
+  var randomY = Math.floor(Math.random() * (720 - 500) + 500);
   /**
    * Random coordinates for the truck spawn point
    * @type {number}
    */
-  var randomY2 = Math.random() * (250 - 0) + 0;
-  /**
-   * Random coordinates for the truck spawn point among the randomY coordinates and  randomY2 coordinates
-   * @type {number}
-   */
-  var Ycord = Math.random() < 0.5 ? randomY : randomY2;
-  /**
-   * Random coordinates for the truck spawn point among the randomY coordinates and  randomY2 coordinates
-   * @type {number}
-   */
-  var Ycord2 = Math.random() < 0.5 ? randomY : randomY2;
+  var randomY2 =  Math.floor(Math.random() * (250 - 0) + 0);
+  console.log(randomY, randomY2)
+  // /**
+  //  * Random coordinates for the truck spawn point among the randomY coordinates and  randomY2 coordinates
+  //  * @type {number}
+  //  */
+  // var Ycord = Math.random() < 0.5 ? randomY : randomY2;
+  // /**
+  //  * Random coordinates for the truck spawn point among the randomY coordinates and  randomY2 coordinates
+  //  * @type {number}
+  //  */
+  // var Ycord2 = Math.random() < 0.5 ? randomY : randomY2;
   /**
    * Initializes the truck object with the given coordinates, belongs to player1
    * @type {Object}
    */
   this.truck = new Winners.entity.Truck(
     -100,
-    Ycord,
+    randomY,
     this,
     this.player2,
     this.player
@@ -266,7 +270,7 @@ Winners.scene.Game.prototype.createTruck = function () {
    */
   this.truck2 = new Winners.entity.Truck(
     1300,
-    Ycord2,
+    randomY2,
     this,
     this.player,
     this.player2
@@ -335,7 +339,7 @@ Winners.scene.Game.prototype.update = function (step) {
  * the method to reset references and remove objects that no longer need to
  * exist when the scene is destroyed. The process is performed in order to
  * avoid memory leaks.
- *
+ * 
  * @returns {undefined}
  */
 Winners.scene.Game.prototype.dispose = function () {
