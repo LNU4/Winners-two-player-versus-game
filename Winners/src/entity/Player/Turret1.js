@@ -80,6 +80,7 @@ Winners.entity.Turret1.prototype.m_initAnimation = function () {
   this.animation = new rune.animation.Animation();
   this.animation.create("idle", [0], 1, true);
   this.animation.create("shot", [0, 2, 2, 2, 2, 2, 0], 10, false);
+  this.animation.create("done", [6, 7, 8, 9, 10, 11], 5, true);
 };
 
 /**

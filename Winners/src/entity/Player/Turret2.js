@@ -84,6 +84,7 @@ Winners.entity.Turret2.prototype.shotAnimation = function () {
 Winners.entity.Turret2.prototype.m_initAnimation = function () {
   this.animation.create("idle", [0], 1, true);
   this.animation.create("shot", [0, 2, 2, 2, 2, 2, 0], 10, false);
+  this.animation.create("done", [6, 7, 8, 9, 10, 11], 5, true);
 };
 
 /**
@@ -110,6 +111,7 @@ Winners.entity.Turret2.prototype.m_torretRotation = function () {
     this.rotation += 5;
   } 
 };
+
 
 /**
  * ...
