@@ -334,17 +334,7 @@ Winners.scene.Game.prototype.update = function (step) {
   
 };
 
-/**
- * This method is automatically called once just before the scene ends. Use
- * the method to reset references and remove objects that no longer need to
- * exist when the scene is destroyed. The process is performed in order to
- * avoid memory leaks.
- * 
- * @returns {undefined}
- */
-Winners.scene.Game.prototype.dispose = function () {
-  rune.scene.Scene.prototype.dispose.call(this);
-};
+
 
 //------------------------------------------------------------------------------
 // Private prototype methods
@@ -387,6 +377,7 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      * Shows text with the result of the round 
      * @type {string}
      */
+   
     var resultMsg =
       "round won by " + this.roundWinners[this.roundWinners.length - 1];
     /**
@@ -406,8 +397,6 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      * Scales the text on X and Y axis
      * @type {number}
      */
-    /* text.scaleX = 2;
-    text.scaleY = 2; */
     
     this.cameras.getCameraAt(0).addChild(text);
     /**
@@ -453,6 +442,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
  * updates the result message based on the match winner
  * @type {string}
  */
+
   var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
     resultMsg += "player 1 won";
@@ -471,8 +461,16 @@ Winners.scene.Game.prototype.showMatchResult = function () {
    * Center the text on the screen and scale it accordingly
    */
   text.center = this.application.screen.center;
+  // Look at this, not working N.A 
+  var cameraFade = new rune.camera.CameraFade();
+  cameraFade.in(1000); // Fade in over 1 second
 
+  // Add the text field to the camera's display list
+  this.cameras.getCameraAt(0).fade = cameraFade;
 
+  // Add the text field to the camera's display list
+  this.cameras.getCameraAt(0).fade = cameraFade;
+  //------------
   this.cameras.getCameraAt(0).addChild(text);
 
   this.timers.create({
@@ -496,3 +494,14 @@ Winners.scene.Game.prototype.handlePlayerDefeat = function (playerDeafeted) {
   }
 };
 
+/**
+ * This method is automatically called once just before the scene ends. Use
+ * the method to reset references and remove objects that no longer need to
+ * exist when the scene is destroyed. The process is performed in order to
+ * avoid memory leaks.
+ * 
+ * @returns {undefined}
+ */
+Winners.scene.Game.prototype.dispose = function () {
+  rune.scene.Scene.prototype.dispose.call(this);
+};

@@ -185,7 +185,8 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
             randomX,
             randomY,
             m_this.game,
-            m_this.enemy
+            m_this.enemy,
+            m_this.player
           );
           m_this.game.layer0.addChild(m_this.game.heavysoldiers);
           m_this.emptyArray();
@@ -198,7 +199,8 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
             randomX,
             randomY,
             m_this.game,
-            m_this.enemy
+            m_this.enemy,
+            m_this.player
           );
           m_this.game.layer0.addChild(m_this.game.snipersoldiers);
           m_this.emptyArray();
@@ -212,7 +214,8 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
             randomX,
             randomY,
             m_this.game,
-            m_this.enemy
+            m_this.enemy,
+            m_this.player
           );
           m_this.game.layer0.addChild(m_this.game.rocketsoldier);
           m_this.emptyArray();
