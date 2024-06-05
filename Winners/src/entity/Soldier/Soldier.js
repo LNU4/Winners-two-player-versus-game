@@ -194,7 +194,7 @@ Winners.entity.Soldier.prototype.update = function (step) {
     function (soldier, bullet) {
       if (bullet.bulletTarget == soldier.SoldierOwner) {
         this.game.bullets.removeMember(bullet, true);
-       
+    
         this.handelKillSoldier();
       }
     },

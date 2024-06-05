@@ -51,6 +51,7 @@ Winners.entity.Bullet = function (
    * @type {media.Sound}
    */
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
+   this.burn = this.bullets.application.sounds.sound.get("burn");
   //--------------------------------------------------------------------------
   // Protected properties
   //------------------------------------------------------------------------
@@ -279,6 +280,18 @@ Winners.entity.Bullet.prototype.dispose = function () {
   rune.display.DisplayObject.prototype.dispose.call(this);
 };
 
+Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
+  this.burn.play(true);
+  if (playerDead == "player1") {
+    
+    this.game.turret1.animation.gotoAndPlay("done");
+    console.log("player1 is dead")
+  } else if (playerDead == "player2") {
+    this.game.turret2.animation.gotoAndPlay("done");
+    console.log("player2 is dead")
+  }
+};
+
 //------------------------------------------------------------------------------
 // Private prototype methods
 //------------------------------------------------------------------------------
@@ -298,14 +311,3 @@ Winners.entity.Bullet.prototype.m_updateMotion = function (step) {
     Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 };
 
-Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
-  
-  if (playerDead == "player1") {
-    
-    this.game.turret1.animation.gotoAndPlay("done");
-    console.log("player1 is dead")
-  } else if (playerDead == "player2") {
-    this.game.turret2.animation.gotoAndPlay("done");
-    console.log("player2 is dead")
-  }
-};
