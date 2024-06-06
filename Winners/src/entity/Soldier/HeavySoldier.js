@@ -29,9 +29,6 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
-    if (this.animation) {
-      this.animation.gotoAndPlay("shoot");
-    }
 
     var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
