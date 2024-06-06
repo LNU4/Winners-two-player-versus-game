@@ -114,15 +114,28 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
         function (bullet, soldier) {
             
             if (bullet.bulletTarget == soldier.SoldierOwner) {
-                console.log(soldier, this)
-                console.log(bullet)
+            
                 this.game.bullets.removeMember(bullet, true);
                 this.handleKillSoldier();
             }
         },
         this
     );
-  
+
+  if(this.truck){
+    /**
+     *referense to the soldier that is carryed by the truck, "there are forur soldiers everytime a new truck is created, all the soldiers are pushed into an array 'soldierArr' "
+     * @type {Object}
+     * 
+     */
+  var m_this = this;
+  for(var i = 0; i < this.truck.soldierArr.length; i++) {
+    var soldier = this.truck.soldierArr[i];
+    if(soldier!= m_this) {
+      soldier.hitTestAndSeparate(m_this)
+    }
+  }
+}
 };
 
 /**
@@ -148,7 +161,7 @@ Winners.entity.SoldierUtil.prototype.shoot = function () {
  * @returns {undefined}
  */
 Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
-    console.log(this)
+    
     var m_this = this;
     this.game.layer0.removeChild(this, true);
     this.isDead = true;

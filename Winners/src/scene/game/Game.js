@@ -19,7 +19,7 @@
  */
 Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
 
-  console.log(this)
+ 
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
@@ -195,7 +195,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {media.Sound}
    */
   this.chaos = this.application.sounds.sound.get("gameplay");
-  console.log(this.chaos);
+  
   this.chaos.play(true);
   this.chaos.loop = true;
 
@@ -242,17 +242,6 @@ Winners.scene.Game.prototype.createTruck = function () {
    * @type {number}
    */
   var randomY2 =  Math.floor(Math.random() * (250 - 0) + 0);
-  console.log(randomY, randomY2)
-  // /**
-  //  * Random coordinates for the truck spawn point among the randomY coordinates and  randomY2 coordinates
-  //  * @type {number}
-  //  */
-  // var Ycord = Math.random() < 0.5 ? randomY : randomY2;
-  // /**
-  //  * Random coordinates for the truck spawn point among the randomY coordinates and  randomY2 coordinates
-  //  * @type {number}
-  //  */
-  // var Ycord2 = Math.random() < 0.5 ? randomY : randomY2;
   /**
    * Initializes the truck object with the given coordinates, belongs to player1
    * @type {Object}
@@ -278,7 +267,6 @@ Winners.scene.Game.prototype.createTruck = function () {
   this.layer0.addChild(this.truck);
   this.layer0.addChild(this.truck2);
   if (this.player2.hitTest(this.truck.soldier)) {
-   
     this.player2.soldierHit++;
     
   };

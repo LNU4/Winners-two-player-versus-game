@@ -256,6 +256,7 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
  * @private
  */
 Winners.entity.Player.prototype.m_updateInput = function () {
+ 
   if (!this.game.playerDead) {
   var gamepad = this.gamepads.get(0);
 

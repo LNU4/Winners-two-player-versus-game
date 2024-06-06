@@ -17,23 +17,10 @@ Winners.entity.Soldier = function (x, y, game, enemy, i, SoldierOwner, truck) {
 };
 
 Winners.entity.Soldier.prototype = Object.create(Winners.entity.SoldierUtil.prototype);
-Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldiers;
+Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldier;
 
 
-/*
-  this.hitTest(
-    this.game.bullets,
-    function (soldier, bullet) {
-      if (bullet.bulletTarget == soldier.SoldierOwner) {
-        this.game.bullets.removeMember(bullet, true);
-    
-        this.handelKillSoldier();
-      }
-    },
-    this
-  );
-};
-*/
+
 
 /**
  * Method to handle the soldier's shooting logic, timing, rotation, and speed of the bullets.

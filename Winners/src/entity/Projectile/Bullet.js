@@ -285,10 +285,10 @@ Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
   if (playerDead == "player1") {
     
     this.game.turret1.animation.gotoAndPlay("done");
-    console.log("player1 is dead")
+   
   } else if (playerDead == "player2") {
     this.game.turret2.animation.gotoAndPlay("done");
-    console.log("player2 is dead")
+    
   }
 };
 
