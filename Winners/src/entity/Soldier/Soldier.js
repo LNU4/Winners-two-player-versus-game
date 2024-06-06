@@ -17,7 +17,7 @@ Winners.entity.Soldier = function (x, y, game, enemy, i, SoldierOwner, truck) {
 };
 
 Winners.entity.Soldier.prototype = Object.create(Winners.entity.SoldierUtil.prototype);
-Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldiers;
+Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldier;
 
 
 /*
@@ -46,9 +46,7 @@ Winners.entity.Soldier.prototype.shoot = function () {
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
-    if (this.animation) {
-      this.animation.gotoAndPlay("shoot");
-    }
+   
 
     var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
 
