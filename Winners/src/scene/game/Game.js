@@ -4,7 +4,7 @@
 
 /**
  * Creates a new object.
- *
+ * V.10
  * @constructor
  * @extends rune.scene.Scene
  *
