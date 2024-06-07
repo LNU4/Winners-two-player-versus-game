@@ -11,9 +11,9 @@
  * @class
  * @classdesc
  * 
- * @param {number} maxRounds ...
- * @param {number} currentRoundNumber ...
- * @param {string} roundWinners ..
+ * @param {number} maxRounds ... defins the max amount of rounds
+ * @param {number} currentRoundNumber ... defines the current round
+ * @param {string} roundWinners .. defines the rounds winner
  * 
  * Game scene.
  */
