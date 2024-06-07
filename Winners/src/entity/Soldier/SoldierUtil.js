@@ -115,7 +115,7 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
   if (this.enemy.hitTest(this)) {
     this.handleKillSoldier();
   }
-    }
+    
     
     this.game.bullets.hitTest(
         this,

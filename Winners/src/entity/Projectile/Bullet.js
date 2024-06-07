@@ -44,7 +44,7 @@ Winners.entity.Bullet = function (
    * @default 20
    */
 
-  this.damage = 5.0;
+  this.damage = 5;
 
   /**
    * Property calling the builtin method for reading audio files
@@ -108,112 +108,114 @@ Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
  */
 Winners.entity.Bullet.prototype.update = function (step) {
   rune.display.DisplayObject.prototype.update.call(this, step);
-  var m_this = this;
 
+   var m_this = this;
+   
   if (this.hitTest(this.bulletTarget)) {
-    this.game.bullets.removeMember(this, true);
+   this.game.bullets.removeMember(this, true);
+  this.handelHp(this.damage);
 
-    this.HpOb = this.bulletTarget.hp;
-    this.HpOb.value -= this.damage;
+  //   this.HpOb = this.bulletTarget.hp;
+  //   this.HpOb.value -= this.damage;
 
-    if (this.HpOb.value == 80) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        20,
-        10
-      );
-      this.HpOb.backgroundColor = "#3dfc03";
-    } else if (this.HpOb.value == 60) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        15,
-        10
-      );
-      this.HpOb.backgroundColor = "#c2fc03";
-    } else if (this.HpOb.value == 40) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        10,
-        10
-      );
-      this.HpOb.backgroundColor = "#fcad03";
-    } else if (this.HpOb.value == 20) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        5,
-        10
-      );
-      this.HpOb.backgroundColor = "#fc0303";
-    } else if (this.HpOb.value == 0) {
+  //   if (this.HpOb.value == 80) {
+  //     rune.display.DisplayObject.call(
+  //       this.HpOb,
+  //       this.bulletTarget.x,
+  //       this.bulletTarget.y,
+  //       20,
+  //       10
+  //     );
+  //     this.HpOb.backgroundColor = "#3dfc03";
+  //   } else if (this.HpOb.value == 60) {
+  //     rune.display.DisplayObject.call(
+  //       this.HpOb,
+  //       this.bulletTarget.x,
+  //       this.bulletTarget.y,
+  //       15,
+  //       10
+  //     );
+  //     this.HpOb.backgroundColor = "#c2fc03";
+  //   } else if (this.HpOb.value == 40) {
+  //     rune.display.DisplayObject.call(
+  //       this.HpOb,
+  //       this.bulletTarget.x,
+  //       this.bulletTarget.y,
+  //       10,
+  //       10
+  //     );
+  //     this.HpOb.backgroundColor = "#fcad03";
+  //   } else if (this.HpOb.value == 20) {
+  //     rune.display.DisplayObject.call(
+  //       this.HpOb,
+  //       this.bulletTarget.x,
+  //       this.bulletTarget.y,
+  //       5,
+  //       10
+  //     );
+  //     this.HpOb.backgroundColor = "#fc0303";
+  //   } else if (this.HpOb.value == 0) {
       
-      if (this.bulletTarget == this.game.player) {
+  //     if (this.bulletTarget == this.game.player) {
         
-        this.handleDeadPlayer("player1");
-      } else if (this.bulletTarget == this.game.player2) {
+  //       this.handleDeadPlayer("player1");
+  //     } else if (this.bulletTarget == this.game.player2) {
         
-        this.handleDeadPlayer("player2");
-      }
+  //       this.handleDeadPlayer("player2");
+  //     }
     
       
-      this.bulletTarget.active = false;
-      // this.bulletTarget.x = -1000;
-      // this.bulletTarget.y = 1000;
-      this.game.timers.create({
-        duration: 1500,
-        scope: this,
-        onComplete: function () {
+  //     this.bulletTarget.active = false;
+  //     // this.bulletTarget.x = -1000;
+  //     // this.bulletTarget.y = 1000;
+  //     this.game.timers.create({
+  //       duration: 1500,
+  //       scope: this,
+  //       onComplete: function () {
          
-          if (this.bulletTarget == this.game.player) {
-            this.game.turret1.animation.gotoAndPlay("idle");
-          }
-          else if (this.bulletTarget == this.game.player2) {
-            this.game.turret2.animation.gotoAndPlay("idle");
-          }
+  //         if (this.bulletTarget == this.game.player) {
+  //           this.game.turret1.animation.gotoAndPlay("idle");
+  //         }
+  //         else if (this.bulletTarget == this.game.player2) {
+  //           this.game.turret2.animation.gotoAndPlay("idle");
+  //         }
         
-          this.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
+  //         this.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
 
-          this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
-        },
-      });
+  //         this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
+  //       },
+  //     });
 
-      // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
-      // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
-      this.game.timers.create({
-        duration: 4000,
-        scope: this,
-        onComplete: function () {
-          this.bulletTarget.active = true;
-          m_this.bulletTarget.x = m_this.bulletTarget.initX;
-          m_this.bulletTarget.y = m_this.bulletTarget.initY;
+  //     // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
+  //     // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
+  //     this.game.timers.create({
+  //       duration: 4000,
+  //       scope: this,
+  //       onComplete: function () {
+  //         this.bulletTarget.active = true;
+  //         m_this.bulletTarget.x = m_this.bulletTarget.initX;
+  //         m_this.bulletTarget.y = m_this.bulletTarget.initY;
 
-          m_this.layer0.addChild(m_this.bulletTarget);
-          m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
-          m_this.bulletTarget.flicker.start();
+  //         m_this.layer0.addChild(m_this.bulletTarget);
+  //         m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
+  //         m_this.bulletTarget.flicker.start();
 
-          m_this.game.camera.addChild(m_this.HpOb);
-          m_this.HpOb.value = 100;
-          rune.display.DisplayObject.call(
-            m_this.HpOb,
-            m_this.bulletTarget.x,
-            m_this.bulletTarget.y,
-            25,
-            10
-          );
-          m_this.HpOb.backgroundColor = "#03fc24";
+  //         m_this.game.camera.addChild(m_this.HpOb);
+  //         m_this.HpOb.value = 100;
+  //         rune.display.DisplayObject.call(
+  //           m_this.HpOb,
+  //           m_this.bulletTarget.x,
+  //           m_this.bulletTarget.y,
+  //           25,
+  //           10
+  //         );
+  //         m_this.HpOb.backgroundColor = "#03fc24";
 
-          m_this.respawn.play(true);
-        },
-      });
-    }
-  }
+  //         m_this.respawn.play(true);
+  //       },
+  //     });
+  //   }
+   }
 
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
@@ -270,6 +272,127 @@ Winners.entity.Bullet.prototype.update = function (step) {
   this.m_updateMotion(step);
 };
 
+Winners.entity.Bullet.prototype.handelHp = function (damage) {
+    
+  var m_this = this;
+    //this.game.bullets.removeMember(this, true);
+ 
+    this.HpOb = this.bulletTarget.hp;
+   // var damage = 0;
+   // console.log(damage)
+    // if (bulletType == "bulletDamage") {
+    //   damage = 5; 
+    //   //console.log(damage)
+    // }
+    // else if (bulletType == "rocketDamage") {
+    //   damage = 20; 
+    //  // console.log(damage)
+    // }
+    console.log(damage)
+    this.HpOb.value -= damage;
+    console.log(this.HpOb.value)
+
+    if (this.HpOb.value == 80) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        20,
+        10
+      );
+      this.HpOb.backgroundColor = "#3dfc03";
+    } else if (this.HpOb.value == 60) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        15,
+        10
+      );
+      this.HpOb.backgroundColor = "#c2fc03";
+    } else if (this.HpOb.value == 40) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        10,
+        10
+      );
+      this.HpOb.backgroundColor = "#fcad03";
+    } else if (this.HpOb.value == 20) {
+      rune.display.DisplayObject.call(
+        this.HpOb,
+        this.bulletTarget.x,
+        this.bulletTarget.y,
+        5,
+        10
+      );
+      this.HpOb.backgroundColor = "#fc0303";
+    } else if (this.HpOb.value <= 0) {
+      
+      if (this.bulletTarget == this.game.player) {
+        
+        this.handleDeadPlayer("player1");
+      } else if (this.bulletTarget == this.game.player2) {
+        
+        this.handleDeadPlayer("player2");
+      }
+    
+      // Add rocket removal logic
+      this.bulletTarget.active = false;
+      // this.bulletTarget.x = -1000;
+      // this.bulletTarget.y = 1000;
+      this.game.timers.create({
+        duration: 1500,
+        scope: this,
+        onComplete: function () {
+         
+          if (this.bulletTarget == this.game.player) {
+            this.game.turret1.animation.gotoAndPlay("idle");
+          }
+          else if (this.bulletTarget == this.game.player2) {
+            this.game.turret2.animation.gotoAndPlay("idle");
+          }
+        
+          this.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
+
+          this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
+        },
+      });
+
+      // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
+      // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
+      this.game.timers.create({
+        duration: 4000,
+        scope: this,
+        onComplete: function () {
+          this.bulletTarget.active = true;
+          m_this.bulletTarget.x = m_this.bulletTarget.initX;
+          m_this.bulletTarget.y = m_this.bulletTarget.initY;
+
+          m_this.layer0.addChild(m_this.bulletTarget);
+          m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
+          m_this.bulletTarget.flicker.start();
+
+          m_this.game.camera.addChild(m_this.HpOb);
+          m_this.HpOb.value = 100;
+          rune.display.DisplayObject.call(
+            m_this.HpOb,
+            m_this.bulletTarget.x,
+            m_this.bulletTarget.y,
+            25,
+            10
+          );
+          m_this.HpOb.backgroundColor = "#03fc24";
+
+          m_this.respawn.play(true);
+        },
+      });
+    }
+  
+  return 1;
+}
+
 /**
  *This method prepares the object to be removed from the memory by the garbage collector
  *
@@ -290,6 +413,7 @@ Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
     this.game.turret2.animation.gotoAndPlay("done");
     
   }
+  
 };
 
 //------------------------------------------------------------------------------
