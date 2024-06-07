@@ -264,7 +264,6 @@ Winners.entity.Player2.prototype.m_initAnimation = function () {
  */
 
 Winners.entity.Player2.prototype.m_updateInput = function () {
-  if (!this.game.playerDead) {
   var gamepad = this.gamepads.get(1);
 
   if (this.keyboard.pressed("RIGHT") || gamepad.stickLeftRight) {
@@ -311,5 +310,5 @@ Winners.entity.Player2.prototype.m_updateInput = function () {
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   }
-}
+
 };
