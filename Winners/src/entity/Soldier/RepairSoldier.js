@@ -170,16 +170,16 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
   }
 
   if (this.enemy.hitTest(this)) {
-    this.handelKillSoldier();
+   this.game.layer0.removeChild(this, true);
   }
 
   this.hitTest(
     this.game.bullets,
     function (soldier, bullet) {
-      if (bullet.bulletTarget == soldier.SoldierOwner) {
+      if (bullet.bulletTarget == soldier.player) {
         this.game.bullets.removeMember(bullet, true);
-       
-        this.handelKillSoldier();
+        this.game.layer0.removeChild(this, true);
+       // this.handelKillSoldier();
       }
     },
     this
