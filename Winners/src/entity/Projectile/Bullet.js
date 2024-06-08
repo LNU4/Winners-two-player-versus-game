@@ -170,18 +170,20 @@ Winners.entity.Bullet.prototype.update = function (step) {
 
   this.m_updateMotion(step);
 };
+/**
+ * 
+ * @param {number} damage specifies the damage to be applied on the other objects
+ * @method
+ */
 
 Winners.entity.Bullet.prototype.handelHp = function (damage) {
     
-  console.log(this.bulletTarget)
   this.HpOb = this.bulletTarget.hp;
-  console.log( this.bulletTarget)
   this.HpOb.value -= damage;
   if (this.bulletTarget.active) {
   if (this.HpOb.value <= 0) {
     this.bulletTarget.active = false;
     this.HpOb.value = 0; 
-    console.log(this.HpOb.value)
     
       if (this.bulletTarget == this.game.player) {
         
@@ -197,6 +199,11 @@ Winners.entity.Bullet.prototype.handelHp = function (damage) {
     }
   }
 }
+
+/**
+ * handles the respawn logic for players
+ * @method
+ */
 
 Winners.entity.Bullet.prototype.respawnPlayer = function () {
   var m_this = this;
@@ -250,6 +257,11 @@ Winners.entity.Bullet.prototype.respawnPlayer = function () {
   
   }
 
+/**
+ * handles the hp visualization on the player object
+ * @method
+ */
+
 Winners.entity.Bullet.prototype.updateHp = function () {
   var hp = this.HpOb.value; 
   var HpObj = this.HpOb;
@@ -284,6 +296,12 @@ Winners.entity.Bullet.prototype.updateHp = function () {
 Winners.entity.Bullet.prototype.dispose = function () {
   rune.display.DisplayObject.prototype.dispose.call(this);
 };
+
+/***
+ * Method that handles the animation calls for player objects once they die
+ * @method
+ * @param {sting} playerDead pass the dead player string name
+ */
 
 Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
   this.burn.play(true);

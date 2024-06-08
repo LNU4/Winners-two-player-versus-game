@@ -190,7 +190,7 @@ Winners.entity.Player2.prototype.shoot = function () {
   if (!this.activeBullets) {
     this.activeBullets = [];
   }
-  //this.game.turret1.animation.gotoAndPlay("shot");
+ 
   /**
    * specify the initial position of the bullet when generated
    * @type {object}

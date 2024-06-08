@@ -22,7 +22,6 @@ Winners.entity.Repairsoldier = function (x, y, game, player) {
    */
   this.moveSpeed = 1;
   this.game = game;
- //this.player = player;
   /**
    * Boolean to determine if the soldier is dead
    * @type {boolean}
@@ -52,21 +51,7 @@ Winners.entity.Repairsoldier = function (x, y, game, player) {
     playerColor = new rune.color.Color24(172, 50, 50);
    
   }
-  // if (enemy === this.game.player) {
-  //   /**
-  //    * Reference to the player object as the enemy object
-  //    * @type {object}
-  //    */
-  //   this.enemy = this.game.player;
-  //   this.player = this.game.player2;
-  // } else if (enemy === this.game.player2) {
-  //   this.enemy = this.game.player2;
-  //   this.player = this.game.player;
-  //   this.texture.replaceColor(
-  //     new rune.color.Color24(82, 75, 36),
-  //     new rune.color.Color24(172, 50, 50)
-  //   );
-  // }
+ 
   this.texture.replaceColor(new rune.color.Color24(0, 0, 0), playerColor);
   
 };
