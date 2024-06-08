@@ -185,7 +185,6 @@ Winners.entity.Player.prototype.shoot = function () {
   if (!this.activeBullets) {
     this.activeBullets = [];
   }
- 
 
   /**
    * specify the initial position of the bullet when generated
@@ -256,8 +255,6 @@ Winners.entity.Player.prototype.m_initAnimation = function () {
  * @private
  */
 Winners.entity.Player.prototype.m_updateInput = function () {
- 
-  
   var gamepad = this.gamepads.get(0);
 
   if (this.keyboard.pressed("D") || gamepad.stickLeftRight) {
@@ -305,6 +302,5 @@ Winners.entity.Player.prototype.m_updateInput = function () {
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   }
-
 };
 // Slut m_updateInput

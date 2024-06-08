@@ -65,7 +65,7 @@ Winners.entity.Base1shield.prototype.init = function () {
   this.animation.create("2", [2], 1, true);
   this.animation.create("3", [3], 1, true);
   this.animation.create("4", [4], 1, true);
- 
+
   this.animation.gotoAndStop("0");
 };
 

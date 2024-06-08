@@ -1,4 +1,3 @@
-
 //------------------------------------------------------------------------------
 // Constructor scope
 //------------------------------------------------------------------------------
@@ -10,7 +9,7 @@
  *
  * @class
  * @classdesc Game scene.
- * 
+ *
  * @param {number} X coordinates of where the object will be placed on X axis
  * @param {number} Y coordinates of where the object will be placed on Y axis
  * @param {object} game reference to the game object
@@ -20,15 +19,25 @@
  * @param {object} truck reference to the truck object
  */
 Winners.entity.Soldier = function (x, y, game, enemy, i, SoldierOwner, truck) {
-  Winners.entity.SoldierUtil.call(this, x, y, game, enemy, "soldier", 200, 1, 900, SoldierOwner);
+  Winners.entity.SoldierUtil.call(
+    this,
+    x,
+    y,
+    game,
+    enemy,
+    "soldier",
+    200,
+    1,
+    900,
+    SoldierOwner
+  );
   this.truck = truck;
 };
 
-Winners.entity.Soldier.prototype = Object.create(Winners.entity.SoldierUtil.prototype);
+Winners.entity.Soldier.prototype = Object.create(
+  Winners.entity.SoldierUtil.prototype
+);
 Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldier;
-
-
-
 
 /**
  * Method to handle the soldier's shooting logic, timing, rotation, and speed of the bullets.
@@ -49,9 +58,13 @@ Winners.entity.Soldier.prototype.shoot = function () {
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
-   
-
-    var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
+    var bullet = this.game.bullets.create(
+      this.centerX,
+      this.centerY,
+      this,
+      this.turret1,
+      this.enemy
+    );
     /**
      * specifies the bullet velocity on x and y axes
      * @type {number}
@@ -62,6 +75,7 @@ Winners.entity.Soldier.prototype.shoot = function () {
      * specifies the rotation of the bullet
      * @type {number}
      */
-    bullet.rotation = Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
+    bullet.rotation =
+      Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }
 };

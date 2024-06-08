@@ -27,8 +27,7 @@ Winners.entity.Repairsoldier = function (x, y, game, player) {
    * @type {boolean}
    */
   this.isDead = false;
-  
- 
+
   /**
    * placeholder to the display object container
    * @type {object}
@@ -49,11 +48,9 @@ Winners.entity.Repairsoldier = function (x, y, game, player) {
     this.player = game.player;
     this.enemy = this.game.player2;
     playerColor = new rune.color.Color24(172, 50, 50);
-   
   }
- 
+
   this.texture.replaceColor(new rune.color.Color24(0, 0, 0), playerColor);
-  
 };
 /**
  * Innheritance of the sprite class
@@ -145,7 +142,7 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
       this.repair();
     }
     /**
-     * clmap the soldier within the display object container 
+     * clmap the soldier within the display object container
      */
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
@@ -155,7 +152,7 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
   }
 
   if (this.enemy.hitTest(this)) {
-   this.game.layer0.removeChild(this, true);
+    this.game.layer0.removeChild(this, true);
   }
 
   this.hitTest(
@@ -164,7 +161,7 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
       if (bullet.bulletTarget == soldier.player) {
         this.game.bullets.removeMember(bullet, true);
         this.game.layer0.removeChild(this, true);
-       // this.handelKillSoldier();
+        // this.handelKillSoldier();
       }
     },
     this

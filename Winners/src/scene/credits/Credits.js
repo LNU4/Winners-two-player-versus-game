@@ -49,9 +49,9 @@ Winners.scene.Credits.prototype.init = function () {
   this.menu = new rune.ui.VTMenu({ resource: "New Piskel-4" });
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "credits");
   this.stage.addChild(this.bg);
- 
+
   /**
-   * Menu configuration, alternatives 
+   * Menu configuration, alternatives
    */
   this.menu.add("back to main menu");
   this.menu.scaleX = 2;
@@ -72,8 +72,7 @@ Winners.scene.Credits.prototype.init = function () {
 Winners.scene.Credits.prototype.update = function (step) {
   rune.scene.Scene.prototype.update.call(this, step);
   var gamepad = this.gamepads.get(0);
-  
-   
+
   if (this.keyboard.justPressed("UP")) {
     this.menu.up();
     this.selected = (this.selected - 1 + 1) % 1;
@@ -82,7 +81,7 @@ Winners.scene.Credits.prototype.update = function (step) {
     this.selected = (this.selected + 1 + 1) % 1;
   }
 
-  if (this.keyboard.justPressed("SPACE")|| gamepad.justPressed("0") ) {
+  if (this.keyboard.justPressed("SPACE") || gamepad.justPressed("0")) {
     switch (this.selected) {
       case 0:
         this.menu.select();

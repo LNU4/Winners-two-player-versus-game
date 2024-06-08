@@ -10,37 +10,35 @@
  *
  * @class
  * @classdesc
- * 
+ *
  * @param {number} maxRounds ... defins the max amount of rounds
  * @param {number} currentRoundNumber ... defines the current round
  * @param {string} roundWinners .. defines the rounds winner
- * 
+ *
  * Game scene.
  */
 Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
-
- 
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
   /**
    * Index of the max amount of rounds per match
-   * 
-   * @type {number} 
+   *
+   * @type {number}
    */
-  
+
   this.maxRounds = maxRounds;
 
   /**
    * The number identifying the current round
-   * 
-   * @type {number} 
+   *
+   * @type {number}
    */
   this.currentRound = currentRound;
   /**
    * The winners of the current round
-   * 
-   * @type {array} 
+   *
+   * @type {array}
    */
   this.roundWinners = roundWinners || [];
   /**
@@ -55,7 +53,13 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
    * @type {boolean}
    */
   this.Player2isDefeated = false;
-  
+
+   /**
+   * Boolean to check if a winner has already been declared
+   * @type {boolean}
+   */
+   this.winnerDeclared = false;
+
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -64,7 +68,6 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
    * Calls the constructor method of the super class.
    */
   rune.scene.Scene.call(this);
-
 };
 
 //------------------------------------------------------------------------------
@@ -86,10 +89,10 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
  */
 Winners.scene.Game.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
- /**
-  * A property to store the background image
-  * @type {Object}
-  */
+  /**
+   * A property to store the background image
+   * @type {Object}
+   */
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "background");
   /**
    * A property to define a container to store certain objects
@@ -105,56 +108,56 @@ Winners.scene.Game.prototype.init = function () {
    * A property to define a container to store certain objects
    * @type {Object}
    */
- this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
+  this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
 
- /**
-  * Reference to a DisplayGroup containing all the bullets
-  * @type {Object}
-  */
+  /**
+   * Reference to a DisplayGroup containing all the bullets
+   * @type {Object}
+   */
   this.bullets = this.groups.add(new Winners.entity.Bullets(this));
 
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
-   this.stage.addChild(this.layer2);
+  this.stage.addChild(this.layer2);
 
- /**
-  * The baseShioled to protect the base for player 
-  * @type {Object}
-  */
+  /**
+   * The baseShioled to protect the base for player
+   * @type {Object}
+   */
   this.Base1shield = new Winners.entity.Base1shield(5, 330.5, this);
   /**
-  * The baseShioled to protect the base for player2 
-  * @type {Object}
-  */
+   * The baseShioled to protect the base for player2
+   * @type {Object}
+   */
   this.Base2shield = new Winners.entity.Base2shield(1160, 330.5, this);
   /**
-  * The base for player 
-  * @type {Object}
-  */
+   * The base for player
+   * @type {Object}
+   */
   this.base = new Winners.entity.Base(10, 360, this);
   /**
-  * The base for player2 
-  * @type {Object}
-  */
+   * The base for player2
+   * @type {Object}
+   */
   this.base2 = new Winners.entity.Base2(1210, 360, this);
   /**
-  * The turret for player 
-  * @type {Object}
-  */
+   * The turret for player
+   * @type {Object}
+   */
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
   /**
-  * The turret for player2 
-  * @type {Object}
-  */
+   * The turret for player2
+   * @type {Object}
+   */
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
   /**
-  * The camera object for Game 
-  * @type {Object}
-  */
+   * The camera object for Game
+   * @type {Object}
+   */
   this.camera = this.cameras.getCameraAt(0);
+ 
 
 
-  
   /**
    * Property to store the player object
    * @type {Object}
@@ -170,7 +173,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.player.player2 = this.player2;
- 
+
   /**
    * Property to create an empty array to look after the powerups for player
    * @type {Array}
@@ -192,16 +195,14 @@ Winners.scene.Game.prototype.init = function () {
    * @type {number}
    */
   this.player2.powerupIx = 0;
-/**
+  /**
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
   this.chaos = this.application.sounds.sound.get("gameplay");
-  
+
   this.chaos.play(true);
   this.chaos.loop = true;
-
- 
 
   this.layer0.addChild(this.bg);
   this.layer0.addChild(this.player);
@@ -214,19 +215,17 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
 
-   /**
+  /**
    * Inbuilt functionality to start a timer to create a personal carrier "Truck"
    * @type {Method}
    */
 
-   this.timers.create({
+  this.timers.create({
     duration: 6000,
     onComplete: function () {
       this.createTruck();
     },
   });
-  
-  
 };
 /**
  * Meathod to intialize a truck with certain coordinates and is called after certain amount of time
@@ -243,7 +242,7 @@ Winners.scene.Game.prototype.createTruck = function () {
    * Random coordinates for the truck spawn point
    * @type {number}
    */
-  var randomY2 =  Math.floor(Math.random() * (250 - 0) + 0);
+  var randomY2 = Math.floor(Math.random() * (250 - 0) + 0);
   /**
    * Initializes the truck object with the given coordinates, belongs to player1
    * @type {Object}
@@ -270,15 +269,14 @@ Winners.scene.Game.prototype.createTruck = function () {
   this.layer0.addChild(this.truck2);
   if (this.player2.hitTest(this.truck.soldier)) {
     this.player2.soldierHit++;
-    
-  };
+  }
 
-   this.timers.create({
-   duration: 30000,
+  this.timers.create({
+    duration: 30000,
     onComplete: function () {
-     this.createTruck();
-   },
-   });
+      this.createTruck();
+    },
+  });
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -306,7 +304,7 @@ Winners.scene.Game.prototype.update = function (step) {
    */
   this.m_updateInput(step);
   /**
-   * Attach turret1 to the player1 coodinates on both axes Y and X 
+   * Attach turret1 to the player1 coodinates on both axes Y and X
    * @type {number}
    */
   this.turret1.x = this.player.x;
@@ -320,11 +318,8 @@ Winners.scene.Game.prototype.update = function (step) {
 
   if (this.truck && this.truck2) {
     this.truck.hitTestAndSeparate(this.truck2);
-  };
-  
+  }
 };
-
-
 
 //------------------------------------------------------------------------------
 // Private prototype methods
@@ -347,15 +342,22 @@ Winners.scene.Game.prototype.m_updateInput = function (step) {
 /**
  * Method to handle game over, sends the winner of the round in an array to which later gets sent to next round
  * @method
- * 
+ *
  */
 Winners.scene.Game.prototype.handleGameOver = function () {
- 
+  if (this.winnerDeclared) {
+    return;
+  }
+
   if (this.Player1isDefeated) {
     this.roundWinners.push("player2");
   } else if (this.Player2isDefeated) {
     this.roundWinners.push("player1");
   }
+  else {
+    return; 
+  }
+  this.winnerDeclared = true;
 
   if (this.currentRound < this.maxRounds) {
     /**
@@ -364,12 +366,13 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      */
     this.currentRound++;
     /**
-     * Shows text with the result of the round 
+     * Shows text with the result of the round
      * @type {string}
      */
-   
+
     var resultMsg =
       "round won by " + this.roundWinners[this.roundWinners.length - 1];
+
     /**
      * Creates a text object with the result of the round
      * @type {Object}
@@ -377,7 +380,7 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
     text.autoSize = true;
     text.scaleX = 2.5;
-    text.scaleY = 2.5; 
+    text.scaleY = 2.5;
     /**
      * Center the text on the screen
      * @type {number}
@@ -387,7 +390,7 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      * Scales the text on X and Y axis
      * @type {number}
      */
-    
+
     this.cameras.getCameraAt(0).addChild(text);
     /**
      * waits for 5 seconds before loading the next round
@@ -405,13 +408,12 @@ Winners.scene.Game.prototype.handleGameOver = function () {
       },
     });
   } else {
-   
     this.showMatchResult();
   }
 };
 /**
  * Method to show the result of the match
- * @method 
+ * @method
  */
 Winners.scene.Game.prototype.showMatchResult = function () {
   /**
@@ -428,10 +430,10 @@ Winners.scene.Game.prototype.showMatchResult = function () {
       player2Wins++;
     }
   }
-/**
- * updates the result message based on the match winner
- * @type {string}
- */
+  /**
+   * updates the result message based on the match winner
+   * @type {string}
+   */
 
   var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
@@ -442,12 +444,11 @@ Winners.scene.Game.prototype.showMatchResult = function () {
     resultMsg += "its a tie!";
   }
   var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
- 
 
   text.autoSize = true;
   text.scaleX = 2.5;
-  text.scaleY = 2.5; 
-   /**
+  text.scaleY = 2.5;
+  /**
    * Center the text on the screen and scale it accordingly
    */
   text.center = this.application.screen.center;
@@ -462,7 +463,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
 };
 /**
  * Method to handle the deafted player
- * @param {string} playerDeafeted 
+ * @param {string} playerDeafeted
  */
 Winners.scene.Game.prototype.handlePlayerDefeat = function (playerDeafeted) {
   if (playerDeafeted === "player1") {
@@ -479,7 +480,7 @@ Winners.scene.Game.prototype.handlePlayerDefeat = function (playerDeafeted) {
  * the method to reset references and remove objects that no longer need to
  * exist when the scene is destroyed. The process is performed in order to
  * avoid memory leaks.
- * 
+ *
  * @returns {undefined}
  */
 Winners.scene.Game.prototype.dispose = function () {

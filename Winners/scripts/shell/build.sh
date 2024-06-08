@@ -21,6 +21,7 @@ npx google-closure-compiler \
 --js "./../../src/entity/Base/Base1shield.js" \
 --js "./../../src/entity/Base/Base2shield.js" \
 --js "./../../src/entity/Misc/Truck.js" \
+--js "./../../src/entity/Soldier/SoldierUtil.js" \
 --js "./../../src/entity/Soldier/Soldier.js" \
 --js "./../../src/entity/Soldier/HeavySoldier.js" \
 --js "./../../src/entity/Soldier/SniperSoldier.js" \

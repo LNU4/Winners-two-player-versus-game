@@ -1,4 +1,3 @@
-
 //------------------------------------------------------------------------------
 // Constructor scope
 //------------------------------------------------------------------------------
@@ -17,10 +16,23 @@
  * @param {number} SoldierOwner reference to the player object that has the same team
  */
 Winners.entity.HeavySoldier = function (x, y, game, enemy, SoldierOwner) {
-  Winners.entity.SoldierUtil.call(this, x, y, game, enemy, "heavysoldier", 200, 0.8, 320, SoldierOwner);
+  Winners.entity.SoldierUtil.call(
+    this,
+    x,
+    y,
+    game,
+    enemy,
+    "heavysoldier",
+    200,
+    0.8,
+    320,
+    SoldierOwner
+  );
 };
 
-Winners.entity.HeavySoldier.prototype = Object.create(Winners.entity.SoldierUtil.prototype);
+Winners.entity.HeavySoldier.prototype = Object.create(
+  Winners.entity.SoldierUtil.prototype
+);
 Winners.entity.HeavySoldier.prototype.constructor = Winners.entity.HeavySoldier;
 
 /**
@@ -30,20 +42,25 @@ Winners.entity.HeavySoldier.prototype.constructor = Winners.entity.HeavySoldier;
  */
 Winners.entity.HeavySoldier.prototype.shoot = function () {
   if (this.distance - 40 <= this.shootDistance) {
-     /**
+    /**
      * speicifes the bullet speed
      * @type {number}
      */
     var bulletSpeed = 1.5;
-     /**
+    /**
      * specifes the bullet direction on X and Y axes
      * @type {number}
      */
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
-
-    var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
+    var bullet = this.game.bullets.create(
+      this.centerX,
+      this.centerY,
+      this,
+      this.turret1,
+      this.enemy
+    );
     /**
      * specifies the bullet velocity on x and y axes
      * @type {number}
@@ -54,6 +71,7 @@ Winners.entity.HeavySoldier.prototype.shoot = function () {
      * specifies the rotation of the bullet
      * @type {number}
      */
-    bullet.rotation = Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
+    bullet.rotation =
+      Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }
 };

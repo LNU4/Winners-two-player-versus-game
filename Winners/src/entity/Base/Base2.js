@@ -81,7 +81,7 @@ Winners.entity.Base2.prototype.init = function () {
 
 /**
  * ...
- * 
+ *
  * @param {number} step Fixed time step.
  *
  * @returns {undefined}

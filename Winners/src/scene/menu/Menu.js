@@ -17,14 +17,11 @@ Winners.scene.Menu = function () {
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
-  
+
   /**
    * Calls the constructor method of the super class.
    */
   rune.scene.Scene.call(this);
-
-  
-  
 };
 
 //------------------------------------------------------------------------------
@@ -46,7 +43,7 @@ Winners.scene.Menu.prototype.constructor = Winners.scene.Menu;
  */
 Winners.scene.Menu.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
- 
+
   this.menu = new rune.ui.VTMenu({ resource: "New Piskel-4" });
   this.bg = new rune.display.Sprite(0, 0, 1280, 720, "mainbackground");
   this.stage.addChild(this.bg);
@@ -59,9 +56,8 @@ Winners.scene.Menu.prototype.init = function () {
 
   this.stage.addChild(text);
 
-
   this.menu.add("one round");
-  
+
   this.menu.add("two rounds");
   this.menu.add("how to play");
   this.menu.add("credits");
@@ -76,10 +72,9 @@ Winners.scene.Menu.prototype.init = function () {
    * @type {media.Sound}
    */
   this.soundEffect = this.application.sounds.sound.get("menu");
-  this.soundEffect.play(true)
-   this.soundEffect.loop = true;
+  this.soundEffect.play(true);
+  this.soundEffect.loop = true;
   this.switchEffect = this.application.sounds.sound.get("switch");
-    
 
   this.m_initAnimation();
 };
@@ -112,13 +107,12 @@ Winners.scene.Menu.prototype.update = function (step) {
   var gamepad = this.gamepads.get(0);
 
   if (this.keyboard.justPressed("UP") || gamepad.stickLeftJustUp) {
-    this.switchEffect.play(true)
+    this.switchEffect.play(true);
 
     this.menu.up();
     this.selected = (this.selected - 1 + 5) % 5;
   } else if (this.keyboard.justPressed("DOWN") || gamepad.stickLeftJustDown) {
-    
-    this.switchEffect.play(true)
+    this.switchEffect.play(true);
 
     this.menu.down();
     this.selected = (this.selected + 1) % 5;
