@@ -59,7 +59,7 @@ Winners.entity.Rocket.prototype.update = function (step) {
   if (this.hitTest(this.bulletTarget)) {
     this.layer0.removeChild(this, true);
   
-    this.game.bullets.bullet.handelHp(this.damage);
+    this.game.bullets.bullet.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
   }
 };
 

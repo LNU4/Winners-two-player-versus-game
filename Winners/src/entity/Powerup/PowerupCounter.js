@@ -169,7 +169,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
    * Private variable to store the type of soldier to be generated  
    * @type {string}
    */
-  var type = "rocketsoldier";
+  var type = "repairsoldier";
   /**
    * Private variable to store the object
    * @type {Object}
