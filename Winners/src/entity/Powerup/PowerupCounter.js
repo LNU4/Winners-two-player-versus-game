@@ -236,8 +236,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
 
          break;
 
-        // default:
-        //   console.log("Sorry, all the ", type, " are dead, RIP them :(");
+     
       }
     },
   });

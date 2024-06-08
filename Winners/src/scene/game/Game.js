@@ -152,8 +152,7 @@ Winners.scene.Game.prototype.init = function () {
   * @type {Object}
   */
   this.camera = this.cameras.getCameraAt(0);
-//   this.camera.fade
-// .opacity = 0.4;
+
 
   
   /**
@@ -452,16 +451,6 @@ Winners.scene.Game.prototype.showMatchResult = function () {
    * Center the text on the screen and scale it accordingly
    */
   text.center = this.application.screen.center;
-  // Look at this, not working N.A 
-  var cameraFade = new rune.camera.CameraFade();
-  cameraFade.in(1000); // Fade in over 1 second
-
-  // Add the text field to the camera's display list
-  this.cameras.getCameraAt(0).fade = cameraFade;
-
-  // Add the text field to the camera's display list
-  this.cameras.getCameraAt(0).fade = cameraFade;
-  //------------
   this.cameras.getCameraAt(0).addChild(text);
 
   this.timers.create({
