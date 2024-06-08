@@ -17,7 +17,6 @@
  * Game scene.
  */
 Winners.entity.Powerup = function (x, y, game, unKnownPlayer) {
-
   this.game = game;
   this.unKnownPlayer = unKnownPlayer;
   /**
@@ -50,7 +49,7 @@ Winners.entity.Powerup.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Powerup.prototype.constructor = Winners.entity.Powerup;
 
 //------------------------------------------------------------------------------
-// Override public prototype methods 
+// Override public prototype methods
 //------------------------------------------------------------------------------
 
 /**
@@ -77,7 +76,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
   /**
    * a private property to store the powerup object
    * @type {object}
-   * 
+   *
    */
   var m_this = this;
 
@@ -117,20 +116,20 @@ Winners.entity.Powerup.prototype.update = function (step) {
       new rune.color.Color24(172, 50, 50)
     );
   }
-/**
- * Private properties to store the x & y coords of the powerup object after they have been set
- * @type {number}
- */
+  /**
+   * Private properties to store the x & y coords of the powerup object after they have been set
+   * @type {number}
+   */
   var puX = this.puX;
   var puY = this.puY;
 
   if (this.hitTest(this.player)) {
     if (this.player.powerupsArray.length < 3) {
       this.soundEffect.play(true);
-/**
- * A property to create a powerup counter object, that is renderd as a star on the top left or the top right of the screen depending on to which player the powerup belongs to. Each player can have maximum 3 powerups at a time.
- * @type {object}
- */
+      /**
+       * A property to create a powerup counter object, that is renderd as a star on the top left or the top right of the screen depending on to which player the powerup belongs to. Each player can have maximum 3 powerups at a time.
+       * @type {object}
+       */
       this.powerupCounter = new Winners.entity.PowerupCounter(
         this.game,
         this.player,
@@ -144,7 +143,6 @@ Winners.entity.Powerup.prototype.update = function (step) {
       this.player.powerupIx++;
 
       this.game.camera.removeChild(this, true);
-     
     }
   } else {
     this.game.timers.create({
@@ -157,7 +155,7 @@ Winners.entity.Powerup.prototype.update = function (step) {
 };
 
 /**
- * 
+ *
  *This method prepares the object to be removed from the memory by the garbage collector
  *
  *

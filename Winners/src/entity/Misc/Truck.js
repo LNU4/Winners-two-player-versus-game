@@ -14,25 +14,23 @@
  * Game scene.
  */
 Winners.entity.Truck = function (x, y, game, enemy, owner) {
-  
   /**
    * reference to the game class
    * @type {object}
    */
   this.game = game;
- 
+
   /**
    * reference to the display object container
    * @type {object}
    */
   this.layer0 = this.game.layer0;
-/**
-     * Property that limits the value of the hit points for Truck
-     * @type {number}
-     */
+  /**
+   * Property that limits the value of the hit points for Truck
+   * @type {number}
+   */
   this.hp = 200;
 
-  
   /**
    * Properity to state the movement speed of the truck object
    * @type {number}
@@ -46,7 +44,7 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
 
   /**
    * An array to hold the soldiers
-   * 
+   *
    * @type {Array}
    */
 
@@ -76,7 +74,6 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
       new rune.color.Color24(172, 50, 50)
     );
   }
-
 };
 
 //------------------------------------------------------------------------------
@@ -87,7 +84,7 @@ Winners.entity.Truck.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Truck.prototype.constructor = Winners.entity.Truck;
 
 //------------------------------------------------------------------------------
-// Override public prototype methods 
+// Override public prototype methods
 //------------------------------------------------------------------------------
 
 /**
@@ -159,29 +156,22 @@ Winners.entity.Truck.prototype.update = function (step) {
     this.hitTestAndSeparate(this.player);
   }
   if (this.game.bullets) {
-  this.hitTest( 
-    this.game.bullets,
-    function (truck, bullet) {
-      
-      truck.hp -= 20;
-      
-      if (bullet.bulletTarget === truck.player) {
-       
-        this.game.bullets.removeMember(bullet, true);
+    this.hitTest(
+      this.game.bullets,
+      function (truck, bullet) {
         truck.hp -= 20;
-         if (truck.hp == 0) {
-        this.game.layer0.removeChild(truck, true);
-      }
-      
-      }
-     
-      
-    },
-    this
-  );
-};
 
- 
+        if (bullet.bulletTarget === truck.player) {
+          this.game.bullets.removeMember(bullet, true);
+          truck.hp -= 20;
+          if (truck.hp == 0) {
+            this.game.layer0.removeChild(truck, true);
+          }
+        }
+      },
+      this
+    );
+  }
 };
 /**
  * Method to handle the truck stop and create soldiers
@@ -225,7 +215,7 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
       soldierY,
       this.game,
       this.enemy,
-       i,
+      i,
       this.player,
       this
     );
@@ -235,11 +225,9 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   this.game.timers.create({
     duration: 2000,
     onComplete: function () {
-
-      if (m_this){
+      if (m_this) {
         this.layer0.removeChild(m_this, true);
       }
-    
     },
   });
 };

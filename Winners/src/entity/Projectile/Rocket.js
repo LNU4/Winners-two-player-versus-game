@@ -7,7 +7,6 @@ Winners.entity.Rocket = function (
   x,
   y
 ) {
-
   this.game = game;
   this.damage = 50;
 
@@ -26,7 +25,6 @@ Winners.entity.Rocket = function (
   rune.display.Sprite.call(this, x, y, 16, 16, "rocket");
 
   this.m_speed = 0.0002;
-
 };
 
 Winners.entity.Rocket.prototype = Object.create(rune.display.Sprite.prototype);
@@ -50,16 +48,17 @@ Winners.entity.Rocket.prototype.update = function (step) {
    * @type {object}
    */
   var m_this = this;
-  
+
   this.animation.gotoAndPlay("walk");
-
- 
-
 
   if (this.hitTest(this.bulletTarget)) {
     this.layer0.removeChild(this, true);
-  
-    this.game.bullets.bullet.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
+
+    this.game.bullets.bullet.handelHp(
+      this.damage,
+      this.bulletTarget,
+      this.bulletOwner
+    );
   }
 };
 

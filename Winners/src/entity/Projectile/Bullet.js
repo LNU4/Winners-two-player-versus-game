@@ -51,7 +51,7 @@ Winners.entity.Bullet = function (
    * @type {media.Sound}
    */
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
-   this.burn = this.bullets.application.sounds.sound.get("burn");
+  this.burn = this.bullets.application.sounds.sound.get("burn");
   //--------------------------------------------------------------------------
   // Protected properties
   //------------------------------------------------------------------------
@@ -109,12 +109,12 @@ Winners.entity.Bullet.prototype.constructor = Winners.entity.Bullet;
 Winners.entity.Bullet.prototype.update = function (step) {
   rune.display.DisplayObject.prototype.update.call(this, step);
 
-   var m_this = this;
-   
+  var m_this = this;
+
   if (this.hitTest(this.bulletTarget)) {
-   this.game.bullets.removeMember(this, true);
-  this.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
-   }
+    this.game.bullets.removeMember(this, true);
+    this.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
+  }
 
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
@@ -171,36 +171,35 @@ Winners.entity.Bullet.prototype.update = function (step) {
   this.m_updateMotion(step);
 };
 /**
- * 
+ *
  * @param {number} damage specifies the damage to be applied on the other objects
  * @method
  */
 
-Winners.entity.Bullet.prototype.handelHp = function (damage, bulletTarget, bulletOwner) {
-    
+Winners.entity.Bullet.prototype.handelHp = function (
+  damage,
+  bulletTarget,
+  bulletOwner
+) {
   this.HpOb = this.bulletTarget.hp;
 
   this.HpOb.value -= damage;
   if (bulletTarget.active) {
-  if (this.HpOb.value <= 0) {
-    bulletTarget.active = false;
-    this.HpOb.value = 0; 
-    
+    if (this.HpOb.value <= 0) {
+      bulletTarget.active = false;
+      this.HpOb.value = 0;
+
       if (bulletTarget == this.game.player) {
-        
-         this.handleDeadPlayer("player1");
-       } else if (bulletTarget == this.game.player2) {
-        
-         this.handleDeadPlayer("player2");
-       }
-       this.respawnPlayer(bulletTarget, bulletOwner)
-    }
-    else {
+        this.handleDeadPlayer("player1");
+      } else if (bulletTarget == this.game.player2) {
+        this.handleDeadPlayer("player2");
+      }
+      this.respawnPlayer(bulletTarget, bulletOwner);
+    } else {
       this.updateHp();
     }
   }
-}
-
+};
 
 /**
  * handles the respawn logic for players
@@ -209,59 +208,55 @@ Winners.entity.Bullet.prototype.handelHp = function (damage, bulletTarget, bulle
  * @param {object} bulletTarget reference to the bullet owner object
  */
 
-
-Winners.entity.Bullet.prototype.respawnPlayer = function (bulletTarget, bulletOwner) {
-
+Winners.entity.Bullet.prototype.respawnPlayer = function (
+  bulletTarget,
+  bulletOwner
+) {
   var m_this = this;
-       
-       this.game.timers.create({
-        duration: 1500,
-        scope: this,
-        onComplete: function () {
-         
-          if (bulletTarget == this.game.player) {
-            this.game.turret1.animation.gotoAndPlay("idle");
-          }
-          else if (bulletTarget == this.game.player2) {
-            this.game.turret2.animation.gotoAndPlay("idle");
-          }
-        
-          bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
 
-          bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
+  this.game.timers.create({
+    duration: 1500,
+    scope: this,
+    onComplete: function () {
+      if (bulletTarget == this.game.player) {
+        this.game.turret1.animation.gotoAndPlay("idle");
+      } else if (bulletTarget == this.game.player2) {
+        this.game.turret2.animation.gotoAndPlay("idle");
+      }
 
-        },
-      });
+      bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
 
-      this.game.timers.create({
-        duration: 4000,
-        scope: this,
-        onComplete: function () {
-          bulletTarget.active = true;
-          bulletTarget.x = bulletTarget.initX;
-          bulletTarget.y = bulletTarget.initY;
+      bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
+    },
+  });
 
-          m_this.layer0.addChild(bulletTarget);
-          m_this.game.layer2.addChild(bulletTarget.turret1);
-          bulletTarget.flicker.start();
+  this.game.timers.create({
+    duration: 4000,
+    scope: this,
+    onComplete: function () {
+      bulletTarget.active = true;
+      bulletTarget.x = bulletTarget.initX;
+      bulletTarget.y = bulletTarget.initY;
 
-          m_this.game.camera.addChild(m_this.HpOb);
-          m_this.HpOb.value = 100;
-          rune.display.DisplayObject.call(
-            m_this.HpOb,
-            bulletTarget.x,
-            bulletTarget.y,
-            25,
-            10
-          );
-          m_this.HpOb.backgroundColor = "#03fc24";
+      m_this.layer0.addChild(bulletTarget);
+      m_this.game.layer2.addChild(bulletTarget.turret1);
+      bulletTarget.flicker.start();
 
-          m_this.respawn.play(true);
-        },
-      });
-    
-  
-  }
+      m_this.game.camera.addChild(m_this.HpOb);
+      m_this.HpOb.value = 100;
+      rune.display.DisplayObject.call(
+        m_this.HpOb,
+        bulletTarget.x,
+        bulletTarget.y,
+        25,
+        10
+      );
+      m_this.HpOb.backgroundColor = "#03fc24";
+
+      m_this.respawn.play(true);
+    },
+  });
+};
 
 /**
  * handles the hp visualization on the player object
@@ -269,9 +264,9 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (bulletTarget, bulletOw
  */
 
 Winners.entity.Bullet.prototype.updateHp = function () {
-  var hp = this.HpOb.value; 
+  var hp = this.HpOb.value;
   var HpObj = this.HpOb;
-  
+
   if (hp > 80) {
     HpObj.backgroundColor = "#03fc24";
     HpObj.width = 25;
@@ -290,8 +285,7 @@ Winners.entity.Bullet.prototype.updateHp = function () {
   } else {
     HpObj.width = 0;
   }
-
-  }
+};
 
 /**
  *This method prepares the object to be removed from the memory by the garbage collector
@@ -312,14 +306,10 @@ Winners.entity.Bullet.prototype.dispose = function () {
 Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
   this.burn.play(true);
   if (playerDead == "player1") {
-    
     this.game.turret1.animation.gotoAndPlay("done");
-   
   } else if (playerDead == "player2") {
     this.game.turret2.animation.gotoAndPlay("done");
-    
   }
-  
 };
 
 //------------------------------------------------------------------------------
@@ -340,4 +330,3 @@ Winners.entity.Bullet.prototype.m_updateMotion = function (step) {
   this.velocity.y +=
     Math.sin(rune.util.Math.degreesToRadians(this.rotation)) * this.m_speed;
 };
-

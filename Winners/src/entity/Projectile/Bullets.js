@@ -27,10 +27,10 @@ Winners.entity.Bullets = function (game) {
    * @default 4
    */
   this.maxNumBullets = 4;
- /**
-  * Property efering to thre game object
-  * @type {object}
-  */
+  /**
+   * Property efering to thre game object
+   * @type {object}
+   */
   this.game = game;
   /**
    * property refering to the container layer of the object
@@ -94,7 +94,6 @@ Winners.entity.Bullets.prototype.create = function (
   turret,
   enemy
 ) {
-
   this.owner = owner;
   this.turret = turret;
   this.enemy = enemy;
@@ -102,10 +101,10 @@ Winners.entity.Bullets.prototype.create = function (
   if (this.numMemebers == this.maxNumBullets) {
     this.removeMemeber(this.getMemberAt(0), true);
   }
-/**
- * Property containing a reference to the instance of the bullet object
- * @type {object}
- */
+  /**
+   * Property containing a reference to the instance of the bullet object
+   * @type {object}
+   */
   this.bullet = new Winners.entity.Bullet(
     this.game,
     this.container,
@@ -135,9 +134,7 @@ Winners.entity.Bullets.prototype.create = function (
  *
  * @returns {undefined}
  */
-Winners.entity.Bullets.prototype.update = function (step) {
-
-};
+Winners.entity.Bullets.prototype.update = function (step) {};
 
 /**
  * Resets all bullets.
@@ -146,6 +143,4 @@ Winners.entity.Bullets.prototype.update = function (step) {
  */
 Winners.entity.Bullets.prototype.reset = function () {
   this.removeChildren();
-
 };
-

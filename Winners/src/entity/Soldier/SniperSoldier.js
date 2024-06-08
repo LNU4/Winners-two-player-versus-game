@@ -16,10 +16,23 @@
  * @param {number} SoldierOwner reference to the player object that has the same team
  */
 Winners.entity.SniperSodier = function (x, y, game, enemy, SoldierOwner) {
-  Winners.entity.SoldierUtil.call(this, x, y, game, enemy, "snipersoldier", 1000, 1.5, 920, SoldierOwner);
+  Winners.entity.SoldierUtil.call(
+    this,
+    x,
+    y,
+    game,
+    enemy,
+    "snipersoldier",
+    1000,
+    1.5,
+    920,
+    SoldierOwner
+  );
 };
 
-Winners.entity.SniperSodier.prototype = Object.create(Winners.entity.SoldierUtil.prototype);
+Winners.entity.SniperSodier.prototype = Object.create(
+  Winners.entity.SoldierUtil.prototype
+);
 Winners.entity.SniperSodier.prototype.constructor = Winners.entity.SniperSodier;
 
 /**
@@ -29,7 +42,7 @@ Winners.entity.SniperSodier.prototype.constructor = Winners.entity.SniperSodier;
  */
 Winners.entity.SniperSodier.prototype.shoot = function () {
   if (this.distance - 30 <= this.shootDistance) {
-     /**
+    /**
      * speicifes the bullet speed
      * @type {number}
      */
@@ -40,9 +53,14 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
      */
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
-  
 
-    var bullet = this.game.bullets.create(this.centerX, this.centerY, this, this.turret1, this.enemy);
+    var bullet = this.game.bullets.create(
+      this.centerX,
+      this.centerY,
+      this,
+      this.turret1,
+      this.enemy
+    );
     /**
      * specifies the bullet velocity on x and y axes
      * @type {number}
@@ -53,6 +71,7 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
      * specifies the rotation of the bullet
      * @type {number}
      */
-    bullet.rotation = Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
+    bullet.rotation =
+      Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }
 };

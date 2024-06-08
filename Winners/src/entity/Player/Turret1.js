@@ -105,7 +105,7 @@ Winners.entity.Turret1.prototype.m_torretRotation = function () {
     this.rotation -= 5;
   } else if (gamepad.stickRightRight || this.keyboard.pressed("L")) {
     this.rotation += 5;
-  } 
+  }
 };
 
 /**
