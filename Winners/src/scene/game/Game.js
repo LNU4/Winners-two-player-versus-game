@@ -152,6 +152,9 @@ Winners.scene.Game.prototype.init = function () {
   * @type {Object}
   */
   this.camera = this.cameras.getCameraAt(0);
+//   this.camera.fade
+// .opacity = 0.4;
+
   
   /**
    * Property to store the player object

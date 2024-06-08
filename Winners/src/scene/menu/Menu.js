@@ -75,10 +75,11 @@ Winners.scene.Menu.prototype.init = function () {
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
-  // this.soundEffect = this.application.sounds.sound.get("menu");
+  this.soundEffect = this.application.sounds.sound.get("menu");
+  this.soundEffect.play(true)
+   this.soundEffect.loop = true;
   this.switchEffect = this.application.sounds.sound.get("switch");
-  // this.soundEffect.play(true)
-  // this.soundEffect.loop = true;
+    
 
   this.m_initAnimation();
 };

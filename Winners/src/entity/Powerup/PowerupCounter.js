@@ -121,15 +121,16 @@ if (this.player.powerupIx === 2){
   */
  this.SoldierTypesArray = [
    "heavysoldier",
-   "snipersoldiers",
-   "rocketsoldier",
    "repairsoldier",
+   "snipersoldiers",
+   "rocketsoldier"
+  
  ];
  /**
   * Picks a random numbe between 0 and 3 and stores it in the typeIx property
   * @type {number}
   */
- this.typeIx = Math.floor(Math.random() * 3);
+ this.typeIx = Math.floor(Math.random() * 4);
 /**
  * Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated 
  */
@@ -180,34 +181,34 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
   
       switch (type) {
 
-       // case "heavysoldier":
-          // m_this.game.heavysoldiers = new Winners.entity.HeavySoldier(
-          //   randomX,
-          //   randomY,
-          //   m_this.game,
-          //   m_this.enemy,
-          //   m_this.player
-          // );
-          // m_this.game.layer0.addChild(m_this.game.heavysoldiers);
-          // m_this.emptyArray();
+       case "heavysoldier":
+          m_this.game.heavysoldiers = new Winners.entity.HeavySoldier(
+            randomX,
+            randomY,
+            m_this.game,
+            m_this.enemy,
+            m_this.player
+          );
+          m_this.game.layer0.addChild(m_this.game.heavysoldiers);
+          m_this.emptyArray();
 
          
-        //  break;
+         break;
 
-       // case "snipersoldiers":
-          // m_this.game.snipersoldiers = new Winners.entity.SniperSodier(
-          //   randomX,
-          //   randomY,
-          //   m_this.game,
-          //   m_this.enemy,
-          //   m_this.player
-          // );
-          // m_this.game.layer0.addChild(m_this.game.snipersoldiers);
-          // m_this.emptyArray();
+       case "snipersoldiers":
+          m_this.game.snipersoldiers = new Winners.entity.SniperSodier(
+            randomX,
+            randomY,
+            m_this.game,
+            m_this.enemy,
+            m_this.player
+          );
+          m_this.game.layer0.addChild(m_this.game.snipersoldiers);
+          m_this.emptyArray();
 
           
 
-        //  break;
+         break;
 
         case "rocketsoldier":
           m_this.game.rocketsoldier = new Winners.entity.Rocketsoldier(
@@ -223,17 +224,17 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
 
           break;
 
-        // case "repairsoldier":
-        //   m_this.game.repairsoldier = new Winners.entity.Repairsoldier(
-        //     randomX,
-        //     randomY,
-        //     m_this.game,
-        //     m_this.player
-        //   );
-        //   m_this.game.layer0.addChild(m_this.game.repairsoldier);
-        //   m_this.emptyArray();
+        case "repairsoldier":
+          m_this.game.repairsoldier = new Winners.entity.Repairsoldier(
+            randomX,
+            randomY,
+            m_this.game,
+            m_this.player
+          );
+          m_this.game.layer0.addChild(m_this.game.repairsoldier);
+          m_this.emptyArray();
 
-         // break;
+         break;
 
         // default:
         //   console.log("Sorry, all the ", type, " are dead, RIP them :(");

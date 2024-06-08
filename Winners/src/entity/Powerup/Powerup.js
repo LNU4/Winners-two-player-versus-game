@@ -35,7 +35,7 @@ Winners.entity.Powerup = function (x, y, game, unKnownPlayer) {
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
-
+ console.log( this.game.camera)
   /**
    * Calls the constructor method of the super class.
    */

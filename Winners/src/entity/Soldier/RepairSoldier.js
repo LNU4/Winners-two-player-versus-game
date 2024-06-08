@@ -13,16 +13,16 @@
  * @param {number} X coordinates of where the object will be placed on X axis
  * @param {number} Y coordinates of where the object will be placed on Y axis
  * @param {object} game reference to the game object
- * @param {object} enemy reference to the enemy object
+ * @param {object} player reference to the player object
  */
-Winners.entity.Repairsoldier = function (x, y, game, enemy) {
+Winners.entity.Repairsoldier = function (x, y, game, player) {
   /**
    * Property to determine the speed of the soldier
    * @type {number}
    */
   this.moveSpeed = 1;
   this.game = game;
-  this.enemy = enemy;
+ //this.player = player;
   /**
    * Boolean to determine if the soldier is dead
    * @type {boolean}
@@ -39,17 +39,35 @@ Winners.entity.Repairsoldier = function (x, y, game, enemy) {
   rune.display.Sprite.call(this, x, y, 32, 32, "soldier");
   this.layer.addChild(this);
   /**
-   * if statement to check the enemy thats passed to this class
+   * if statement to check the player thats passed to this class
    */
-  var enemyColor;
-  if (enemy === game.player) {
+  var playerColor;
+  if (player === game.player2) {
     this.player = game.player2;
-    enemyColor = new rune.color.Color24(172, 50, 50);
+    this.enemy = this.game.player;
+    playerColor = new rune.color.Color24(32, 32, 32);
   } else {
     this.player = game.player;
-    enemyColor = new rune.color.Color24(32, 32, 32);
+    this.enemy = this.game.player2;
+    playerColor = new rune.color.Color24(172, 50, 50);
+   
   }
-  this.texture.replaceColor(new rune.color.Color24(0, 0, 0), enemyColor);
+  // if (enemy === this.game.player) {
+  //   /**
+  //    * Reference to the player object as the enemy object
+  //    * @type {object}
+  //    */
+  //   this.enemy = this.game.player;
+  //   this.player = this.game.player2;
+  // } else if (enemy === this.game.player2) {
+  //   this.enemy = this.game.player2;
+  //   this.player = this.game.player;
+  //   this.texture.replaceColor(
+  //     new rune.color.Color24(82, 75, 36),
+  //     new rune.color.Color24(172, 50, 50)
+  //   );
+  // }
+  this.texture.replaceColor(new rune.color.Color24(0, 0, 0), playerColor);
   
 };
 /**
@@ -150,6 +168,22 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
     this.isDead = true;
     this.layer.removeChild(this, true);
   }
+
+  if (this.enemy.hitTest(this)) {
+    this.handelKillSoldier();
+  }
+
+  this.hitTest(
+    this.game.bullets,
+    function (soldier, bullet) {
+      if (bullet.bulletTarget == soldier.SoldierOwner) {
+        this.game.bullets.removeMember(bullet, true);
+       
+        this.handelKillSoldier();
+      }
+    },
+    this
+  );
 };
 /**
  * Method to handle the repair logic of the base respece baseshield

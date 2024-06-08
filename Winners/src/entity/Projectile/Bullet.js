@@ -114,107 +114,6 @@ Winners.entity.Bullet.prototype.update = function (step) {
   if (this.hitTest(this.bulletTarget)) {
    this.game.bullets.removeMember(this, true);
   this.handelHp(this.damage);
-
-  //   this.HpOb = this.bulletTarget.hp;
-  //   this.HpOb.value -= this.damage;
-
-  //   if (this.HpOb.value == 80) {
-  //     rune.display.DisplayObject.call(
-  //       this.HpOb,
-  //       this.bulletTarget.x,
-  //       this.bulletTarget.y,
-  //       20,
-  //       10
-  //     );
-  //     this.HpOb.backgroundColor = "#3dfc03";
-  //   } else if (this.HpOb.value == 60) {
-  //     rune.display.DisplayObject.call(
-  //       this.HpOb,
-  //       this.bulletTarget.x,
-  //       this.bulletTarget.y,
-  //       15,
-  //       10
-  //     );
-  //     this.HpOb.backgroundColor = "#c2fc03";
-  //   } else if (this.HpOb.value == 40) {
-  //     rune.display.DisplayObject.call(
-  //       this.HpOb,
-  //       this.bulletTarget.x,
-  //       this.bulletTarget.y,
-  //       10,
-  //       10
-  //     );
-  //     this.HpOb.backgroundColor = "#fcad03";
-  //   } else if (this.HpOb.value == 20) {
-  //     rune.display.DisplayObject.call(
-  //       this.HpOb,
-  //       this.bulletTarget.x,
-  //       this.bulletTarget.y,
-  //       5,
-  //       10
-  //     );
-  //     this.HpOb.backgroundColor = "#fc0303";
-  //   } else if (this.HpOb.value == 0) {
-      
-  //     if (this.bulletTarget == this.game.player) {
-        
-  //       this.handleDeadPlayer("player1");
-  //     } else if (this.bulletTarget == this.game.player2) {
-        
-  //       this.handleDeadPlayer("player2");
-  //     }
-    
-      
-  //     this.bulletTarget.active = false;
-  //     // this.bulletTarget.x = -1000;
-  //     // this.bulletTarget.y = 1000;
-  //     this.game.timers.create({
-  //       duration: 1500,
-  //       scope: this,
-  //       onComplete: function () {
-         
-  //         if (this.bulletTarget == this.game.player) {
-  //           this.game.turret1.animation.gotoAndPlay("idle");
-  //         }
-  //         else if (this.bulletTarget == this.game.player2) {
-  //           this.game.turret2.animation.gotoAndPlay("idle");
-  //         }
-        
-  //         this.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
-
-  //         this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
-  //       },
-  //     });
-
-  //     // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
-  //     // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
-  //     this.game.timers.create({
-  //       duration: 4000,
-  //       scope: this,
-  //       onComplete: function () {
-  //         this.bulletTarget.active = true;
-  //         m_this.bulletTarget.x = m_this.bulletTarget.initX;
-  //         m_this.bulletTarget.y = m_this.bulletTarget.initY;
-
-  //         m_this.layer0.addChild(m_this.bulletTarget);
-  //         m_this.game.layer2.addChild(m_this.bulletTarget.turret1);
-  //         m_this.bulletTarget.flicker.start();
-
-  //         m_this.game.camera.addChild(m_this.HpOb);
-  //         m_this.HpOb.value = 100;
-  //         rune.display.DisplayObject.call(
-  //           m_this.HpOb,
-  //           m_this.bulletTarget.x,
-  //           m_this.bulletTarget.y,
-  //           25,
-  //           10
-  //         );
-  //         m_this.HpOb.backgroundColor = "#03fc24";
-
-  //         m_this.respawn.play(true);
-  //       },
-  //     });
-  //   }
    }
 
   if (this.bulletTarget.playerBaseShield) {
@@ -274,75 +173,35 @@ Winners.entity.Bullet.prototype.update = function (step) {
 
 Winners.entity.Bullet.prototype.handelHp = function (damage) {
     
-  var m_this = this;
-    //this.game.bullets.removeMember(this, true);
- 
-    this.HpOb = this.bulletTarget.hp;
-   // var damage = 0;
-   // console.log(damage)
-    // if (bulletType == "bulletDamage") {
-    //   damage = 5; 
-    //   //console.log(damage)
-    // }
-    // else if (bulletType == "rocketDamage") {
-    //   damage = 20; 
-    //  // console.log(damage)
-    // }
-    console.log(damage)
-    this.HpOb.value -= damage;
+  console.log(this.bulletTarget)
+  this.HpOb = this.bulletTarget.hp;
+  console.log( this.bulletTarget)
+  this.HpOb.value -= damage;
+  if (this.bulletTarget.active) {
+  if (this.HpOb.value <= 0) {
+    this.bulletTarget.active = false;
+    this.HpOb.value = 0; 
     console.log(this.HpOb.value)
-
-    if (this.HpOb.value == 80) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        20,
-        10
-      );
-      this.HpOb.backgroundColor = "#3dfc03";
-    } else if (this.HpOb.value == 60) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        15,
-        10
-      );
-      this.HpOb.backgroundColor = "#c2fc03";
-    } else if (this.HpOb.value == 40) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        10,
-        10
-      );
-      this.HpOb.backgroundColor = "#fcad03";
-    } else if (this.HpOb.value == 20) {
-      rune.display.DisplayObject.call(
-        this.HpOb,
-        this.bulletTarget.x,
-        this.bulletTarget.y,
-        5,
-        10
-      );
-      this.HpOb.backgroundColor = "#fc0303";
-    } else if (this.HpOb.value <= 0) {
-      
+    
       if (this.bulletTarget == this.game.player) {
         
-        this.handleDeadPlayer("player1");
-      } else if (this.bulletTarget == this.game.player2) {
+         this.handleDeadPlayer("player1");
+       } else if (this.bulletTarget == this.game.player2) {
         
-        this.handleDeadPlayer("player2");
-      }
-    
-      // Add rocket removal logic
-      this.bulletTarget.active = false;
-      // this.bulletTarget.x = -1000;
-      // this.bulletTarget.y = 1000;
-      this.game.timers.create({
+         this.handleDeadPlayer("player2");
+       }
+       this.respawnPlayer()
+    }
+    else {
+      this.updateHp();
+    }
+  }
+}
+
+Winners.entity.Bullet.prototype.respawnPlayer = function () {
+  var m_this = this;
+       
+       this.game.timers.create({
         duration: 1500,
         scope: this,
         onComplete: function () {
@@ -357,11 +216,10 @@ Winners.entity.Bullet.prototype.handelHp = function (damage) {
           this.bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
 
           this.bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
+
         },
       });
 
-      // this.bulletTarget.x = Math.random() * (2000 - -2000) + -2000;
-      // this.bulletTarget.y = Math.random() * (1000 - -1000) + -1000;
       this.game.timers.create({
         duration: 4000,
         scope: this,
@@ -388,10 +246,34 @@ Winners.entity.Bullet.prototype.handelHp = function (damage) {
           m_this.respawn.play(true);
         },
       });
-    }
+    
   
-  return 1;
-}
+  }
+
+Winners.entity.Bullet.prototype.updateHp = function () {
+  var hp = this.HpOb.value; 
+  var HpObj = this.HpOb;
+  
+  if (hp > 80) {
+    HpObj.backgroundColor = "#03fc24";
+    HpObj.width = 25;
+  } else if (hp > 60) {
+    HpObj.backgroundColor = "#3dfc03";
+    HpObj.width = 20;
+  } else if (hp > 40) {
+    HpObj.backgroundColor = "#c2fc03";
+    HpObj.width = 15;
+  } else if (hp > 20) {
+    HpObj.backgroundColor = "#fcad03";
+    HpObj.width = 10;
+  } else if (hp > 0) {
+    HpObj.backgroundColor = "#fc0303";
+    HpObj.width = 5;
+  } else {
+    HpObj.width = 0;
+  }
+
+  }
 
 /**
  *This method prepares the object to be removed from the memory by the garbage collector
