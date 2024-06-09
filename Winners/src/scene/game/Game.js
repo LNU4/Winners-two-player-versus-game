@@ -95,6 +95,11 @@ Winners.scene.Game.prototype.init = function () {
    */
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "background");
   /**
+   * The camera object for Game
+   * @type {Object}
+   */
+  this.camera = this.cameras.getCameraAt(0);
+  /**
    * A property to define a container to store certain objects
    * @type {Object}
    */
@@ -119,6 +124,8 @@ Winners.scene.Game.prototype.init = function () {
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
+  
+
 
   /**
    * The baseShioled to protect the base for player
@@ -150,11 +157,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
-  /**
-   * The camera object for Game
-   * @type {Object}
-   */
-  this.camera = this.cameras.getCameraAt(0);
+  
  
 
 
@@ -265,6 +268,7 @@ Winners.scene.Game.prototype.createTruck = function () {
     this.player,
     this.player2
   );
+ 
   this.layer0.addChild(this.truck);
   this.layer0.addChild(this.truck2);
   if (this.player2.hitTest(this.truck.soldier)) {
@@ -453,13 +457,21 @@ Winners.scene.Game.prototype.showMatchResult = function () {
    */
   text.center = this.application.screen.center;
   this.cameras.getCameraAt(0).addChild(text);
-
+  console.log(this)
   this.timers.create({
     duration: 8000,
     onComplete: function () {
       this.application.scenes.load([new Winners.scene.Menu()]);
+      this.stage.removeChild(this.layer0, true);
+      this.stage.removeChild(this.layer1, true);
+      this.stage.removeChild(this.layer2, true);
+      this.camera = null;
+      console.log(this)
     },
   });
+ 
+  
+  
 };
 /**
  * Method to handle the deafted player
