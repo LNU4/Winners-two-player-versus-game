@@ -173,6 +173,8 @@ Winners.entity.Bullet.prototype.update = function (step) {
 /**
  *
  * @param {number} damage specifies the damage to be applied on the other objects
+ * @param {object} bulletTarget reference to the bulletTarget object
+ * @param {object} target reference to the bulletOwner object
  * @method
  */
 
