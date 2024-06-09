@@ -457,7 +457,6 @@ Winners.scene.Game.prototype.showMatchResult = function () {
    */
   text.center = this.application.screen.center;
   this.cameras.getCameraAt(0).addChild(text);
-  console.log(this)
   this.timers.create({
     duration: 8000,
     onComplete: function () {
@@ -466,7 +465,6 @@ Winners.scene.Game.prototype.showMatchResult = function () {
       this.stage.removeChild(this.layer1, true);
       this.stage.removeChild(this.layer2, true);
       this.camera = null;
-      console.log(this)
     },
   });
  

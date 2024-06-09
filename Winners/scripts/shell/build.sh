@@ -33,6 +33,7 @@ npx google-closure-compiler \
 --js "./../../src/entity/Projectile/Rocket.js" \
 --js "./../../src/scene/menu/Menu.js" \
 --js "./../../src/scene/howtoplay/Howtoplay.js" \
+--js "./../../src/scene/credits/Credits.js" \
 --js "./../../src/scene/game/Game.js" \
 --js "./../../src/scope/Alias.js" \
 --js_output_file "./../../dist/Winners.js";
