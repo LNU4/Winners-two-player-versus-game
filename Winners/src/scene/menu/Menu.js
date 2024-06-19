@@ -72,10 +72,12 @@ Winners.scene.Menu.prototype.init = function () {
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
-  this.soundEffect = this.application.sounds.sound.get("menu");
-  //this.soundEffect.play(true);
-  this.soundEffect.loop = true;
+  this.backgroundMusic = this.application.sounds.sound.get("epic-cinematic-sounds-war");
+  // this.backgroundMusic = this.application.sounds.master.get("epic-cinematic-sounds-war");
+ this.backgroundMusic.play(true);
+  this.backgroundMusic.loop = true;
   this.switchEffect = this.application.sounds.sound.get("switch");
+  
 
   this.m_initAnimation();
 };

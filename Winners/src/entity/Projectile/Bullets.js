@@ -41,7 +41,7 @@ Winners.entity.Bullets = function (game) {
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
-  this.fire = this.application.sounds.sound.get("fire1");
+  this.fire = this.application.sounds.sound.get("caliber-rifle-shot-with-shell-ping");
 
   //--------------------------------------------------------------------------
   // Private properties

@@ -29,6 +29,9 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy, SoldierOwner) {
     2420,
     SoldierOwner
   );
+  // this.respawn = this.application.sounds.sound.get("soldierSpawn");
+  // this.respawn.play(true)
+  // this.flicker.start();
 };
 
 Winners.entity.Rocketsoldier.prototype = Object.create(

@@ -40,9 +40,18 @@ Winners.entity.SoldierUtil = function (
   this.enemy = enemy;
   this.isDead = false;
   this.layer = this.game.layer0;
+  
+  
 
   rune.display.Sprite.call(this, x, y, 32, 32, spriteType);
   this.layer.addChild(this);
+  /**
+   * Property calling the builtin method for reading audio files
+   * @type {media.Sound}
+   */
+  this.respawn = this.application.sounds.sound.get("soldierSpawn");
+  this.respawn.play(true)
+  this.flicker.start();
 
   if (enemy === this.game.player) {
     this.texture.replaceColor(

@@ -203,9 +203,9 @@ Winners.scene.Game.prototype.init = function () {
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
-  this.chaos = this.application.sounds.sound.get("gameplay");
-
- // this.chaos.play(true);
+  this.chaos = this.application.sounds.sound.get("rhythm-of-war-main");
+ // this.chaos = this.application.sounds.master.get("rhythm-of-war-main");
+  this.chaos.play(true);
   this.chaos.loop = true;
 
   this.layer0.addChild(this.bg);
