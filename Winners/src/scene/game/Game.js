@@ -115,12 +115,6 @@ Winners.scene.Game.prototype.init = function () {
    */
   this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
 
-  /**
-   * Reference to a DisplayGroup containing all the bullets
-   * @type {Object}
-   */
-  this.bullets = this.groups.add(new Winners.entity.Bullets(this));
-
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
@@ -175,7 +169,8 @@ Winners.scene.Game.prototype.init = function () {
    * Property used as a placeholder for the player2 object for player
    * @type {Object}
    */
-  this.player.player2 = this.player2;
+  this.player.enemy = this.player2;
+  
 
   /**
    * Property to create an empty array to look after the powerups for player
@@ -198,13 +193,19 @@ Winners.scene.Game.prototype.init = function () {
    * @type {number}
    */
   this.player2.powerupIx = 0;
+
+  /**
+   * Reference to a DisplayGroup containing all the bullets
+   * @type {Object}
+   */
+  this.bullets = this.groups.add(new Winners.entity.Bullets(this));
   /**
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
   this.chaos = this.application.sounds.sound.get("gameplay");
 
-  this.chaos.play(true);
+ // this.chaos.play(true);
   this.chaos.loop = true;
 
   this.layer0.addChild(this.bg);

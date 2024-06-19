@@ -14,6 +14,7 @@
  * Game scene.
  */
 Winners.scene.Menu = function () {
+ 
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -72,7 +73,7 @@ Winners.scene.Menu.prototype.init = function () {
    * @type {media.Sound}
    */
   this.soundEffect = this.application.sounds.sound.get("menu");
-  this.soundEffect.play(true);
+  //this.soundEffect.play(true);
   this.soundEffect.loop = true;
   this.switchEffect = this.application.sounds.sound.get("switch");
 
