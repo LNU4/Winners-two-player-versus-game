@@ -28,6 +28,10 @@ Winners.entity.HeavySoldier = function (x, y, game, enemy, SoldierOwner) {
     320,
     SoldierOwner
   );
+  // this.respawn = this.application.sounds.sound.get("soldierSpawn");
+  // this.respawn.play(true)
+  // this.flicker.start();
+  //this.truck = truck;
 };
 
 Winners.entity.HeavySoldier.prototype = Object.create(

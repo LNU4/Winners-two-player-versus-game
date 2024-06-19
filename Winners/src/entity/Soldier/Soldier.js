@@ -31,7 +31,7 @@ Winners.entity.Soldier = function (x, y, game, enemy, i, SoldierOwner, truck) {
     900,
     SoldierOwner
   );
-  this.truck = truck;
+ 
 };
 
 Winners.entity.Soldier.prototype = Object.create(

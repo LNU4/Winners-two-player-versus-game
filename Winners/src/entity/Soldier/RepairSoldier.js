@@ -51,6 +51,13 @@ Winners.entity.Repairsoldier = function (x, y, game, player) {
   }
 
   this.texture.replaceColor(new rune.color.Color24(0, 0, 0), playerColor);
+  /**
+   * Property calling the builtin method for reading audio files
+   * @type {media.Sound}
+   */
+  this.respawn = this.application.sounds.sound.get("soldierSpawn");
+  this.respawn.play(true)
+  this.flicker.start();
 };
 /**
  * Innheritance of the sprite class

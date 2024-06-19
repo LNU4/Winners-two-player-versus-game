@@ -28,6 +28,10 @@ Winners.entity.SniperSodier = function (x, y, game, enemy, SoldierOwner) {
     920,
     SoldierOwner
   );
+
+  // this.respawn = this.application.sounds.sound.get("soldierSpawn");
+  // this.respawn.play(true)
+  // this.flicker.start();
 };
 
 Winners.entity.SniperSodier.prototype = Object.create(
