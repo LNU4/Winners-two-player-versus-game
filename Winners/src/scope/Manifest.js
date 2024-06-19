@@ -87,8 +87,10 @@ var Winners = function() {
  * @ignore
  */
 Winners.bootstrap = function(callback) {
+
+   
     var app = new Winners.system.Main();
-        app.start(callback);
+       app.start(callback);
         
     return app;
 };

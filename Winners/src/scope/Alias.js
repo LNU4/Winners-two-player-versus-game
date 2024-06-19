@@ -16,5 +16,5 @@ if (typeof window !== "undefined") {
  * Rune OS.
  */
 if (typeof window !== "undefined" && typeof window.runeos === "object") {
-    window.runeos.install(Winners);
+  window.runeos.install(Winners);
 }

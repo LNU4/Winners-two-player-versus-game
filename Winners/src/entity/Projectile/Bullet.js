@@ -115,7 +115,6 @@ Winners.entity.Bullet.prototype.update = function (step) {
     this.game.bullets.removeMember(this, true);
     this.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
   }
-
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
       this.game.bullets.removeMember(this, true);
@@ -183,6 +182,7 @@ Winners.entity.Bullet.prototype.handelHp = function (
   bulletTarget,
   bulletOwner
 ) {
+ 
   this.HpOb = this.bulletTarget.hp;
 
   this.HpOb.value -= damage;

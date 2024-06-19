@@ -105,6 +105,8 @@ Winners.entity.Bullets.prototype.create = function (
    * Property containing a reference to the instance of the bullet object
    * @type {object}
    */
+
+
   this.bullet = new Winners.entity.Bullet(
     this.game,
     this.container,
