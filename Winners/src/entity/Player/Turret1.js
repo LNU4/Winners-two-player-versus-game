@@ -46,8 +46,8 @@ Winners.entity.Turret1.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
 
   this.texture.replaceColor(
-    new rune.color.Color24(0, 0, 0),
-    new rune.color.Color24(50, 60, 150)
+    new rune.color.Color24(143, 86, 59),
+    new rune.color.Color24(0, 150, 230)
   );
   this.rotation = 90;
   this.m_initAnimation();

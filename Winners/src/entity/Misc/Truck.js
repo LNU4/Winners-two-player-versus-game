@@ -66,12 +66,16 @@ Winners.entity.Truck = function (x, y, game, enemy, owner) {
      */
     this.enemy = this.game.player;
     this.player = this.game.player2;
+    this.texture.replaceColor(
+      new rune.color.Color24(82, 75, 36),
+      new rune.color.Color24(255, 0, 0)
+    );
   } else if (enemy === this.game.player2) {
     this.enemy = this.game.player2;
     this.player = this.game.player;
     this.texture.replaceColor(
       new rune.color.Color24(82, 75, 36),
-      new rune.color.Color24(172, 50, 50)
+      new rune.color.Color24(0, 150, 230)
     );
   }
 };
