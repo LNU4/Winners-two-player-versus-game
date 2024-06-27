@@ -55,13 +55,13 @@ Winners.entity.SoldierUtil = function (
 
   if (enemy === this.game.player) {
     this.texture.replaceColor(
-      new rune.color.Color24(102, 102, 102),
-      new rune.color.Color24(172, 50, 50)
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(255, 0, 0)
     );
   } else if (enemy === this.game.player2) {
     this.texture.replaceColor(
       new rune.color.Color24(0, 0, 0),
-      new rune.color.Color24(172, 50, 50)
+      new rune.color.Color24(0, 150, 230)
     );
   }
 };

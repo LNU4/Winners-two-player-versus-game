@@ -67,7 +67,7 @@ Winners.entity.Base.prototype.init = function () {
 
   this.texture.replaceColor(
     new rune.color.Color24(34, 32, 52),
-    new rune.color.Color24(172, 50, 50)
+    new rune.color.Color24(0, 150, 230)
   );
   /**
    * State the Animation state based on the index

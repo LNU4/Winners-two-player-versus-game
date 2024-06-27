@@ -61,7 +61,7 @@ Winners.entity.Base2shield.prototype.init = function () {
 
   this.texture.replaceColor(
     new rune.color.Color24(86, 85, 88),
-    new rune.color.Color24(32, 32, 32)
+    new rune.color.Color24(255, 0, 0)
   );
   /**
    * State the Animation state based on the index

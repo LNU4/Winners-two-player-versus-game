@@ -112,6 +112,11 @@ Winners.entity.Bullet.prototype.update = function (step) {
   var m_this = this;
 
   if (this.hitTest(this.bulletTarget)) {
+    if (this.bulletTarget == this.game.player || this.game.player2) {
+    this.bulletTarget.sparkEmitter.centerX = this.bulletTarget.centerX; 
+    this.bulletTarget.sparkEmitter.centerY = this.bulletTarget.centerY;
+    this.bulletTarget.sparkEmitter.emit(1);
+  }
     this.game.bullets.removeMember(this, true);
     this.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
   }

@@ -59,7 +59,24 @@ Winners.entity.Player2.prototype = Object.create(
   Winners.entity.Players.prototype
 );
 Winners.entity.Player2.prototype.constructor = Winners.entity.Player2;
+/**
+ *
+ *  * Setting the color of plyer, calling this.m_initPhysics() and this.m_initAnimation() and setting the 'player' property
+ * @method
+ * @returns {undefined}
+ */
 
+Winners.entity.Player2.prototype.init = function () {
+  Winners.entity.Players.prototype.init.call(this);
+
+ 
+  this.texture.replaceColor(
+    new rune.color.Color24(102, 57, 49),
+    new rune.color.Color24(172, 50, 50)
+  );
+
+ 
+};
 // Override public prototype methods
 //------------------------------------------------------------------------------
 

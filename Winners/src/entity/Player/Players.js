@@ -64,6 +64,7 @@ Winners.entity.Players.prototype.init = function () {
 
   this.m_initPhysics();
   this.m_initAnimation();
+  this.sparkEmitt()
 };
 
 /**
@@ -201,6 +202,21 @@ Winners.entity.Players.prototype.updateBullets = function () {
   }
 };
 
+Winners.entity.Players.prototype.sparkEmitt = function () {
+
+  this.sparkEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
+    particles: [Winners.entity.Spark],
+    capacity: 250,
+    accelerationY: 0.001,
+    maxVelocityX:  1.5,
+    minVelocityX: -1.5,
+    maxVelocityY: -1.5,
+    minVelocityY: -1.5,
+    minRotation:  -5,
+    maxRotation:   2
+});
+this.game.layer0.addChild(this.sparkEmitter, true);
+};
 // Winners.entity.Players.prototype.getGamepadIndex = function () {
 //   
 // };
