@@ -225,8 +225,14 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
     duration: 1500,
     scope: this,
     onComplete: function () {
+        
+      this.bulletTarget.destructionEmitter.centerX = this.bulletTarget.centerX; 
+      this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
+      this.bulletTarget.destructionEmitter.emit(1);
+   
       if (bulletTarget == this.game.player) {
         this.game.turret1.animation.gotoAndPlay("idle");
+        
       } else if (bulletTarget == this.game.player2) {
         this.game.turret2.animation.gotoAndPlay("idle");
       }
@@ -241,6 +247,7 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
     duration: 4000,
     scope: this,
     onComplete: function () {
+      
       bulletTarget.active = true;
       bulletTarget.x = bulletTarget.initX;
       bulletTarget.y = bulletTarget.initY;

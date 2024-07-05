@@ -64,7 +64,8 @@ Winners.entity.Players.prototype.init = function () {
 
   this.m_initPhysics();
   this.m_initAnimation();
-  this.sparkEmitt()
+  this.sparkEmitt();
+  this.destructionEmitter();
 };
 
 /**
@@ -201,7 +202,6 @@ Winners.entity.Players.prototype.updateBullets = function () {
     }
   }
 };
-
 Winners.entity.Players.prototype.sparkEmitt = function () {
 
   this.sparkEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
@@ -215,8 +215,26 @@ Winners.entity.Players.prototype.sparkEmitt = function () {
     minRotation:  -5,
     maxRotation:   2
 });
-this.game.layer0.addChild(this.sparkEmitter, true);
+this.game.layer0.addChild(this.sparkEmitter, true); //check if true is required here N.A 
 };
+
+Winners.entity.Players.prototype.destructionEmitter = function () {
+
+  this.destructionEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
+    particles: [Winners.entity.Spark, Winners.entity.Plate, Winners.entity.Tyre],
+    capacity: 250,
+    accelerationY: 0.001,
+    maxVelocityX:  1.5,
+    minVelocityX: -1.5,
+    maxVelocityY: -1.5,
+    minVelocityY: -1.5,
+    minRotation:  -5,
+    maxRotation:   2
+});
+this.game.layer0.addChild(this.destructionEmitter, true); //check if true is required here N.A 
+};
+
+
 // Winners.entity.Players.prototype.getGamepadIndex = function () {
 //   
 // };
