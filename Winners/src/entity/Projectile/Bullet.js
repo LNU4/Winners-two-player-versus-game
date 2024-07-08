@@ -113,10 +113,17 @@ Winners.entity.Bullet.prototype.update = function (step) {
 
   if (this.hitTest(this.bulletTarget)) {
     if (this.bulletTarget == this.game.player || this.game.player2) {
-    this.bulletTarget.sparkEmitter.centerX = this.bulletTarget.centerX; 
-    this.bulletTarget.sparkEmitter.centerY = this.bulletTarget.centerY;
-    this.bulletTarget.sparkEmitter.emit(1);
+      if (this.bulletTarget.sparkEmitter) {
+        this.bulletTarget.sparkEmitter.centerX = this.bulletTarget.centerX; 
+        this.bulletTarget.sparkEmitter.centerY = this.bulletTarget.centerY;
+        this.bulletTarget.sparkEmitter.emit(1);
+
+        this.bulletTarget.removeSparkEmitter();
+      }
+      
   }
+
+  
     this.game.bullets.removeMember(this, true);
     this.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
   }
@@ -228,8 +235,20 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
         
       this.bulletTarget.destructionEmitter.centerX = this.bulletTarget.centerX; 
       this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
-      this.bulletTarget.destructionEmitter.emit(1);
-   
+      this.bulletTarget.destructionEmitter.emit(4);
+      
+      this.bulletTarget.turretEmitter.centerX = this.bulletTarget.centerX; 
+      this.bulletTarget.turretEmitter.centerY = this.bulletTarget.centerY;
+      this.bulletTarget.turretEmitter.emit(1);
+
+      this.game.timers.create({
+        duration: 800, 
+        scope: this,
+        onComplete: function() {
+            this.bulletTarget.removeEmitters();
+        }
+    });
+
       if (bulletTarget == this.game.player) {
         this.game.turret1.animation.gotoAndPlay("idle");
         
