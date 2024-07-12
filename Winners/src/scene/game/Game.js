@@ -145,6 +145,7 @@ Winners.scene.Game.prototype.init = function () {
    * The turret for player
    * @type {Object}
    */
+
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
   /**
    * The turret for player2
