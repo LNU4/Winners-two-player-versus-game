@@ -56,7 +56,7 @@ Winners.entity.Base1shield.prototype.init = function () {
    */
   this.rotation = -90;
   this.texture.replaceColor(
-    new rune.color.Color24(86, 85, 88),
+    new rune.color.Color24(111, 103, 101),
     new rune.color.Color24(0, 150, 230)
   );
 
@@ -65,7 +65,7 @@ Winners.entity.Base1shield.prototype.init = function () {
   this.animation.create("2", [2], 1, true);
   this.animation.create("3", [3], 1, true);
   this.animation.create("4", [4], 1, true);
-
+  this.animation.create("exeplod", [6, 7, 8, 9, 10, 11], 6, true);
   this.animation.gotoAndStop("0");
 };
 

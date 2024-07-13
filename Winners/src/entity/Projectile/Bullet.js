@@ -143,9 +143,9 @@ Winners.entity.Bullet.prototype.update = function (step) {
         this.bulletTarget.playerBaseShield.animation.gotoAndStop("4");
       } else if (this.bulletTarget.playerBaseShield.hpValue == 0) {
         this.hitTestAndSeparate(this.bulletTarget.playerBaseShield);
-
-        this.layer0.removeChild(this.bulletTarget.playerBaseShield, true);
-        this.bulletTarget.playerBaseShield = null;
+        this.handelExeplodedBaseShield();
+        // this.layer0.removeChild(this.bulletTarget.playerBaseShield, true);
+        // this.bulletTarget.playerBaseShield = null;
       }
     }
   }
@@ -344,6 +344,17 @@ Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
     this.game.turret2.animation.gotoAndPlay("done");
   }
 };
+Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
+  this.bulletTarget.playerBaseShield.animation.gotoAndPlay("exeplod");
+  this.game.timers.create({
+    duration: 1000,
+    scope: this,
+    onComplete: function () {
+      
+      this.layer0.removeChild(this.bulletTarget.playerBaseShield, true);
+      this.bulletTarget.playerBaseShield = null;
+    }})
+}
 
 //------------------------------------------------------------------------------
 // Private prototype methods
