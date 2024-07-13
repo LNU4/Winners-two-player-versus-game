@@ -195,6 +195,23 @@ Winners.scene.Game.prototype.init = function () {
    */
   this.player2.powerupIx = 0;
 
+  for (var i = 0; i<3; i++){
+    if(i == 0){
+
+      var unfilledstar =  new Winners.entity.UnfilledStar(5, 35, this);
+      var unfilledstar2 =  new Winners.entity.UnfilledStar(1230, 35, this);
+
+      // var emptystar = new new rune.display.DisplayObject()
+      // var emptystar2 = new new rune.display.DisplayObject()
+    }else if(i == 1){
+      
+      var unfilledstar3 =  new Winners.entity.UnfilledStar(20, 35, this);
+      var unfilledstar4 =  new Winners.entity.UnfilledStar(1245, 35, this);
+    } else if(i == 2){
+      var unfilledstar5 =  new Winners.entity.UnfilledStar(35, 35, this);
+      var unfilledstar6 =  new Winners.entity.UnfilledStar(1260, 35, this);
+    }
+  }
   /**
    * Reference to a DisplayGroup containing all the bullets
    * @type {Object}
@@ -469,8 +486,6 @@ Winners.scene.Game.prototype.showMatchResult = function () {
       this.camera = null;
     },
   });
- 
-  
   
 };
 /**

@@ -57,6 +57,7 @@ Winners.entity.PowerupCounter = function (game, player, powerupCoords, enemy) {
    */
 
   rune.display.Sprite.call(this, this.x, this.y, 16, 16, "star");
+  console.log(this.x, ".....", this.y);
 };
 
 //------------------------------------------------------------------------------
