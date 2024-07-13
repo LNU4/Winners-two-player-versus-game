@@ -12,7 +12,7 @@
  * @classdesc
  * 
  */
-Winners.entity.Spark = function() {
+Winners.entity.Tyre = function() {
 
     //--------------------------------------------------------------------------
     // Super call
@@ -21,15 +21,15 @@ Winners.entity.Spark = function() {
     /**
      * Extend rune.particle.Particle.
      */
-    rune.particle.Particle.call(this, 0, 0, 16, 16, "spark");
+    rune.particle.Particle.call(this, 0, 0, 10, 10, "tyre");
 };
 
 //------------------------------------------------------------------------------
 // Inheritance
 //------------------------------------------------------------------------------
 
-Winners.entity.Spark.prototype = Object.create(rune.particle.Particle.prototype);
-Winners.entity.Spark.prototype.constructor = Winners.entity.Spark; 
+Winners.entity.Tyre.prototype = Object.create(rune.particle.Particle.prototype);
+Winners.entity.Tyre.prototype.constructor = Winners.entity.Tyre; 
 
 //--------------------------------------------------------------------------
 // Override public prototype methods
@@ -40,7 +40,7 @@ Winners.entity.Spark.prototype.constructor = Winners.entity.Spark;
  * @override
  *  @returns {undefined}
  */
-Winners.entity.Spark.prototype.init = function() {
+Winners.entity.Tyre.prototype.init = function() {
     rune.particle.Particle.prototype.init.call(this);
 };
 
@@ -49,6 +49,6 @@ Winners.entity.Spark.prototype.init = function() {
  * @override
  * @returns {undefined}
  */
-Winners.entity.Spark.prototype.update = function(step) {
+Winners.entity.Tyre.prototype.update = function(step) {
     rune.particle.Particle.prototype.update.call(this, step); 
 };

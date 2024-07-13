@@ -64,7 +64,9 @@ Winners.entity.Players.prototype.init = function () {
 
   this.m_initPhysics();
   this.m_initAnimation();
-  this.sparkEmitt()
+  this.sparkEmitt();
+  this.destructionEmitt();
+  this.turretEmitt();
 };
 
 /**
@@ -201,7 +203,6 @@ Winners.entity.Players.prototype.updateBullets = function () {
     }
   }
 };
-
 Winners.entity.Players.prototype.sparkEmitt = function () {
 
   this.sparkEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
@@ -215,8 +216,82 @@ Winners.entity.Players.prototype.sparkEmitt = function () {
     minRotation:  -5,
     maxRotation:   2
 });
-this.game.layer0.addChild(this.sparkEmitter, true);
+this.game.layer0.addChild(this.sparkEmitter);
 };
+
+Winners.entity.Players.prototype.destructionEmitt = function () {
+
+  this.destructionEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
+    particles: [Winners.entity.Spark, Winners.entity.Plate, Winners.entity.Tyre],
+    capacity: 250,
+    accelerationY: 0.001,
+    maxVelocityX:  1.5,
+    minVelocityX: -1.5,
+    maxVelocityY: -1.5,
+    minVelocityY: -1.5,
+    minRotation:  -5,
+    maxRotation:   2
+});
+this.game.layer0.addChild(this.destructionEmitter); 
+};
+
+Winners.entity.Players.prototype.turretEmitt = function () {
+
+  this.turretEmitter = new rune.particle.Emitter(0, 0, 64, 64, {
+    particles: [Winners.entity.Turretdes],
+    capacity: 250,
+    accelerationY: 0.001,
+    maxVelocityX:  1.5,
+    minVelocityX: -1.5,
+    maxVelocityY: -1.5,
+    minVelocityY: -1.5,
+    minRotation:  -5,
+    maxRotation:   2
+});
+this.game.layer0.addChild(this.turretEmitter); 
+};
+Winners.entity.Players.prototype.removeEmitters = function () {
+ 
+  if (this.sparkEmitter) {
+      this.sparkEmitter.clear(true)
+     
+  }
+ 
+  if (this.destructionEmitter) {
+      this.destructionEmitter.clear(true) //make sure they dispose just like the one under N.A
+     
+  }
+  
+  if (this.turretEmitter) {
+      this.game.layer0.removeChild(this.turretEmitter, true);
+      
+  }
+};
+
+
+Winners.entity.Players.prototype.removeSparkEmitter = function () {
+
+
+  if (this.sparkEmitter) {
+    
+    this.game.timers.create({
+      duration: 2400, 
+      scope: this,
+      onComplete: function() {
+        if (this.sparkEmitter) {
+          
+          this.sparkEmitter.clear(true); 
+      
+        }
+      }
+    });
+  } 
+};
+
+
+
+
+
 // Winners.entity.Players.prototype.getGamepadIndex = function () {
 //   
 // };
