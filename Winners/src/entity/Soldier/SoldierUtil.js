@@ -40,7 +40,7 @@ Winners.entity.SoldierUtil = function (
   this.enemy = enemy;
   this.isDead = false;
   this.layer = this.game.layer0;
-  
+  this.isAlive = true;
   
 
   rune.display.Sprite.call(this, x, y, 32, 32, spriteType);
@@ -77,6 +77,7 @@ Winners.entity.SoldierUtil.prototype.constructor = Winners.entity.SoldierUtil;
 Winners.entity.SoldierUtil.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
   this.m_initAnimation();
+  this.soldierPart();
 };
 
 //------------------------------------------------------------------------------
@@ -89,6 +90,12 @@ Winners.entity.SoldierUtil.prototype.init = function () {
  */
 Winners.entity.SoldierUtil.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
+
+  if (!this.isAlive) {
+    // If the soldier is dead, stop further updates
+    return;
+  }
+
   /**
    * Properties to the built in math points, it specifies two points and their X Y coordinates
    * @type {number}
@@ -187,6 +194,8 @@ Winners.entity.SoldierUtil.prototype.m_initAnimation = function () {
   this.animation.create("shoot", [0, 3, 4, 0], 4, true);
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 5, true);
+  this.animation.create("dead", [6, 7], 3, false);
+  //active deleting the animation N.A
 };
 
 /**
@@ -208,10 +217,44 @@ Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
    * @param {object}
    */
   var m_this = this;
-  this.game.layer0.removeChild(this, true);
-  this.isDead = true;
-  var powerUpProb = Math.floor(Math.random() * 4);
 
+  // Set isAlive to false to prevent further actions
+  this.isAlive = false;
+
+  // Emit particles for body and leg
+  if (this.bodyEmitter && this.legEmitter) {
+    this.bodyEmitter.centerX = this.centerX; 
+    this.bodyEmitter.centerY = this.centerY;
+    this.bodyEmitter.emit(1);
+
+    this.legEmitter.centerX = this.centerX; 
+    this.legEmitter.centerY = this.centerY;
+    this.legEmitter.emit(2);
+  }
+
+  // Play dead animation if available
+  if (this.animation) {
+    this.animation.gotoAndPlay("dead");
+  }
+
+  // Delay the removal to allow the dead animation to play
+  this.game.timers.create({
+    duration: 900, // Duration for the dead animation
+    scope: this,
+    onComplete: function () {
+      // Remove the soldier from the layer after the animation plays
+      this.game.layer0.removeChild(this, true);
+      
+      // Remove emitters
+      this.removeEmitters();
+    }
+  });
+
+  // Set isDead flag to true
+  this.isDead = true;
+
+  // Handle power-up creation with a delay
+  var powerUpProb = Math.floor(Math.random() * 4);
   if ((this.isDead && powerUpProb == 0) || powerUpProb == 2) {
     this.game.timers.create({
       duration: 1000,
@@ -222,6 +265,7 @@ Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
   }
 };
 
+
 /**
  * Method to create powerups.
  * @returns {undefined}
@@ -231,6 +275,51 @@ Winners.entity.SoldierUtil.prototype.createPowerups = function () {
   var ranY = Math.floor(Math.random() * (600 - 200 + 1)) + 200;
   var powerUp = new Winners.entity.Powerup(ranX, ranY, this.game, this.enemy);
   this.game.camera.addChild(powerUp);
+};
+
+
+Winners.entity.SoldierUtil.prototype.soldierPart = function () {
+
+  this.bodyEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
+    particles: [Winners.entity.Head, Winners.entity.Body],
+    capacity: 250,
+    accelerationY: 0.001,
+    maxVelocityX:  1.5,
+    minVelocityX: -1.5,
+    maxVelocityY: -1.5,
+    minVelocityY: -1.5,
+    minRotation:  -5,
+    maxRotation:   2
+});
+
+this.legEmitter = new rune.particle.Emitter(0, 0, 10, 6, {
+  particles: [Winners.entity.Leg],
+  capacity: 250,
+  accelerationY: 0.001,
+  maxVelocityX:  1.5,
+  minVelocityX: -1.5,
+  maxVelocityY: -1.5,
+  minVelocityY: -1.5,
+  minRotation:  -5,
+  maxRotation:   2
+});
+this.game.layer0.addChild(this.legEmitter);
+this.game.layer0.addChild(this.bodyEmitter);
+};
+
+
+
+Winners.entity.SoldierUtil.prototype.removeEmitters = function () {
+ 
+ 
+  if (this.bodyEmitter) {
+      this.bodyEmitter.clear(true); //make sure they dispose just like the one under N.A
+      
+  }
+  if (this.legEmitter) {
+    this.legEmitter.clear(true);
+  }
+  
 };
 
 /**
