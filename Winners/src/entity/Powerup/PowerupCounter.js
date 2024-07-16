@@ -57,7 +57,7 @@ Winners.entity.PowerupCounter = function (game, player, powerupCoords, enemy) {
    */
 
   rune.display.Sprite.call(this, this.x, this.y, 16, 16, "star");
-  console.log(this.x, ".....", this.y);
+  
 };
 
 //------------------------------------------------------------------------------
@@ -160,9 +160,19 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
    * @type {Object}
    */
   var m_this = this;
+
+  var reinforcementMessage = new  rune.text.BitmapField("reinforcement soldiers are on there way", "New Piskel-4");
+  reinforcementMessage.autoSize = true;
+  reinforcementMessage.scaleX = 2;
+  reinforcementMessage.scaleY = 2;
+  reinforcementMessage.x = 380;
+  reinforcementMessage.y = 30;
+  reinforcementMessage.backgroundColor = "#FFFF00"
+  this.game.stage.addChild(reinforcementMessage);
   this.game.timers.create({
-    duration: 2000,
+    duration: 4000,
     onComplete: function () {
+      m_this.game.stage.removeChild(reinforcementMessage, true);
       switch (type) {
         case "heavysoldier":
           m_this.game.heavysoldiers = new Winners.entity.HeavySoldier(
@@ -232,6 +242,7 @@ Winners.entity.PowerupCounter.prototype.emptyArray = function () {
   }
   this.player.powerupsArray.length = 0;
   this.player.powerupIx = 0;
+
 };
 
 /**

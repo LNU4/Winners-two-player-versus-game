@@ -98,6 +98,8 @@ Winners.entity.Players.prototype.dispose = function () {
 };
 
 Winners.entity.Players.prototype.shoot = function () {
+
+  if (this.shooting) {
   /**
    * Property that references the bullet object returnd by the bullets.create method of the bullets class
    * @type {Object}
@@ -118,6 +120,10 @@ Winners.entity.Players.prototype.shoot = function () {
   this.bullet.rotation = this.turret1.rotation - 90;
 
   this.activeBullets.push(this.bullet);
+
+} else {
+  return;
+}
 };
 /**
  * Method to adjust the velocity and the rotation of the player object by manipulating inbuilt properties
