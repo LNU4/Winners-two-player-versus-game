@@ -240,8 +240,8 @@ Winners.entity.Players.prototype.turretEmitt = function () {
   this.turretEmitter = new rune.particle.Emitter(0, 0, 64, 64, {
     particles: [Winners.entity.Turretdes],
     capacity: 250,
-    accelerationY: 0.001,
-    maxVelocityX:  1.5,
+    accelerationY: 0.010,
+    maxVelocityX:  2.5,
     minVelocityX: -1.5,
     maxVelocityY: -1.5,
     minVelocityY: -1.5,
