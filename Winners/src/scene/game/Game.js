@@ -60,6 +60,9 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
    */
    this.winnerDeclared = false;
 
+
+   this.isCreatTruck = 1; 
+
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -99,6 +102,8 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.camera = this.cameras.getCameraAt(0);
+
+  this.topLayer = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
   /**
    * A property to define a container to store certain objects
    * @type {Object}
@@ -115,9 +120,11 @@ Winners.scene.Game.prototype.init = function () {
    */
   this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
 
+  
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
+  this.stage.addChild(this.topLayer);
   
 
 
@@ -147,11 +154,13 @@ Winners.scene.Game.prototype.init = function () {
    */
 
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
+  this.turret1.active = true;
   /**
    * The turret for player2
    * @type {Object}
    */
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
+  this.turret2.active = true;
   
  
 
@@ -161,6 +170,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.player = new Winners.entity.Player(140, 360, this);
+  this.player.shooting = 1;
   /**
    * Property to store the player2 object
    * @type {Object}
@@ -171,6 +181,7 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.player.enemy = this.player2;
+  this.player2.shooting = 1;
   
 
   /**
@@ -255,6 +266,8 @@ Winners.scene.Game.prototype.init = function () {
  *
  */
 Winners.scene.Game.prototype.createTruck = function () {
+
+  if (this.isCreatTruck) {
   /**
    * Random coordinates for the truck spawn point
    * @type {number}
@@ -300,6 +313,10 @@ Winners.scene.Game.prototype.createTruck = function () {
       this.createTruck();
     },
   });
+} else {
+  return;
+}
+  console.log(this)
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -432,6 +449,7 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     });
   } else {
     this.showMatchResult();
+    
   }
 };
 /**
@@ -445,7 +463,54 @@ Winners.scene.Game.prototype.showMatchResult = function () {
    */
   var player1Wins = 0;
   var player2Wins = 0;
+ // this.topLayer.addChild(this.bg)
+  // this.layer1.removeChild(this.turret2, true)
+  // this.layer1.removeChild(this.turret1, true)
 
+
+  // this.stage.removeChild(this.layer1, true);
+  // this.layer2.addChild(this.bg)
+  // if (this.truck){
+  //   console.log('T1')
+  //   this.layer0.removeChild(this.truck, true);
+  //   if(this.truck.soldierArr != []){
+      
+  //   }
+  //   console.log('T1')
+
+  // }else if (this.truck2){
+  //   console.log('T2')
+
+  //   this.layer0.removeChild(this.truck2, true);
+  //   if(this.truck2.soldierArr != []){
+      
+  //   }
+  //   console.log('T2')
+
+  // }
+
+
+  // if (this.player ){
+  //   console.log('T1')
+    //this.layer0.removeChild(this.player, true);
+
+    this.gameOverAdjustments()
+
+
+    
+
+  // }else if (this.player2){
+   // console.log(this.player2.movable = false)
+
+   // this.layer0.removeChild(this.player2, true);
+
+
+  // }
+ 
+
+
+
+// this.stage.removeChild(this.layer0, true);
   for (var i = 0; i < this.roundWinners.length; i++) {
     if (this.roundWinners[i] == "player1") {
       player1Wins++;
@@ -481,13 +546,33 @@ Winners.scene.Game.prototype.showMatchResult = function () {
     onComplete: function () {
       this.application.scenes.load([new Winners.scene.Menu()]);
       this.stage.removeChild(this.layer0, true);
-      this.stage.removeChild(this.layer1, true);
+       //this.stage.removeChild(this.layer1, true);
       this.stage.removeChild(this.layer2, true);
       this.camera = null;
     },
   });
   
 };
+Winners.scene.Game.prototype.gameOverAdjustments = function () {
+  
+  this.isCreatTruck = 0;
+  this.player.x = 140 
+  this.player.y =  360
+  this.player2.x = 1090;
+  this.player2.y = 360;
+  // this.layer0.removeChild(this.player, true)
+  // this.layer0.removeChild(this.player2, true)
+
+  this.player.movable = false;
+  this.player2.movable = false;
+  this.player.shooting = 0;
+  this.player2.shooting = 0;
+  this.turret1.active = false;
+  // console.log(this.turret1.rotation)
+  this.turret2.active = false;
+  this.camera.fade.opacity = 0.2;
+
+}
 /**
  * Method to handle the deafted player
  * @param {string} playerDeafeted

@@ -18,7 +18,7 @@
  * 
  */ 
 Winners.entity.Turrets = function (x, y, game) {
-  console.log("Turrets")
+ 
     /**
      * Reference to the game class
      * @type {object}
@@ -97,13 +97,23 @@ Winners.entity.Turrets = function (x, y, game) {
     var gamepad = this.gamepads.get(gamepadIndex);
   
     if (gamepad.stickRightLeft || this.keyboard.pressed("J")) {
-      /**
+      console.log(this.active)
+     
+     
+             /**
        * specify on how many degrees to rotate for time the gamepad input is pressed
        * @type {number}
        */
       this.rotation -= 5;
+    // } 
     } else if (gamepad.stickRightRight || this.keyboard.pressed("L")) {
-      this.rotation += 5;
+     
+     
+
+        this.rotation += 5;
+    
+   
+    
     }
   };
   

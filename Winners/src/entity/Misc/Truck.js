@@ -230,12 +230,23 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     duration: 2000,
     onComplete: function () {
       if (m_this) {
+
         this.layer0.removeChild(m_this, true);
+        // m_this.soldierArr.forEach(function (soldier) {
+        //   m_this.game.layer0.removeChild(soldier, true);
+        // });
       }
     },
   });
 };
 
+// Winners.entity.Truck.prototype.removeSoldeirs  = function () {
+
+//   this.soldierArr.forEach(function (soldier) {
+//   this.game.layer0.removeChild(soldier, true);
+//   console.log('soldier removed')
+// });
+// }
 /**
  * ...
  *
