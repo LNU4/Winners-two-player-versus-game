@@ -39,18 +39,25 @@ Winners.entity.Repairsoldier = function (x, y, game, player) {
   /**
    * if statement to check the player thats passed to this class
    */
-  var playerColor;
+  
   if (player === game.player2) {
     this.player = game.player2;
     this.enemy = this.game.player;
-    playerColor = new rune.color.Color24(32, 32, 32);
+    this.texture.replaceColor(
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(255, 0, 0)
+      
+    );
   } else {
     this.player = game.player;
     this.enemy = this.game.player2;
-    playerColor = new rune.color.Color24(172, 50, 50);
+    this.texture.replaceColor(
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(0, 150, 230)
+    );
   }
 
-  this.texture.replaceColor(new rune.color.Color24(0, 0, 0), playerColor);
+  
   /**
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}

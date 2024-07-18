@@ -232,15 +232,19 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
     duration: 1500,
     scope: this,
     onComplete: function () {
-      if (this.bulletTarget) {  
+      if (this.bulletTarget) {
+
+        if (this.bulletTarget.destructionEmitter) {
       this.bulletTarget.destructionEmitter.centerX = this.bulletTarget.centerX; 
       this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
       this.bulletTarget.destructionEmitter.emit(10);
-      
+    }
+
+       if (this.bulletTarget.turretEmitter) {
       this.bulletTarget.turretEmitter.centerX = this.bulletTarget.centerX; 
       this.bulletTarget.turretEmitter.centerY = this.bulletTarget.centerY;
       this.bulletTarget.turretEmitter.emit(1);
-
+    }
       this.game.timers.create({
         duration: 800, 
         scope: this,
