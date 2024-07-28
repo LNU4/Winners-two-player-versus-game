@@ -215,53 +215,54 @@ Winners.entity.Players.prototype.sparkEmitt = function () {
     particles: [Winners.entity.Spark],
     capacity: 250,
     accelerationY: 0.001,
-    maxVelocityX:  1.5,
+    maxVelocityX: 1.5,
     minVelocityX: -1.5,
-    maxVelocityY: -1.5,
+    maxVelocityY: 1.5,
     minVelocityY: -1.5,
-    minRotation:  -5,
-    maxRotation:   2
+    minRotation: -5,
+    maxRotation: 2
 });
 this.game.layer0.addChild(this.sparkEmitter);
 };
 
 Winners.entity.Players.prototype.destructionEmitt = function () {
-
   this.destructionEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
     particles: [Winners.entity.Spark, Winners.entity.Plate, Winners.entity.Tyre],
     capacity: 250,
     accelerationY: 0.001,
-    maxVelocityX:  1.5,
+    maxVelocityX: 1.5,
     minVelocityX: -1.5,
-    maxVelocityY: -1.5,
+    maxVelocityY: 1.5,
     minVelocityY: -1.5,
-    minRotation:  -5,
-    maxRotation:   2
-});
-this.game.layer0.addChild(this.destructionEmitter); 
+    minRotation: -5,
+    maxRotation: 2
+  });
+  this.game.layer0.addChild(this.destructionEmitter);
 };
 
 Winners.entity.Players.prototype.turretEmitt = function () {
-
   this.turretEmitter = new rune.particle.Emitter(0, 0, 64, 64, {
     particles: [Winners.entity.Turretdes],
     capacity: 250,
     accelerationY: 0.010,
-    maxVelocityX:  2.5,
-    minVelocityX: -1.5,
-    maxVelocityY: -1.5,
-    minVelocityY: -1.5,
-    minRotation:  -5,
-    maxRotation:   2
-});
-this.game.layer0.addChild(this.turretEmitter); 
+    maxVelocityX: 2.5,
+    minVelocityX: -2.5,
+    maxVelocityY: 2.5,
+    minVelocityY: -2.5,
+    minRotation: -5,
+    maxRotation: 2
+  });
+  this.game.layer0.addChild(this.turretEmitter);
 };
+Winners.entity.Players.prototype.removeSpark = function () {
+  if (this.sparkEmitter) {
+    this.sparkEmitter.clear(true)
+   
+}
+}
 Winners.entity.Players.prototype.removeEmitters = function () {
  
-  if (this.sparkEmitter) {
-      this.sparkEmitter.clear(true)
-     
-  }
+ 
  
   if (this.destructionEmitter) {
       this.destructionEmitter.clear(true) //make sure they dispose just like the one under N.A
@@ -293,6 +294,7 @@ Winners.entity.Players.prototype.removeSparkEmitter = function () {
     });
   } 
 };
+
 
 
 

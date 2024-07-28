@@ -76,6 +76,7 @@ Winners.entity.Base2.prototype.init = function () {
   this.animation.create("2", [2], 1, true);
   this.animation.create("3", [3], 1, true);
   this.animation.create("4", [4], 1, true);
+  this.animation.create("exeplod", [6, 7, 8, 9, 10, 11], 6, true);
   this.animation.gotoAndStop("0");
 };
 
