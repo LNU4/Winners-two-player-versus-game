@@ -116,9 +116,14 @@ Winners.entity.Bullet.prototype.update = function (step) {
       if (this.bulletTarget.sparkEmitter) {
         this.bulletTarget.sparkEmitter.centerX = this.bulletTarget.centerX; 
         this.bulletTarget.sparkEmitter.centerY = this.bulletTarget.centerY;
-        this.bulletTarget.sparkEmitter.emit(1);
-
-        this.bulletTarget.removeSparkEmitter();
+        this.bulletTarget.sparkEmitter.emit(4);
+        this.game.timers.create({
+          duration: 500,
+          scope: this,
+          onComplete: function () {
+        this.bulletTarget.removeSpark();
+          }
+        });
       }
       
   }
@@ -166,15 +171,10 @@ Winners.entity.Bullet.prototype.update = function (step) {
         this.bulletTarget.playerBase.animation.gotoAndStop("4");
       } else if (this.bulletTarget.playerBase.HPValue == 0) {
         this.hitTestAndSeparate(this.bulletTarget.playerBase);
+        this.handelExplodedBase();
+      //  this.layer0.removeChild(this.bulletTarget.playerBase, true);
+      //  this.bulletTarget.playerBase = null;
 
-        this.layer0.removeChild(this.bulletTarget.playerBase, true);
-        this.bulletTarget.playerBase = null;
-
-        if (this.bulletTarget === this.game.player) {
-          this.game.handlePlayerDefeat("player1");
-        } else if (this.bulletTarget === this.game.player2) {
-          this.game.handlePlayerDefeat("player2");
-        }
       }
     }
   }
@@ -360,6 +360,30 @@ Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
       this.bulletTarget.playerBaseShield = null;
     }})
 }
+
+Winners.entity.Bullet.prototype.handelExplodedBase = function() {
+  if (this.bulletTarget.playerBase) {
+      
+    this.bulletTarget.playerBase.animation.gotoAndPlay("exeplod");
+      this.game.timers.create({
+          duration: 1000,
+          scope: this,
+          onComplete: function () {
+            if (this.bulletTarget.playerBase) {
+            
+            if (this.bulletTarget === this.game.player) {
+              this.game.handlePlayerDefeat("player1");
+            } else if (this.bulletTarget === this.game.player2) {
+              this.game.handlePlayerDefeat("player2");
+            }
+
+              this.layer0.removeChild(this.bulletTarget.playerBase, true);
+              this.bulletTarget.playerBase = null;
+          }
+        }
+      });
+  }
+};
 
 //------------------------------------------------------------------------------
 // Private prototype methods
