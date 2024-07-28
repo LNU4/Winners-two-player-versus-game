@@ -90,22 +90,17 @@ Winners.entity.Turrets = function (x, y, game) {
    * @private
    */
   Winners.entity.Turrets.prototype.m_torretRotation = function (gamepadIndex) {
-    /**
-     *  properties to specify the gamepad as a controller
-     * @type {Object}
-     */
+    // properties to specify the gamepad as a controller
+  
     var gamepad = this.gamepads.get(gamepadIndex);
   
     if (gamepad.stickRightLeft || this.keyboard.pressed("J")) {
       console.log(this.active)
      
      
-             /**
-       * specify on how many degrees to rotate for time the gamepad input is pressed
-       * @type {number}
-       */
+          // specify on how many degrees to rotate for time the gamepad input is pressed
+  
       this.rotation -= 5;
-    // } 
     } else if (gamepad.stickRightRight || this.keyboard.pressed("L")) {
      
      

@@ -23,7 +23,6 @@
 
 Winners.entity.Rocket = function (
   game,
-  layer0,
   bulletOwner,
   bulletTarget,
   bullets,
@@ -37,8 +36,7 @@ Winners.entity.Rocket = function (
    * Referance to the display object container
    * @type {object}
    */
-
-  this.layer0 = layer0;
+  this.layer0 = this.game.layer0;
   this.bulletOwner = bulletOwner;
   this.bulletTarget = bulletTarget;
   this.bullets = bullets;
@@ -86,10 +84,7 @@ Winners.entity.Rocket.prototype.m_initAnimation = function () {
 Winners.entity.Rocket.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-  /**
-   * Referance to the rocket class
-   * @type {object}
-   */
+   //Referance to the rocket class
   var m_this = this;
 
   this.animation.gotoAndPlay("walk");

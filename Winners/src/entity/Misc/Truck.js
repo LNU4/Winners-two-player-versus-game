@@ -8,12 +8,16 @@
  * @constructor
  * @extends rune.display.Sprite
  *
+ * @param {number} X coordinates of where the object will be placed on X axis
+ * @param {number} Y coordinates of where the object will be placed on Y axis
+ * @param {object} game reference to the game object
+ * @param {enemy}  enemey refernce to the enmemy player
  * @class
  * @classdesc
  *
  * Game scene.
  */
-Winners.entity.Truck = function (x, y, game, enemy, owner) {
+Winners.entity.Truck = function (x, y, game, enemy) {
   /**
    * reference to the game class
    * @type {object}
@@ -101,10 +105,7 @@ Winners.entity.Truck.prototype.init = function () {
 
   this.m_initAnimation();
   this.m_initPhysics();
-  /**
-   * Properity to speicify the rotation of the object
-   * @type {number}
-   */
+  //Properity to speicify the rotation of the object
   this.rotation = 90;
 };
 /**
@@ -128,31 +129,27 @@ Winners.entity.Truck.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
   if (!this.reachedPlayer && this.enemy) {
-    /**
-     * Normalized distance "both X and Y axis" between the soldier object and the enemy
-     */
+    // Normalized distance "both X and Y axis" between the soldier object and the enemy
+     
     var distanceX = this.enemy.x - this.x;
     var distanceY = this.enemy.y - this.y;
-    /* Calculate the distance between the two object "truck and enemy player object" */
+    //Calculate the distance between the two object "truck and enemy player object" 
     var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
     if (distance <= 160) {
       this.reachedPlayer = true;
       this.stopAndSpawnSoldiers();
     } else {
-      /**
-       * Move the truck towards the enemy player object
-       */
+       // Move the truck towards the enemy player object
+     
       distanceX /= distance;
       distanceY /= distance;
       this.x += distanceX * this.movementspeed;
       this.y += distanceY * this.movementspeed;
     }
   }
-  /**
-   * Clamp the soldier to stay within the display object container "on both axis".
-   * @type {number}
-   */
+   //Clamp the soldier to stay within the display object container "on both axis".
+   
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   if (this.enemy && this.player) {
@@ -182,34 +179,21 @@ Winners.entity.Truck.prototype.update = function (step) {
  * @method
  */
 Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
-  /**
-   * Reference to the truck
-   * @type {Object}
-   */
+  //Reference to the truck
+   
   var m_this = this;
-  /**
-   * Stops the movement of the truck on both axis
-   * @type {number}
-   */
+  //Stops the movement of the truck on both axis
   var truckX = this.x;
   var truckY = this.y;
 
   for (var i = 0; i < 4; i++) {
-    /**
-     * index the soldier that specified in the loop
-     * @type {number}
-     */
-
+     //index the soldier that specified in the loop
+     
     this.soldierix = i;
-    /**
-     * spcifies the angle of the soldier upon drop
-     * @type {number}
-     */
+    //spcifies the angle of the soldier upon drop
+     
     var angle = Math.random() * Math.PI * 2;
-    /**
-     * spcifies the the drop distance of the soldiers and the angle
-     * @type {number}
-     */
+     //spcifies the the drop distance of the soldiers and the angle
     var distance = 30;
     var soldierX = truckX + Math.cos(angle) * distance;
     var soldierY = truckY + Math.sin(angle) * distance;
@@ -217,10 +201,6 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
     this.soldier = new Winners.entity.Soldier(
       soldierX,
       soldierY,
-      this.game,
-      this.enemy,
-      i,
-      this.player,
       this
     );
 
@@ -264,16 +244,12 @@ Winners.entity.Truck.prototype.dispose = function () {
  * @method
  */
 Winners.entity.Truck.prototype.m_initPhysics = function () {
-  /**
-   * Drag physics applied on the truck object
-   * @type {number}
-   */
+   //Drag physics applied on the truck object
+   
   this.velocity.drag.x = 0.05;
   this.velocity.drag.y = 0.05;
-  /**
-   * Max velocity applied on the truck object
-   * @type {number}
-   */
+  // Max velocity applied on the truck object
+   
   this.velocity.max.x = 1.8;
   this.velocity.max.y = 1.8;
 };

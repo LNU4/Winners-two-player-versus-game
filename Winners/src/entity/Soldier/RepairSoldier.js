@@ -101,21 +101,14 @@ Winners.entity.Repairsoldier.prototype.initAnimation = function () {
  */
 Winners.entity.Repairsoldier.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  /**
-   * Placeholder to specify the players base object
-   * @type {Object}
-   */
+  // Placeholder to specify the players base object
   var targetBase = this.player.playerBase;
-  /**
-   * laceholder to specify the players baseshield object
-   * @type {Object}
-   */
+ //laceholder to specify the players baseshield object
   var targetShield = this.player.playerBaseShield;
 
   if (targetShield || targetBase) {
-    /**
-     * placeholder to specify the x and y coordinates
-     */
+  //placeholder to specify the x and y coordinates
+
     var targetX;
     var targetY;
 
@@ -126,22 +119,14 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
       targetX = targetBase.centerX;
       targetY = targetBase.centerY;
     }
-    /***
-     * postion points to determin both the current position and target position and their respective Y and X coordinates
-     * @type {number};
-     */
+    //postion points to determin both the current position and target position and their respective Y and X coordinates
     var currentPosition = new rune.geom.Point(this.x, this.y);
     var targetPosition = new rune.geom.Point(targetX, targetY);
-    /**
-     * Normalize the distance between the objects position and the target position
-     * @type {number};
-     */
+     //Normalize the distance between the objects position and the target position
     var distanceX = targetX - this.x;
     var distanceY = targetY - this.y;
-    /**
-     * specify the distance between the objects position and the target position
-     * @type {number}
-     */
+     //specify the distance between the objects position and the target position
+    
     var distance = currentPosition.distance(targetPosition);
 
     if (distance > 15) {
@@ -155,9 +140,7 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
     } else {
       this.repair();
     }
-    /**
-     * clmap the soldier within the display object container
-     */
+   //clmap the soldier within the display object container
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   } else {

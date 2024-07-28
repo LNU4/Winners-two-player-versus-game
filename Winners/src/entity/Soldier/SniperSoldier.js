@@ -46,15 +46,9 @@ Winners.entity.SniperSodier.prototype.constructor = Winners.entity.SniperSodier;
  */
 Winners.entity.SniperSodier.prototype.shoot = function () {
   if (this.distance - 30 <= this.shootDistance) {
-    /**
-     * speicifes the bullet speed
-     * @type {number}
-     */
+    // speicifes the bullet speed
     var bulletSpeed = 8;
-    /**
-     * specifes the bullet direction on X and Y axes
-     * @type {number}
-     */
+    //specifes the bullet direction on X and Y axes
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
@@ -65,16 +59,10 @@ Winners.entity.SniperSodier.prototype.shoot = function () {
       this.turret1,
       this.enemy
     );
-    /**
-     * specifies the bullet velocity on x and y axes
-     * @type {number}
-     */
+    //specifies the bullet velocity on x and y axes
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
-    /**
-     * specifies the rotation of the bullet
-     * @type {number}
-     */
+    //specifies the rotation of the bullet
     bullet.rotation =
       Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }

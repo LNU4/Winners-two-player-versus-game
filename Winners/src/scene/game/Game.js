@@ -286,8 +286,7 @@ Winners.scene.Game.prototype.createTruck = function () {
     -100,
     randomY,
     this,
-    this.player2,
-    this.player
+    this.player2
   );
   /**
    * Initializes the truck2 object with the given coordinates, belongs to player2
@@ -297,8 +296,7 @@ Winners.scene.Game.prototype.createTruck = function () {
     1300,
     randomY2,
     this,
-    this.player,
-    this.player2
+    this.player
   );
  
   this.layer0.addChild(this.truck);

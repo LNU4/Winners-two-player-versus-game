@@ -7,6 +7,10 @@
  *
  * @constructor
  * @extends rune.display.Sprite
+ * 
+ * @param {number} X coordinates of where the object will be placed on X axis
+ * @param {number} Y coordinates of where the object will be placed on Y axis
+ * @param {object} game reference to the game object
  *
  * @class
  * @classdesc
@@ -48,24 +52,17 @@ Winners.entity.Base2shield.prototype.constructor = Winners.entity.Base2shield;
  */
 Winners.entity.Base2shield.prototype.init = function () {
   rune.display.Sprite.p;
-  /**
-   * specify the rotation of the object
-   * @type {number}
-   */
+   //specify the rotation of the object
+   
   this.rotation = 90;
-  /**
-   * Property that makes the base object not moveable
-   * @type {boolean}
-   */
+   //Property that makes the base object not moveable
   this.immovable = true;
 
   this.texture.replaceColor(
     new rune.color.Color24(111, 103, 101),
     new rune.color.Color24(255, 0, 0)
   );
-  /**
-   * State the Animation state based on the index
-   */
+   //State the Animation state based on the index
   this.animation.create("0", [0], 1, true);
   this.animation.create("1", [1], 1, true);
   this.animation.create("2", [2], 1, true);

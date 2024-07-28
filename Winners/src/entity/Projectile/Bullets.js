@@ -101,23 +101,15 @@ Winners.entity.Bullets.prototype.create = function (
   if (this.numMemebers == this.maxNumBullets) {
     this.removeMemeber(this.getMemberAt(0), true);
   }
-  /**
-   * Property containing a reference to the instance of the bullet object
-   * @type {object}
-   */
-
-
-  this.bullet = new Winners.entity.Bullet(
+ //Property containing a reference to the instance of the bullet object
+    this.bullet = new Winners.entity.Bullet(
     this.game,
     this.container,
     this.owner,
     this.enemy,
     this
   );
-  /**
-   * Proprties to specify the x & y coords of the bullet object
-   * @type {number}
-   */
+ //Proprties to specify the x & y coords of the bullet object
   this.bullet.x = (x || 0) - (this.bullet.width >> 1);
   this.bullet.y = (y || 0) - (this.bullet.height >> 1);
 

@@ -7,7 +7,9 @@
  *
  * @constructor
  * @extends rune.display.Sprite
- *
+ * @param {number} X coordinates of where the object will be placed on X axis
+ * @param {number} Y coordinates of where the object will be placed on Y axis
+ * @param {object} game reference to the game object
  * @class
  * @classdesc
  *
@@ -58,19 +60,14 @@ Winners.entity.Base2.prototype.constructor = Winners.entity.Base2;
  */
 Winners.entity.Base2.prototype.init = function () {
   rune.display.Sprite.prototype.init.call(this);
-  /**
-   * Property that makes the base object not moveable
-   * @type {boolean}
-   */
+  //Property that makes the base object not moveable
   this.immovable = true;
 
   this.texture.replaceColor(
     new rune.color.Color24(34, 32, 52),
     new rune.color.Color24(255, 0, 0)
   );
-  /**
-   * State the Animation state based on the index
-   */
+   //State the Animation state based on the index
   this.animation.create("0", [0], 1, true);
   this.animation.create("1", [1], 1, true);
   this.animation.create("2", [2], 1, true);
@@ -89,9 +86,8 @@ Winners.entity.Base2.prototype.init = function () {
  */
 Winners.entity.Base2.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  /**
-   * Sepearates the player objects
-   */
+  //Sepearates the player objects
+ 
   this.hitTestAndSeparate(this.game.player2);
   this.hitTestAndSeparate(this.game.player);
 };

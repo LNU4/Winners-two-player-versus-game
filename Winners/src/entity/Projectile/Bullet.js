@@ -52,6 +52,7 @@ Winners.entity.Bullet = function (
    */
   this.respawn = this.bullets.application.sounds.sound.get("respwan1");
   this.burn = this.bullets.application.sounds.sound.get("burn");
+  this.explosion = this.bullets.application.sounds.sound.get("explosion");
   //--------------------------------------------------------------------------
   // Protected properties
   //------------------------------------------------------------------------
@@ -351,6 +352,7 @@ Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
 
 Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
   this.bulletTarget.playerBaseShield.animation.gotoAndPlay("exeplod");
+  this.explosion.play(true)
   this.game.timers.create({
     duration: 1000,
     scope: this,

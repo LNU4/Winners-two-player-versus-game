@@ -72,8 +72,8 @@ Winners.scene.Menu.prototype.init = function () {
    * Property calling the builtin method for reading audio files
    * @type {media.Sound}
    */
-  this.backgroundMusic = this.application.sounds.sound.get("epic-cinematic-sounds-war");
-  // this.backgroundMusic = this.application.sounds.master.get("epic-cinematic-sounds-war");
+  //this.backgroundMusic = this.application.sounds.sound.get("epic-cinematic-sounds-war");
+  this.backgroundMusic = this.application.sounds.master.get("epic-cinematic-sounds-war");
  this.backgroundMusic.play(true);
   this.backgroundMusic.loop = true;
   this.switchEffect = this.application.sounds.sound.get("switch");
@@ -137,6 +137,7 @@ Winners.scene.Menu.prototype.update = function (step) {
         this.timers.create({
           duration: 2000,
           onComplete: function () {
+            this.backgroundMusic.stop(true);
             this.application.scenes.load([new Winners.scene.Game(2, 1, [])]);
           },
         });
