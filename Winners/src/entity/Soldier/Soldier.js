@@ -17,19 +17,45 @@
  * @param {number} i referance to the index of the soldier in the array
  * @param {number} SoldierOwner reference to the player object that has the same team
  * @param {object} truck reference to the truck object
+ * (x, y, game, enemy, SoldierOwner, truck) 
+ * 
+ * 
  */
-Winners.entity.Soldier = function (x, y, game, enemy, i, SoldierOwner, truck) {
+Winners.entity.Soldier = function (x, y,  truck) {
+/**
+ * 
+ * reference to the truck object thet generates the soldier objecft
+ * @type {object}
+ */
+  this.truck = truck;
+  /**
+   * reference to the game object
+   * @type {object}
+   */
+  this.game = this.truck.game;
+  /**
+   * the enemy player
+   * @type {object}
+   * 
+   */
+  this.enemy = this.truck.enemy;
+  /**
+   * the owner player
+   * @type {object}
+   */
+  this.SoldierOwner = this.truck.player;
+
   Winners.entity.SoldierUtil.call(
     this,
     x,
     y,
-    game,
-    enemy,
+    this.game,
+    this.enemy,
     "soldier",
     200,
     1,
     900,
-    SoldierOwner
+    this.SoldierOwner
   );
  
 };
@@ -46,15 +72,12 @@ Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldier;
  */
 Winners.entity.Soldier.prototype.shoot = function () {
   if (this.distance <= this.shootDistance) {
-    /**
-     * speicifes the bullet speed
-     * @type {number}
-     */
+     //speicifes the bullet speed
+     
     var bulletSpeed = 0.2;
-    /**
-     * specifes the bullet direction on X and Y axes
-     * @type {number}
-     */
+    //specifes the bullet direction on X and Y axes
+    
+     
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
@@ -65,16 +88,12 @@ Winners.entity.Soldier.prototype.shoot = function () {
       this.turret1,
       this.enemy
     );
-    /**
-     * specifies the bullet velocity on x and y axes
-     * @type {number}
-     */
+    //specifies the bullet velocity on x and y axes
+     
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
-    /**
-     * specifies the rotation of the bullet
-     * @type {number}
-     */
+     //specifies the rotation of the bullet
+     
     bullet.rotation =
       Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }

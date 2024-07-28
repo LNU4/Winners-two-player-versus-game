@@ -8,10 +8,10 @@
  * @constructor
  * @extends rune.display.Sprite
  *
- * @param {number}  x ...
- * @param {number}  y ...
- * @param {object}  game ...
- * @param {string}  spriteName ...
+ * @param {number} X coordinates of where the object will be placed on X axis
+ * @param {number} Y coordinates of where the object will be placed on Y axis
+ * @param {object} game reference to the game object
+ * @param {string}  spriteName string name of the sprite
  * @class
  * @classdesc
  *
@@ -100,10 +100,7 @@ Winners.entity.Players.prototype.dispose = function () {
 Winners.entity.Players.prototype.shoot = function () {
 
   if (this.shooting) {
-  /**
-   * Property that references the bullet object returnd by the bullets.create method of the bullets class
-   * @type {Object}
-   */
+    //Property that references the bullet object returnd by the bullets.create method of the bullets class
   this.bullet = this.game.bullets.create(
     this.centerX,
     this.centerY,

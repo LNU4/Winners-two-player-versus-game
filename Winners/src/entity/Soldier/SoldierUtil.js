@@ -96,28 +96,21 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
     return;
   }
 
-  /**
-   * Properties to the built in math points, it specifies two points and their X Y coordinates
-   * @type {number}
-   */
+   //Properties to the built in math points, it specifies two points and their X Y coordinates
+
   this.currentPosition = new rune.geom.Point(this.x, this.y);
   this.targetPosition = new rune.geom.Point(
     this.enemy.centerX,
     this.enemy.centerY
   );
-  /**
-   * Normalized distance "both X and Y axis" between the soldier object and the enemy
-   * @type {number}
-   */
+  //Normalized distance "both X and Y axis" between the soldier object and the enemy
   this.distanceX = this.targetPosition.x - this.currentPosition.x;
   this.distanceY = this.targetPosition.y - this.currentPosition.y;
   this.distance = this.currentPosition.distance(this.targetPosition);
 
   if (this.distance <= this.shootDistance && this.distance > 90) {
-    /**
-     * Place holder for the time, it's called through the javascript built in function
-     * @type {number}
-     */
+    //Place holder for the time, it's called through the javascript built in function
+
     var currentTime = Date.now();
     if (currentTime - this.lastShootTime >= this.shootCooldown) {
       if (this.animation) {
@@ -127,31 +120,21 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
       this.lastShootTime = currentTime;
     }
   } else {
-    /**
-     * Divide the normlized distance with the distance on both axes
-     * @type {number}
-     */
+    //Divide the normlized distance with the distance on both axes
     this.distanceX /= this.distance;
     this.distanceY /= this.distance;
-    /**
-     * move the soldier object towards the targeret multiplied by the movespeed
-     */
+     // move the soldier object towards the targeret multiplied by the movespeed
     this.x += this.distanceX * this.moveSpeed;
     this.y += this.distanceY * this.moveSpeed;
     if (this.animation) {
       this.animation.gotoAndPlay("walk");
     }
   }
-  /**
-   * Clamp the object so they don't move out of the map, clamps on both axes x and y
-   * @type {number}
-   */
+   //Clamp the object so they don't move out of the map, clamps on both axes x and y
+   
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
-  /**
-   * Speicifies the soldier angle
-   * @type {number}
-   */
+  //Speicifies the soldier angle
   var angle = Math.atan2(this.distanceY, this.distanceX);
   this.rotation = angle * (180 / Math.PI);
 
@@ -171,11 +154,8 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
   );
 
   if (this.truck) {
-    /**
-     *referense to the soldier that is carried by the truck, "there are forur soldiers everytime a new truck is created, all the soldiers are pushed into an array 'soldierArr' "
-     * @type {Object}
-     *
-     */
+    //referense to the soldier that is carried by the truck, "there are forur soldiers everytime a new truck is created, all the soldiers are pushed into an array 'soldierArr' "
+     
     var m_this = this;
     for (var i = 0; i < this.truck.soldierArr.length; i++) {
       var soldier = this.truck.soldierArr[i];
@@ -211,11 +191,7 @@ Winners.entity.SoldierUtil.prototype.shoot = function () {
  * @returns {undefined}
  */
 Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
-  /**
-   * private reference to the soldierUtil class instance
-   * @private
-   * @param {object}
-   */
+  //private reference to the soldierUtil class instance
   var m_this = this;
 
   // Set isAlive to false to prevent further actions

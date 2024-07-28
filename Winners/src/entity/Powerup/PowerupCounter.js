@@ -90,38 +90,24 @@ Winners.entity.PowerupCounter.prototype.init = function () {
  */
 
 Winners.entity.PowerupCounter.prototype.SelectRandomSoldier = function () {
-  /**
-   * Private roprety to store a string that specifies the type of soldier to be generated after the player has collected 3 powerups.
-   * @type {string}
-   */
+   //Private roprety to store a string that specifies the type of soldier to be generated after the player has collected 3 powerups.
   var type = "";
 
   if (this.player.powerupIx === 2) {
-    /**
-     * References to the index in which the powerupcounter object exists in the powerups array (powerupsArray)
-     * @type {number}
-     */
+     //References to the index in which the powerupcounter object exists in the powerups array (powerupsArray)
     // this.player.powerupIx =
     this.x = this.powerupCoords.puX + 30;
     this.y = this.powerupCoords.puY;
-    /**
-     * An Array containing four different types of soldiers as strings
-     * @type {Array}
-     */
+    //An Array containing four different types of soldiers as strings
     this.SoldierTypesArray = [
       "heavysoldier",
       "repairsoldier",
       "snipersoldiers",
       "rocketsoldier",
     ];
-    /**
-     * Picks a random numbe between 0 and 3 and stores it in the typeIx property
-     * @type {number}
-     */
+    //Picks a random numbe between 0 and 3 and stores it in the typeIx property
     this.typeIx = Math.floor(Math.random() * 4);
-    /**
-     * Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated
-     */
+    //Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated
     type = this.SoldierTypesArray[this.typeIx];
     this.createSoldier(type);
   }
@@ -144,24 +130,17 @@ Winners.entity.PowerupCounter.prototype.update = function (step) {
  * @returns {undefined}
  */
 Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
-  /**
-   * Random x and y coords for the soldier, to avoid that the soldiers spawn on top of each other
-   * @type {number}
-   */
+  // Random x and y coords for the soldier, to avoid that the soldiers spawn on top of each other
+   
   var randomX = Math.floor(Math.random() * (1000 - 200 + 1)) + 200;
   var randomY = Math.floor(Math.random() * (250 - 150 + 1)) + 150;
-  /**
-   * Private variable to store the type of soldier to be generated
-   * @type {string}
-   */
+ //Private variable to store the type of soldier to be generated
+  
   var type = soldierType;
-  /**
-   * Private variable to store the object
-   * @type {Object}
-   */
+ //Private variable to store the object
   var m_this = this;
 
-  var reinforcementMessage = new  rune.text.BitmapField("reinforcement soldiers are on there way", "New Piskel-4");
+  var reinforcementMessage = new  rune.text.BitmapField("reinforcement soldiers are on their way", "New Piskel-4");
   reinforcementMessage.autoSize = true;
   reinforcementMessage.scaleX = 2;
   reinforcementMessage.scaleY = 2;

@@ -48,16 +48,12 @@ Winners.entity.Rocketsoldier.prototype.constructor =
 Winners.entity.Rocketsoldier.prototype.shoot = function () {
   if (this.distance - 48 <= this.shootDistance) {
     var rocketSpeed = 6;
-    /**
-     * specifes the rocket direction on X and Y axes
-     * @type {number}
-     */
+    // specifes the rocket direction on X and Y axes
     var rocketDirectionX = this.distanceX / this.distance;
     var rocketDirectionY = this.distanceY / this.distance;
 
     var rocket = new Winners.entity.Rocket(
       this.game,
-      this.layer,
       this,
       this.enemy,
       this.bullets,
@@ -65,16 +61,10 @@ Winners.entity.Rocketsoldier.prototype.shoot = function () {
       this.centerY
     );
     this.layer.addChild(rocket);
-    /**
-     * specifies the rocket velocity on x and y axes
-     * @type {number}
-     */
+    //specifies the rocket velocity on x and y axes
     rocket.velocity.x = rocketDirectionX * rocketSpeed;
     rocket.velocity.y = rocketDirectionY * rocketSpeed;
-    /**
-     * specifies the rotation of the rocket
-     * @type {number}
-     */
+     //specifies the rotation of the rocket
     rocket.rotation =
       Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }

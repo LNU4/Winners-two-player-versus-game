@@ -7,9 +7,9 @@
  *
  * @constructor
  * @extends rune.display.Sprite
- * @param {number}  x ...
- * @param {number}  y ...
- * @param {object}  game ...
+ * @param {number} X coordinates of where the object will be placed on X axis
+ * @param {number} Y coordinates of where the object will be placed on Y axis
+ * @param {object} game reference to the game object
  * @param {object} unKnownPlayer reference to the player || plsayer2 object based on to which player the powerup belonges
  * @class
  * @classdesc
@@ -73,25 +73,18 @@ Winners.entity.Powerup.prototype.init = function () {
  */
 Winners.entity.Powerup.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  /**
-   * a private property to store the powerup object
-   * @type {object}
-   *
-   */
+  //a private property to store the powerup object
+   
   var m_this = this;
 
   if (this.unKnownPlayer == this.game.player2) {
     this.puX = 1230;
     this.puY = 35;
-    /**
-     * Property refering to the player object
-     * @type {object}
-     */
+    //Property refering to the player object
+
     this.player = this.game.player2;
-    /**
-     * Property refering to the enemy object
-     * @type {object}
-     */
+   // Property refering to the enemy object
+    
     this.enemy = this.game.player;
 
     this.texture.replaceColor(
@@ -101,35 +94,26 @@ Winners.entity.Powerup.prototype.update = function (step) {
   } else if (this.unKnownPlayer == this.game.player) {
     this.puX = 5;
     this.puY = 35;
-    /**
-     * Property refering to the player object
-     * @type {object}
-     */
+     //Property refering to the player object
+    
     this.player = this.game.player;
-    /**
-     * Property refering to the enemy object
-     * @type {object}
-     */
+  //Property refering to the enemy object
+    
     this.enemy = this.game.player2;
     this.texture.replaceColor(
       new rune.color.Color24(143, 151, 74),
       new rune.color.Color24(0, 150, 230)
     );
   }
-  /**
-   * Private properties to store the x & y coords of the powerup object after they have been set
-   * @type {number}
-   */
+  //Private properties to store the x & y coords of the powerup object after they have been set
   var puX = this.puX;
   var puY = this.puY;
 
   if (this.hitTest(this.player)) {
     if (this.player.powerupsArray.length < 3) {
       this.soundEffect.play(true);
-      /**
-       * A property to create a powerup counter object, that is renderd as a star on the top left or the top right of the screen depending on to which player the powerup belongs to. Each player can have maximum 3 powerups at a time.
-       * @type {object}
-       */
+      //A property to create a powerup counter object, that is renderd as a star on the top left or the top right of the screen depending on to which player the powerup belongs to. Each player can have maximum 3 powerups at a time.
+       
       this.powerupCounter = new Winners.entity.PowerupCounter(
         this.game,
         this.player,
