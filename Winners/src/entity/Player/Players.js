@@ -207,49 +207,54 @@ Winners.entity.Players.prototype.updateBullets = function () {
   }
 };
 Winners.entity.Players.prototype.sparkEmitt = function () {
-
-  this.sparkEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
-    particles: [Winners.entity.Spark],
-    capacity: 250,
-    accelerationY: 0.001,
-    maxVelocityX: 1.5,
-    minVelocityX: -1.5,
-    maxVelocityY: 1.5,
-    minVelocityY: -1.5,
-    minRotation: -5,
-    maxRotation: 2
-});
-this.game.layer0.addChild(this.sparkEmitter);
+  if (!this.sparkEmitter) {
+    this.sparkEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
+      particles: [Winners.entity.Spark],
+      capacity: 250,
+      accelerationY: 0.001,
+      maxVelocityX: 1.5,
+      minVelocityX: -1.5,
+      maxVelocityY: 1.5,
+      minVelocityY: -1.5,
+      minRotation: -5,
+      maxRotation: 2
+    });
+    this.game.layer0.addChild(this.sparkEmitter);
+  }
 };
 
 Winners.entity.Players.prototype.destructionEmitt = function () {
-  this.destructionEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
-    particles: [Winners.entity.Spark, Winners.entity.Plate, Winners.entity.Tyre],
-    capacity: 250,
-    accelerationY: 0.001,
-    maxVelocityX: 1.5,
-    minVelocityX: -1.5,
-    maxVelocityY: 1.5,
-    minVelocityY: -1.5,
-    minRotation: -5,
-    maxRotation: 2
-  });
-  this.game.layer0.addChild(this.destructionEmitter);
+  if (!this.destructionEmitter) {
+    this.destructionEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
+      particles: [Winners.entity.Spark, Winners.entity.Plate, Winners.entity.Tyre],
+      capacity: 250,
+      accelerationY: 0.001,
+      maxVelocityX: 1.5,
+      minVelocityX: -1.5,
+      maxVelocityY: 1.5,
+      minVelocityY: -1.5,
+      minRotation: -5,
+      maxRotation: 2
+    });
+    this.game.layer0.addChild(this.destructionEmitter);
+  }
 };
 
 Winners.entity.Players.prototype.turretEmitt = function () {
-  this.turretEmitter = new rune.particle.Emitter(0, 0, 64, 64, {
-    particles: [Winners.entity.Turretdes],
-    capacity: 250,
-    accelerationY: 0.010,
-    maxVelocityX: 2.5,
-    minVelocityX: -2.5,
-    maxVelocityY: 2.5,
-    minVelocityY: -2.5,
-    minRotation: -5,
-    maxRotation: 2
-  });
-  this.game.layer0.addChild(this.turretEmitter);
+  if (!this.turretEmitter) {
+    this.turretEmitter = new rune.particle.Emitter(0, 0, 64, 64, {
+      particles: [Winners.entity.Turretdes],
+      capacity: 250,
+      accelerationY: 0.010,
+      maxVelocityX: 2.5,
+      minVelocityX: -2.5,
+      maxVelocityY: 2.5,
+      minVelocityY: -2.5,
+      minRotation: -5,
+      maxRotation: 2
+    });
+    this.game.layer0.addChild(this.turretEmitter);
+  }
 };
 Winners.entity.Players.prototype.removeSpark = function () {
   if (this.sparkEmitter) {
@@ -267,7 +272,7 @@ Winners.entity.Players.prototype.removeEmitters = function () {
   }
   
   if (this.turretEmitter) {
-      this.game.layer0.removeChild(this.turretEmitter, true);
+      this.turretEmitter.clear(true)
       
   }
 };

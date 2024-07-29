@@ -109,7 +109,7 @@ Winners.entity.PowerupCounter.prototype.SelectRandomSoldier = function () {
     this.typeIx = Math.floor(Math.random() * 4);
     //Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated
     type = this.SoldierTypesArray[this.typeIx];
-    this.createSoldier(type);
+    this.createSoldier("heavysoldier");
   }
 };
 

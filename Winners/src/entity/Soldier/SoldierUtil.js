@@ -91,7 +91,7 @@ Winners.entity.SoldierUtil.prototype.init = function () {
 Winners.entity.SoldierUtil.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-  if (!this.isAlive) {
+  if (!this.isAlive || this.game.winnerDeclared ) {
     // If the soldier is dead, stop further updates
     return;
   }
