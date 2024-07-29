@@ -84,7 +84,6 @@ Winners.entity.Rocket.prototype.m_initAnimation = function () {
 Winners.entity.Rocket.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-   //Referance to the rocket class
   var m_this = this;
 
   this.animation.gotoAndPlay("walk");
@@ -92,11 +91,13 @@ Winners.entity.Rocket.prototype.update = function (step) {
   if (this.hitTest(this.bulletTarget)) {
     this.layer0.removeChild(this, true);
 
-    this.game.bullets.bullet.handelHp(
-      this.damage,
-      this.bulletTarget,
-      this.bulletOwner
-    );
+    if (this.bulletTarget) {
+      this.game.bullets.bullet.handelHp(
+        this.damage,
+        this.bulletTarget,
+        this.bulletOwner
+      );
+    }
   }
 };
 /**

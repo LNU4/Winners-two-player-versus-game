@@ -230,39 +230,40 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
   var m_this = this;
 
   this.game.timers.create({
-    duration: 1500,
+    duration: 1000,
     scope: this,
     onComplete: function () {
       if (this.bulletTarget) {
-
         if (this.bulletTarget.destructionEmitter) {
-      this.bulletTarget.destructionEmitter.centerX = this.bulletTarget.centerX; 
-      this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
-      this.bulletTarget.destructionEmitter.emit(10);
-    }
-
-       if (this.bulletTarget.turretEmitter) {
-      this.bulletTarget.turretEmitter.centerX = this.bulletTarget.centerX; 
-      this.bulletTarget.turretEmitter.centerY = this.bulletTarget.centerY;
-      this.bulletTarget.turretEmitter.emit(1);
-    }
-      this.game.timers.create({
-        duration: 800, 
-        scope: this,
-        onComplete: function() {
-            this.bulletTarget.removeEmitters();
+          this.bulletTarget.destructionEmitter.centerX = this.bulletTarget.centerX;
+          this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
+          this.bulletTarget.destructionEmitter.emit(10);
         }
-    });
-  }
+
+        if (this.bulletTarget.turretEmitter) {
+          this.bulletTarget.turretEmitter.centerX = this.bulletTarget.centerX;
+          this.bulletTarget.turretEmitter.centerY = this.bulletTarget.centerY;
+          this.bulletTarget.turretEmitter.emit(1);
+        }
+
+        this.game.timers.create({
+          duration: 800,
+          scope: this,
+          onComplete: function () {
+            if (this.bulletTarget) {
+              this.bulletTarget.removeEmitters();
+            }
+          }
+        });
+      }
+
       if (bulletTarget == this.game.player) {
         this.game.turret1.animation.gotoAndPlay("idle");
-        
       } else if (bulletTarget == this.game.player2) {
         this.game.turret2.animation.gotoAndPlay("idle");
       }
 
       bulletTarget.x = Math.random() * (2000 + -2000) + -2000;
-
       bulletTarget.y = Math.random() * (2000 + 1000) + 1000;
     },
   });
@@ -271,27 +272,28 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
     duration: 4000,
     scope: this,
     onComplete: function () {
-      
-      bulletTarget.active = true;
-      bulletTarget.x = bulletTarget.initX;
-      bulletTarget.y = bulletTarget.initY;
+      if (bulletTarget) {
+        bulletTarget.active = true;
+        bulletTarget.x = bulletTarget.initX;
+        bulletTarget.y = bulletTarget.initY;
 
-      m_this.layer0.addChild(bulletTarget);
-      m_this.game.layer2.addChild(bulletTarget.turret1);
-      bulletTarget.flicker.start();
+        m_this.layer0.addChild(bulletTarget);
+        m_this.game.layer2.addChild(bulletTarget.turret1);
+        bulletTarget.flicker.start();
 
-      m_this.game.camera.addChild(m_this.HpOb);
-      m_this.HpOb.value = 100;
-      rune.display.DisplayObject.call(
-        m_this.HpOb,
-        bulletTarget.x,
-        bulletTarget.y,
-        25,
-        10
-      );
-      m_this.HpOb.backgroundColor = "#03fc24";
+        m_this.game.camera.addChild(m_this.HpOb);
+        m_this.HpOb.value = 100;
+        rune.display.DisplayObject.call(
+          m_this.HpOb,
+          bulletTarget.x,
+          bulletTarget.y,
+          25,
+          10
+        );
+        m_this.HpOb.backgroundColor = "#03fc24";
 
-      m_this.respawn.play(true);
+        m_this.respawn.play(true);
+      }
     },
   });
 };
