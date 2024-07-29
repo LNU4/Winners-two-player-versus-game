@@ -138,7 +138,7 @@ Winners.scene.Menu.prototype.update = function (step) {
           duration: 2000,
           onComplete: function () {
             this.backgroundMusic.stop(true);
-            this.application.scenes.load([new Winners.scene.Game(2, 1, [])]);
+            this.application.scenes.load([new Winners.scene.Game(2, 1, [])], this);
           },
         });
         break;

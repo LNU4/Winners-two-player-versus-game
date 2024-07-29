@@ -354,7 +354,7 @@ Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
 
 Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
   this.bulletTarget.playerBaseShield.animation.gotoAndPlay("exeplod");
-  this.explosion.play(true)
+  this.explosion.play(true);
   this.game.timers.create({
     duration: 1000,
     scope: this,
@@ -366,6 +366,9 @@ Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
 }
 
 Winners.entity.Bullet.prototype.handelExplodedBase = function() {
+
+  this.explosion.play(true);
+
   if (this.bulletTarget.playerBase) {
       
     this.bulletTarget.playerBase.animation.gotoAndPlay("exeplod");

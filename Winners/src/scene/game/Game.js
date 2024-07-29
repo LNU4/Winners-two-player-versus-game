@@ -17,7 +17,7 @@
  *
  * Game scene.
  */
-Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
+Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
@@ -63,6 +63,8 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners) {
 
    this.isCreatTruck = 1; 
 
+   this.menu = menu;
+  console.log(this.menu);
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -233,7 +235,8 @@ Winners.scene.Game.prototype.init = function () {
    * @type {media.Sound}
    */
   this.chaos = this.application.sounds.sound.get("rhythm-of-war-main");
- // this.chaos = this.application.sounds.master.get("rhythm-of-war-main");
+//   console.log(this.menu);
+//  this.chaos = this.menu.application.sounds.master.get("rhythm-of-war-main");
   this.chaos.play(true);
   this.chaos.loop = true;
 
@@ -314,7 +317,7 @@ Winners.scene.Game.prototype.createTruck = function () {
 } else {
   return;
 }
-  console.log(this)
+
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -389,8 +392,13 @@ Winners.scene.Game.prototype.handleGameOver = function () {
 
   if (this.Player1isDefeated) {
     this.roundWinners.push("player2");
+    this.bgColor = "#0096E6"
+    console.log('Player1isDefeated')
   } else if (this.Player2isDefeated) {
     this.roundWinners.push("player1");
+    this.bgColor = "#FF0000"
+    console.log('Player2isDefeated')
+
   }
   else {
     return; 
@@ -410,6 +418,9 @@ Winners.scene.Game.prototype.handleGameOver = function () {
 
     var resultMsg =
       "round won by " + this.roundWinners[this.roundWinners.length - 1];
+      resultMsg.backgroundColor = "#FF0000";
+      console.log(resultMsg.backgroundColor)
+      console.log('round won')
 
     /**
      * Creates a text object with the result of the round
@@ -419,6 +430,8 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     text.autoSize = true;
     text.scaleX = 2.5;
     text.scaleY = 2.5;
+    resultMsg.backgroundColor = this.bgColor;
+      console.log(resultMsg.backgroundColor)
     /**
      * Center the text on the screen
      * @type {number}
@@ -524,16 +537,21 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
     resultMsg += "player 1 won";
+    this.bgColor = "#0096E6"
+
   } else if (player2Wins > player1Wins) {
     resultMsg += "player 2 won";
+    this.bgColor = "#FF0000"
   } else {
     resultMsg += "its a tie!";
+    this.bgColor = "#00FFFF"
   }
   var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
 
   text.autoSize = true;
   text.scaleX = 2.5;
   text.scaleY = 2.5;
+  resultMsg.backgroundColor = "#00FFFF";
   /**
    * Center the text on the screen and scale it accordingly
    */

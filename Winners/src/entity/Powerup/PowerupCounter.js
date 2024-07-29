@@ -146,7 +146,12 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
   reinforcementMessage.scaleY = 2;
   reinforcementMessage.x = 380;
   reinforcementMessage.y = 30;
-  reinforcementMessage.backgroundColor = "#FFFF00"
+  if (this.player == this.game.player){
+    reinforcementMessage.backgroundColor = "#0096E6";
+  } else if (this.player == this.game.player2){
+    reinforcementMessage.backgroundColor = "#FF0000";
+  }
+ // reinforcementMessage.backgroundColor = "#FFFF00";
   this.game.stage.addChild(reinforcementMessage);
   this.game.timers.create({
     duration: 4000,
