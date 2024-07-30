@@ -43,13 +43,9 @@ Winners.data.Requests.prototype.constructor = Winners.data.Requests;
  */
 Winners.data.Requests.prototype.m_construct = function() {
     rune.resource.Requests.prototype.m_construct.call(this);
-
-    this.add("Baseprotection", "./../asset/png/Baseprotection.png");
-	this.add("New Piskel-4", "./../asset/png/New Piskel-4.png");
-	this.add("Truck", "./../asset/png/Truck.png");
-	this.add("background", "./../asset/png/background.png");
+    this.add("background", "./../asset/png/background.png");
 	this.add("base", "./../asset/png/base.png");
-  
+	this.add("Baseprotection", "./../asset/png/Baseprotection.png");
 	this.add("body", "./../asset/png/body.png");
 	this.add("credits", "./../asset/png/credits.png");
 	this.add("head", "./../asset/png/head.png");
@@ -57,7 +53,7 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("howtoplay", "./../asset/png/howtoplay.png");
 	this.add("leg", "./../asset/png/leg.png");
 	this.add("mainbackground", "./../asset/png/mainbackground.png");
-
+	this.add("New Piskel-4", "./../asset/png/New Piskel-4.png");
 	this.add("plate", "./../asset/png/plate.png");
 	this.add("powerUp", "./../asset/png/powerUp.png");
 	this.add("repairsoldier", "./../asset/png/repairsoldier.png");
@@ -70,7 +66,7 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("spark", "./../asset/png/spark.png");
 	this.add("star", "./../asset/png/star.png");
 	this.add("tank-reworked", "./../asset/png/tank-reworked.png");
-
+	this.add("Truck", "./../asset/png/Truck.png");
 	this.add("turret-remake", "./../asset/png/turret-remake.png");
 	this.add("tyre", "./../asset/png/tyre.png");
 	this.add("unfilledStar", "./../asset/png/unfilledStar.png");

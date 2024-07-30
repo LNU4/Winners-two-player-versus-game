@@ -230,6 +230,20 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
   var m_this = this;
 
   this.game.timers.create({
+    duration: 500,
+    scope: this,
+    onComplete: function () {
+      if (this.bulletTarget === this.game.player) {
+          
+        this.game.turret1.animation.gotoAndPlay("dead");
+        
+      } else if (this.bulletTarget === this.game.player2) {
+        this.game.turret2.animation.gotoAndPlay("dead");
+      }
+    }
+  });
+
+  this.game.timers.create({
     duration: 1000,
     scope: this,
     onComplete: function () {
@@ -239,7 +253,7 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
           this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
           this.bulletTarget.destructionEmitter.emit(10);
         }
-
+       
         if (this.bulletTarget.turretEmitter) {
           this.bulletTarget.turretEmitter.centerX = this.bulletTarget.centerX;
           this.bulletTarget.turretEmitter.centerY = this.bulletTarget.centerY;
@@ -356,7 +370,7 @@ Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
   this.bulletTarget.playerBaseShield.animation.gotoAndPlay("exeplod");
   this.explosion.play(true);
   this.game.timers.create({
-    duration: 1000,
+    duration: 900,
     scope: this,
     onComplete: function () {
       

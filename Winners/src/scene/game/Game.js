@@ -17,7 +17,7 @@
  *
  * Game scene.
  */
-Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu) {
+Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu, playerScore, player2Score) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
@@ -28,8 +28,12 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu) {
    */
 
   this.maxRounds = maxRounds;
+ 
 
-  /**
+  this.playerScore = playerScore || 0;
+  this.player2Score = player2Score || 0;
+
+  /** 
    * The number identifying the current round
    *
    * @type {number}
@@ -62,6 +66,7 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu) {
 
 
    this.isCreatTruck = 1; 
+   
 
    this.menu = menu;
   console.log(this.menu);
@@ -121,8 +126,8 @@ Winners.scene.Game.prototype.init = function () {
    * @type {Object}
    */
   this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-
-  
+  this.showRoundIndicator();   
+  this.showScores();
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
@@ -139,7 +144,7 @@ Winners.scene.Game.prototype.init = function () {
    * The baseShioled to protect the base for player2
    * @type {Object}
    */
-  this.Base2shield = new Winners.entity.Base2shield(1160, 330.5, this);
+  this.Base2shield = new Winners.entity.Base2shield(1150, 330.5, this);
   /**
    * The base for player
    * @type {Object}
@@ -177,7 +182,7 @@ Winners.scene.Game.prototype.init = function () {
    * Property to store the player2 object
    * @type {Object}
    */
-  this.player2 = new Winners.entity.Player2(1090, 360, this);
+  this.player2 = new Winners.entity.Player2(1080, 360, this);
   /**
    * Property used as a placeholder for the player2 object for player
    * @type {Object}
@@ -392,12 +397,10 @@ Winners.scene.Game.prototype.handleGameOver = function () {
 
   if (this.Player1isDefeated) {
     this.roundWinners.push("player2");
-    this.bgColor = "#0096E6"
-    console.log('Player1isDefeated')
+    this.player2Score++;
   } else if (this.Player2isDefeated) {
     this.roundWinners.push("player1");
-    this.bgColor = "#FF0000"
-    console.log('Player2isDefeated')
+    this.playerScore++;
 
   }
   else {
@@ -415,23 +418,31 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      * Shows text with the result of the round
      * @type {string}
      */
+    this.gameOverAdjustments();
 
     var resultMsg =
       "round won by " + this.roundWinners[this.roundWinners.length - 1];
-      resultMsg.backgroundColor = "#FF0000";
-      console.log(resultMsg.backgroundColor)
-      console.log('round won')
+     // resultMsg.backgroundColor = "#FF0000";
+    
 
     /**
      * Creates a text object with the result of the round
      * @type {Object}
      */
     var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
+    
+    
+    if (this.Player1isDefeated) {
+      text.backgroundColor = "#FF0000"; 
+    } else if (this.Player2isDefeated) {
+      text.backgroundColor = "#0096E6"; 
+    }
+
     text.autoSize = true;
     text.scaleX = 2.5;
     text.scaleY = 2.5;
-    resultMsg.backgroundColor = this.bgColor;
-      console.log(resultMsg.backgroundColor)
+    //resultMsg.backgroundColor = this.bgColor;
+     // console.log(resultMsg.backgroundColor)
     /**
      * Center the text on the screen
      * @type {number}
@@ -443,6 +454,9 @@ Winners.scene.Game.prototype.handleGameOver = function () {
      */
 
     this.cameras.getCameraAt(0).addChild(text);
+
+    this.showRoundIndicator();
+    this.showScores();
     /**
      * waits for 5 seconds before loading the next round
      */
@@ -453,7 +467,10 @@ Winners.scene.Game.prototype.handleGameOver = function () {
           new Winners.scene.Game(
             this.maxRounds,
             this.currentRound,
-            this.roundWinners
+            this.roundWinners,
+            this.menu,
+            this.playerScore,
+            this.player2Score
           ),
         ]);
       },
@@ -537,21 +554,30 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
     resultMsg += "player 1 won";
-    this.bgColor = "#0096E6"
+   
 
   } else if (player2Wins > player1Wins) {
     resultMsg += "player 2 won";
-    this.bgColor = "#FF0000"
+    
   } else {
     resultMsg += "its a tie!";
-    this.bgColor = "#00FFFF"
+    
   }
   var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
+  var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
 
+  if (player1Wins > player2Wins) {
+      text.backgroundColor = "#0096E6"; // Player 1 wins
+  } else if (player2Wins > player1Wins) {
+      text.backgroundColor = "#FF0000"; // Player 2 wins
+  } else {
+      text.backgroundColor = "#00FFFF"; // It's a tie
+  }
+  
   text.autoSize = true;
   text.scaleX = 2.5;
   text.scaleY = 2.5;
-  resultMsg.backgroundColor = "#00FFFF";
+ // resultMsg.backgroundColor = "#00FFFF";
   /**
    * Center the text on the screen and scale it accordingly
    */
@@ -567,7 +593,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
       this.camera = null;
     },
   });
-  
+  this.showScores();
 };
 Winners.scene.Game.prototype.gameOverAdjustments = function () {
   
@@ -601,6 +627,41 @@ Winners.scene.Game.prototype.handlePlayerDefeat = function (playerDeafeted) {
     this.Player2isDefeated = true;
     this.handleGameOver();
   }
+};
+
+Winners.scene.Game.prototype.showRoundIndicator = function () {
+  var roundText = "round: " + this.currentRound + " / " + this.maxRounds;
+  var text = new rune.text.BitmapField(roundText, "New Piskel-4");
+  text.autoSize = true;
+  text.scaleX = 2;
+  text.scaleY = 2;
+  text.x = 10; 
+  text.y = 10;
+  this.cameras.getCameraAt(0).addChild(text);
+};
+
+Winners.scene.Game.prototype.showScores = function () {
+  
+  var player1ScoreText = "player 1 score: " + this.playerScore;
+  var player1Text = new rune.text.BitmapField(player1ScoreText, "New Piskel-4");
+  player1Text.autoSize = true;
+  player1Text.scaleX = 2;
+  player1Text.scaleY = 2;
+  player1Text.x = 300; 
+  player1Text.y = 10; 
+  player1Text.backgroundColor = "#0096E6";
+  this.cameras.getCameraAt(0).addChild(player1Text);
+
+ 
+  var player2ScoreText = "player 2 score: " + this.player2Score;
+  var player2Text = new rune.text.BitmapField(player2ScoreText, "New Piskel-4");
+  player2Text.autoSize = true;
+  player2Text.scaleX = 2;
+  player2Text.scaleY = 2;
+  player2Text.x = 700; 
+  player2Text.y = 10; 
+  player2Text.backgroundColor = "#FF0000"; 
+  this.cameras.getCameraAt(0).addChild(player2Text);
 };
 
 /**

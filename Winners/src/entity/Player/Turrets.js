@@ -81,6 +81,7 @@ Winners.entity.Turrets = function (x, y, game) {
     this.animation.create("idle", [0], 1, true);
     this.animation.create("shot", [0, 2, 2, 2, 2, 2, 0], 10, false);
     this.animation.create("done", [6, 7, 8, 9, 10, 11], 5, true);
+    this.animation.create("dead", [12, 13, 14, 15, 16], 5, true);
   };
   
   /**

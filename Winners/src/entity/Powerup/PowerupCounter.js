@@ -109,7 +109,7 @@ Winners.entity.PowerupCounter.prototype.SelectRandomSoldier = function () {
     this.typeIx = Math.floor(Math.random() * 4);
     //Indexes the the SoldierTypesArray with the number stored in typeIx to specify the type of soldier to be generated
     type = this.SoldierTypesArray[this.typeIx];
-    this.createSoldier("heavysoldier");
+    this.createSoldier(type);
   }
 };
 
@@ -144,7 +144,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
   reinforcementMessage.autoSize = true;
   reinforcementMessage.scaleX = 2;
   reinforcementMessage.scaleY = 2;
-  reinforcementMessage.x = 380;
+  reinforcementMessage.x = 330;
   reinforcementMessage.y = 30;
   if (this.player == this.game.player){
     reinforcementMessage.backgroundColor = "#0096E6";
