@@ -130,6 +130,8 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
       this.animation.gotoAndPlay("walk");
     }
   }
+
+
    //Clamp the object so they don't move out of the map, clamps on both axes x and y
    
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
@@ -141,7 +143,7 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
   if (this.enemy.hitTest(this)) {
     this.handleKillSoldier();
   }
-
+ 
   this.game.bullets.hitTest(
     this,
     function (bullet, soldier) {
@@ -154,6 +156,7 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
   );
 
   if (this.truck) {
+
     //referense to the soldier that is carried by the truck, "there are forur soldiers everytime a new truck is created, all the soldiers are pushed into an array 'soldierArr' "
      
     var m_this = this;
@@ -164,6 +167,18 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
       }
     }
   }
+
+  this.hitTestAndSeparate(this.game.Base1shield)
+  this.hitTestAndSeparate(this.game.Base2shield)
+  this.hitTestAndSeparate(this.game.base)
+  this.hitTestAndSeparate(this.game.base2)
+
+  // var GameObjects = [this.game.Base1shield, this.game.Base2shield, this.game.base, this.game.base2];
+  // console.log(GameObjects)
+  // for (var i = 0; i < GameObjects.length; i++) {
+  //   console.log(GameObjects[i])
+  //   this.hitTestAndSeparate(GameObjects[i]);
+  // }
 };
 
 /**
