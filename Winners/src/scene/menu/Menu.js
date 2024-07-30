@@ -68,12 +68,12 @@ Winners.scene.Menu.prototype.init = function () {
   this.menu.center = this.application.screen.center;
   this.stage.addChild(this.menu);
   this.selected = 0;
-  /**
-   * Property calling the builtin method for reading audio files
-   * @type {media.Sound}
-   */
-  //this.backgroundMusic = this.application.sounds.sound.get("epic-cinematic-sounds-war");
-  this.backgroundMusic = this.application.sounds.master.get("epic-cinematic-sounds-war");
+
+
+  // Property calling the builtin method for reading audio files
+   
+  this.backgroundMusic = this.application.sounds.sound.get("epic-cinematic-sounds-war");
+  //this.backgroundMusic = this.application.sounds.master.get("epic-cinematic-sounds-war");
  this.backgroundMusic.play(true);
   this.backgroundMusic.loop = true;
   this.switchEffect = this.application.sounds.sound.get("switch");
@@ -104,10 +104,10 @@ Winners.scene.Menu.prototype.m_initAnimation = function () {
  */
 Winners.scene.Menu.prototype.update = function (step) {
   rune.scene.Scene.prototype.update.call(this, step);
-  /**
-   * Referance to the gamepad connected to the application. In this case it´s the first gamepad connected to the application.
-   */
+  
+   //Referance to the gamepad connected to the application. In this case it´s the first gamepad connected to the 
   var gamepad = this.gamepads.get(0);
+  // var _object = this;
 
   if (this.keyboard.justPressed("UP") || gamepad.stickLeftJustUp) {
     this.switchEffect.play(true);
@@ -138,7 +138,7 @@ Winners.scene.Menu.prototype.update = function (step) {
           duration: 2000,
           onComplete: function () {
             this.backgroundMusic.stop(true);
-            this.application.scenes.load([new Winners.scene.Game(2, 1, [])], this);
+            this.application.scenes.load([new Winners.scene.Game(2, 1, [])]);
           },
         });
         break;

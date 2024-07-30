@@ -7,9 +7,9 @@
  *
  * @constructor
  * @extends Winners.entity.Turrets
- * @param {number} x
- * @param {number} y
- * @param {object} game
+ * @param {number} x coordinates of where the object will be placed on x axis
+ * @param {number} y coordinates of where the object will be placed on y axis
+ * @param {object} game the game object
  * 
  * @class
  * @classdesc
@@ -50,7 +50,9 @@ Winners.entity.Turret2.prototype.constructor = Winners.entity.Turret2;
  * @returns {undefined}
  */
 Winners.entity.Turret2.prototype.init = function () {
+ // Winners.entity.Turrets.prototype.init.call(this, new rune.color.Color24(255, 0, 0), -90);
   Winners.entity.Turrets.prototype.init.call(this, new rune.color.Color24(255, 0, 0), -90);
+
 };
 
 /**

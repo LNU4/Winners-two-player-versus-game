@@ -46,15 +46,17 @@ Winners.scene.Howtoplay.prototype.init = function () {
   this.menu = new rune.ui.VTMenu({ resource: "New Piskel-4" });
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "howtoplay");
   this.stage.addChild(this.bg);
-  /**
-   * initialize a new menu and add it to the scene
-   */
+  //initialize a new menu and add it to the scene
   this.menu.add("back to main menu");
   this.menu.scaleX = 2;
   this.menu.scaleY = 2;
   this.menu.center = this.application.screen.center;
   this.stage.addChild(this.menu);
   this.selected = 0;
+
+  this.bgMusic = this.application.sounds.sound.get("rhythm-of-war-main");
+  this.bgMusic.play(true);
+  this.bgMusic.loop = true;
 };
 
 /**
