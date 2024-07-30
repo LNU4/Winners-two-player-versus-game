@@ -7,8 +7,8 @@
  *
  * @constructor
  * @extends rune.display.Sprite
- * @param {number} x
- * @param {number} y
+ * @param {number} x coordinates of where the object will be placed on x axis
+ * @param {number} y coordinates of where the object will be placed on y axis
  * @param {object} game the game object
  *
  *

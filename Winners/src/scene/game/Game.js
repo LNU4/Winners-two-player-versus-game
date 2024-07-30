@@ -21,6 +21,7 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
+
   /**
    * Index of the max amount of rounds per match
    *
@@ -64,7 +65,7 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu) {
    this.isCreatTruck = 1; 
 
    this.menu = menu;
-  console.log(this.menu);
+ 
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -94,32 +95,18 @@ Winners.scene.Game.prototype.constructor = Winners.scene.Game;
  */
 Winners.scene.Game.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
-  /**
-   * A property to store the background image
-   * @type {Object}
-   */
+  // A property to store the background image
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "background");
-  /**
-   * The camera object for Game
-   * @type {Object}
-   */
+   //The camera object for Game
   this.camera = this.cameras.getCameraAt(0);
 
   this.topLayer = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-  /**
-   * A property to define a container to store certain objects
-   * @type {Object}
-   */
+   //A property to define a container to store certain objects
   this.layer0 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-  /**
-   * A property to define a container to store certain objects
-   * @type {Object}
-   */
+   //A property to define a container to store certain objects
+   
   this.layer2 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-  /**
-   * A property to define a container to store certain objects
-   * @type {Object}
-   */
+   //A property to define a container to store certain objects
   this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
 
   
@@ -130,82 +117,43 @@ Winners.scene.Game.prototype.init = function () {
   
 
 
-  /**
-   * The baseShioled to protect the base for player
-   * @type {Object}
-   */
+  //The baseShioled to protect the base for player
   this.Base1shield = new Winners.entity.Base1shield(5, 330.5, this);
-  /**
-   * The baseShioled to protect the base for player2
-   * @type {Object}
-   */
+  //The baseShioled to protect the base for player2
   this.Base2shield = new Winners.entity.Base2shield(1160, 330.5, this);
-  /**
-   * The base for player
-   * @type {Object}
-   */
+   //The base for player
   this.base = new Winners.entity.Base(10, 360, this);
-  /**
-   * The base for player2
-   * @type {Object}
-   */
+ //The base for player2
   this.base2 = new Winners.entity.Base2(1210, 360, this);
-  /**
-   * The turret for player
-   * @type {Object}
-   */
-
+  //The turret for player
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
   this.turret1.active = true;
-  /**
-   * The turret for player2
-   * @type {Object}
-   */
+  //The turret for player2
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
   this.turret2.active = true;
   
  
 
 
-  /**
-   * Property to store the player object
-   * @type {Object}
-   */
+  //Property to store the player object
   this.player = new Winners.entity.Player(140, 360, this);
   this.player.shooting = 1;
-  /**
-   * Property to store the player2 object
-   * @type {Object}
-   */
+  //Property to store the player2 object
   this.player2 = new Winners.entity.Player2(1090, 360, this);
-  /**
-   * Property used as a placeholder for the player2 object for player
-   * @type {Object}
-   */
+  //Property used as a placeholder for the player2 object for player
   this.player.enemy = this.player2;
   this.player2.shooting = 1;
   
 
-  /**
-   * Property to create an empty array to look after the powerups for player
-   * @type {Array}
-   */
-
+  //Property to create an empty array to look after the powerups for player
+   
   this.player.powerupsArray = [];
-  /**
-   * Property to create an empty array to look after the powerups for player2
-   * @type {Array}
-   */
+ //Property to create an empty array to look after the powerups for player2
   this.player2.powerupsArray = [];
-  /**
-   * Property used as a counter of the elements in this.player.powerupsArray
-   * @type {number}
-   */
+  //Property used as a counter of the elements in this.player.powerupsArray
+   
   this.player.powerupIx = 0;
-  /**
-   * Property used as a counter  of the elements in this.player2.powerupsArray
-   * @type {number}
-   */
+   //Property used as a counter  of the elements in this.player2.powerupsArray
   this.player2.powerupIx = 0;
 
   for (var i = 0; i<3; i++){
@@ -225,18 +173,13 @@ Winners.scene.Game.prototype.init = function () {
       var unfilledstar6 =  new Winners.entity.UnfilledStar(1260, 35, this);
     }
   }
-  /**
-   * Reference to a DisplayGroup containing all the bullets
-   * @type {Object}
-   */
+   //Reference to a DisplayGroup containing all the bullets
   this.bullets = this.groups.add(new Winners.entity.Bullets(this));
-  /**
-   * Property calling the builtin method for reading audio files
-   * @type {media.Sound}
-   */
+  //Property calling the builtin method for reading audio files
+  
   this.chaos = this.application.sounds.sound.get("rhythm-of-war-main");
-//   console.log(this.menu);
-//  this.chaos = this.menu.application.sounds.master.get("rhythm-of-war-main");
+
+ //  this.chaos = this.menu.application.sounds.master.get("rhythm-of-war-main");
   this.chaos.play(true);
   this.chaos.loop = true;
 
@@ -251,11 +194,8 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.Base1shield);
   this.layer0.addChild(this.Base2shield);
 
-  /**
-   * Inbuilt functionality to start a timer to create a personal carrier "Truck"
-   * @type {Method}
-   */
-
+  //Inbuilt functionality to start a timer to create a personal carrier "Truck"
+  
   this.timers.create({
     duration: 6000,
     onComplete: function () {
@@ -315,7 +255,11 @@ Winners.scene.Game.prototype.createTruck = function () {
     },
   });
 } else {
+
+
   return;
+
+
 }
 
 };
@@ -328,32 +272,17 @@ Winners.scene.Game.prototype.createTruck = function () {
  * @returns {undefined}
  */
 Winners.scene.Game.prototype.update = function (step) {
-  /**
-   * Reference to the the current game class
-   * @type {Object}
-   */
+  //Reference to the the current game class
   var self = this;
-  /**
-   * Super call to call the super class update method
-   * @type {Method}
-   */
+  //Super call to call the super class update method
+   
   rune.scene.Scene.prototype.update.call(this, step);
-  /**
-   * Call to update input method
-   * @param {number} step Fixed time step.
-   * @type {Method}
-   */
+   //Call to update input method
   this.m_updateInput(step);
-  /**
-   * Attach turret1 to the player1 coodinates on both axes Y and X
-   * @type {number}
-   */
+   //Attach turret1 to the player1 coodinates on both axes Y and X
   this.turret1.x = this.player.x;
   this.turret1.y = this.player.y;
-  /**
-   * Attach turret2 to the player2 coodinates on both axes Y and X
-   * @type {number}
-   */
+  //Attach turret2 to the player2 coodinates on both axes Y and X
   this.turret2.x = this.player2.x;
   this.turret2.y = this.player2.y;
 
@@ -406,15 +335,9 @@ Winners.scene.Game.prototype.handleGameOver = function () {
   this.winnerDeclared = true;
 
   if (this.currentRound < this.maxRounds) {
-    /**
-     * Round counter property
-     * @type {number}
-     */
+   //Round counter property
     this.currentRound++;
-    /**
-     * Shows text with the result of the round
-     * @type {string}
-     */
+    //Shows text with the result of the round
 
     var resultMsg =
       "round won by " + this.roundWinners[this.roundWinners.length - 1];
@@ -422,30 +345,19 @@ Winners.scene.Game.prototype.handleGameOver = function () {
       console.log(resultMsg.backgroundColor)
       console.log('round won')
 
-    /**
-     * Creates a text object with the result of the round
-     * @type {Object}
-     */
+   //Creates a text object with the result of the round
+  
     var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
     text.autoSize = true;
     text.scaleX = 2.5;
     text.scaleY = 2.5;
     resultMsg.backgroundColor = this.bgColor;
       console.log(resultMsg.backgroundColor)
-    /**
-     * Center the text on the screen
-     * @type {number}
-     */
+    //Center the text on the screen
     text.center = this.application.screen.center;
-    /**
-     * Scales the text on X and Y axis
-     * @type {number}
-     */
-
+    //Scales the text on X and Y axis
     this.cameras.getCameraAt(0).addChild(text);
-    /**
-     * waits for 5 seconds before loading the next round
-     */
+    //waits for 5 seconds before loading the next round
     this.timers.create({
       duration: 5000,
       onComplete: function () {
@@ -468,10 +380,7 @@ Winners.scene.Game.prototype.handleGameOver = function () {
  * @method
  */
 Winners.scene.Game.prototype.showMatchResult = function () {
-  /**
-   * Properties to hold the amount of winners of each player
-   * @type {number}
-   */
+ //Properties to hold the amount of winners of each player
   var player1Wins = 0;
   var player2Wins = 0;
  // this.topLayer.addChild(this.bg)
@@ -529,11 +438,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
       player2Wins++;
     }
   }
-  /**
-   * updates the result message based on the match winner
-   * @type {string}
-   */
-
+  //updates the result message based on the match winner
   var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
     resultMsg += "player 1 won";
@@ -552,9 +457,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   text.scaleX = 2.5;
   text.scaleY = 2.5;
   resultMsg.backgroundColor = "#00FFFF";
-  /**
-   * Center the text on the screen and scale it accordingly
-   */
+  //Center the text on the screen and scale it accordingly
   text.center = this.application.screen.center;
   this.cameras.getCameraAt(0).addChild(text);
   this.timers.create({
