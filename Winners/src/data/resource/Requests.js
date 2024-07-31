@@ -50,6 +50,7 @@ Winners.data.Requests.prototype.m_construct = function() {
 	this.add("credits", "./../asset/png/credits.png");
 	this.add("head", "./../asset/png/head.png");
 	this.add("heavysoldier", "./../asset/png/heavysoldier.png");
+	this.add("howtoplay-old", "./../asset/png/howtoplay-old.png");
 	this.add("howtoplay", "./../asset/png/howtoplay.png");
 	this.add("leg", "./../asset/png/leg.png");
 	this.add("mainbackground", "./../asset/png/mainbackground.png");

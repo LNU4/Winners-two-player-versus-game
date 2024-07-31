@@ -13,7 +13,7 @@
  * @param {object} game reference to the game object
  * @param {string}  spriteName string name of the sprite
  * @class
- * @classdesc
+ * @classdesc Handles the players movement shooting, collsion in game
  *
  *
  */
@@ -42,7 +42,7 @@ Winners.entity.Players = function (x, y, game, spriteName) {
    */
   this.layer0 = this.game.layer0;
   this.activeBullets = [];
-   
+
   rune.display.Sprite.call(this, x, y, 64, 64, spriteName);
 };
 //----------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Winners.entity.Players.prototype = Object.create(rune.display.Sprite.prototype);
 Winners.entity.Players.prototype.constructor = Winners.entity.Players;
 
 /**
- * Calling this.m_initPhysics() and this.m_initAnimation()
+ * Initializes the player object, setting up physics and animations.
  * @method
  * @returns {undefined}
  */
@@ -85,50 +85,41 @@ Winners.entity.Players.prototype.update = function (step) {
   this.m_updateInput();
   this.updateBullets();
 };
-
 /**
- *This method prepares the player object to be removed from the memory by the garbage collector
+ * Method to handle the shooting of the player object
  *
- *@method
+ * @method
  * @returns {undefined}
  */
 
-Winners.entity.Players.prototype.dispose = function () {
-  rune.display.Sprite.prototype.dispose.call(this);
-};
-
 Winners.entity.Players.prototype.shoot = function () {
-
   if (this.shooting) {
     //Property that references the bullet object returnd by the bullets.create method of the bullets class
-  this.bullet = this.game.bullets.create(
-    this.centerX,
-    this.centerY,
-    this,
-    this.turret1,
-    this.player
-  );
+    this.bullet = this.game.bullets.create(
+      this.centerX,
+      this.centerY,
+      this,
+      this.turret1,
+      this.player
+    );
 
-  this.bullet.initX = this.bullet.x;
-  this.bullet.initY = this.bullet.y;
-  this.bullet.velocity.x = this.velocity.x;
-  this.bullet.velocity.y = this.velocity.y;
-  this.bullet.globalX = this.velocity.x;
-  this.bullet.rotation = this.turret1.rotation - 90;
+    this.bullet.initX = this.bullet.x;
+    this.bullet.initY = this.bullet.y;
+    this.bullet.velocity.x = this.velocity.x;
+    this.bullet.velocity.y = this.velocity.y;
+    this.bullet.globalX = this.velocity.x;
+    this.bullet.rotation = this.turret1.rotation - 90;
 
-  this.activeBullets.push(this.bullet);
-
-} else {
-  return;
-}
+    this.activeBullets.push(this.bullet);
+  } else {
+    return;
+  }
 };
 /**
  * Method to adjust the velocity and the rotation of the player object by manipulating inbuilt properties
  *
  * @method
- *
  * @returns {undefined}
- * @private
  */
 
 Winners.entity.Players.prototype.m_initPhysics = function () {
@@ -142,15 +133,20 @@ Winners.entity.Players.prototype.m_initPhysics = function () {
  * Method to calll the inbuilt animation.create method to create animation for the idle and walkin modes
  *
  * @method
- *
  * @returns {undefined}
- * @private
  */
 
 Winners.entity.Players.prototype.m_initAnimation = function () {
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
 };
+
+/**
+ * Method to handle the control input of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 
 Winners.entity.Players.prototype.m_updateInput = function () {
   var gamepad = this.gamepads.get(this.getGamepadIndex());
@@ -193,6 +189,14 @@ Winners.entity.Players.prototype.m_updateInput = function () {
   }
 };
 
+/**
+ * Method to handle the bullet update of the player object
+ *
+ * @method
+ * @returns {undefined}
+ *
+ */
+
 Winners.entity.Players.prototype.updateBullets = function () {
   for (var i = this.activeBullets.length - 1; i >= 0; i--) {
     var bullet = this.activeBullets[i];
@@ -206,6 +210,13 @@ Winners.entity.Players.prototype.updateBullets = function () {
     }
   }
 };
+
+/**
+ * Method to handle the spark emitter of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 Winners.entity.Players.prototype.sparkEmitt = function () {
   if (!this.sparkEmitter) {
     this.sparkEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
@@ -217,16 +228,26 @@ Winners.entity.Players.prototype.sparkEmitt = function () {
       maxVelocityY: 1.5,
       minVelocityY: -1.5,
       minRotation: -5,
-      maxRotation: 2
+      maxRotation: 2,
     });
     this.game.layer0.addChild(this.sparkEmitter);
   }
 };
 
+/**
+ * Method to handle the destruction emitter of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 Winners.entity.Players.prototype.destructionEmitt = function () {
   if (!this.destructionEmitter) {
     this.destructionEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
-      particles: [Winners.entity.Spark, Winners.entity.Plate, Winners.entity.Tyre],
+      particles: [
+        Winners.entity.Spark,
+        Winners.entity.Plate,
+        Winners.entity.Tyre,
+      ],
       capacity: 250,
       accelerationY: 0.001,
       maxVelocityX: 1.5,
@@ -234,94 +255,90 @@ Winners.entity.Players.prototype.destructionEmitt = function () {
       maxVelocityY: 1.5,
       minVelocityY: -1.5,
       minRotation: -5,
-      maxRotation: 2
+      maxRotation: 2,
     });
     this.game.layer0.addChild(this.destructionEmitter);
   }
 };
 
+/**
+ * Method to handle the turret emitter of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 Winners.entity.Players.prototype.turretEmitt = function () {
   if (!this.turretEmitter) {
     this.turretEmitter = new rune.particle.Emitter(0, 0, 64, 64, {
       particles: [Winners.entity.Turretdes],
       capacity: 250,
-      accelerationY: 0.010,
+      accelerationY: 0.01,
       maxVelocityX: 2.5,
       minVelocityX: -2.5,
       maxVelocityY: 2.5,
       minVelocityY: -2.5,
       minRotation: -5,
-      maxRotation: 2
+      maxRotation: 2,
     });
     this.game.layer0.addChild(this.turretEmitter);
   }
 };
+
+/**
+ * Method to handle the spark emitter removal of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 Winners.entity.Players.prototype.removeSpark = function () {
   if (this.sparkEmitter) {
-    this.sparkEmitter.clear(true)
-   
-}
-}
+    this.sparkEmitter.clear(true);
+  }
+};
+
+/**
+ * Method to handle a combination of emitter removal of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 Winners.entity.Players.prototype.removeEmitters = function () {
- 
- 
- 
   if (this.destructionEmitter) {
-      this.destructionEmitter.clear(true) //make sure they dispose just like the one under N.A
-     
+    this.destructionEmitter.clear(true);
   }
-  
+
   if (this.turretEmitter) {
-      this.turretEmitter.clear(true)
-      
+    this.turretEmitter.clear(true);
   }
 };
 
-
+/**
+ * Method to handle the spark emitter removal of the player object
+ *
+ * @method
+ * @returns {undefined}
+ */
 Winners.entity.Players.prototype.removeSparkEmitter = function () {
-
-
   if (this.sparkEmitter) {
-    
     this.game.timers.create({
-      duration: 2400, 
+      duration: 2400,
       scope: this,
-      onComplete: function() {
+      onComplete: function () {
         if (this.sparkEmitter) {
-          
-          this.sparkEmitter.clear(true); 
-      
+          this.sparkEmitter.clear(true);
         }
-      }
+      },
     });
-  } 
+  }
 };
 
+/**
+ *This method prepares the player object to be removed from the memory by the garbage collector
+ *
+ *@method
+ * @returns {undefined}
+ */
 
-
-
-
-
-// Winners.entity.Players.prototype.getGamepadIndex = function () {
-//   
-// };
-
-// Winners.entity.Players.prototype.getRightKey = function () {
-//   
-// };
-
-// Winners.entity.Players.prototype.getLeftKey = function () {
-//   
-// };
-
-// Winners.entity.Players.prototype.getDownKey = function () {
-//   
-// };
-
-// Winners.entity.Players.prototype.getUpKey = function () {
-//   
-// };
-
-// Winners.entity.Players.prototype.getShootKey = function () {
-//   
-// };
+Winners.entity.Players.prototype.dispose = function () {
+  rune.display.Sprite.prototype.dispose.call(this);
+};

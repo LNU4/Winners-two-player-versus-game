@@ -29,9 +29,6 @@ Winners.entity.Rocketsoldier = function (x, y, game, enemy, SoldierOwner) {
     2420,
     SoldierOwner
   );
-  // this.respawn = this.application.sounds.sound.get("soldierSpawn");
-  // this.respawn.play(true)
-  // this.flicker.start();
 };
 
 Winners.entity.Rocketsoldier.prototype = Object.create(
@@ -64,7 +61,7 @@ Winners.entity.Rocketsoldier.prototype.shoot = function () {
     //specifies the rocket velocity on x and y axes
     rocket.velocity.x = rocketDirectionX * rocketSpeed;
     rocket.velocity.y = rocketDirectionY * rocketSpeed;
-     //specifies the rotation of the rocket
+    //specifies the rotation of the rocket
     rocket.rotation =
       Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }

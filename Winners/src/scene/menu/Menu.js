@@ -126,7 +126,7 @@ Winners.scene.Menu.prototype.update = function (step) {
       case 0:
         this.menu.select();
         this.timers.create({
-          duration: 2000,
+          duration: 1500,
           onComplete: function () {
             this.application.scenes.load([new Winners.scene.Game(1, 1, [])]);
           },
@@ -135,7 +135,7 @@ Winners.scene.Menu.prototype.update = function (step) {
       case 1:
         this.menu.select();
         this.timers.create({
-          duration: 2000,
+          duration: 1500,
           onComplete: function () {
             this.backgroundMusic.stop(true);
             this.application.scenes.load([new Winners.scene.Game(2, 1, [])]);
@@ -145,7 +145,7 @@ Winners.scene.Menu.prototype.update = function (step) {
       case 2:
         this.menu.select();
         this.timers.create({
-          duration: 2000,
+          duration: 1500,
           onComplete: function () {
             this.application.scenes.load([new Winners.scene.Howtoplay()]);
           },
@@ -154,7 +154,7 @@ Winners.scene.Menu.prototype.update = function (step) {
       case 3:
         this.menu.select();
         this.timers.create({
-          duration: 2000,
+          duration: 1500,
           onComplete: function () {
             this.application.scenes.load([new Winners.scene.Credits()]);
           },
@@ -163,7 +163,7 @@ Winners.scene.Menu.prototype.update = function (step) {
       case 4:
         this.menu.select();
         this.timers.create({
-          duration: 2000,
+          duration: 1500,
           onComplete: function () {
             this.application.stop();
           },

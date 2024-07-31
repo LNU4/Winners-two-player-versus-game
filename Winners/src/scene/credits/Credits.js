@@ -44,7 +44,7 @@ Winners.scene.Credits.prototype.constructor = Winners.scene.Credits;
 Winners.scene.Credits.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
 
-   //initialize a new menu and add it to the scene
+  //initialize a new menu and add it to the scene
   this.menu = new rune.ui.VTMenu({ resource: "New Piskel-4" });
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "credits");
   this.stage.addChild(this.bg);

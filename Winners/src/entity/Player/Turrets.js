@@ -96,7 +96,7 @@ Winners.entity.Turrets = function (x, y, game) {
     var gamepad = this.gamepads.get(gamepadIndex);
   
     if (gamepad.stickRightLeft || this.keyboard.pressed("J")) {
-      console.log(this.active)
+      
      
      
           // specify on how many degrees to rotate for time the gamepad input is pressed

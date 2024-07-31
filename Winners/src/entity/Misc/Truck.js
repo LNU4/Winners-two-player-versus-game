@@ -114,8 +114,9 @@ Winners.entity.Truck.prototype.init = function () {
  * @returns {undefined}
  */
 Winners.entity.Truck.prototype.m_initAnimation = function () {
-  this.animation.create("idle", [0], 1, true);
+  this.animation.create("idle", [0], 1, 2, true);
   this.animation.create("walk", [0, 1], 1, true);
+  this.animation.create("stop", [0], 3, false);
 };
 
 /**
@@ -141,7 +142,7 @@ Winners.entity.Truck.prototype.update = function (step) {
       this.stopAndSpawnSoldiers();
     } else {
        // Move the truck towards the enemy player object
-     
+     this.animation.gotoAndPlay("walk");
       distanceX /= distance;
       distanceY /= distance;
       this.x += distanceX * this.movementspeed;
@@ -186,6 +187,8 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   var truckX = this.x;
   var truckY = this.y;
 
+  this.animation.gotoAndPlay("stop");
+
   for (var i = 0; i < 4; i++) {
      //index the soldier that specified in the loop
      
@@ -212,21 +215,12 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
       if (m_this) {
 
         this.layer0.removeChild(m_this, true);
-        // m_this.soldierArr.forEach(function (soldier) {
-        //   m_this.game.layer0.removeChild(soldier, true);
-        // });
+      
       }
     },
   });
 };
 
-// Winners.entity.Truck.prototype.removeSoldeirs  = function () {
-
-//   this.soldierArr.forEach(function (soldier) {
-//   this.game.layer0.removeChild(soldier, true);
-//   console.log('soldier removed')
-// });
-// }
 /**
  * ...
  *

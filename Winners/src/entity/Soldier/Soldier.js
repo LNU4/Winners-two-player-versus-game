@@ -17,16 +17,16 @@
  * @param {number} i referance to the index of the soldier in the array
  * @param {number} SoldierOwner reference to the player object that has the same team
  * @param {object} truck reference to the truck object
- * (x, y, game, enemy, SoldierOwner, truck) 
- * 
- * 
+ * (x, y, game, enemy, SoldierOwner, truck)
+ *
+ *
  */
-Winners.entity.Soldier = function (x, y,  truck) {
-/**
- * 
- * reference to the truck object thet generates the soldier objecft
- * @type {object}
- */
+Winners.entity.Soldier = function (x, y, truck) {
+  /**
+   *
+   * reference to the truck object thet generates the soldier objecft
+   * @type {object}
+   */
   this.truck = truck;
   /**
    * reference to the game object
@@ -36,7 +36,7 @@ Winners.entity.Soldier = function (x, y,  truck) {
   /**
    * the enemy player
    * @type {object}
-   * 
+   *
    */
   this.enemy = this.truck.enemy;
   /**
@@ -57,7 +57,6 @@ Winners.entity.Soldier = function (x, y,  truck) {
     900,
     this.SoldierOwner
   );
- 
 };
 
 Winners.entity.Soldier.prototype = Object.create(
@@ -72,12 +71,11 @@ Winners.entity.Soldier.prototype.constructor = Winners.entity.Soldier;
  */
 Winners.entity.Soldier.prototype.shoot = function () {
   if (this.distance <= this.shootDistance) {
-     //speicifes the bullet speed
-     
+    //speicifes the bullet speed
+
     var bulletSpeed = 0.2;
     //specifes the bullet direction on X and Y axes
-    
-     
+
     var bulletDirectionX = this.distanceX / this.distance;
     var bulletDirectionY = this.distanceY / this.distance;
 
@@ -89,11 +87,11 @@ Winners.entity.Soldier.prototype.shoot = function () {
       this.enemy
     );
     //specifies the bullet velocity on x and y axes
-     
+
     bullet.velocity.x = bulletDirectionX * bulletSpeed;
     bullet.velocity.y = bulletDirectionY * bulletSpeed;
-     //specifies the rotation of the bullet
-     
+    //specifies the rotation of the bullet
+
     bullet.rotation =
       Math.atan2(this.distanceY, this.distanceX) * (180 / Math.PI);
   }

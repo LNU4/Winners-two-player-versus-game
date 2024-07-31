@@ -113,7 +113,7 @@ Winners.entity.Bullet.prototype.update = function (step) {
   var m_this = this;
 
   if (this.hitTest(this.bulletTarget)) {
-    if (this.bulletTarget == this.game.player || this.game.player2) {
+    if (this.bulletTarget === this.game.player || this.bulletTarget === this.game.player2) {
       if (this.bulletTarget.sparkEmitter) {
         this.bulletTarget.sparkEmitter.centerX = this.bulletTarget.centerX; 
         this.bulletTarget.sparkEmitter.centerY = this.bulletTarget.centerY;
@@ -122,17 +122,18 @@ Winners.entity.Bullet.prototype.update = function (step) {
           duration: 500,
           scope: this,
           onComplete: function () {
-        this.bulletTarget.removeSpark();
+            if (this.bulletTarget) {
+              this.bulletTarget.removeSpark();
+            }
           }
         });
       }
-      
-  }
+    }
 
-  
     this.game.bullets.removeMember(this, true);
     this.handelHp(this.damage, this.bulletTarget, this.bulletOwner);
   }
+
   if (this.bulletTarget.playerBaseShield) {
     if (this.hitTestAndSeparate(this.bulletTarget.playerBaseShield)) {
       this.game.bullets.removeMember(this, true);
@@ -150,8 +151,6 @@ Winners.entity.Bullet.prototype.update = function (step) {
       } else if (this.bulletTarget.playerBaseShield.hpValue == 0) {
         this.hitTestAndSeparate(this.bulletTarget.playerBaseShield);
         this.handelExeplodedBaseShield();
-        // this.layer0.removeChild(this.bulletTarget.playerBaseShield, true);
-        // this.bulletTarget.playerBaseShield = null;
       }
     }
   }
@@ -173,9 +172,6 @@ Winners.entity.Bullet.prototype.update = function (step) {
       } else if (this.bulletTarget.playerBase.HPValue == 0) {
         this.hitTestAndSeparate(this.bulletTarget.playerBase);
         this.handelExplodedBase();
-      //  this.layer0.removeChild(this.bulletTarget.playerBase, true);
-      //  this.bulletTarget.playerBase = null;
-
       }
     }
   }
@@ -195,8 +191,7 @@ Winners.entity.Bullet.prototype.handelHp = function (
   bulletTarget,
   bulletOwner
 ) {
- 
-  this.HpOb = this.bulletTarget.hp;
+  this.HpOb = bulletTarget.hp;
 
   this.HpOb.value -= damage;
   if (bulletTarget.active) {
@@ -233,11 +228,9 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
     duration: 500,
     scope: this,
     onComplete: function () {
-      if (this.bulletTarget === this.game.player) {
-          
+      if (this.playerDead == "player1") {
         this.game.turret1.animation.gotoAndPlay("dead");
-        
-      } else if (this.bulletTarget === this.game.player2) {
+      } else if (this.playerDead == "player2") {
         this.game.turret2.animation.gotoAndPlay("dead");
       }
     }
@@ -247,25 +240,25 @@ Winners.entity.Bullet.prototype.respawnPlayer = function (
     duration: 1000,
     scope: this,
     onComplete: function () {
-      if (this.bulletTarget) {
-        if (this.bulletTarget.destructionEmitter) {
-          this.bulletTarget.destructionEmitter.centerX = this.bulletTarget.centerX;
-          this.bulletTarget.destructionEmitter.centerY = this.bulletTarget.centerY;
-          this.bulletTarget.destructionEmitter.emit(10);
+      if (bulletTarget) {
+        if (bulletTarget.destructionEmitter) {
+          bulletTarget.destructionEmitter.centerX = bulletTarget.centerX;
+          bulletTarget.destructionEmitter.centerY = bulletTarget.centerY;
+          bulletTarget.destructionEmitter.emit(10);
         }
-       
-        if (this.bulletTarget.turretEmitter) {
-          this.bulletTarget.turretEmitter.centerX = this.bulletTarget.centerX;
-          this.bulletTarget.turretEmitter.centerY = this.bulletTarget.centerY;
-          this.bulletTarget.turretEmitter.emit(1);
+
+        if (bulletTarget.turretEmitter) {
+          bulletTarget.turretEmitter.centerX = bulletTarget.centerX;
+          bulletTarget.turretEmitter.centerY = bulletTarget.centerY;
+          bulletTarget.turretEmitter.emit(1);
         }
 
         this.game.timers.create({
           duration: 800,
           scope: this,
           onComplete: function () {
-            if (this.bulletTarget) {
-              this.bulletTarget.removeEmitters();
+            if (bulletTarget) {
+              bulletTarget.removeEmitters();
             }
           }
         });
@@ -359,13 +352,17 @@ Winners.entity.Bullet.prototype.dispose = function () {
 
 Winners.entity.Bullet.prototype.handleDeadPlayer = function (playerDead) {
   this.burn.play(true);
+  this.playerDead = playerDead;
   if (playerDead == "player1") {
     this.game.turret1.animation.gotoAndPlay("done");
   } else if (playerDead == "player2") {
     this.game.turret2.animation.gotoAndPlay("done");
   }
 };
-
+/**
+ * Method that handles the base shield explosion animation and the removal of the base shield object from the display object container
+ * @method
+ */
 Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
   this.bulletTarget.playerBaseShield.animation.gotoAndPlay("exeplod");
   this.explosion.play(true);
@@ -379,6 +376,10 @@ Winners.entity.Bullet.prototype.handelExeplodedBaseShield = function(){
     }})
 }
 
+/**
+ * Method that handles the base explosion animation and the removal of the base object from the display object container
+ * @method
+ */
 Winners.entity.Bullet.prototype.handelExplodedBase = function() {
 
   this.explosion.play(true);
@@ -394,6 +395,7 @@ Winners.entity.Bullet.prototype.handelExplodedBase = function() {
             
             if (this.bulletTarget === this.game.player) {
               this.game.handlePlayerDefeat("player1");
+
             } else if (this.bulletTarget === this.game.player2) {
               this.game.handlePlayerDefeat("player2");
             }
@@ -405,10 +407,6 @@ Winners.entity.Bullet.prototype.handelExplodedBase = function() {
       });
   }
 };
-
-//------------------------------------------------------------------------------
-// Private prototype methods
-//------------------------------------------------------------------------------
 
 /**
  * Calculates movement.
