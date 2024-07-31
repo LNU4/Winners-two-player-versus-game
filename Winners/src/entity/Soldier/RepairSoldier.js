@@ -1,12 +1,11 @@
 //------------------------------------------------------------------------------
 // Constructor scope
 //------------------------------------------------------------------------------
-
 /**
- * Creates a new rocket soldier object.
+ * Creates a new repair soldier object.
  *
  * @constructor
- * @extends rune.display.Sprite
+ * @extends Winners.entity.SoldierUtil
  *
  * @class
  * @classdesc Game scene.
@@ -16,99 +15,86 @@
  * @param {object} player reference to the player object
  */
 Winners.entity.Repairsoldier = function (x, y, game, player) {
-  /**
-   * Property to determine the speed of the soldier
-   * @type {number}
-   */
-  this.moveSpeed = 1;
-  this.game = game;
-  /**
-   * Boolean to determine if the soldier is dead
-   * @type {boolean}
-   */
-  this.isDead = false;
-
-  /**
-   * placeholder to the display object container
-   * @type {object}
-   */
-  this.layer = game.layer0;
-
-  rune.display.Sprite.call(this, x, y, 32, 32, "soldier");
-  this.layer.addChild(this);
-  /**
-   * if statement to check the player thats passed to this class
-   */
-  
-  if (player === game.player2) {
-    this.player = game.player2;
-    this.enemy = this.game.player;
-    this.texture.replaceColor(
-      new rune.color.Color24(0, 0, 0),
-      new rune.color.Color24(255, 0, 0)
-      
-    );
+  if (player === game.player) {
+    this.enemy = game.player2;
   } else {
-    this.player = game.player;
-    this.enemy = this.game.player2;
+    this.enemy = game.player;
+  }
+
+  Winners.entity.SoldierUtil.call(
+    this,
+    x,
+    y,
+    game,
+    this.enemy,
+    "repairsoldier",
+    0,
+    1,
+    0,
+    player
+  );
+
+  this.player = player;
+
+  // Replace color based on the enemy player
+  if (this.enemy === game.player) {
     this.texture.replaceColor(
       new rune.color.Color24(0, 0, 0),
       new rune.color.Color24(0, 150, 230)
     );
+  } else {
+    this.texture.replaceColor(
+      new rune.color.Color24(0, 0, 0),
+      new rune.color.Color24(255, 0, 0)
+    );
   }
 
-  
-  /**
-   * Property calling the builtin method for reading audio files
-   * @type {media.Sound}
-   */
   this.respawn = this.application.sounds.sound.get("soldierSpawn");
-  this.respawn.play(true)
+  this.respawn.play(true);
   this.flicker.start();
 };
-/**
- * Innheritance of the sprite class
- */
+
 Winners.entity.Repairsoldier.prototype = Object.create(
-  rune.display.Sprite.prototype
+  Winners.entity.SoldierUtil.prototype
 );
-Winners.entity.Repairsoldier.prototype.constructor =
-  Winners.entity.Repairsoldier;
+Winners.entity.Repairsoldier.prototype.constructor = Winners.entity.Repairsoldier;
 
 /**
- * Excuted once after the initialization of the displayobject container
+ * Executed once after the initialization of the displayobject container
  * The method is used to create objects or adjust their properties to be used
  * @returns {undefined}
  */
 Winners.entity.Repairsoldier.prototype.init = function () {
-  rune.display.Sprite.prototype.init.call(this);
+  Winners.entity.SoldierUtil.prototype.init.call(this);
   this.initAnimation();
 };
+
 /**
- * Method to handle the animation creatation related to the sniper soldier class.
+ * Method to handle the animation creation related to the repair soldier class.
  *
  * @returns {undefined}
  */
 Winners.entity.Repairsoldier.prototype.initAnimation = function () {
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 5, true);
+  this.animation.create("dead", [6, 7], 3, false);
 };
-
-/**
- * Updated within a fixed time interval "loop", where it runs or checks the state of the specified properties.
- * @param {number} step - The time step for the update.
- * @returns {undefined}
- */
+/*
+* Updated within a fixed time interval "loop", where it runs or checks the state of the specified properties.
+* @param {number} step - The time step for the update.
+* @returns {undefined}
+*/
 Winners.entity.Repairsoldier.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
-  // Placeholder to specify the players base object
+
+  if (!this.isAlive || this.game.winnerDeclared) {
+    return; 
+  }
+
   var targetBase = this.player.playerBase;
- //laceholder to specify the players baseshield object
   var targetShield = this.player.playerBaseShield;
 
   if (targetShield || targetBase) {
-  //placeholder to specify the x and y coordinates
-
     var targetX;
     var targetY;
 
@@ -119,14 +105,11 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
       targetX = targetBase.centerX;
       targetY = targetBase.centerY;
     }
-    //postion points to determin both the current position and target position and their respective Y and X coordinates
+
     var currentPosition = new rune.geom.Point(this.x, this.y);
     var targetPosition = new rune.geom.Point(targetX, targetY);
-     //Normalize the distance between the objects position and the target position
     var distanceX = targetX - this.x;
     var distanceY = targetY - this.y;
-     //specify the distance between the objects position and the target position
-    
     var distance = currentPosition.distance(targetPosition);
 
     if (distance > 15) {
@@ -140,7 +123,7 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
     } else {
       this.repair();
     }
-   //clmap the soldier within the display object container
+
     this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
     this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   } else {
@@ -157,15 +140,15 @@ Winners.entity.Repairsoldier.prototype.update = function (step) {
     function (soldier, bullet) {
       if (bullet.bulletTarget == soldier.player) {
         this.game.bullets.removeMember(bullet, true);
-        this.game.layer0.removeChild(this, true);
-        // this.handelKillSoldier();
+        this.handleKillSoldier(); 
       }
     },
     this
   );
 };
+
 /**
- * Method to handle the repair logic of the base respece baseshield
+ * Method to handle the repair logic of the base or base shield
  * @method
  */
 Winners.entity.Repairsoldier.prototype.repair = function () {

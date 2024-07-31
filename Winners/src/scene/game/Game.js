@@ -17,7 +17,14 @@
  *
  * Game scene.
  */
-Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu, playerScore, player2Score) {
+Winners.scene.Game = function (
+  maxRounds,
+  currentRound,
+  roundWinners,
+  menu,
+  playerScore,
+  player2Score
+) {
   //--------------------------------------------------------------------------
   // Public properties
   //--------------------------------------------------------------------------
@@ -29,12 +36,11 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu, play
    */
 
   this.maxRounds = maxRounds;
- 
 
   this.playerScore = playerScore || 0;
   this.player2Score = player2Score || 0;
 
-  /** 
+  /**
    * The number identifying the current round
    *
    * @type {number}
@@ -59,18 +65,16 @@ Winners.scene.Game = function (maxRounds, currentRound, roundWinners, menu, play
    */
   this.Player2isDefeated = false;
 
-   /**
+  /**
    * Boolean to check if a winner has already been declared
    * @type {boolean}
    */
-   this.winnerDeclared = false;
+  this.winnerDeclared = false;
 
+  this.isCreatTruck = 1;
 
-   this.isCreatTruck = 1; 
-   
+  this.menu = menu;
 
-   this.menu = menu;
- 
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -102,32 +106,29 @@ Winners.scene.Game.prototype.init = function () {
   rune.scene.Scene.prototype.init.call(this);
   // A property to store the background image
   this.bg = new rune.display.Graphic(0, 0, 1280, 720, "background");
-   //The camera object for Game
+  //The camera object for Game
   this.camera = this.cameras.getCameraAt(0);
 
   this.topLayer = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-   //A property to define a container to store certain objects
+  //A property to define a container to store certain objects
   this.layer0 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-   //A property to define a container to store certain objects
-   
+  //A property to define a container to store certain objects
+
   this.layer2 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-   //A property to define a container to store certain objects
+  //A property to define a container to store certain objects
   this.layer1 = new rune.display.DisplayObjectContainer(0, 0, 1280, 720);
-  this.showRoundIndicator();   
+  this.showRoundIndicator();
   this.showScores();
   this.stage.addChild(this.layer0);
   this.stage.addChild(this.layer1);
   this.stage.addChild(this.layer2);
   this.stage.addChild(this.topLayer);
-  
-
 
   //The baseShioled to protect the base for player
   this.Base1shield = new Winners.entity.Base1shield(5, 330.5, this);
 
-  
-   // The baseShioled to protect the base for player2
-   
+  // The baseShioled to protect the base for player2
+
   this.Base2shield = new Winners.entity.Base2shield(1150, 330.5, this);
   /**
    * The base for player
@@ -135,7 +136,7 @@ Winners.scene.Game.prototype.init = function () {
    */
 
   this.base = new Winners.entity.Base(10, 360, this);
- //The base for player2
+  //The base for player2
   this.base2 = new Winners.entity.Base2(1210, 360, this);
   //The turret for player
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
@@ -143,60 +144,50 @@ Winners.scene.Game.prototype.init = function () {
   //The turret for player2
   this.turret2 = new Winners.entity.Turret2(1150, 360, this);
   this.turret2.active = true;
-  
- 
-
 
   //Property to store the player object
   this.player = new Winners.entity.Player(140, 360, this);
   this.player.shooting = 1;
 
-  
-   //Property to store the player2 object
-   
+  //Property to store the player2 object
+
   this.player2 = new Winners.entity.Player2(1080, 360, this);
-  
-   // Property used as a placeholder for the player2 object for player
-   
+
+  // Property used as a placeholder for the player2 object for player
+
   this.player.enemy = this.player2;
   this.player2.shooting = 1;
-  
 
   //Property to create an empty array to look after the powerups for player
-   
+
   this.player.powerupsArray = [];
- //Property to create an empty array to look after the powerups for player2
+  //Property to create an empty array to look after the powerups for player2
   this.player2.powerupsArray = [];
   //Property used as a counter of the elements in this.player.powerupsArray
-   
+
   this.player.powerupIx = 0;
-   //Property used as a counter  of the elements in this.player2.powerupsArray
+  //Property used as a counter  of the elements in this.player2.powerupsArray
   this.player2.powerupIx = 0;
 
-  for (var i = 0; i<3; i++){
-    if(i == 0){
-
-      var unfilledstar =  new Winners.entity.UnfilledStar(5, 35, this);
-      var unfilledstar2 =  new Winners.entity.UnfilledStar(1230, 35, this);
-
-      // var emptystar = new new rune.display.DisplayObject()
-      // var emptystar2 = new new rune.display.DisplayObject()
-    }else if(i == 1){
-      
-      var unfilledstar3 =  new Winners.entity.UnfilledStar(20, 35, this);
-      var unfilledstar4 =  new Winners.entity.UnfilledStar(1245, 35, this);
-    } else if(i == 2){
-      var unfilledstar5 =  new Winners.entity.UnfilledStar(35, 35, this);
-      var unfilledstar6 =  new Winners.entity.UnfilledStar(1260, 35, this);
+  for (var i = 0; i < 3; i++) {
+    if (i == 0) {
+      var unfilledstar = new Winners.entity.UnfilledStar(5, 35, this);
+      var unfilledstar2 = new Winners.entity.UnfilledStar(1230, 35, this);
+    } else if (i == 1) {
+      var unfilledstar3 = new Winners.entity.UnfilledStar(20, 35, this);
+      var unfilledstar4 = new Winners.entity.UnfilledStar(1245, 35, this);
+    } else if (i == 2) {
+      var unfilledstar5 = new Winners.entity.UnfilledStar(35, 35, this);
+      var unfilledstar6 = new Winners.entity.UnfilledStar(1260, 35, this);
     }
   }
-   //Reference to a DisplayGroup containing all the bullets
+  //Reference to a DisplayGroup containing all the bullets
   this.bullets = this.groups.add(new Winners.entity.Bullets(this));
   //Property calling the builtin method for reading audio files
-  
+
   this.chaos = this.application.sounds.sound.get("rhythm-of-war-main");
 
- //  this.chaos = this.menu.application.sounds.master.get("rhythm-of-war-main");
+  //  this.chaos = this.menu.application.sounds.master.get("rhythm-of-war-main");
   this.chaos.play(true);
   this.chaos.loop = true;
 
@@ -212,7 +203,7 @@ Winners.scene.Game.prototype.init = function () {
   this.layer0.addChild(this.Base2shield);
 
   //Inbuilt functionality to start a timer to create a personal carrier "Truck"
-  
+
   this.timers.create({
     duration: 6000,
     onComplete: function () {
@@ -226,59 +217,43 @@ Winners.scene.Game.prototype.init = function () {
  *
  */
 Winners.scene.Game.prototype.createTruck = function () {
-
   if (this.isCreatTruck) {
-  /**
-   * Random coordinates for the truck spawn point
-   * @type {number}
-   */
-  var randomY = Math.floor(Math.random() * (720 - 500) + 500);
-  /**
-   * Random coordinates for the truck spawn point
-   * @type {number}
-   */
-  var randomY2 = Math.floor(Math.random() * (250 - 0) + 0);
-  /**
-   * Initializes the truck object with the given coordinates, belongs to player1
-   * @type {Object}
-   */
-  this.truck = new Winners.entity.Truck(
-    -100,
-    randomY,
-    this,
-    this.player2
-  );
-  /**
-   * Initializes the truck2 object with the given coordinates, belongs to player2
-   * @type {Object}
-   */
-  this.truck2 = new Winners.entity.Truck(
-    1300,
-    randomY2,
-    this,
-    this.player
-  );
- 
-  this.layer0.addChild(this.truck);
-  this.layer0.addChild(this.truck2);
-  if (this.player2.hitTest(this.truck.soldier)) {
-    this.player2.soldierHit++;
+    /**
+     * Random coordinates for the truck spawn point
+     * @type {number}
+     */
+    var randomY = Math.floor(Math.random() * (720 - 500) + 500);
+    /**
+     * Random coordinates for the truck spawn point
+     * @type {number}
+     */
+    var randomY2 = Math.floor(Math.random() * (250 - 0) + 0);
+    /**
+     * Initializes the truck object with the given coordinates, belongs to player1
+     * @type {Object}
+     */
+    this.truck = new Winners.entity.Truck(-100, randomY, this, this.player2);
+    /**
+     * Initializes the truck2 object with the given coordinates, belongs to player2
+     * @type {Object}
+     */
+    this.truck2 = new Winners.entity.Truck(1300, randomY2, this, this.player);
+
+    this.layer0.addChild(this.truck);
+    this.layer0.addChild(this.truck2);
+    if (this.player2.hitTest(this.truck.soldier)) {
+      this.player2.soldierHit++;
+    }
+
+    this.timers.create({
+      duration: 30000,
+      onComplete: function () {
+        this.createTruck();
+      },
+    });
+  } else {
+    return;
   }
-
-  this.timers.create({
-    duration: 30000,
-    onComplete: function () {
-      this.createTruck();
-    },
-  });
-} else {
-
-
-  return;
-
-
-}
-
 };
 /**
  * This method is automatically executed once per "tick". The method is used for
@@ -292,11 +267,11 @@ Winners.scene.Game.prototype.update = function (step) {
   //Reference to the the current game class
   var self = this;
   //Super call to call the super class update method
-   
+
   rune.scene.Scene.prototype.update.call(this, step);
-   //Call to update input method
+  //Call to update input method
   this.m_updateInput(step);
-   //Attach turret1 to the player1 coodinates on both axes Y and X
+  //Attach turret1 to the player1 coodinates on both axes Y and X
   this.turret1.x = this.player.x;
   this.turret1.y = this.player.y;
   //Attach turret2 to the player2 coodinates on both axes Y and X
@@ -342,38 +317,30 @@ Winners.scene.Game.prototype.handleGameOver = function () {
   } else if (this.Player2isDefeated) {
     this.roundWinners.push("player1");
     this.playerScore++;
-
-  }
-  else {
-    return; 
+  } else {
+    return;
   }
   this.winnerDeclared = true;
 
   if (this.currentRound < this.maxRounds) {
-   //Round counter property
+    //Round counter property
     this.currentRound++;
 
-   
-     // Shows text with the result of the round
-    
+    // Shows text with the result of the round
+
     this.gameOverAdjustments();
-
-
 
     var resultMsg =
       "round won by " + this.roundWinners[this.roundWinners.length - 1];
-     // resultMsg.backgroundColor = "#FF0000";
-    
 
-   //Creates a text object with the result of the round
-  
+    //Creates a text object with the result of the round
+
     var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
-    
-    
+
     if (this.Player1isDefeated) {
-      text.backgroundColor = "#FF0000"; 
+      text.backgroundColor = "#FF0000";
     } else if (this.Player2isDefeated) {
-      text.backgroundColor = "#0096E6"; 
+      text.backgroundColor = "#0096E6";
     }
 
     text.autoSize = true;
@@ -384,10 +351,8 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     //Scales the text on X and Y axis
     this.cameras.getCameraAt(0).addChild(text);
 
-
     this.showRoundIndicator();
     this.showScores();
-   
 
     //waits for 5 seconds before loading the next round
 
@@ -408,7 +373,6 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     });
   } else {
     this.showMatchResult();
-    
   }
 };
 /**
@@ -416,57 +380,13 @@ Winners.scene.Game.prototype.handleGameOver = function () {
  * @method
  */
 Winners.scene.Game.prototype.showMatchResult = function () {
- //Properties to hold the amount of winners of each player
+  //Properties to hold the amount of winners of each player
   var player1Wins = 0;
   var player2Wins = 0;
- // this.topLayer.addChild(this.bg)
-  // this.layer1.removeChild(this.turret2, true)
-  // this.layer1.removeChild(this.turret1, true)
+  //Call to gameOverAdjustments method to handle the game over adjustments
+  this.gameOverAdjustments();
 
-
-  // this.stage.removeChild(this.layer1, true);
-  // this.layer2.addChild(this.bg)
-  // if (this.truck){
-  //   console.log('T1')
-  //   this.layer0.removeChild(this.truck, true);
-  //   if(this.truck.soldierArr != []){
-      
-  //   }
-  //   console.log('T1')
-
-  // }else if (this.truck2){
-  //   console.log('T2')
-
-  //   this.layer0.removeChild(this.truck2, true);
-  //   if(this.truck2.soldierArr != []){
-      
-  //   }
-  //   console.log('T2')
-
-  // }
-
-
-  // if (this.player ){
-  //   console.log('T1')
-    //this.layer0.removeChild(this.player, true);
-
-    this.gameOverAdjustments()
-
-
-    
-
-  // }else if (this.player2){
-   // console.log(this.player2.movable = false)
-
-   // this.layer0.removeChild(this.player2, true);
-
-
-  // }
- 
-
-
-
-// this.stage.removeChild(this.layer0, true);
+  // this.stage.removeChild(this.layer0, true);
   for (var i = 0; i < this.roundWinners.length; i++) {
     if (this.roundWinners[i] == "player1") {
       player1Wins++;
@@ -478,26 +398,22 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   var resultMsg = "match over! ";
   if (player1Wins > player2Wins) {
     resultMsg += "player 1 won";
-   
-
   } else if (player2Wins > player1Wins) {
     resultMsg += "player 2 won";
-    
   } else {
     resultMsg += "its a tie!";
-    
   }
   var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
   var text = new rune.text.BitmapField(resultMsg, "New Piskel-4");
 
   if (player1Wins > player2Wins) {
-      text.backgroundColor = "#0096E6"; // Player 1 wins
+    text.backgroundColor = "#0096E6"; // Player 1 wins with a certain background color
   } else if (player2Wins > player1Wins) {
-      text.backgroundColor = "#FF0000"; // Player 2 wins
+    text.backgroundColor = "#FF0000"; // Player 2 wins with a certain background color
   } else {
-      text.backgroundColor = "#00FFFF"; // It's a tie
+    text.backgroundColor = "#00FFFF"; // It's a tie with a certain background color
   }
-  
+
   text.autoSize = true;
   text.scaleX = 2.5;
   text.scaleY = 2.5;
@@ -511,7 +427,7 @@ Winners.scene.Game.prototype.showMatchResult = function () {
     onComplete: function () {
       this.application.scenes.load([new Winners.scene.Menu()]);
       this.stage.removeChild(this.layer0, true);
-       //this.stage.removeChild(this.layer1, true);
+      //this.stage.removeChild(this.layer1, true);
       this.stage.removeChild(this.layer2, true);
       this.camera = null;
     },
@@ -519,25 +435,21 @@ Winners.scene.Game.prototype.showMatchResult = function () {
   this.showScores();
 };
 Winners.scene.Game.prototype.gameOverAdjustments = function () {
-  
   this.isCreatTruck = 0;
-  this.player.x = 140 
-  this.player.y =  360
+  this.player.x = 140;
+  this.player.y = 360;
   this.player2.x = 1090;
   this.player2.y = 360;
-  // this.layer0.removeChild(this.player, true)
-  // this.layer0.removeChild(this.player2, true)
 
   this.player.movable = false;
   this.player2.movable = false;
   this.player.shooting = 0;
   this.player2.shooting = 0;
   this.turret1.active = false;
-  // console.log(this.turret1.rotation)
+
   this.turret2.active = false;
   this.camera.fade.opacity = 0.2;
-
-}
+};
 /**
  * Method to handle the deafted player
  * @param {string} playerDeafeted
@@ -551,39 +463,43 @@ Winners.scene.Game.prototype.handlePlayerDefeat = function (playerDeafeted) {
     this.handleGameOver();
   }
 };
-
+/**
+ * Method to show the round indicator
+ * @method
+ */
 Winners.scene.Game.prototype.showRoundIndicator = function () {
-  var roundText = "round: " + this.currentRound + " / " + this.maxRounds;
+  var roundText = "round: " + this.currentRound + " of " + this.maxRounds;
   var text = new rune.text.BitmapField(roundText, "New Piskel-4");
   text.autoSize = true;
   text.scaleX = 2;
   text.scaleY = 2;
-  text.x = 10; 
+  text.x = 10;
   text.y = 10;
   this.cameras.getCameraAt(0).addChild(text);
 };
-
+/**
+ * Method to show the round scores
+ * @method
+ */
 Winners.scene.Game.prototype.showScores = function () {
-  
-  var player1ScoreText = "player 1 score: " + this.playerScore;
+  var player1ScoreText = "p1 round score: " + this.playerScore;
   var player1Text = new rune.text.BitmapField(player1ScoreText, "New Piskel-4");
   player1Text.autoSize = true;
   player1Text.scaleX = 2;
   player1Text.scaleY = 2;
-  player1Text.x = 300; 
-  player1Text.y = 10; 
+  player1Text.x = 300;
+  player1Text.y = 10;
   player1Text.backgroundColor = "#0096E6";
   this.cameras.getCameraAt(0).addChild(player1Text);
 
- 
-  var player2ScoreText = "player 2 score: " + this.player2Score;
+  var player2ScoreText = "p2 round score: " + this.player2Score;
   var player2Text = new rune.text.BitmapField(player2ScoreText, "New Piskel-4");
   player2Text.autoSize = true;
   player2Text.scaleX = 2;
   player2Text.scaleY = 2;
-  player2Text.x = 700; 
-  player2Text.y = 10; 
-  player2Text.backgroundColor = "#FF0000"; 
+  player2Text.x = 700;
+  player2Text.y = 10;
+  player2Text.backgroundColor = "#FF0000";
   this.cameras.getCameraAt(0).addChild(player2Text);
 };
 

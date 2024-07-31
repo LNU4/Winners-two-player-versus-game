@@ -151,7 +151,7 @@ Winners.entity.PowerupCounter.prototype.createSoldier = function (soldierType) {
   } else if (this.player == this.game.player2){
     reinforcementMessage.backgroundColor = "#FF0000";
   }
- // reinforcementMessage.backgroundColor = "#FFFF00";
+ 
   this.game.stage.addChild(reinforcementMessage);
   this.game.timers.create({
     duration: 4000,

@@ -38,10 +38,9 @@ Winners.entity.SoldierUtil = function (
   this.game = game;
   this.SoldierOwner = SoldierOwner;
   this.enemy = enemy;
-  this.isDead = false;
+  this.isDead = false; //not used anymore?
   this.layer = this.game.layer0;
   this.isAlive = true;
-  
 
   rune.display.Sprite.call(this, x, y, 32, 32, spriteType);
   this.layer.addChild(this);
@@ -50,7 +49,7 @@ Winners.entity.SoldierUtil = function (
    * @type {media.Sound}
    */
   this.respawn = this.application.sounds.sound.get("soldierSpawn");
-  this.respawn.play(true)
+  this.respawn.play(true);
   this.flicker.start();
 
   if (enemy === this.game.player) {
@@ -91,12 +90,12 @@ Winners.entity.SoldierUtil.prototype.init = function () {
 Winners.entity.SoldierUtil.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
-  if (!this.isAlive || this.game.winnerDeclared ) {
+  if (!this.isAlive || this.game.winnerDeclared) {
     // If the soldier is dead, stop further updates
     return;
   }
 
-   //Properties to the built in math points, it specifies two points and their X Y coordinates
+  //Properties to the built in math points, it specifies two points and their X Y coordinates
 
   this.currentPosition = new rune.geom.Point(this.x, this.y);
   this.targetPosition = new rune.geom.Point(
@@ -123,7 +122,7 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
     //Divide the normlized distance with the distance on both axes
     this.distanceX /= this.distance;
     this.distanceY /= this.distance;
-     // move the soldier object towards the targeret multiplied by the movespeed
+    // move the soldier object towards the targeret multiplied by the movespeed
     this.x += this.distanceX * this.moveSpeed;
     this.y += this.distanceY * this.moveSpeed;
     if (this.animation) {
@@ -131,9 +130,8 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
     }
   }
 
+  //Clamp the object so they don't move out of the map, clamps on both axes x and y
 
-   //Clamp the object so they don't move out of the map, clamps on both axes x and y
-   
   this.x = rune.util.Math.clamp(this.x, 0, 1280 - this.width);
   this.y = rune.util.Math.clamp(this.y, 0, 720 - this.height);
   //Speicifies the soldier angle
@@ -143,7 +141,7 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
   if (this.enemy.hitTest(this)) {
     this.handleKillSoldier();
   }
- 
+
   this.game.bullets.hitTest(
     this,
     function (bullet, soldier) {
@@ -156,9 +154,8 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
   );
 
   if (this.truck) {
-
     //referense to the soldier that is carried by the truck, "there are forur soldiers everytime a new truck is created, all the soldiers are pushed into an array 'soldierArr' "
-     
+
     var m_this = this;
     for (var i = 0; i < this.truck.soldierArr.length; i++) {
       var soldier = this.truck.soldierArr[i];
@@ -168,17 +165,10 @@ Winners.entity.SoldierUtil.prototype.update = function (step) {
     }
   }
 
-  this.hitTestAndSeparate(this.game.Base1shield)
-  this.hitTestAndSeparate(this.game.Base2shield)
-  this.hitTestAndSeparate(this.game.base)
-  this.hitTestAndSeparate(this.game.base2)
-
-  // var GameObjects = [this.game.Base1shield, this.game.Base2shield, this.game.base, this.game.base2];
-  // console.log(GameObjects)
-  // for (var i = 0; i < GameObjects.length; i++) {
-  //   console.log(GameObjects[i])
-  //   this.hitTestAndSeparate(GameObjects[i]);
-  // }
+  this.hitTestAndSeparate(this.game.Base1shield);
+  this.hitTestAndSeparate(this.game.Base2shield);
+  this.hitTestAndSeparate(this.game.base);
+  this.hitTestAndSeparate(this.game.base2);
 };
 
 /**
@@ -190,7 +180,6 @@ Winners.entity.SoldierUtil.prototype.m_initAnimation = function () {
   this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 5, true);
   this.animation.create("dead", [6, 7], 3, false);
-  //active deleting the animation N.A
 };
 
 /**
@@ -214,11 +203,11 @@ Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
 
   // Emit particles for body and leg
   if (this.bodyEmitter && this.legEmitter) {
-    this.bodyEmitter.centerX = this.centerX; 
+    this.bodyEmitter.centerX = this.centerX;
     this.bodyEmitter.centerY = this.centerY;
     this.bodyEmitter.emit(1);
 
-    this.legEmitter.centerX = this.centerX; 
+    this.legEmitter.centerX = this.centerX;
     this.legEmitter.centerY = this.centerY;
     this.legEmitter.emit(2);
   }
@@ -235,10 +224,10 @@ Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
     onComplete: function () {
       // Remove the soldier from the layer after the animation plays
       this.game.layer0.removeChild(this, true);
-      
+
       // Remove emitters
       this.removeEmitters();
-    }
+    },
   });
 
   // Set isDead flag to true
@@ -256,7 +245,6 @@ Winners.entity.SoldierUtil.prototype.handleKillSoldier = function () {
   }
 };
 
-
 /**
  * Method to create powerups.
  * @returns {undefined}
@@ -268,49 +256,52 @@ Winners.entity.SoldierUtil.prototype.createPowerups = function () {
   this.game.camera.addChild(powerUp);
 };
 
+/**
+ * Method to initialize emitters and add them to the display object containers
+ * @returns {undefined}
+ */
 
 Winners.entity.SoldierUtil.prototype.soldierPart = function () {
-
+  // new body emitter
   this.bodyEmitter = new rune.particle.Emitter(0, 0, 10, 10, {
     particles: [Winners.entity.Head, Winners.entity.Body],
     capacity: 250,
     accelerationY: 0.001,
-    maxVelocityX:  1.5,
+    maxVelocityX: 1.5,
     minVelocityX: -1.5,
     maxVelocityY: -1.5,
     minVelocityY: -1.5,
-    minRotation:  -5,
-    maxRotation:   2
-});
-
-this.legEmitter = new rune.particle.Emitter(0, 0, 10, 6, {
-  particles: [Winners.entity.Leg],
-  capacity: 250,
-  accelerationY: 0.001,
-  maxVelocityX:  1.5,
-  minVelocityX: -1.5,
-  maxVelocityY: -1.5,
-  minVelocityY: -1.5,
-  minRotation:  -5,
-  maxRotation:   2
-});
-this.game.layer0.addChild(this.legEmitter);
-this.game.layer0.addChild(this.bodyEmitter);
+    minRotation: -5,
+    maxRotation: 2,
+  });
+  // new leg emitter
+  this.legEmitter = new rune.particle.Emitter(0, 0, 10, 6, {
+    particles: [Winners.entity.Leg],
+    capacity: 250,
+    accelerationY: 0.001,
+    maxVelocityX: 1.5,
+    minVelocityX: -1.5,
+    maxVelocityY: -1.5,
+    minVelocityY: -1.5,
+    minRotation: -5,
+    maxRotation: 2,
+  });
+  this.game.layer0.addChild(this.legEmitter);
+  this.game.layer0.addChild(this.bodyEmitter);
 };
 
-
-
+/***
+ * Method to handle the emitters removal upon call
+ * @return {undefined}
+ *
+ */
 Winners.entity.SoldierUtil.prototype.removeEmitters = function () {
- 
- 
   if (this.bodyEmitter) {
-      this.bodyEmitter.clear(true); //make sure they dispose just like the one under N.A
-      
+    this.bodyEmitter.clear(true);
   }
   if (this.legEmitter) {
     this.legEmitter.clear(true);
   }
-  
 };
 
 /**

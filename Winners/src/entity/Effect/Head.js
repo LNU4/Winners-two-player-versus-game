@@ -46,9 +46,21 @@ Winners.entity.Head.prototype.init = function() {
 
 /**
  * Method to exutes its logic per tick
+ * @param {number} step fixed time step.
  * @override
  * @returns {undefined}
  */
 Winners.entity.Head.prototype.update = function(step) {
     rune.particle.Particle.prototype.update.call(this, step); 
 };
+
+/**
+ *This method prepares the object to be removed from the memory by the garbage collector
+ *
+ *@method
+ * @returns {undefined}
+ */
+ Winners.entity.Head.prototype.dispose = function () {
+    rune.display.Sprite.prototype.dispose.call(this);
+  };
+  
