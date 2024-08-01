@@ -132,7 +132,7 @@ Winners.scene.Game.prototype.init = function () {
 
   // The baseShioled to protect the base for player2
 
-  this.Base2shield = new Winners.entity.Base2shield(1150, 330.5, this);
+  this.Base2shield = new Winners.entity.Base2shield(1153, 330.5, this);
   /**
    * The base for player
    * @type {Object}
@@ -140,7 +140,7 @@ Winners.scene.Game.prototype.init = function () {
 
   this.base = new Winners.entity.Base(10, 360, this);
   //The base for player2
-  this.base2 = new Winners.entity.Base2(1210, 360, this);
+  this.base2 = new Winners.entity.Base2(1215, 360, this);
   //The turret for player
   this.turret1 = new Winners.entity.Turret1(70, 360, this);
   this.turret1.active = true;

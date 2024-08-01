@@ -38,7 +38,7 @@ Winners.entity.SoldierUtil = function (
   this.game = game;
   this.SoldierOwner = SoldierOwner;
   this.enemy = enemy;
-  this.isDead = false; //not used anymore?
+  this.isDead = false; 
   this.layer = this.game.layer0;
   this.isAlive = true;
 
