@@ -14,6 +14,9 @@
  * @param {number} maxRounds ... defins the max amount of rounds
  * @param {number} currentRoundNumber ... defines the current round
  * @param {string} roundWinners .. defines the rounds winner
+ * @param {object} menu .. defines the menu object
+ * @param {number} playerScore .. defines the player score
+ * @param {number} player2Score .. defines the player2 score
  *
  * Game scene.
  */
@@ -187,7 +190,6 @@ Winners.scene.Game.prototype.init = function () {
 
   this.chaos = this.application.sounds.sound.get("rhythm-of-war-main");
 
-  //  this.chaos = this.menu.application.sounds.master.get("rhythm-of-war-main");
   this.chaos.play(true);
   this.chaos.loop = true;
 
