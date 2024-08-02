@@ -53,7 +53,11 @@ Winners.entity.Truck = function (x, y, game, enemy) {
    */
 
   this.soldierArr = [];
-
+  /**
+   * Properity to state if the truck is dead
+   * @type {boolean}
+   */
+  this.truckDead = false;
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -114,9 +118,10 @@ Winners.entity.Truck.prototype.init = function () {
  * @returns {undefined}
  */
 Winners.entity.Truck.prototype.m_initAnimation = function () {
-  this.animation.create("idle", [0], 1, 2, true);
+  this.animation.create("idle", [0], 1, true);
   this.animation.create("walk", [0, 1], 1, true);
-  this.animation.create("stop", [0], 3, false);
+  this.animation.create("stop", [0], 2, false);
+  this.animation.create("death", [0, 3, 4, 5, 6, 7, 8], 8, false);
 };
 
 /**
@@ -129,6 +134,10 @@ Winners.entity.Truck.prototype.m_initAnimation = function () {
 Winners.entity.Truck.prototype.update = function (step) {
   rune.display.Sprite.prototype.update.call(this, step);
 
+  if (this.truckDead) {
+    return;
+  }
+
   if (!this.reachedPlayer && this.enemy) {
     // Normalized distance "both X and Y axis" between the soldier object and the enemy
      
@@ -140,6 +149,7 @@ Winners.entity.Truck.prototype.update = function (step) {
     if (distance <= 160) {
       this.reachedPlayer = true;
       this.stopAndSpawnSoldiers();
+      this.animation.gotoAndPlay("stop");
     } else {
        // Move the truck towards the enemy player object
      this.animation.gotoAndPlay("walk");
@@ -167,7 +177,15 @@ Winners.entity.Truck.prototype.update = function (step) {
           this.game.bullets.removeMember(bullet, true);
           truck.hp -= 20;
           if (truck.hp == 0) {
-            this.game.layer0.removeChild(truck, true);
+            this.truckDead = true; 
+            this.animation.gotoAndPlay("death");
+            this.game.timers.create({
+              duration: 1000,
+              scope: this,
+              onComplete: function () {
+                this.game.layer0.removeChild(truck, true);
+              }
+            });
           }
         }
       },
@@ -186,8 +204,6 @@ Winners.entity.Truck.prototype.stopAndSpawnSoldiers = function () {
   //Stops the movement of the truck on both axis
   var truckX = this.x;
   var truckY = this.y;
-
-  this.animation.gotoAndPlay("stop");
 
   for (var i = 0; i < 4; i++) {
      //index the soldier that specified in the loop
