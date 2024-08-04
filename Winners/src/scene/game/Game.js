@@ -353,7 +353,7 @@ Winners.scene.Game.prototype.handleGameOver = function () {
     //Scales the text on X and Y axis
     this.cameras.getCameraAt(0).addChild(text);
 
-    this.showRoundIndicator();
+    
     this.showScores();
 
     //waits for 5 seconds before loading the next round
@@ -440,7 +440,7 @@ Winners.scene.Game.prototype.gameOverAdjustments = function () {
   this.isCreatTruck = 0;
   this.player.x = 140;
   this.player.y = 360;
-  this.player2.x = 1090;
+  this.player2.x = 1080;
   this.player2.y = 360;
 
   this.player.movable = false;
