@@ -58,6 +58,12 @@ Winners.entity.Truck = function (x, y, game, enemy) {
    * @type {boolean}
    */
   this.truckDead = false;
+
+  /**
+   * Property calling the builtin method for reading audio files
+   * @type {media.Sound}
+   */
+  this.burn = this.game.application.sounds.sound.get("burn");
   //--------------------------------------------------------------------------
   // Super call
   //--------------------------------------------------------------------------
@@ -177,6 +183,7 @@ Winners.entity.Truck.prototype.update = function (step) {
           this.game.bullets.removeMember(bullet, true);
           truck.hp -= 20;
           if (truck.hp == 0) {
+            this.burn.play(true);
             this.truckDead = true; 
             this.animation.gotoAndPlay("death");
             this.game.timers.create({
